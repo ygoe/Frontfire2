@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Autostart documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Autostart</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			Frontfire UI provides styles and extended behaviours for commonly used elements and applies some of them automatically.
+		</p>
+
+		<h2 id="styles">Default styles</h2>
+		<p>
+			When using the Frontfire CSS file, some commonly used HTML elements are restyled to give them a modern and consistent look.
+			Many of the styles can be configured with <a href="frontfire-ui-variables.html">CSS variables</a> or additional <a href="frontfire-ui-classes.html">CSS classes</a>.
+			The elements that are restyled without additional CSS classes include:
+		</p>
+		<ul>
+			<li><code data-lang="html">&lt;a&gt;</code> (in <a href="frontfire-ui-typography.html#links">Typography</a>)</li>
+			<li><code data-lang="html">&lt;body&gt;</code> (in <a href="frontfire-ui-page.html">Page</a> and <a href="frontfire-ui-typography.html">Typography</a>)</li>
+			<li><code data-lang="html">&lt;button&gt;</code> (in <a href="frontfire-ui-form.html#buttons">Form</a> and <a href="frontfire-ui-typography.html">Typography</a>)</li>
+			<li><code data-lang="html">&lt;code&gt;</code> (in <a href="frontfire-ui-typography.html#code">Typography</a>)</li>
+			<li><code data-lang="html">&lt;form&gt;</code> (in <a href="frontfire-ui-form.html">Form</a>)</li>
+			<li><code data-lang="html">&lt;h1&gt;</code> to <code data-lang="html">&lt;h6&gt;</code> (in <a href="frontfire-ui-typography.html#headers">Typography</a>)</li>
+			<li><code data-lang="html">&lt;hr&gt;</code> (in <a href="frontfire-ui-typography.html#separator">Typography</a> and <a href="frontfire-ui-form.html#buttons">Form</a>)</li>
+			<li><code data-lang="html">&lt;html&gt;</code> (in <a href="frontfire-ui-page.html">Page</a> and <a href="frontfire-ui-typography.html">Typography</a>)</li>
+			<li><code data-lang="html">&lt;input&gt;</code> (in <a href="frontfire-ui-form.html">Form</a> and <a href="frontfire-ui-typography.html">Typography</a>)</li>
+			<li><code data-lang="html">&lt;kbd&gt;</code> (in <a href="frontfire-ui-typography.html#code">Typography</a>)</li>
+			<li><code data-lang="html">&lt;label&gt;</code> (in <a href="frontfire-ui-form.html">Form</a>)</li>
+			<li><code data-lang="html">&lt;p&gt;</code> (in <a href="frontfire-ui-typography.html#paragraphs">Typography</a>)</li>
+			<li><code data-lang="html">&lt;pre&gt;</code> (in <a href="frontfire-ui-typography.html#code">Typography</a>)</li>
+			<li><code data-lang="html">&lt;samp&gt;</code> (in <a href="frontfire-ui-typography.html#code">Typography</a>)</li>
+			<li><code data-lang="html">&lt;select&gt;</code> (in <a href="frontfire-ui-selectable.html">Selectable</a> and <a href="frontfire-ui-typography.html">Typography</a>)</li>
+			<li><code data-lang="html">&lt;table&gt;</code> (in <a href="frontfire-ui-table.html">Table</a>)</li>
+			<li><code data-lang="html">&lt;td&gt;</code>, <code data-lang="html">&lt;th&gt;</code> (in <a href="frontfire-ui-table.html">Table</a>)</li>
+			<li><code data-lang="html">&lt;textarea&gt;</code> (in <a href="frontfire-ui-form.html">Form</a> and <a href="frontfire-ui-typography.html">Typography</a>)</li>
+			<li><code data-lang="html">&lt;tt&gt;</code> (in <a href="frontfire-ui-typography.html#code">Typography</a>)</li>
+		</ul>
+		<p>
+			All of these default styles are defined with zero specificity by the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:where"><code data-lang="css">:where()</code></a> selector.
+		</p>
+
+		<h2 id="javascript">JavaScript components</h2>
+		<p>
+			The <a href="frontfire-core.html#autostart"><code>autostart()</code></a> and <a href="frontfire-core.html#frontfire"><code>frontfire()</code></a> methods on a Frontfire instance enable Frontfire UI features and behaviours on all default elements and those with corresponding CSS classes.
+			They can be called directly for newly created elements.
+		</p>
+		<p>
+			The <code>autostart()</code> method is also called when loading Frontfire UI’s JavaScript file.
+			In this case, it is assumed that the JavaScript file is included at the end of the document’s <code data-lang="html">&lt;body&gt;</code> after all visible elements (preferred) or in the document <code data-lang="html">&lt;head&gt;</code>.
+			If included anywhere else (like at the beginning of <code data-lang="html">&lt;body&gt;</code> or before some visible elements in the document, it will not apply the default features to all following elements.
+			Then you have to call the method yourself when all relevant elements have been added to the page.
+		</p>
+
+		<h2 id="opt-out">Opt-out</h2>
+		<p>
+			To undo the effects of the default styles and to prevent the JavaScript components from being activated automatically, add the <code class="css-class">no-frontfire</code> CSS class to the desired elements of external components or templates.
+		</p>
+		<p>
+			Frontfire UI will automatically apply certain styles and features on commonly used elements.
+			Sometimes, these implicit styles also apply to elements without adding any CSS class for simple use (see the <a href="#styles">list of elements</a> above).
+			But external components (third-party libraries) may not be prepared for all the style properties that Frontfire uses, so it becomes necessary to undo all Frontfire styles for these parts of the page.
+			Also, Frontfire-added features like numeric spinner inputs must not be applied for parts of the page that serve as a template for dynamically created elements because the cloning of the template elements would destroy their behaviour (like from event handlers).
+			For this reason, the <code class="css-class">no-frontfire</code> CSS class must be added to such external components or template elements.
+			It can be applied to any parent element or the affected element directly.
+			There is no undo of this undo, so once the styles have been disabled, they cannot be reactivated in a descendent element.
+		</p>
+		<p>
+			Note that the <code>no-frontfire</code> class only applies to the element and its descendents.
+			If the element of an external component is moved to a different part of the document, like in a modal or dropdown, this class may no longer apply.
+			Make sure that the class is set at the correct places, ideally at the external component itself so it cannot get lost.
+		</p>
+		<p>
+			For the JavaScript-implemented features, this class only disables their automatic activation at page load time with the <a href="frontfire-core.html#autostart"><code>autostart()</code></a> method.
+			This can be done later by calling the <a href="frontfire-core.html#frontfire"><code>frontfire()</code></a> plugin method on the desired elements, for example after cloning the template elements into visible data rows or tab pages.
+			To activate the disabled Frontfire styles later, this CSS class can be removed by code, which the <code>frontfire()</code> method already does.
+		</p>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

@@ -1,0 +1,466 @@
+// This file contains all reused values that cannot be used for CSS custom properties
+// ("CSS variables"). Maybe one day this will change. Until then, Sass has to handle them.
+
+// Define responsive layout sizes:
+// Smartphones (0-540)
+$viewportWidthPhone: 540px;
+// Small tablets 7-8" (541-760)
+$viewportWidthMinitab: 760px;
+// Tablets (761-900)
+$viewportWidthTablet: 900px;
+// Desktop/laptop monitors (901-1200)
+$viewportWidthDesktop: 1200px;
+// Wide monitors (1201-)
+
+
+:root
+{
+	// ========== Page size ==========
+
+	// The maximum width of .page-width elements, limited to the window width.
+	--page-width: 900px;
+	// The horizontal padding of .page-width and .full-page-width elements.
+	--page-width-padding: 15px;
+
+	--breakpoint-phone: #{$viewportWidthPhone};
+	--breakpoint-minitab: #{$viewportWidthMinitab};
+	--breakpoint-tablet: #{$viewportWidthTablet};
+	--breakpoint-desktop: #{$viewportWidthDesktop};
+
+
+	// ========== Animations ==========
+
+	// The duration of most animations and transitions of visual effects.
+	--animation-duration: 0.2s;
+	// The timing function of most animations and transitions of visual effects.
+	--animation-function: ease;
+
+
+	// ========== Typography ==========
+
+	// Sources:
+	// https://github.com/csstools/sanitize.css/blob/main/typography.css
+	// https://css-tricks.com/snippets/css/system-font-stack/ (older)
+	// - system-ui: Current CSS standard
+	// - -apple-system: Firefox < 92 (released 2021-09)
+	// - Segoe UI: Windows Vista+
+	// - Roboto: Android 4+
+	// - Oxygen-Sans: ?
+	// - Ubuntu: Ubuntu 10.10+
+	// - Cantarell: Gnome 3+
+	// - Noto Sans: KDE Plasma 5+
+	// - sans-serif: generic fallback
+	// - Apple Color Emoji: macOS emoji
+	// - Segoe UI Emoji: Windows emoji
+	// - Segoe UI Symbol: Windows emoji
+	// - Noto Color Emoji: Linux emoji
+	--system-font-family: system-ui, -apple-system, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--default-font-family: var(--system-font-family);
+	--default-font-size: 14px;
+	--default-line-height: 1.42857;
+
+	--larger-font-size: 1.3em;
+	--smaller-font-size: 0.8em;
+
+	// Sources:
+	// https://github.com/csstools/sanitize.css/blob/main/typography.css
+	// - Menlo: macOS 10.10+
+	// - Consolas: Windows Vista+
+	// - Roboto Mono: Android 4+
+	// - Ubuntu Monospace: Ubuntu 10.10+
+	// - Noto Mono: KDE Plasma 5+
+	// - Oxygen Mono: KDE Plasma 4+
+	// - Liberation Mono: Linux/OpenOffice fallback
+	// - monospace: generic fallback
+	--monospace-font-family: Menlo, Consolas, "Roboto Mono", "Ubuntu Monospace", "Noto Mono", "Oxygen Mono", "Liberation Mono", monospace;
+	--monospace-font-size: 13px;
+
+	--h1-font-size: 2rem;
+	--h2-font-size: 1.6rem;
+	--h3-font-size: 1.3rem;
+	--h4-font-size: 1.1rem;
+
+	--header-weight: 600;   // Semibold is better for Segoe UI; effectively 700 on Android
+
+	--default-background: white;
+	--default-text-color: black;
+
+	--link-color-h: 226;
+	--link-color-s: 73%;
+	--link-color-l: 51%;
+	// Lightness factors (-1 is black, 0 is unchanged, 1 is white):
+	--link-hover-lf: -0.25;
+
+	--table-grid-color: #d8d8d8;
+	--table-header-background: rgb(0, 0, 0, 0.04);
+	// The vertical position of table sticky headers. Can be set to the height of a fixed top header bar.
+	--sticky-header-top: 0px;
+
+	--code-inline-padding: 0 2px;
+	--code-padding: 6px 10px;
+	--code-background: rgb(0, 0, 0, 0.06);
+
+	--sticky-aside-width: 200px;
+	--sticky-aside-gap: 2rem;
+	--sticky-aside-top: 0px;
+
+	--loading-color: rgb(0, 0, 0, 0.1);
+	--loading-highlight-color: rgb(0, 0, 0, 0.6);
+
+	--thin-scrollbar-thumb: rgb(0, 0, 0, 0.3);
+
+
+	// ========== Images ==========
+
+	--image-caption-color: #666666;
+
+
+	// ========== Messages and notifications ==========
+
+	--critical-background-h: 347;
+	--critical-background-s: 79%;
+	--critical-background-l: 35%;
+	--critical-color: #ffffff;
+
+	--error-background-h: 17;
+	--error-background-s: 78%;
+	--error-background-l: 43%;
+	--error-color: #ffffff;
+
+	--warning-background-h: 48;
+	--warning-background-s: 86%;
+	--warning-background-l: 67%;
+	--warning-color: #000000;
+
+	--information-background-h: 202;
+	--information-background-s: 78%;
+	--information-background-l: 84%;
+	--information-color: #000000;
+
+	--success-background-h: 90;
+	--success-background-s: 78%;
+	--success-background-l: 78%;
+	--success-color: #000000;
+
+	--notification-bar-critical-opacity: 0.35;
+	--notification-bar-error-opacity: 0.35;
+	--notification-bar-warning-opacity: 0.12;
+	--notification-bar-information-opacity: 0.12;
+	--notification-bar-success-opacity: 0.12;
+
+
+	// ========== Form ==========
+
+	--disabled-label-color: #a0a0a0;
+	--validation-error-text: #ff0000;
+	--validation-error-background: #ffdddd;
+
+	// Textbox
+	--textbox-border: #cccccc;
+	--textbox-hover-border: #999999;
+	--textbox-disabled-border: #e4e4e4;
+	--textbox-background: #ffffff;
+	--textbox-color: #000000;
+	--textbox-disabled-color: #a0a0a0;
+	--input-label-background: #f4f4f4;
+
+	// Normal button
+	--button-background-h: 0;
+	--button-background-s: 0%;
+	--button-background-l: 87%;
+	// Lightness factors (-1 is black, 0 is unchanged, 1 is white):
+	--button-hover-lf: -0.08;
+	--button-pressed-lf: -0.2;
+	--button-disabled-lf: 0.5;
+	--button-color: #000000;
+	--button-disabled-color: #808080;
+
+	// Active toggle button
+	--button-active-background-h: 0;
+	--button-active-background-s: 0%;
+	--button-active-background-l: 44%;
+	// Lightness factors (-1 is black, 0 is unchanged, 1 is white):
+	--button-active-hover-lf: -0.08;
+	--button-active-pressed-lf: -0.2;
+	--button-active-disabled-lf: 0.5;
+	--button-active-color: #f0f0f0;
+
+	// Default button (CTA, call to action)
+	--button-default-background-h: 225;
+	--button-default-background-s: 73%;
+	--button-default-background-l: 50%;
+	// Lightness factors (-1 is black, 0 is unchanged, 1 is white):
+	--button-default-hover-lf: -0.15;
+	--button-default-pressed-lf: -0.35;
+	--button-default-color: #ffffff;
+
+	// Dangerous button
+	--button-caution-background-h: var(--error-background-h);
+	--button-caution-background-s: var(--error-background-s);
+	--button-caution-background-l: var(--error-background-l);
+	// Lightness factors (-1 is black, 0 is unchanged, 1 is white):
+	--button-caution-hover-lf: -0.1;
+	--button-caution-pressed-lf: -0.3;
+	--button-caution-color: #ffffff;
+
+	// Transparent button
+	--button-transparent-hover-background: rgb(0, 0, 0, 0.07);
+
+	// Button group (based on the normal button background)
+	--button-group-separator-lf: -0.15;
+	--button-group-disabled-separator-lf: -0.05;
+
+	// Checkbox, radiobutton
+	--checkbox-validation-error-pressed-background: #e9bebe;   // Half mix to validation error background, slightly darker
+
+
+	// ========== Selectable, TreeView ==========
+
+	--selection-h: 220;
+	--selection-s: 100%;
+	--selection-l: 50%;
+	--selection-hover-a: 0.06;
+	--selection-selected-a: 0.2;
+	--selection-selected-hover-a: 0.24;
+	--selection-focused-a: 0.35;
+
+	--selectable-selected-disabled-background: rgb(180, 180, 180, 0.3);
+
+	--treeview-guideline-color: rgb(0, 0, 0, 0.4);
+
+	--focus-outline: solid 1px hsl(var(--selection-h), var(--selection-s), var(--selection-l), 0.5);
+	--focus-outline-offset: -1px;
+	--focus-keyboard-outline: solid 2px hsl(var(--selection-h), var(--selection-s), var(--selection-l), 0.5);
+	--focus-keyboard-outline-offset: -1px;
+	--focus-keyboard-outline-full-offset: -2px;
+
+
+	// ========== Toggle switch ==========
+
+	--toggle-switch-unset-h: 225;
+	--toggle-switch-unset-s: 0%;
+	--toggle-switch-unset-l: 69%;
+	--toggle-switch-set-h: 225;   // default button hue
+	--toggle-switch-set-s: 73%;
+	--toggle-switch-set-l: 51%;
+
+
+	// ========== Menu ==========
+
+	--menu-background-h: 0;
+	--menu-background-s: 0%;
+	--menu-background-l: 87%;
+	// Lightness factors (-1 is black, 0 is unchanged, 1 is white):
+	--menu-hover-lf: -0.08;
+	--menu-active-lf: -0.2;
+	--menu-color: #000000;
+
+	--submenu-background-h: 0;
+	--submenu-background-s: 0%;
+	--submenu-background-l: 96%;
+	// Lightness factors (-1 is black, 0 is unchanged, 1 is white):
+	--submenu-hover-lf: -0.08;
+	--submenu-active-lf: -0.2;
+	--submenu-color: #000000;
+
+	--nav-menu-background: #505050;
+	--nav-menu-color: #ffffff;
+	--nav-menu-hover-background: #686868;
+	--nav-menu-hover-color: #ffffff;
+	--nav-menu-active-background: #808080;
+	--nav-menu-active-color: #ffffff;
+	--nav-menu-open-background: #606060;
+	--nav-menu-open-color: #ffffff;
+
+	--nav-submenu-background: var(--nav-menu-background);
+	--nav-submenu-color: var(--nav-menu-color);
+	--nav-submenu-hover-background: var(--nav-menu-hover-background);
+	--nav-submenu-hover-color: var(--nav-menu-hover-color);
+	--nav-submenu-active-background: --nav-menu-active-background;
+	--nav-submenu-active-color: var(--nav-menu-active-color);
+	--nav-submenu-open-background: var(--nav-menu-open-background);
+	--nav-submenu-open-color: var(--nav-menu-open-color);
+
+	// ========== Progress bar ==========
+
+	--progress-color: #808080;
+	--progress-no-border-background: rgb(160, 160, 160, 0.12);
+	--progress-error-color: #c44818;
+	--progress-warning-color: #dfb511;
+	--progress-success-color: #6ec418;
+
+	// ========== Slider ==========
+
+	// Width of the track bar
+	--slider-width: 10px;
+	// Touchable extra width besides the visible track bar
+	--slider-margin: 8px;
+	// Width of the draggable handle
+	--slider-handle-width: 20px;
+	// Length of the draggable handle in drag direction
+	--slider-handle-length: 10px;
+
+	--slider-background: #dddddd;
+	--slider-range-background: #808080;
+	--slider-handle-background: #505050;
+	--slider-handle-hover-background: #404040;
+	--slider-handle-pressed-background: #000000;
+	--slider-small-tick-color: #c0c0c0;
+	--slider-large-tick-color: #808080;
+	--slider-tick-label-font-size: 0.85em;
+
+	--slider-disabled-background: #eeeeee;
+	--slider-disabled-handle-background: #aaaaaa;
+	--slider-disabled-small-tick-color: #dddddd;
+	--slider-disabled-large-tick-color: #bbbbbb;
+
+	// ========== Tabs ==========
+
+	--tabs-border-color: #d8d8d8;
+	--tabs-color: var(--default-text-color);
+	--tabs-active-header-background: transparent;
+	--tabs-inactive-header-background: #f4f4f4;
+	--tabs-inactive-header-hover-background: #fafafa;
+	--tabs-page-background: transparent;
+	--tabs-noborder-active: hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l));
+	--tabs-noborder-hover: hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l), 0.25);
+}
+
+// Override some colors for the dark theme.
+.dark
+{
+	// ========== Typography ==========
+
+	--default-background: #202020;
+	--default-text-color: #f0f0f0;
+
+	--link-color-s: 100%;
+	--link-color-l: 78%;
+	--link-hover-lf: 0.2;
+
+	--table-grid-color: #505050;
+	--table-header-background: rgb(255, 255, 255, 0.12);
+
+	--code-background: rgb(255, 255, 255, 0.12);
+
+	--loading-color: rgb(255, 255, 255, 0.15);
+	--loading-highlight-color: rgb(255, 255, 255, 0.8);
+
+	--thin-scrollbar-thumb: rgb(255, 255, 255, 0.3);
+
+
+	// ========== Images ==========
+
+	--image-caption-color: #888888;
+
+
+	// ========== Messages and notifications ==========
+
+	--warning-background-s: 100%;
+	--warning-background-l: 43%;
+
+	--information-background-l: 37%;
+	--information-color: #ffffff;
+
+	--success-background-l: 29%;
+	--success-color: #ffffff;
+
+	--notification-bar-critical-opacity: 0.3;
+	--notification-bar-error-opacity: 0.3;
+	--notification-bar-warning-opacity: 0.2;
+	--notification-bar-information-opacity: 0.3;
+	--notification-bar-success-opacity: 0.3;
+
+
+	// ========== Form ==========
+
+	--validation-error-text: #f00000;
+	--validation-error-background: #502020;
+
+	--textbox-border: #707070;
+	--textbox-disabled-border: #505050;
+	--textbox-background: var(--default-background);
+	--textbox-color: var(--default-text-color);
+	--textbox-disabled-color: #808080;
+	--input-label-background: #303030;
+
+	--button-background-l: 35%;
+	--button-hover-lf: 0.12;
+	--button-pressed-lf: 0.25;
+	--button-disabled-lf: -0.35;
+	--button-color: var(--default-text-color);
+	--button-disabled-color: #909090;
+
+	--button-active-background-l: 80%;
+	--button-active-hover-lf: -0.12;
+	--button-active-pressed-lf: -0.25;
+	--button-active-disabled-lf: -0.35;
+	--button-active-color: #202020;
+
+	--button-default-background-s: 100%;
+	--button-default-background-l: 65%;
+
+	--button-caution-background-l: calc(var(--error-background-l) * 0.9);
+
+	--button-transparent-hover-background: rgb(255, 255, 255, 0.14);
+
+	--button-group-separator-lf: 0.2;
+	--button-group-disabled-separator-lf: 0;
+
+	--checkbox-validation-error-pressed-background: #854747;
+
+
+	// ========== Selectable ==========
+
+	--selection-l: 60%;
+	--selection-hover-a: 0.15;
+	--selection-selected-a: 0.6;
+	--selection-selected-hover-a: 0.67;
+	--selection-focused-a: 0.7;
+
+	--treeview-guideline-color: rgb(255, 255, 255, 0.4);
+
+	--focus-outline: solid 1px hsl(var(--selection-h), var(--selection-s), 80%, 0.5);
+	--focus-keyboard-outline: solid 2px hsl(var(--selection-h), var(--selection-s), 80%, 0.5);
+
+
+	// ========== Toggle switch ==========
+
+	--toggle-switch-unset-l: 57%;
+	--toggle-switch-set-l: 75%;
+
+
+	// ========== Menu ==========
+
+	--menu-background-l: 35%;
+	--menu-hover-lf: 0.12;
+	--menu-active-lf: 0.25;
+	--menu-color: var(--default-text-color);
+
+	--submenu-background-l: 25%;
+	--submenu-hover-lf: 0.1;
+	--submenu-active-lf: 0.2;
+	--submenu-color: var(--default-text-color);
+
+	// ========== Slider ==========
+
+	--slider-background: #505050;
+	--slider-range-background: #b0b0b0;
+	--slider-handle-background: #d0d0d0;
+	--slider-handle-hover-background: #e0e0e0;
+	--slider-handle-pressed-background: #f0f0f0;
+	--slider-small-tick-color: #808080;
+	--slider-large-tick-color: #c0c0c0;
+
+	--slider-disabled-background: #404040;
+	--slider-disabled-handle-background: #909090;
+	--slider-disabled-small-tick-color: #707070;
+	--slider-disabled-large-tick-color: #909090;
+
+	// ========== Tabs ==========
+
+	--tabs-border-color: #606060;
+	--tabs-inactive-header-background: #383838;
+	--tabs-inactive-header-hover-background: #2c2c2c;
+	--tabs-noborder-hover: hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l), 0.45);
+}

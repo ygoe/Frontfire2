@@ -1,0 +1,229 @@
+.ff-slider
+{
+	position: relative;
+	border: solid var(--slider-margin) transparent;
+	outline: none;
+	// :focus-visible matches after clicking on the slider which is wrong, so only use a custom logic
+	&.ff-focus-visible
+	{
+		outline: var(--focus-keyboard-outline);
+		outline-offset: var(--focus-keyboard-outline-offset);
+	}
+
+	.ff-background
+	{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background: var(--slider-background);
+		transition: background var(--animation-duration) var(--animation-function);
+	}
+
+	.ff-range
+	{
+		position: absolute;
+		background: var(--slider-range-background);
+		left: 0;
+		bottom: 0;
+		pointer-events: none;
+		transition: background var(--animation-duration) var(--animation-function), opacity var(--animation-duration) var(--animation-function);
+	}
+	.ff-ticks
+	{
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		pointer-events: none;
+		> div
+		{
+			position: absolute;
+			border: 0px solid var(--slider-small-tick-color);
+			transition: border var(--animation-duration) var(--animation-function);
+			&::after
+			{
+				position: absolute;
+				display: block;
+				content: attr(data-label);
+				font-size: var(--slider-tick-label-font-size);
+				color: var(--slider-small-tick-color);
+				transition: color var(--animation-duration) var(--animation-function);
+			}
+			&.large
+			{
+				border-color: var(--slider-large-tick-color);
+				&::after { color: var(--slider-large-tick-color); }
+			}
+		}
+	}
+	.ff-handle
+	{
+		position: absolute;
+		background: var(--slider-handle-background);
+		box-shadow: rgba(0, 0, 0, 0.2) 0 1px 3px;
+		transition: background var(--animation-duration) var(--animation-function), border var(--animation-duration) var(--animation-function);
+		&:hover
+		{
+			background: var(--slider-handle-hover-background);
+			transition: background 0s, border 0s;
+		}
+		&.pressed
+		{
+			background: var(--slider-handle-pressed-background);
+			box-shadow: none;
+			transition: background 0s, border 0s;
+		}
+	}
+
+	&[disabled]
+	{
+		.ff-background
+		{
+			background: var(--slider-disabled-background);
+		}
+		.ff-range
+		{
+			opacity: 0.7;
+		}
+		.ff-ticks > div
+		{
+			border: 0px solid var(--slider-disabled-small-tick-color);
+			&::after
+			{
+				color: var(--slider-disabled-small-tick-color);
+			}
+			&.large
+			{
+				border-color: var(--slider-disabled-large-tick-color);
+				&::after { color: var(--slider-disabled-large-tick-color); }
+			}
+		}
+		.ff-handle,
+		.ff-handle:hover
+		{
+			background: var(--slider-disabled-handle-background);
+		}
+	}
+
+	&:not(.vertical)
+	{
+		height: calc(var(--slider-width) + var(--slider-margin) * 2);
+		border-left-width: calc(var(--slider-handle-length) * 0.5);
+		border-right-width: calc(var(--slider-handle-length) * 0.5);
+
+		.ff-range
+		{
+			height: 100%;
+		}
+		.ff-ticks
+		{
+			right: 1px;
+			> div
+			{
+				width: 1px;
+				height: 5px;
+				border-left-width: 1px;
+				&::after
+				{
+					left: 0;
+					transform: translate(-50%, 0);
+				}
+				&:not(.opposite)
+				{
+					top: -5px;
+					&::after { bottom: calc(100% + 3px); }
+				}
+				&.opposite
+				{
+					bottom: -5px;
+					&::after { top: calc(100% + 2px); }
+				}
+
+				&.large
+				{
+					height: 8px;
+					&:not(.opposite)
+					{
+						top: -8px;
+						&::after { bottom: calc(100% - 0px); }
+					}
+					&.opposite
+					{
+						bottom: -8px;
+						&::after { top: calc(100% - 1px); }
+					}
+				}
+			}
+		}
+		.ff-handle
+		{
+			top: calc((var(--slider-width) - var(--slider-handle-width)) * 0.5);
+			margin-left: calc(var(--slider-handle-length) / -2);
+			width: var(--slider-handle-length);
+			height: var(--slider-handle-width);
+			border-radius: var(--slider-handle-border-radius, 0);
+		}
+	}
+	&.vertical
+	{
+		width: calc(var(--slider-width) + var(--slider-margin) * 2);
+		border-top-width: calc(var(--slider-handle-length) * 0.5);
+		border-bottom-width: calc(var(--slider-handle-length) * 0.5);
+
+		.ff-range
+		{
+			width: 100%;
+		}
+		.ff-ticks
+		{
+			top: 1px;
+			> div
+			{
+				height: 1px;
+				width: 5px;
+				border-top-width: 1px;
+				&::after
+				{
+					top: 0;
+					padding-right: 3px;   // Move away from the ticks
+					padding-bottom: 2px;   // Move 1px up
+					transform: translate(0, -50%);
+				}
+				&:not(.opposite)
+				{
+					left: -5px;
+					&::after { right: calc(100% + 5px); }
+				}
+				&.opposite
+				{
+					right: -5px;
+					&::after { left: calc(100% + 7px); }
+				}
+
+				&.large
+				{
+					width: 8px;
+					&:not(.opposite)
+					{
+						left: -8px;
+						&::after { right: calc(100% + 2px); }
+					}
+					&.opposite
+					{
+						right: -8px;
+						&::after { left: calc(100% + 4px); }
+					}
+				}
+			}
+		}
+		.ff-handle
+		{
+			left: calc((var(--slider-width) - var(--slider-handle-width)) * 0.5);
+			margin-bottom: calc(var(--slider-handle-length) / -2);
+			width: var(--slider-handle-width);
+			height: var(--slider-handle-length);
+			border-radius: var(--slider-handle-border-radius, 0);
+		}
+	}
+}

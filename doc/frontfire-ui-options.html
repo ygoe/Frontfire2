@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Plugin options documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Plugin options</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+
+		<p>
+			Some of the Frontfire UI plugins can be configured with options.
+			These options can affect the appearance or behaviour of the plugin.
+			The page about the plugin describes the options that are supported by the plugin.
+			This page explains the different ways to specify them.
+		</p>
+		<p>
+			Any option that is not set through the methods described here has its default value (documented with the plugin).
+			That default value may also be used for set invalid values in some cases.
+		</p>
+
+		<h2 id="data-opt">Combined <code>data-opt</code> attribute</h2>
+		<p>
+			Set all options as a combined <code>data-opt</code> attribute on the HTML element that the plugin is applied to.
+			This method can be used for explicit plugin use through JavaScript code or the autostart feature which is available as a CSS class for some plugins.
+		</p>
+		<p>
+			The content of the <code>data-opt</code> attribute uses a similar syntax as the <code>style</code> attribute, but with option names instead of style properties.
+			Option names and values are separated by a colon (<code>:</code>) and different name-value entries are separated by a semicolon (<code>;</code>).
+		</p>
+		<h3 id="data-opt-name">Name</h3>
+		<p>
+			Option names are case-sensitive but can be written in camelCase or dash-style.
+		</p>
+		<h3 id="data-opt-value">Value</h3>
+		<p>
+			Values can be written directly, or quoted with double or single quotes.
+			Backslash escape sequences (like <code>\n</code>, <code>\x1A</code>, <code>\u12AB</code> and <code>\u{123ABC}</code>) are only interpreted in quoted strings.
+			Quoted strings also preserve leading and trailing white-space and allow the semicolon as content.
+			Unquoted strings are interpreted following the same rules as explained for separate attributes below.
+		</p>
+		<h3 id="data-opt-example">Example</h3>
+		<p>
+			These examples will set <code>option1</code> as boolean true and <code>secondOption</code> as number 123.<br>
+			<code data-lang="html">&lt;div … data-opt="option1: true; secondOption: 123"&gt;</code><br>
+			<code data-lang="html">&lt;div … data-opt="option1: true; second-option: 123;"&gt;</code>
+		</p>
+		<p>
+			These examples will set <code>option1</code> as string “123” and <code>option2</code> as string “abc”.<br>
+			<code data-lang="html">&lt;div … data-opt="option1: '123'; option2: 'abc';"&gt;</code><br>
+			<code data-lang="html">&lt;div … data-opt='option1: "123"; option2: abc;'&gt;</code>
+		</p>
+		<p>
+			This example will set <code>message</code> as string “A man's shoes; flying”.<br>
+			<code data-lang="html">&lt;div … data-opt="message: 'A man\'s shoes; flying';"&gt;</code>
+		</p>
+
+		<h2 id="data-opt-x">Separate <code>data-opt-…</code> attributes</h2>
+		<p>
+			Set each option with a separate <code>data-opt-…</code> attribute on the HTML element that the plugin is applied to.
+			This method can be used for explicit plugin use through JavaScript code or the autostart feature which is available as a CSS class for some plugins.
+		</p>
+		<p>
+			Options specified with this method override options set from the combined <code>data-opt</code> attribute.
+		</p>
+		<h3 id="data-opt-x-name">Name</h3>
+		<p>
+			The case-sensitive option name is converted to dash-style as per the <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset">conversion rules of the data attributes</a>.
+		</p>
+		<h3 id="data-opt-x-value">Value</h3>
+		<p>
+			The content of the attribute is passed on to the options object.
+			Internally, all attribute values are strings, but some interpretation is applied on these values:
+		</p>
+		<ul>
+			<li>
+				If a converter function was provided by the plugin for the option name, the string value is passed to that function and its return value is used for the options.
+				The presence of such converters should be documented on the plugin page.
+			</li>
+			<li>
+				Next, the strings “true” and “false” are converted to the corresponding boolean values.
+				No white-space or spelling or casing variations are accepted.
+			</li>
+			<li>
+				Next, anything that looks like a fully written decimal number (e.g. <code>2</code>, <code>23.0</code>, <code>-345.6</code>, <code>0.07</code>) is converted to a number.
+				A leading minus sign is allowed for negative numbers.
+				The decimal separator is a point.
+				If a decimal separator is used, a digit must occur before and after it.
+				No white-space or other number formats are accepted.
+			</li>
+			<li>
+				Finally, anything else is left as the string that was specified in the attribute.
+			</li>
+		</ul>
+		<h3 id="data-opt-x-example">Example</h3>
+		<p>
+			This example will set <code>option1</code> as boolean true and <code>secondOption</code> as number 123.<br>
+			<code data-lang="html">&lt;div … data-opt-option1="true" data-opt-second-option="123"&gt;</code>
+		</p>
+
+		<h2 id="options-param">Object for the options parameter</h2>
+		<p>
+			Pass all options as an object to the <code>options</code> parameter of the plugin create function.
+			This method can only be used when explicitly using the plugin through JavaScript code.
+		</p>
+		<p>
+			Options specified with this method have the highest priority and override all options set from other methods.
+			Only the options that are defined in this object will override other options.
+		</p>
+		<h3 id="options-param-name">Name</h3>
+		<p>
+			Option names are case-sensitive.
+		</p>
+		<h3 id="options-param-example">Example</h3>
+		<p>
+			This example will set <code>option1</code> as boolean true and <code>secondOption</code> as number 123, which should be obvious.<br>
+			<code data-lang="js">F("#id").myPlugin({ option1: true, secondOption: 123 });</code>
+		</p>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

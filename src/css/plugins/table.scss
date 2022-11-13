@@ -1,0 +1,262 @@
+:where(table)
+{
+	border: 1px solid var(--table-grid-color);
+	border-collapse: collapse;
+	transition: border-color var(--animation-duration) var(--animation-function);
+
+	:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+
+	:where(th, td)
+	{
+		border: 1px solid var(--table-grid-color);
+		padding: 3px 6px;
+		transition: border-color var(--animation-duration) var(--animation-function);
+
+		:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+
+		// Compensate padding for nested tables
+		> :where(table)
+		{
+			margin-top: -3px;
+			margin-bottom: -3px;
+
+			:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+		}
+	}
+	:where(th)
+	{
+		background-color: var(--table-header-background);
+		text-align: left;
+		transition: border-color var(--animation-duration) var(--animation-function), background-color var(--animation-duration) var(--animation-function);
+
+		:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+	}
+	tr.hidden-row :is(th, td),
+	:is(th, td).hidden-column
+	{
+		border-width: 0;   // it would collapse into the other visible rows (if hidden with visibility: collapse)
+	}
+
+	&.compact
+	{
+		:is(th, td)
+		{
+			border-width: 0;
+			padding: 0 6px 0 0;
+
+			// Un-compensate padding for nested tables
+			> table
+			{
+				margin-top: 0;
+				margin-bottom: 0;
+			}
+		}
+		:is(th, td):is(:last-child, .last-column)
+		{
+			padding-right: 0;
+		}
+	}
+}
+
+// Remove outer border around table
+table.no-border
+{
+	border-width: 0;
+
+	:is(th, td):is(:first-child, .first-column)
+	{
+		border-left-width: 0;
+	}
+	:is(th, td):is(:last-child, .last-column)
+	{
+		border-right-width: 0;
+	}
+	tr:is(:first-child, .first-row)
+	{
+		> :is(th, td)
+		{
+			border-top-width: 0;
+		}
+	}
+	tr:is(:last-child, .last-row)
+	{
+		> :is(th, td)
+		{
+			border-bottom-width: 0;
+		}
+	}
+}
+
+// Remove vertical/horizontal grid lines between cells
+table.no-vgrid,
+table.no-grid
+{
+	:is(th, td)
+	{
+		border-left-width: 0;
+		border-right-width: 0;
+	}
+}
+table.no-hgrid,
+table.no-grid
+{
+	:is(th, td)
+	{
+		border-top-width: 0;
+		border-bottom-width: 0;
+	}
+}
+
+// Remove cell padding at the outer table edges (left and right)
+table.no-outer-padding
+{
+	td:is(:first-child, .first-column)
+	{
+		padding-left: 0;
+	}
+	td:is(:last-child, .last-column)
+	{
+		padding-right: 0;
+	}
+}
+
+// Remove padding in table cells
+table.no-padding
+{
+	:is(th, td)
+	{
+		padding: 0;
+	}
+}
+
+// Spread all columns across the entire available width instead of auto-width
+table.full-width
+{
+	width: 100%;
+}
+
+// Horizontal/vertical alignment in all table cells
+table.left,
+table tr.left
+{
+	:is(th, td)
+	{
+		text-align: left;
+	}
+}
+table.center,
+table tr.center
+{
+	:is(th, td)
+	{
+		text-align: center;
+	}
+}
+table.right,
+table tr.right
+{
+	:is(th, td)
+	{
+		text-align: right;
+	}
+}
+table.top,
+table tr.top
+{
+	:is(th, td)
+	{
+		vertical-align: top;
+	}
+}
+table.bottom,
+table tr.bottom
+{
+	:is(th, td)
+	{
+		vertical-align: bottom;
+	}
+}
+
+// Horizontal/vertical alignment in a table cell
+:is(th, td).left
+{
+	text-align: left !important;
+}
+:is(th, td).center
+{
+	text-align: center !important;
+}
+:is(th, td).right
+{
+	text-align: right !important;
+}
+:is(th, td).top
+{
+	vertical-align: top !important;
+}
+:is(th, td).bottom
+{
+	vertical-align: bottom !important;
+}
+
+// Links in a table cell fill the entire cell, making a bigger click area especially for shorter link texts
+table.big-links tr td > a
+{
+	display: block;
+}
+
+// Rows as tall as if there would be a button in them (also more touch-friendly)
+table.tall-rows
+{
+	td
+	{
+		// button vertical padding + td vertical padding + td one vertical border side
+		height: calc(var(--default-font-size) * var(--default-line-height) + 17px);
+	}
+	&.no-border
+	{
+		tr:last-child > td,
+		tr.last-row > td
+		{
+			// one less for the last row
+			height: calc(var(--default-font-size) * var(--default-line-height) + 16px);
+		}
+	}
+	&.big-links tr td > a
+	{
+		// Same vertical padding as button
+		padding: 5px 0;
+	}
+}
+
+table.sticky-header thead th
+{
+	position: sticky;
+	top: var(--sticky-header-top);
+	z-index: 2;
+}
+
+table.overflow-columns
+{
+	:is(th, td).overflow-column
+	{
+		// Initially hide the column with the overflow button
+		display: none;
+	}
+	th.overflow-column,
+	td.overflow-column button.overflow-button
+	{
+		// Set the overflow button column width to the minimum of the square button.
+		// The button should have the "narrow" and "icon-only" classes.
+		// Also set the button width to avoid issues with ligature-based icon fonts.
+		// While the font isn't loaded yet, the text would expand to the icon name.
+		// button.narrow's min-width: button's line height + button's vertical padding
+		width: calc(1rem * var(--default-line-height) + 10px);
+	}
+	label
+	{
+		// Prevent wrapping in checkbox labels so that they claim all the width they need and we see
+		// that in the measurements
+		white-space: nowrap;
+	}
+}

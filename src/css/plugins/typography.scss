@@ -1,0 +1,472 @@
+@use "../variables";
+
+.dark
+{
+	background-color: var(--default-background);
+	color: var(--default-text-color);
+}
+
+
+// ==================== Fonts ====================
+
+html
+{
+	font-family: var(--default-font-family);
+	font-size: var(--default-font-size);
+	line-height: var(--default-line-height);
+	background-color: var(--default-background);
+	color: var(--default-text-color);
+	transition: background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+}
+
+// Properly inherit the font in places that would default to something else, like input elements
+:where(
+	body,
+	input,
+	button,
+	select,
+	textarea,
+	kbd
+)
+{
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+
+	:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+}
+
+// Set monospace font as last rule here to override the others
+:where(
+	code,
+	tt,
+	pre,
+	samp,
+	div.code,
+	.monospace
+)
+{
+	font-family: var(--monospace-font-family);
+	font-size: var(--monospace-font-size);
+	line-height: var(--monospace-line-height, 1.3);
+
+	:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+}
+
+
+// ==================== Headers ====================
+
+:where(h1)
+{
+	font-size: var(--h1-font-size);
+	font-weight: var(--header-weight);
+	margin: 1em 0 0.8em;
+}
+:where(h2)
+{
+	font-size: var(--h2-font-size);
+	font-weight: var(--header-weight);
+	margin: 1em 0 1rem;
+}
+:where(h3)
+{
+	font-size: var(--h3-font-size);
+	font-weight: var(--header-weight);
+	margin: 1em 0 1rem;
+}
+:where(h4)
+{
+	font-size: var(--h4-font-size);
+	font-weight: var(--header-weight);
+	margin: 1rem 0;
+}
+:where(h5, h6)
+{
+	font-size: var(--default-font-size);
+	font-weight: var(--header-weight);
+	margin: 1rem 0;
+}
+
+:where(h1, h2, h3, h4, h5, h6)
+{
+	// Not sure what it's good for. The browser default is "auto" which is inappropriate.
+	// But no browser abides by MDN's browser compatibility chart so it has no effect.
+	// The value "avoid" would be even better but is theoretically less supported.
+	break-after: avoid-page;
+}
+
+:where(.no-frontfire) :where(h1, h2, h3, h4, h5, h6),
+:where(h1, h2, h3, h4, h5, h6):where(.no-frontfire)
+{
+	all: revert;
+}
+
+// Reset font sizes for fixed-width fonts in headers
+:where(h1, h2, h3, h4, h5, h6) :where(code, tt, samp)
+{
+	font-size: inherit;
+	font-weight: 400;
+
+	:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+}
+
+
+// ==================== Paragraphs ====================
+
+p,
+div.p,
+table.p
+{
+	margin-top: 1em;
+	margin-bottom: 1em;
+	&.double-margin
+	{
+		margin-top: 2em;
+		margin-bottom: 2em;
+	}
+}
+
+p.left,
+div.left
+{
+	text-align: left;
+}
+
+p.right,
+div.right
+{
+	text-align: right;
+}
+
+p.center,
+div.center
+{
+	text-align: center;
+}
+
+p.justify,
+div.justify
+{
+	text-align: justify;
+}
+
+.no-top-margin
+{
+	margin-top: 0 !important;
+}
+.no-bottom-margin
+{
+	margin-bottom: 0 !important;
+}
+.no-vertical-margin
+{
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+}
+
+.larger
+{
+	font-size: var(--larger-font-size) !important;
+}
+.smaller
+{
+	font-size: var(--smaller-font-size) !important;
+}
+
+
+// ==================== Links ====================
+
+// These colors are also used for <button class="link"> in the Form plugin
+:where(a)
+{
+	// Calculate lightness values from light factor (lf):
+	// - start with the base lightness
+	// - add the factor towards 100% (only if the factor is > 0)
+	// - subtract the negative factor towards 0% (only if the factor is < 0)
+	--link-hover-color-l: calc(var(--link-color-l)
+		+ max(0%, (100% - var(--link-color-l)) * var(--link-hover-lf))
+		- max(0%, var(--link-color-l) * (0 - (var(--link-hover-lf)))));
+
+	transition: color var(--animation-duration) var(--animation-function), text-decoration-color var(--animation-duration) var(--animation-function);
+
+	:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+
+	&:where(:any-link)
+	{
+		color: var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l)));
+
+		:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+
+		&:where(:not([disabled]):focus-visible)
+		{
+			outline: var(--focus-keyboard-outline);
+			z-index: 10;   // Bring it above neighbouring elements to see the full outline
+		}
+		&:where(:hover)
+		{
+			color: var(
+				--link-hover-color,
+				hsl(var(--link-color-h), var(--link-color-s), var(--link-hover-color-l)));
+			transition: color 0s;
+
+			:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+		}
+	}
+	// text-decoration cannot be set for :visited
+	&:where(:link)
+	{
+		text-decoration: var(--link-text-decoration, underline);
+		text-decoration-color: var(--link-text-decoration-color, currentcolor);
+
+		:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+
+		&:where(:hover)
+		{
+			text-decoration: var(--link-hover-text-decoration, var(--link-text-decoration, underline));
+			text-decoration-color: var(--link-hover-text-decoration-color, var(--link-text-decoration-color, transparent));
+
+			:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+		}
+	}
+	&[disabled]
+	{
+		color: var(--disabled-label-color);
+	}
+}
+
+
+// ==================== Others ====================
+
+// Adds a float break before and after the element
+// (also available as a reusable mixin for adding to other classes)
+@mixin clearfix
+{
+	&::before,
+	&::after
+	{
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+.clearfix
+{
+	@include clearfix;
+}
+
+hr
+{
+	clear: both;
+	margin: 1rem 0;
+	border: none;
+	border-top: 1px solid var(--table-grid-color);
+	transition: border-top-color var(--animation-duration) var(--animation-function);
+	&.double-margin
+	{
+		margin: 2rem 0;
+	}
+}
+
+code,
+div.code
+{
+	background-color: var(--code-background);
+	padding: var(--code-inline-padding);
+	hyphens: none;
+	overflow-wrap: break-word;
+	transition: background-color var(--animation-duration) var(--animation-function);
+}
+div.code
+{
+	padding: var(--code-padding);
+}
+
+kbd
+{
+	display: inline-block;
+	white-space: nowrap;
+	border: 1px solid #ccc;
+	border-color: #ddd #bbb #aaa #ccc;
+	border-bottom-width: 2px;
+	border-radius: 2px;
+	background-color: #f6f6f6;
+	padding: 0 4px;
+	font-size: var(--smaller-font-size);
+	line-height: 1.2;
+	vertical-align: 0.1em;
+	transition: border-color var(--animation-duration) var(--animation-function), background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+	.dark &
+	{
+		border-color: #aaa #888 #777 #999;
+		background-color: #404040;
+		color: white;
+	}
+}
+
+.nowrap
+{
+	white-space: nowrap;
+	@media (max-width: variables.$viewportWidthPhone)
+	{
+		&.require-minitab { white-space: inherit; }
+	}
+	@media (max-width: variables.$viewportWidthMinitab)
+	{
+		&.require-tablet { white-space: inherit; }
+	}
+	@media (max-width: variables.$viewportWidthTablet)
+	{
+		&.require-desktop { white-space: inherit; }
+	}
+	@media (max-width: variables.$viewportWidthDesktop)
+	{
+		&.require-wide { white-space: inherit; }
+	}
+}
+.pre-wrap
+{
+	white-space: pre-wrap;
+}
+
+span.vertical
+{
+	writing-mode: vertical-rl;
+	transform: rotate(180deg);
+	margin-left: -0.4em;
+}
+
+.sticky-aside-container
+{
+	&:not(.aside-left)
+	{
+		padding-right: calc(var(--sticky-aside-width) + var(--sticky-aside-gap));
+		> .sticky-aside
+		{
+			float: right;
+			margin-right: calc(-1 * (var(--sticky-aside-width) + var(--sticky-aside-gap)));
+		}
+	}
+	&.aside-left
+	{
+		padding-left: calc(var(--sticky-aside-width) + var(--sticky-aside-gap));
+		> .sticky-aside
+		{
+			float: left;
+			margin-left: calc(-1 * (var(--sticky-aside-width) + var(--sticky-aside-gap)));
+		}
+	}
+	> .sticky-aside
+	{
+		width: var(--sticky-aside-width);
+		position: sticky;
+		top: var(--sticky-aside-top, 0);
+	}
+
+	@mixin too-narrow
+	{
+		padding-left: 0;
+		padding-right: 0;
+		> .sticky-aside
+		{
+			position: static;
+			float: none;
+			width: 100%;
+		}
+	}
+	@media (max-width: variables.$viewportWidthPhone)
+	{
+		&.require-minitab { @include too-narrow; }
+	}
+	@media (max-width: variables.$viewportWidthMinitab)
+	{
+		&.require-tablet { @include too-narrow; }
+	}
+	@media (max-width: variables.$viewportWidthTablet)
+	{
+		&.require-desktop { @include too-narrow; }
+	}
+	@media (max-width: variables.$viewportWidthDesktop)
+	{
+		&.require-wide { @include too-narrow; }
+	}
+}
+
+
+// ==================== Loading indicator ====================
+
+i.loading
+{
+	display: inline-block;
+	font-size: 32px;
+	width: 1em;
+	height: 1em;
+	&::before
+	{
+		display: block;
+		content: '';
+		box-sizing: border-box;
+		width: 100%;
+		height: 100%;
+		border-radius: 100%;
+		border-width: 0.16em;
+		border-style: solid;
+		border-color: var(--loading-color);
+		border-top-color: var(--loading-highlight-color);
+		animation: loading 1s linear;
+		animation-iteration-count: infinite;
+		transition: border-color var(--animation-duration) var(--animation-function), border-width var(--animation-duration) var(--animation-function);
+	}
+
+	&.thin::before
+	{
+		border-width: 0.08em;
+	}
+	&.thick::before
+	{
+		border-width: 0.24em;
+	}
+
+	&.small { font-size: 16px; }
+	&.medium { font-size: 24px; }
+	&.large { font-size: 64px; }
+
+	// Compensate the thickness a little for the small size
+	&.small.thin::before { border-width: 0.1em; }
+
+	&.middle
+	{
+		vertical-align: -0.3em;
+		&.small { vertical-align: -0.15em; }
+		&.medium { vertical-align: -0.25em; }
+		&.large { vertical-align: -0.4em; }
+	}
+
+	&.fast::before
+	{
+		animation-duration: 0.5s;
+	}
+	&.slow::before
+	{
+		animation-duration: 2s;
+	}
+	&.reverse::before
+	{
+		animation-direction: reverse;
+	}
+}
+
+@keyframes loading
+{
+	0% { transform: rotate(0); }
+	100% { transform: rotate(360deg); }
+}
+
+div.icon-label
+{
+	text-align: center;
+	i:empty
+	{
+		display: block;
+		margin: 0 auto 4px;
+	}
+}

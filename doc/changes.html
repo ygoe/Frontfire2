@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire change log</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Change log</h1>
+
+		<!-- NOTE: The first version and date in this file are picked up by the pack script. -->
+		<h2 id="v2-0-0-beta-1">Version 2.0.0-beta.1</h2>
+		<p>Released: 2022-11-13</p>
+		<p>New features since 1.x:</p>
+		<ul>
+			<li>ColorPicker plugin</li>
+			<li>Notification plugin</li>
+			<li>ToggleSwitch plugin</li>
+			<li>TreeView plugin</li>
+			<li>OffCanvas animation events</li>
+			<li>Several little enhancements and new methods</li>
+		</ul>
+		<p>Breaking changes since 1.x:</p>
+		<ul>
+			<li>Internet Explorer and Classic Edge are no longer supported (haven’t been tested lately anyway)</li>
+			<li>jQuery calls replaced by Frontfire, mostly just use <code>F()</code> instead of <code>$()</code></li>
+			<li>Sass variables replaced by CSS variables, no need to recompile to customise</li>
+			<li>The <code>data-opt</code> attribute syntax has changed from jQuery-parsed relaxed JSON to a <a href="frontfire-ui-options.html#data-opt">new CSS-like notation</a>. Complex values may not be supported anymore or harder to write.</li>
+			<li>CSS class <code class="css-class">page-width</code> is always width-limited, for full width the class <code class="css-class">full-page-width</code> must be used</li>
+			<li>Hyperlinks are underlined again (except when hovered), customise with the <code class="css-var">--link-text-decoration</code> and <code class="css-var">--link-hover-text-decoration</code> CSS variables</li>
+			<li>CSS classes of messages (<code class="css-class">critical</code>, <code class="css-class">error</code>, <code class="css-class">warning</code>, <code class="css-class">information</code>, <code class="css-class">success</code>) must be used together with <code class="css-class">message</code></li>
+			<li>CSS class <code>wide</code> for <code data-lang="html">&lt;hr&gt;</code> replaced with <code class="css-class">double-margin</code></li>
+			<li>CSS classes <code>left-align</code> and <code>right-align</code> renamed to <code class="css-class">left</code> and <code class="css-class">right</code></li>
+			<li>CSS classes <code>nowrap-require-*</code> replaced by combination of <code class="css-class">nowrap</code> and <code>require-*</code></li>
+			<li>CSS class <code>inverted</code> (with <code class="css-class">loading</code>) removed, use dark theme instead</li>
+			<li><code data-lang="html">&lt;a&gt;</code> within <code data-lang="html">&lt;div class="buttons"&gt;</code> is no longer a button, add the <code class="css-class">button</code> class explicitly</li>
+			<li>JavaScript <code>frontfire()</code> method with arguments indicating autostart mode must be replaced with the separate <a href="frontfire-core.html#modal"><code>autostart()</code></a> method without arguments.</li>
+			<li>JavaScript <a href="frontfire-core.html#modal"><code>F.modal()</code></a> returns Promise instead of accepting a resultHandler option.</li>
+			<li>Modal option <code>cancellable</code> renamed to <code>cancelable</code> (US spelling, as in DOM events API)</li>
+			<li>JavaScript <code>F.updateLastColumn()</code> renamed to <a href="frontfire-core.html#updateFirstLastColumn"><code>updateFirstLastColumn()</code></a></li>
+			<li>The <code>step</code> or <code>data-step</code> attribute of <code data-lang="html">&lt;input type="number"&gt;</code> elements cannot contain values like "*10" anymore, the step factor must be specified in the <a href="frontfire-ui-form.html#spinner-step-factor"><code>data-step-factor</code></a> attribute.</li>
+			<li>CSS class <code>white-margin</code> renamed to <code class="css-class">white-border</code></li>
+			<li>Multiple adjacent buttons in a <code class="css-class">segmented-input</code> element must be grouped in an additional <code data-lang="html">&lt;span class="group"&gt;</code> to keep their separator lines.</li>
+			<li>CSS class <code>no-autostart</code> renamed to <code class="css-class">no-frontfire</code></li>
+			<li>Dropdown method <a href="frontfire-ui-dropdown.html#isOpen"><code>isOpen</code></a> is now a property</li>
+			<li>Dropdown <code>dropdownclose</code> event renamed to <a href="frontfire-ui-dropdown.html#closing"><code>closing</code></a> in contexts where it is cancellable and <a href="frontfire-ui-dropdown.html#close-event"><code>close</code></a> for the final event (the second one is always triggered)</li>
+			<li>Selectable methods <code>addChild</code> and <code>removeChild</code> removed, not needed anymore</li>
+			<li>Selectable event <code>selectionchange</code> renamed to <code>change</code> (as for native input fields)</li>
+			<li>Selectable option <code>allowEmpty</code> renamed to <code>required</code> (similar to HTML), now negated value</li>
+			<li>Disabled dropdown menu items need the <code>disabled</code> attribute on the <code data-lang="html">&lt;a&gt;</code> child element instead of the <code data-lang="html">&lt;li&gt;</code> element.</li>
+			<li>Progressbar event <code>valuechange</code> renamed to <a href="frontfire-ui-progressbar.html#change"><code>change</code></a></li>
+			<li>Progressbar methods <code>value</code>, <code>valuePrefix</code> and <code>valueSuffix</code> are now <a href="frontfire-ui-progressbar.html#properties">properties</a></li>
+			<li>Tabs methods <a href="frontfire-ui-tabs.html#activeTab"><code>activeTab</code></a> and <a href="frontfire-ui-tabs.html#pages"><code>pages</code></a> are now properties</li>
+			<li>Tabs property <a href="frontfire-ui-tabs.html#activeTab"><code>activeTab</code></a> can only handle page nodes, use <a href="frontfire-ui-tabs.html#activeTabIndex"><code>activeTabIndex</code></a> to use page index numbers.</li>
+			<li>Sortable method <code>addChild</code> removed, not needed anymore</li>
+			<li>Slider event <code>valuechange</code> renamed to <a href="frontfire-ui-slider.html#change"><code>change</code></a></li>
+		</ul>
+	</main>
+
+	<footer class="full-page-width">
+		Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+		All rights reserved. See the licence notes.
+	</footer>
+
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+	<script src="res/doc.js"></script>
+</body>
+</html>

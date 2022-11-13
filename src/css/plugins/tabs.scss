@@ -1,0 +1,165 @@
+// Use flexbox for the tab page contents to allow stretching and scrolling
+.tabs.flex
+{
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;   // Required all the way through the hierarchy to not extend all containers to the scroll size
+}
+
+.ff-tab-headers
+{
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+
+	> a
+	{
+		text-decoration: none;
+		border: 1px solid var(--tabs-border-color);
+		margin-top: 1px;   // Don't extend outside the tabs container for the overflow:hidden
+		margin-right: -1px;
+		padding: 3px 10px 4px;
+		transition: border-color var(--animation-duration) var(--animation-function), background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function), box-shadow var(--animation-duration) var(--animation-function);
+		
+		&:any-link
+		{
+			color: var(--tabs-color, black);
+			&:hover
+			{
+				color: var(--tabs-color, black);
+				transition: background-color 0s;
+			}
+		}
+		&:focus
+		{
+			outline-offset: -3px;
+		}
+		&:last-child
+		{
+			margin-right: 0;
+		}
+		&.active
+		{
+			margin-top: 0;
+			border-bottom-color: transparent;
+			padding-top: 4px;
+			background: var(--tabs-active-header-background);
+			// The following would be nice but it disables all border sides, causing flashes when toggling dark theme
+			//transition: border-bottom-color 0s;
+		}
+		&:not(.active)
+		{
+			background: var(--tabs-inactive-header-background);
+			box-shadow: 0 -5px 3px -5px rgba(0, 0, 0, 0.2) inset;
+			&:hover
+			{
+				background: var(--tabs-inactive-header-hover-background);
+			}
+			.dark &
+			{
+				box-shadow: 0 -5px 5px -5px rgba(0, 0, 0, 0.5) inset;
+			}
+		}
+	}
+	&::after
+	{
+		content: '';
+		flex-grow: 1;
+		border-bottom: 1px solid var(--tabs-border-color);
+		transition: border-color var(--animation-duration) var(--animation-function);
+	}
+}
+
+.ff-tab-pages
+{
+	border-left: 1px solid var(--tabs-border-color);
+	border-right: 1px solid var(--tabs-border-color);
+	border-bottom: 1px solid var(--tabs-border-color);
+	padding: 10px;
+	background: var(--tabs-page-background);
+	transition: border-color var(--animation-duration) var(--animation-function), background-color var(--animation-duration) var(--animation-function);
+
+	> div
+	{
+		display: none;
+		&.active
+		{
+			display: block;
+		}
+	}
+}
+
+.tabs.flex > .ff-tab-pages
+{
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+
+	> div.active
+	{
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+	}
+}
+
+.tabs.same-height > .ff-tab-pages
+{
+	display: grid;
+
+	> div
+	{
+		display: block;
+		visibility: hidden;
+		grid-row: 1;
+		grid-column: 1;
+		&.active
+		{
+			visibility: visible;
+		}
+	}
+}
+
+.tabs.no-border
+{
+	.ff-tab-headers
+	{
+		> a
+		{
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			margin-top: 0;
+			margin-right: 0;
+			padding-top: 4px;
+			&.active
+			{
+				background: none;
+				border-bottom: solid 2px var(--tabs-noborder-active);
+				padding-bottom: 3px;   // less padding for thicker border
+			}
+			&:not(.active)
+			{
+				background: none;
+				box-shadow: none;
+				&:hover
+				{
+					background: none;
+					border-bottom: solid 2px var(--tabs-noborder-hover);
+					padding-bottom: 3px;   // less padding for thicker border
+				}
+				.dark &
+				{
+					box-shadow: none;
+				}
+			}
+		}
+	}
+	.ff-tab-pages
+	{
+		border: none;
+		padding: 10px 0 0;
+		background: none;
+	}
+}

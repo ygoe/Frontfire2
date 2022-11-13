@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Dropdown documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Dropdown plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			Frontfire UI provides a dropdown panel that is placed near an originating element and overlays the page.
+		</p>
+		<p>
+			This plugin is available in the Minimal and Complete bundles.
+		</p>
+
+		<h2 id="description">Description</h2>
+		<p>
+			A dropdown is an element that is opened upon user interaction with a specific element.
+			It is placed near that element (at either side) and overlays the surrounding content on the page so that it does not move anything around.
+			The dropdown content can be freely defined in an HTML element with the <code class="css-class">dropdown</code> CSS class which applies basic dropdown styles and makes the element invisible at first.
+			The additional <code class="css-class">bordered</code> class adds a border around the dropdown element to better separate it from the background.
+		</p>
+		<p>
+			To open a dropdown element, call the <a href="frontfire-core.html#dropdown"><code>dropdown()</code></a> plugin function on the element to show as dropdown.
+			The function takes the target placement element and options as arguments.
+			The options are optional and can alternatively be specified as data-opt HTML attributes with the dropdown HTML element.
+		</p>
+
+		<h2 id="example">Example</h2>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;)dropdown bordered(?=&quot;)|(?<=\.)dropdown(?=\()|dropdown\.close">
+			<div id="dropdown1" class="dropdown bordered" style="width: 400px; max-width: 95%; padding: 10px;">
+				<h2 class="no-top-margin">Dropdown title</h2>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non vestibulum odio, nec rhoncus metus. Suspendisse consectetur erat id dui ultricies vulputate. Ut commodo sem eget dapibus malesuada. Praesent ligula ligula, egestas sit amet arcu interdum, pharetra dapibus nibh. Sed posuere dapibus nulla.
+				</p>
+				<div class="buttons">
+					<button id="dropdown1-accept" class="default">Accept</button>
+					<button id="dropdown1-deny">Deny</button>
+				</div>
+			</div>
+			<div class="buttons p">
+				<button id="open-dropdown1">Open dropdown</button>
+			</div>
+			<p>
+				Result: <span id="dropdown1-result">Not yet opened</span>
+			</p>
+			<script>
+				let dropdown;
+				F("#open-dropdown1").on("click", event => {
+					dropdown = F("#dropdown1").dropdown(event.currentTarget);
+				});
+
+				F("#dropdown1").on("close", () => {
+					F("#dropdown1-result").textContent = "Cancelled";
+				});
+				F("#dropdown1-accept").on("click", () => {
+					dropdown.close();
+					F("#dropdown1-result").textContent = "Accepted";
+				});
+				F("#dropdown1-deny").on("click", () => {
+					dropdown.close();
+					F("#dropdown1-result").textContent = "Denied";
+				});
+			</script>
+		</div>
+
+		<h2 id="options">Options</h2>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>autoClose</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the dropdown is closed when clicking anywhere outside of it.</td>
+					<td>true</td>
+				</tr>
+				<tr>
+					<td><code>closeOnHide</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the dropdown is closed when the document is hidden.</td>
+					<td>true</td>
+				</tr>
+				<tr>
+					<td><code>closeOnResize</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the dropdown is closed when the window is resized.</td>
+					<td>true</td>
+				</tr>
+				<tr>
+					<td><code>cssClass</code></td>
+					<td>String, Iterable</td>
+					<td>Additional CSS classes to add to the dropdown container.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>fixed</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the dropdown has fixed position instead of absolute.</td>
+					<td>false</td>
+				</tr>
+				<tr>
+					<td><code>maxHeight</code></td>
+					<td>Number</td>
+					<td>The maximum height of the dropdown, in pixels. If the value is 0, there is no limit.</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td><code>minWidth</code></td>
+					<td>Number</td>
+					<td>The minimum width of the dropdown, in pixels.</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td><code>placement</code></td>
+					<td>String</td>
+					<td>The placement of the dropdown relative to the target element. It is a combination of the primary (“top”, “bottom”, “left”, “right”) and secondary alignment (“top”, “bottom”, “left”, “right”, “center”), separated by a dash (<code>-</code>). The shortcut value “right” means “bottom-right”.</td>
+					<td>"bottom-left"</td>
+				</tr>
+				<tr>
+					<td><code>style</code></td>
+					<td>Object</td>
+					<td>Additional CSS styles to add to the dropdown container. This can be any format supported by <a href="frontfire-core.html#style">Frontfire.style</a>.</td>
+					<td>None</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="properties">Plugin properties</h2>
+		<p>
+			This plugin provides properties to access the dropdown state.
+		</p>
+
+		<div class="member">
+			<h3 id="isOpen">isOpen</h3>
+			<ul>
+				<li><code>isOpen</code> → Boolean</li>
+			</ul>
+			<p>
+				Determines whether the dropdown is currently open.
+				This property cannot be written.
+			</p>
+<div class="code">if (F("#dropdown").dropdown.isOpen) {
+	// ...
+}
+</div>
+		</div>
+
+		<h2 id="methods">Plugin methods</h2>
+		<p>
+			This plugin provides methods to control the open dropdown.
+		</p>
+
+		<div class="member">
+			<h3 id="close">close</h3>
+			<ul>
+				<li><code>close()</code> → this</li>
+			</ul>
+			<p>
+				Closes the selected dropdown.
+			</p>
+<div class="code">F("#dropdown").dropdown.close();
+</div>
+		</div>
+
+		<h2 id="events">Plugin events</h2>
+		<p>
+			This plugin triggers events for the dropdown.
+		</p>
+
+		<div class="member">
+			<h3 id="closing">closing</h3>
+			<p>
+				Triggered when the dropdown is about to close.
+				This event can be cancelled by calling <code>event.preventDefault()</code> to keep the dropdown open.
+			</p>
+		</div>
+
+		<div class="member">
+			<h3 id="close-event">close</h3>
+			<p>
+				Triggered when the dropdown is closed.
+			</p>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

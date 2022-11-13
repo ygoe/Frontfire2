@@ -1,0 +1,39 @@
+{
+  "projectName": "Frontfire 2",
+  "keepIntermediaryFiles": true,
+  "files": [
+    {
+      "name": "src/css/frontfire-ui-complete.scss"
+    },
+    {
+      "name": "src/css/frontfire-ui-minimal.scss"
+    },
+    {
+      "name": "src/js/arraylist.js"
+    },
+    {
+      "name": "src/js/color.js"
+    },
+    {
+      "name": "src/js/datacolor.js"
+    },
+    {
+      "name": "src/js/frontfire-core.js"
+    },
+    {
+      "name": "src/js/frontfire-core-singlefile.js"
+    },
+    {
+      "name": "src/js/frontfire-ui-complete.js"
+    },
+    {
+      "name": "src/js/frontfire-ui-complete-singlefile.js"
+    },
+    {
+      "name": "src/js/frontfire-ui-minimal.js"
+    },
+    {
+      "name": "src/js/frontfire-ui-minimal-singlefile.js"
+    }
+  ]
+}

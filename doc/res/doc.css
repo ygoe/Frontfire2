@@ -1,0 +1,955 @@
+@import url("material-symbols-one.css");
+
+/* ==================== Page ==================== */
+
+:root
+{
+	--header-background: hsl(0, 35%, 24%);
+	--footer-background: hsl(0, 35%, 24%, 0.04);
+	--header-height: 56px;   /* logo height + vertical padding */
+	--fixed-header-height: var(--header-height);
+	--sticky-aside-top: calc(var(--fixed-header-height) + 1rem);
+	--aside-width: 220px;
+	--notification-top-base: var(--header-height);
+	--notification-z-index: 9;   /* stay below fixed header */
+}
+.dark
+{
+	--header-background: hsl(0, 45%, 30%);
+	--footer-background: hsl(0, 45%, 30%, 0.25);
+}
+
+body
+{
+	padding-top: 5rem;
+}
+
+header
+{
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: var(--header-height);
+	background-color: var(--header-background);
+	color: #f4f4f4;
+	box-shadow: 0 0 5px 2px rgb(0, 0, 0, 0.1);
+	transition: background-color var(--animation-duration) var(--animation-function);
+
+	display: flex;
+	align-items: stretch;
+}
+@media (max-height: 450px), print   /* same as for #search-box */
+{
+	:root
+	{
+		--fixed-header-height: 0;
+		--sticky-aside-top: 1rem;
+	}
+	header
+	{
+		position: absolute;
+	}
+}
+header > a
+{
+	padding: 10px 0 10px 15px;
+}
+header > a + a
+{
+	--link-color-l: #f4f4f4;
+	--link-hover-color: #f4f4f4;
+	--link-text-decoration: none;
+	padding: 10px 0 10px 0;
+	flex-shrink: 1;
+	font-size: 25px;
+	line-height: 36px;   /* logo image height */
+	font-weight: 300;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+header > a img
+{
+	width: 36px;
+	height: 36px;
+	vertical-align: -7px;
+	margin-right: 16px;
+}
+header > a > span
+{
+	display: inline-grid;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+header > a > span > span
+{
+	grid-row: 1;
+	grid-column: 1;
+	position: relative;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	transition: opacity calc(var(--animation-duration) * 2) var(--animation-function), top calc(var(--animation-duration) * 2) var(--animation-function);
+}
+header > a > span > span.title
+{
+	opacity: 1;
+	top: 0;
+}
+header > a > span > span.h1copy
+{
+	opacity: 0;
+	top: 20px;
+}
+header > a > span.shift > span.title
+{
+	opacity: 0;
+	top: -20px;
+}
+header > a > span.shift > span.h1copy
+{
+	opacity: 1;
+	top: 0;
+}
+header.no-h1copy > a > span > span.title
+{
+	opacity: 1 !important;
+	top: 0 !important;
+}
+header.no-h1copy > a > span > span.h1copy
+{
+	display: none;
+}
+@media print
+{
+	header
+	{
+		background-color: transparent;
+		color: black;
+		box-shadow: none;
+		border-bottom: solid 0.5px black;
+	}
+	header > a,
+	header > a + a
+	{
+		padding: 0;
+		color: black;
+	}
+	header > a + a
+	{
+		font-size: 35px;
+		line-height: 45px;   /* logo image height */
+	}
+	header > a img
+	{
+		width: 45px;
+		height: 45px;
+		vertical-align: -7px;
+		margin-right: 20px;
+	}
+	header > a > span > span.title
+	{
+		opacity: 1 !important;
+		top: 0 !important;
+	}
+	header > a > span > span.h1copy
+	{
+		display: none;
+	}
+}
+
+/* Don't let the left link expand to the full width, it's clickable. Use this empty spacer instead. */
+header > div.spacer
+{
+	flex-grow: 1;
+}
+
+#dark-theme-box
+{
+	--toggle-switch-unset-h: 51;
+	--toggle-switch-unset-s: 85%;
+	--toggle-switch-unset-l: 65%;
+	--toggle-switch-set-h: 245;
+	--toggle-switch-set-s: 100%;
+	--toggle-switch-set-l: 80%;
+	flex-shrink: 0;
+	margin-top: 7px;
+	padding: 10px 15px 10px 10px;
+}
+@media print
+{
+	#dark-theme-box
+	{
+		display: none;
+	}
+}
+#dark-theme-switch
+{
+	margin: 0 3px;
+}
+#dark-theme-box svg
+{
+	height: 15px;
+	vertical-align: 4px;
+	transition: opacity var(--animation-duration) var(--animation-function);
+}
+.light-icon
+{
+	fill: hsl(var(--toggle-switch-unset-h), var(--toggle-switch-unset-s), var(--toggle-switch-unset-l));
+}
+.dark-icon
+{
+	fill: hsl(var(--toggle-switch-set-h), var(--toggle-switch-set-s), var(--toggle-switch-set-l));
+	opacity: 0.5;
+}
+.dark .light-icon
+{
+	opacity: 0.5;
+}
+.dark .dark-icon
+{
+	opacity: unset;
+}
+
+footer
+{
+	margin-top: 4rem;
+	/* Keep empty space to scroll each element to the top */
+	padding-bottom: 2rem;
+	border-bottom: solid calc(100vh - 20rem) var(--footer-background);
+	font-size: var(--smaller-font-size);
+	line-height: var(--smaller-line-height);
+	transition: border-bottom-color var(--animation-duration) var(--animation-function);
+}
+@media print
+{
+	footer
+	{
+		padding-bottom: 0;
+		border-bottom: none;
+	}
+}
+
+/* ==================== Side panel and version ==================== */
+
+#search-box
+{
+	position: fixed;
+	z-index: 5;
+	top: 5rem;
+	left: 0;
+	width: var(--aside-width);
+	background-color: inherit;
+	padding: 5px 15px 2rem;
+}
+@media print
+{
+	#search-box
+	{
+		display: none;
+	}
+}
+#search-text
+{
+	width: 100%;
+}
+#search-text::placeholder
+{
+	font-size: 0.85em;
+}
+
+aside
+{
+	--link-text-decoration-color: transparent;
+	--link-hover-text-decoration-color: currentcolor;
+	position: fixed;
+	top: 6rem;
+	bottom: 0;
+	left: 0;
+	width: var(--aside-width);
+	overflow-y: auto;
+	padding: 0 15px 40px 15px;
+	background-color: inherit;
+	font-size: 0.85rem;
+	line-height: 150%;
+}
+/* This media query should avoid the hover scrollbar effect on touch screens, but only works in Firefox, not Chrome (Android) */
+@media (hover: hover)
+{
+	aside
+	{
+		overflow-y: hidden;
+		scrollbar-width: thin;   /* Firefox */
+	}
+	/* Thin scrollbar alternative for Chrome */
+	aside::-webkit-scrollbar { width: 8px; background-color: rgb(160, 160, 160, 0.2); }
+	aside::-webkit-scrollbar-thumb { background-color: rgb(160, 160, 160, 0.5); }
+	aside::-webkit-scrollbar-thumb:hover { background-color: rgb(160, 160, 160, 0.8); }
+	aside::-webkit-scrollbar-thumb:active { background-color: rgb(160, 160, 160, 1); }
+	aside:hover
+	{
+		overflow-y: auto;
+	}
+}
+@media print
+{
+	aside
+	{
+		position: absolute;
+		padding-left: 0;
+	}
+}
+body.with-search aside
+{
+	top: 9rem;
+}
+aside > *
+{
+	/* Limit the content width to the available space with scrollbar to avoid line wrap jumping when hovering (= showing the scrollbar) */
+	max-width: calc(var(--aside-width) - 30px - 8px);
+}
+aside .heading
+{
+	margin: 1.5em 0 0.5em;
+	font-weight: 600;
+}
+aside .heading a,
+aside .heading a:hover,
+aside .heading a:focus
+{
+	color: var(--default-text-color);
+}
+aside .group:first-child .heading
+{
+	margin-top: 0;
+}
+aside .link a
+{
+	/* Make short names better clickable */
+	display: inline-block;
+	min-width: 25px;
+}
+aside .heading.active a,
+aside .link.active a
+{
+	--link-text-decoration-color: currentcolor;
+}
+aside .link.inherited
+{
+	font-style: italic;
+}
+aside .link.spaced
+{
+	margin-top: 0.4em;
+}
+aside .link.indented
+{
+	padding-left: 1rem;
+}
+aside .link.indented-2
+{
+	padding-left: 2rem;
+}
+
+aside .link a .match
+{
+	border-radius: 1.5px;
+	background: hsl(51, 100%, 75%, 0.8);
+	transition: color var(--animation-duration) var(--animation-function);
+}
+.dark aside .link a .match
+{
+	color: black;
+}
+
+body.with-aside main,
+body.with-aside footer
+{
+	padding-left: var(--aside-width);
+}
+
+@media (max-width: 800px)
+{
+	body.with-search
+	{
+		padding-top: 8rem;
+		--sticky-aside-top: 8rem;
+	}
+	#search-box
+	{
+		top: 0;
+		left: 0;
+		width: 100%;
+		box-sizing: border-box;
+		background: #ddd;
+		padding: 65px 15px 9px;
+		box-shadow: 0 0 5px 2px rgb(0, 0, 0, 0.1);
+	}
+	.dark #search-box
+	{
+		background: #707070;
+	}
+	aside
+	{
+		display: none;
+	}
+	body.with-aside main,
+	body.with-aside footer
+	{
+		padding-left: 0;
+	}
+}
+@media (max-height: 450px) and (max-width: 800px)   /* same height as for header */
+{
+	body.with-search
+	{
+		--sticky-aside-top: 1rem;
+	}
+	#search-box
+	{
+		position: absolute;
+	}
+}
+
+#version-div
+{
+	font-size: var(--smaller-font-size);
+}
+
+#results-count
+{
+	display: none;
+	margin-top: 0;
+	padding-top: 1em;
+	color: #28a428;
+	font-weight: 600;
+}
+.dark #results-count
+{
+	color: #2fc12f;
+}
+#no-results
+{
+	display: none;
+	margin-top: 0;
+	padding-top: 1em;
+	color: #ee3b2b;
+	font-weight: 600;
+}
+.dark #no-results
+{
+	color: #f05142;
+}
+
+
+/* ==================== Content ==================== */
+
+div.doc-parts
+{
+	--box-background: #f4f4f4;
+	--box-background-hover: hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l), 0.1);
+	--separator-color: hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l), 0.25);
+	display: flex;
+	align-items: stretch;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+.dark div.doc-parts
+{
+	--box-background: #2c2c2c;
+	--box-background-hover: hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l), 0.2);
+	--separator-color: hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l), 0.4);
+}
+div.doc-parts a
+{
+	--link-text-decoration: none;
+	width: 200px;
+	/*max-width: calc(50% - 5px);*/
+	background-color: var(--box-background);
+	padding: 1rem 0.75rem;
+	transition: background-color var(--animation-duration) var(--animation-function);
+}
+@media (max-width: 1950px) { div.doc-parts a { width: calc((100% - 8 * 10px) / 9 - 0.1px); } }
+@media (max-width: 1750px) { div.doc-parts a { width: calc((100% - 7 * 10px) / 8 - 0.1px); } }
+@media (max-width: 1550px) { div.doc-parts a { width: calc((100% - 6 * 10px) / 7 - 0.1px); } }
+@media (max-width: 1350px) { div.doc-parts a { width: calc((100% - 5 * 10px) / 6 - 0.1px); } }
+@media (max-width: 1150px) { div.doc-parts a { width: calc((100% - 4 * 10px) / 5 - 0.1px); } }
+@media (max-width: 950px) { div.doc-parts a { width: calc((100% - 3 * 10px) / 4 - 0.1px); } }
+@media (max-width: 750px) { div.doc-parts a { width: calc((100% - 2 * 10px) / 3 - 0.1px); } }
+@media (max-width: 550px) { div.doc-parts a { width: calc((100% - 1 * 10px) / 2 - 0.1px); } }
+@media (max-width: 350px) { div.doc-parts a { width: 100%; } }
+div.doc-parts a:hover
+{
+	background-color: var(--box-background-hover);
+	transition: background-color 0s;
+}
+div.doc-parts a span.title
+{
+	display: block;
+	margin-bottom: 10px;
+	border-bottom: solid 1px var(--separator-color);
+	padding-bottom: 10px;
+	text-align: center;
+	font-size: 1.2em;
+	font-weight: 600;
+}
+div.doc-parts a span.type
+{
+	display: block;
+	margin-bottom: 5px;
+	text-align: center;
+	font-size: 0.8em;
+	text-transform: uppercase;
+}
+div.doc-parts a span.bundles
+{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 4px;
+	margin-bottom: 5px;
+	font-size: 0.7em;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+div.doc-parts a span.bundles span
+{
+	border-radius: 2px;
+	padding: 0 3px;
+	color: white;
+}
+div.doc-parts a span.bundles span.minimal
+{
+	background: #86b300;
+}
+div.doc-parts a span.bundles span.minimal::before
+{
+	content: "Minimal";
+}
+div.doc-parts a span.bundles span.complete
+{
+	background: #b43c3c;
+}
+div.doc-parts a span.bundles span.complete::before
+{
+	content: "Complete";
+}
+div.doc-parts a span.description
+{
+	display: block;
+	text-align: center;
+}
+
+body.with-aside section:not(.intro) h2
+{
+	margin-top: 3rem;
+	padding-bottom: 1px;
+	border-bottom: 2px solid var(--default-text-color);
+}
+div.member.not-first
+{
+	border-top: 1px solid rgb(160, 160, 160, 0.5);
+	margin-top: 2rem;
+}
+div.member hr
+{
+	border-top: 1px dashed rgb(160, 160, 160, 0.5);
+}
+div.member h3
+{
+	margin-top: calc(2rem - 3px);
+	font-size: 19px;   /* slightly larger than Frontfire default 18.2px */
+}
+div.member h4
+{
+	margin-top: calc(2rem - 3px);
+	font-size: 16px;   /* slightly larger than Frontfire default 15.4px */
+}
+div.member > :is(h3, p.inherited) + ul > li > code
+{
+	background-color: unset;
+	padding: 0;
+}
+div.member ul,
+div.member ol
+{
+	padding-left: 2em;
+}
+div.member span.elements,
+div.member span.type,
+div.member span.range,
+div.member span.default,
+div.member span.plugin
+{
+	font-weight: 600;
+}
+div.member span.range,
+div.member span.default
+{
+	margin-left: 1em;
+}
+div.member span.unset
+{
+	display: inline-block;
+	margin-left: 3px;
+	vertical-align: 1px;
+	border-radius: 2px;
+	background-color: #999;
+	color: var(--default-background);
+	padding: 2px 3px;
+	transition: background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+}
+div.member span.unset::before
+{
+	display: block;
+	content: "initially unset";
+	font-weight: 600;
+	font-size: 0.7em;
+	line-height: 1.15;
+	text-transform: uppercase;
+}
+.dark div.member span.unset
+{
+	background-color: #bbb;
+}
+div.member span.live-test
+{
+	font-weight: 600;
+}
+div.member span.live-test.true
+{
+	background-color: #39c91d;
+	color: white;
+	padding: 0 3px;
+	border-radius: 2px;
+}
+div.member span.live-test.false
+{
+	color: #ee3b2b;
+}
+p.inherited,
+p.see-also
+{
+	font-size: 0.85em;
+	line-height: 140%;
+}
+p.see-also::before
+{
+	content: "↗";   /* north east arrow */
+	font-size: 1.4em;
+	line-height: 1;
+	margin-right: 2px;
+}
+span.source
+{
+	margin-left: 1em;
+	font-size: 0.85em;
+}
+
+a.copy-button
+{
+	margin-left: 10px;
+	padding: 4px;
+}
+a.copy-button svg
+{
+	fill: #ddd;
+	transition: fill var(--animation-duration) var(--animation-function);
+}
+a.copy-button:hover svg
+{
+	fill: #999;
+	transition: fill 0s;
+}
+.dark a.copy-button svg
+{
+	fill: #555;
+}
+.dark a.copy-button:hover svg
+{
+	fill: #aaa;
+}
+
+.aside-options
+{
+	border-left: 2px solid rgb(160, 160, 160, 0.5);
+	padding-left: 1rem;
+}
+.aside-options::before
+{
+	display: block;
+	margin-bottom: 10px;
+	content: "Example options";
+	font-weight: 600;
+}
+.aside-options > *:not(:last-child)
+{
+	margin-bottom: 0.5rem;
+}
+.aside-options > div.header
+{
+	margin-top: 1rem;
+	margin-bottom: 0.2rem;
+	font-size: 0.8em;
+	font-weight: 600;
+	text-transform: uppercase;
+	opacity: 0.6;
+}
+
+
+/* ==================== Source code ==================== */
+
+div.example-group
+{
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+div.example-group:not(.full-width)
+{
+	max-width: 900px;
+}
+div.example
+{
+	border: solid 2px rgb(160, 160, 160, 0.5);
+	padding-left: 1rem;
+	padding-right: 1rem;
+	break-inside: avoid;
+}
+div.example.narrow
+{
+	max-width: 400px;
+}
+div.example.p
+{
+	/* undo .p */
+	margin-top: 0;
+	margin-bottom: 0;
+	/* add inner spacing */
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+/* For showing unsymmetric elements in the example */
+div.example.p-top
+{
+	padding-top: 1rem;
+}
+div.example.p-bottom
+{
+	padding-bottom: 1rem;
+}
+/* For use with content with the page-width class */
+div.example.page-wide
+{
+	padding-left: 0;
+	padding-right: 0;
+	--page-width: 700px;
+}
+/* Simulate <html class="center"> */
+div.example.page-wide .page-width
+{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.example-resize-container
+{
+	display: flex;
+}
+div.example-resize-container > div.example
+{
+	flex-grow: 1;
+	border-right: none;
+	overflow: hidden;
+}
+div.example-resize-handle
+{
+	touch-action: pan-y;
+	position: relative;   /* for ::before child */
+	width: 12px;
+	flex-shrink: 0;
+	cursor: ew-resize;
+	background: rgb(160, 160, 160, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+/* Make the touch surface larger */
+div.example-resize-handle::before
+{
+	content: "";
+	position: absolute;
+	width: 24px;
+	left: -6px;
+	top: 0;
+	bottom: 0;
+}
+div.example-resize-handle:hover
+{
+	background: rgb(160, 160, 160, 0.65);
+}
+div.example-resize-handle svg rect
+{
+	fill: rgb(0, 0, 0, 0.15);
+}
+div.example-resize-handle:hover svg rect
+{
+	fill: rgb(0, 0, 0, 0.25);
+}
+
+div.code
+{
+	--tab-size: 4;   /* also used for indenting wrapped lines in JavaScript */
+	background-color: rgb(0, 0, 0, 0.03);   /* half of default opacity */
+	border-left: solid 1.5rem var(--code-background);
+	padding: 3px 0.5rem;
+	tab-size: var(--tab-size);
+	white-space: pre-wrap;
+	transition: border var(--animation-duration) var(--animation-function), background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+}
+.dark div.code
+{
+	background-color: rgb(255, 255, 255, 0.06);   /* half of default opacity */
+}
+/* Undo for examples */
+div.example div.code
+{
+	background-color: var(--code-background);
+	padding: var(--code-inline-padding);
+	border-left: none;
+	white-space: unset;
+}
+
+/* Syntax highlighting colours */
+:root
+{
+	--syntax-comment: #808080;
+	--syntax-string: #ac1616;
+	--syntax-type: #008080;
+	--syntax-keyword: #0770e9;
+	--syntax-result: #00b000;
+	--syntax-tag: #7c0af5;
+	--syntax-attribute: #13a2be;
+	--syntax-entity: #2e9900;
+	--syntax-id-selector: #e57506;
+	--syntax-type-selector: var(--syntax-tag);
+	--syntax-attribute-selector: var(--syntax-attribute);
+	--syntax-attribute-selector-value: var(--syntax-string);
+}
+.dark
+{
+	--syntax-comment: #999999;
+	--syntax-string: #ea8080;
+	--syntax-type: #0fbdbd;
+	--syntax-keyword: #61a5ff;
+	--syntax-tag: #cba1f7;
+	--syntax-attribute: #6cd0e4;
+	--syntax-entity: #6ad03e;
+	--syntax-type-selector: var(--syntax-tag);
+	--syntax-attribute-selector: var(--syntax-attribute);
+	--syntax-attribute-selector-value: var(--syntax-string);
+}
+
+code .syntax-comment, div.code .syntax-comment
+{
+	color: var(--syntax-comment);
+}
+code .syntax-string, div.code .syntax-string
+{
+	color: var(--syntax-string);
+}
+code .syntax-type, div.code .syntax-type
+{
+	color: var(--syntax-type);
+}
+code .syntax-keyword, div.code .syntax-keyword
+{
+	color: var(--syntax-keyword);
+}
+code .syntax-result, div.code .syntax-result
+{
+	background-color: var(--default-background);
+	color: var(--syntax-result);
+}
+code .syntax-tag, div.code .syntax-tag
+{
+	color: var(--syntax-tag);
+}
+code .syntax-attribute, div.code .syntax-attribute
+{
+	color: var(--syntax-attribute);
+}
+code .syntax-entity, div.code .syntax-entity,
+code .syntax-class-selector, div.code .syntax-class-selector
+{
+	color: var(--syntax-entity);
+}
+code .syntax-id-selector, div.code .syntax-id-selector
+{
+	color: var(--syntax-id-selector);
+}
+code .syntax-type-selector, div.code .syntax-type-selector
+{
+	color: var(--syntax-type-selector);
+}
+code .syntax-attribute-selector, div.code .syntax-attribute-selector
+{
+	color: var(--syntax-attribute-selector);
+}
+code .syntax-attribute-selector-value, div.code .syntax-attribute-selector-value
+{
+	color: var(--syntax-attribute-selector-value);
+}
+code span, div.code span
+{
+	transition: background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+}
+
+code.inline-script,
+div.code .inline-script
+{
+	/*background-color: rgb(255, 128, 0, 0.12);*/
+}
+code.inline-style,
+div.code .inline-style
+{
+	/*background-color: rgb(128, 255, 0, 0.12);*/
+}
+span.color-preview
+{
+	display: inline-block;
+	width: calc(2ch - 4px);
+	height: calc(2ch - 4px);
+	margin: 1px 3px 1px 1px;
+	vertical-align: -2px;
+	border-radius: 1ch;
+	box-shadow: 0 0 2px gray;
+}
+
+div.code .highlight
+{
+	--highlight-color: hsl(56, 100%, 70%, 0.6);
+	background-color: var(--highlight-color);
+	box-shadow: 0 0 1px 1px var(--highlight-color);
+	transition: background-color var(--animation-duration) var(--animation-function), box-shadow var(--animation-duration) var(--animation-function);
+}
+.dark div.code .highlight
+{
+	--highlight-color: hsl(200, 100%, 50%, 0.5);
+}
+@media (max-width: 500px)
+{
+	div.code
+	{
+		--tab-size: 2;
+		border-left-width: 10px;
+		font-size: 0.8em;
+		line-height: 125%;
+	}
+	/* Undo for examples */
+	div.example div.code
+	{
+		font-size: unset;
+		line-height: unset;
+	}
+}

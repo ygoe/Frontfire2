@@ -1,0 +1,66 @@
+.ff-toggle-switch
+{
+	--toggle-switch: hsl(var(--toggle-switch-unset-h), var(--toggle-switch-unset-s), var(--toggle-switch-unset-l));
+
+	-webkit-user-select: none;   // for Safari
+	user-select: none;
+	position: relative;
+	display: inline-block;
+	width: 34px;
+	height: 24px;
+	cursor: pointer;
+	div.background
+	{
+		position: absolute;
+		top: 6px;
+		bottom: 6px;
+		left: 2px;
+		right: 2px;
+		border-radius: 20px;
+		opacity: var(--toggle-switch-background-opacity, 0.5);
+		background-color: var(--toggle-switch);
+		transition: background-color 0.2s;
+	}
+	div.thumb
+	{
+		position: absolute;
+		top: 4px;
+		left: 0px;
+		width: 16px;
+		height: 16px;
+		border-radius: 20px;
+		background-color: var(--toggle-switch);
+		box-shadow: 0 1px 2px rgb(0, 0, 0, 0.2);
+		transition: background-color 0.2s, left 0.2s;
+	}
+	&.active
+	{
+		--toggle-switch: hsl(var(--toggle-switch-set-h), var(--toggle-switch-set-s), var(--toggle-switch-set-l));
+
+		div.thumb
+		{
+			left: 18px;
+		}
+	}
+	&.indeterminate
+	{
+		--toggle-switch: hsl(
+			calc((var(--toggle-switch-unset-h) + var(--toggle-switch-set-h)) / 2),
+			calc((var(--toggle-switch-unset-s) + var(--toggle-switch-set-s)) / 2),
+			calc((var(--toggle-switch-unset-l) + var(--toggle-switch-set-l)) / 2));
+
+		div.thumb
+		{
+			left: 9px;
+		}
+	}
+
+	// Separate class for Firefox, see https://bugzilla.mozilla.org/show_bug.cgi?id=1775199
+	&:is(:focus-visible, .ff-focus-visible)
+	{
+		outline: var(--focus-keyboard-outline);
+		outline-offset: var(--focus-keyboard-outline-offset);
+	}
+
+	// TODO: Add disabled state, better visually differentiate it from the deselected state (use grey only when disabled)
+}

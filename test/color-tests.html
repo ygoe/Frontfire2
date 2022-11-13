@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Color tests</title>
+	<script src="../src/js/build/color.min.js"></script>
+</head>
+
+<body>
+</body>
+
+<script>
+try {
+	// Test each method with all supported kinds of arguments
+
+	// Constructor
+	assert(null, c => new Color(""), {r:0, g:0, b:0, a:0}, "Constructor failed with empty string.");
+	assert(null, c => new Color("f80"), {r:0xff, g:0x88, b:0, a:1}, "Constructor failed with unprefixed 3-char hex string.");
+	assert(null, c => new Color("f803"), {r:0xff, g:0x88, b:0, a:0.2}, "Constructor failed with unprefixed 4-char hex string.");
+	assert(null, c => new Color("ff8000"), {r:0xff, g:0x80, b:0, a:1}, "Constructor failed with unprefixed 6-char hex string.");
+	assert(null, c => Color("ff8000"), {r:0xff, g:0x80, b:0, a:1}, "Constructor (without new) failed with unprefixed 6-char hex string.");
+	assert(null, c => new Color("ff800030"), {r:0xff, g:0x80, b:0, a:0.19}, "Constructor failed with unprefixed 8-char hex string.");
+	assert(null, c => new Color("#f80"), {r:0xff, g:0x88, b:0, a:1}, "Constructor failed with prefixed 3-char hex string.");
+	assert(null, c => new Color("#f803"), {r:0xff, g:0x88, b:0, a:0.2}, "Constructor failed with prefixed 4-char hex string.");
+	assert(null, c => new Color("#ff8000"), {r:0xff, g:0x80, b:0, a:1}, "Constructor failed with prefixed 6-char hex string.");
+	assert(null, c => new Color("#ff800030"), {r:0xff, g:0x80, b:0, a:0.19}, "Constructor failed with prefixed 8-char hex string.");
+	assert(null, c => new Color("rgb(1, 2, 3)"), {r:1, g:2, b:3, a:1}, "Constructor failed with rgb() string.");
+	assert(null, c => new Color("rgb(1, 2, 3, 0.5)"), {r:1, g:2, b:3, a:0.5}, "Constructor failed with rgb() string with alpha.");
+	assert(null, c => new Color("rgba(1, 2, 3, 0.5)"), {r:1, g:2, b:3, a:0.5}, "Constructor failed with rgba() string.");
+	assert(null, c => new Color("hsl(180, 100%, 50%)"), {r:0, g:255, b:255, a:1}, "Constructor failed with hsl() string.");
+	assert(null, c => new Color("hsl(180, 100%, 50%, 0.5)"), {r:0, g:255, b:255, a:0.5}, "Constructor failed with hsl() string with alpha.");
+	assert(null, c => new Color("hsla(180, 100%, 50%, 0.5)"), {r:0, g:255, b:255, a:0.5}, "Constructor failed with hsla() string.");
+	assert(null, c => new Color("red"), {r:255, g:0, b:0, a:1}, "Constructor failed with string 'red'.");
+	assert(null, c => new Color("transparent"), {r:0, g:0, b:0, a:0}, "Constructor failed with string 'transparent'.");
+	assert(null, c => new Color(0xff8000), {r:0xff, g:0x80, b:0, a:1}, "Constructor failed with RGB integer.");
+	assert(null, c => new Color(0x30ff8000), {r:0xff, g:0x80, b:0, a:0.188}, "Constructor failed with ARGB integer.");
+	assert(null, c => new Color(0xfeff8000), {r:0xff, g:0x80, b:0, a:0.996}, "Constructor failed with 32-bit ARGB integer.");
+	assert(null, c => new Color(0xffff8000), {r:0xff, g:0x80, b:0, a:1}, "Constructor failed with 32-bit ARGB integer with alpha 1.");
+	assert(null, c => new Color([1, 2, 3]), {r:1, g:2, b:3, a:1}, "Constructor failed with RGB array.");
+	assert(null, c => new Color([1, 2, 3, 0.5]), {r:1, g:2, b:3, a:0.5}, "Constructor failed with RGBA array.");
+	assert(null, c => new Color({r:1, g:2, b:3}), {r:1, g:2, b:3, a:1}, "Constructor failed with RGB object.");
+	assert(null, c => new Color({r:1, g:2, b:3, a:0.5}), {r:1, g:2, b:3, a:0.5}, "Constructor failed with RGBA object.");
+	assert(null, c => new Color({h:180, s:1, l:0.5}), {h:180, s:1, l:0.5, a:1}, "Constructor failed with HSL object.");
+
+	// toString
+	assert(new Color(0xff8000), c => c.toString(), 0xffff8000 + "", "toString() failed with integer.");
+	assert(new Color("#ff8000"), c => c.toString(), "#ff8000", "toString() failed with HTML string.");
+	assert(new Color("#ff800030"), c => c.toString(), "#ff800030", "toString() failed with HTML string with alpha.");
+	assert(new Color("rgb(1, 2, 3)"), c => c.toString(), "rgb(1, 2, 3)", "toString() failed with rgb() string.");
+	assert(new Color("rgba(1, 2, 3, 0.5)"), c => c.toString(), "rgb(1, 2, 3, 0.5)", "toString() failed with rgba() string.");
+	assert(new Color("rgba(1, 2, 3, 1)"), c => c.toString(), "rgb(1, 2, 3)", "toString() failed with rgba() string with alpha 1.");
+
+	// toCSS
+	// toCSSHSL
+	// toHTML
+	// toIntARGB
+	// toArray
+	// updateHSL
+	// updateRGB
+	// blendWith
+	// blendByHueWith
+	// invert
+	// complement
+	// lighten
+	// darken
+	// alpha
+	// gray
+	// isDark
+	// text
+	// description
+
+	document.body.textContent = "All tests passed.";
+}
+catch (error) {
+	console.error(error);
+	document.body.textContent = error;
+}
+
+function assert(color, fn, result, message) {
+	const ret = fn(color);
+	if (typeof result === "object") {
+		if ("r" in result) {
+			if (ret instanceof Color) {
+				if (ret.r !== result.r || ret.g !== result.g || ret.b !== result.b)
+					throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
+				if ("a" in result && ret.a !== result.a)
+					throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
+			}
+			else {
+				throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
+			}
+		}
+		else if ("h" in result) {
+			if (ret instanceof Color) {
+				if (ret.h !== result.h || ret.s !== result.s || ret.l !== result.l)
+					throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
+				if ("a" in result && ret.a !== result.a)
+					throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
+			}
+			else {
+				throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
+			}
+		}
+	}
+	else {
+		if (ret !== result)
+			throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
+	}
+}
+</script>
+</html>

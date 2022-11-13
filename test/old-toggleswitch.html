@@ -1,0 +1,34 @@
+<!doctype html>
+<html class="center">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Frontfire UI Toggle switch test</title>
+	<link rel="stylesheet" href="../../src/css/build/frontfire-ui-complete.min.css">
+</head>
+
+<body>
+	<div class="page-width">
+		<h1>Frontfire UI Toggle switch test</h1>
+
+		<div class="toggleswitch"></div>
+	</div>
+
+	<div class="dark p double-margin" style="padding: 1em 0;">
+		<div class="page-width">
+			<p>Now the same in a dark background.</p>
+
+			<div class="toggleswitch"></div>
+		</div>
+	</div>
+
+	<script src="../../src/js/build/frontfire-ui-complete-singlefile.bundle.js"></script>
+	
+	<script>
+		F(".toggleswitch").forEach(div => {
+			let toggleSwitch = div.F.toggleSwitch();
+			toggleSwitch.state = null;
+		});
+	</script>
+</body>
+</html>

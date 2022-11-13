@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Notification documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Notification plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			Frontfire UI provides a notification that overlays the page and disappears after a short while.
+			It can be used to display quick status messages like success or completion of a requested operation.
+		</p>
+		<p>
+			This plugin is available in the Minimal and Complete bundles.
+		</p>
+
+		<h2 id="description">Description</h2>
+		<p>
+			A notification is a small text panel that appears at the top of the window.
+			This is comparable to Toast messages on Android.
+			It can have different colours depending of the type of message.
+			Multiple concurrent notifications stack vertically.
+			Usually, a notification automatically disappears after a short moment, or when it is clicked before the timeout, but it can be set to permanent, too.
+			Notifications are less abtrusive than modal messages because they are smaller, usually out of the way and do not require any attention or confirmation.
+			They should not be used for messages that should not go unnoticed because they might be missed.
+		</p>
+		<p>
+			The colours of the notification types are the same as for the <a href="frontfire-ui-message.html">Message plugin</a>.
+			The timeout progress bar can be adjusted to the colours with the <code class="css-var">--notification-bar-critical-opacity</code>, <code class="css-var">--notification-bar-error-opacity</code>, <code class="css-var">--notification-bar-warning-opacity</code>, <code class="css-var">--notification-bar-information-opacity</code> and <code class="css-var">--notification-bar-success-opacity</code> CSS variables.
+		</p>
+		<p>
+			On pages with a dark header, the visibility of notifications can be improved by shifting them down under the header.
+			This offset can be set with the <code class="css-var">--notification-top-base</code> CSS variable.
+			Additionally, the Z-index can be set with the <code class="css-var">--notification-z-index</code> variable to put it just below the fixed header.
+		</p>
+
+		<h2 id="usage">Usage</h2>
+		<p>
+			To show a notification, call the <a href="frontfire-core.html#notify"><code>Frontfire.notify()</code></a> plugin function.
+			It is a static method and does not operate on any HTML elements.
+			The function takes 3 arguments:
+		</p>
+		<ol>
+			<li>The plain text to display. This may contain HTML special characters or line breaks.</li>
+			<li>The display style: “critical”, “error”, “warning”, “information”, “success” or other. Unknown or unset values render as “information”.</li>
+			<li>An object with additional options:
+				<ul>
+					<li><code>timeout</code>: The timeout to automatically hide the notification, in milliseconds. Default: 8000</li>
+					<li><code>quick</code>: Changes the default timeout to 3000.</li>
+					<li><code>permanent</code>: If true, the notification has no timeout and cannot be closed by the user.</li>
+					<li><code>onclose</code>: A callback function that is called when the notification is closed. It receives the close reason as first argument (“click”, “timeout”).</li>
+				</ul>
+			</li>
+		</ol>
+		<p>
+			The returned object contains methods and properties to manipulate the notification:
+		</p>
+		<ul>
+			<li><code>close(reason)</code>: Closes the notification. Can be called at any time. The <code>reason</code> parameter is passed to the <code>onclose</code> callback.</li>
+			<li><code>isOpen</code>: Determines whether the notification is still open. This property is read-only.</li>
+		</ul>
+
+		<h2 id="example">Example</h2>
+		<script>
+			const notificationTexts = [
+				"Debuggers don’t remove bugs. They only show them in slow motion.",
+				"Does the movement of the trees make the wind blow?",
+				"Don’t cry because it’s over, smile because it happened.",
+				"Don’t give up, lose interest.",
+				"Everything you want is on the other side of fear.",
+				"I feel a lot better now that I’ve given up hope.",
+				"I may be inconsistent, but not all the time.",
+				"If you’re looking for a sign, this is it.",
+				"It’s early, talk slower, use smaller words.",
+				"It’s not defective, it’s just different.",
+				"Make it idiot proof and someone will make a better idiot.",
+				"May the Source be with you!",
+				"Prejudice is merely applied statistics.",
+				"The object of golf is to play the least amount of golf.",
+				"There’s no place like ::1.",
+				"Think twice. Code once.",
+				"Travel is the only thing you buy that makes you richer.",
+				"When you feel like quitting, think about why you started.",
+				"Wherever you are – be there."
+			];
+
+			function getNotificationText() {
+				return notificationTexts[Math.trunc(Math.random() * 1000) % notificationTexts.length];
+			}
+		</script>
+		<div class="example no-frontfire" data-source-highlight="F\.notify|close(?=\(\))|isOpen|(quick|timeout|permanent)(?=:)">
+			<div class="buttons p">
+				<button data-type="">Show default notification</button>
+				<button data-type="" data-quick>Show quick default notification</button>
+				<button data-type="" data-long>Show long default notification</button>
+				<button data-type="" data-timeout="1000">Show 1 sec</button>
+				<button data-type="" data-timeout="30000">Show 30 sec</button>
+			</div>
+			<div class="buttons p">
+				<button data-type="critical">Show critical notification</button>
+				<button data-type="critical" data-quick>Show quick critical notification</button>
+			</div>
+			<div class="buttons p">
+				<button data-type="error">Show error notification</button>
+				<button data-type="error" data-quick>Show quick error notification</button>
+			</div>
+			<div class="buttons p">
+				<button data-type="warning">Show warning notification</button>
+				<button data-type="warning" data-quick>Show quick warning notification</button>
+			</div>
+			<div class="buttons p">
+				<button data-type="success">Show success notification</button>
+				<button data-type="success" data-quick>Show quick success notification</button>
+			</div>
+			<hr>
+			<div class="buttons p">
+				<button id="show">Show permanent notification</button>
+				<button id="close">Close notification</button>
+			</div>
+			<div class="buttons p">
+				<button id="is-open">Is it open?</button>
+			</div>
+			<script>
+				var notifications = [];
+				var lastNotification;
+
+				// Demo buttons for different options
+				F("button[data-type]").on("click", event => {
+					let button = event.currentTarget;
+					let text = getNotificationText();
+					let long = button.dataset.long !== undefined;
+					let type = button.dataset.type;
+					let quick = button.dataset.quick !== undefined;
+					let timeout = button.dataset.timeout ? parseInt(button.dataset.timeout) : undefined;
+					if (long)
+						text = "This is a very long message that may wrap on smaller screens.\nIt even contains a line break and <html> code.";
+					lastNotification = F.notify(text, type, { quick: quick, timeout: timeout });
+				});
+
+				// Show a new permanent notification
+				F.id("show").on("click", event => {
+					lastNotification = F.notify("This notification does not disappear.", "", { permanent: true });
+					notifications.push(lastNotification);
+				});
+				// Close the oldest permanent notification
+				F.id("close").on("click", event => {
+					if (notifications.length > 0)
+						notifications.shift().close();
+				});
+
+				F.id("is-open").on("click", event => {
+					let button = event.currentTarget;
+					button.textContent = "Is it open?";
+					if (lastNotification) {
+						button.textContent += lastNotification.isOpen ? " Yes" : " No";
+					}
+					else {
+						button.textContent += " N/A";
+					}
+				});
+			</script>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

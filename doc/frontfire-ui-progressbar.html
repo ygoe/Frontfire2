@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Progressbar documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Progressbar plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			Frontfire UI provides a progress bars component that shows the progression of a task or other visualised values between a minimum and a maximum.
+			The HTML element <code>&lt;progress&gt;</code> is too limited and thus is not used here.
+		</p>
+		<p>
+			This plugin is only available in the Complete bundle.
+		</p>
+
+		<h2 id="basic-progressbar">Basic progress bar</h2>
+		<p>
+			A progress bar is defined with the <code class="css-class">progressbar</code> CSS class, or by calling the <a href="frontfire-core.html#progressbar"><code>progressbar()</code></a> plugin method on an element.
+		</p>
+		<p>
+			The progress bar colours can be customised with the <a href="frontfire-ui-variables.html?s=@progressbar">CSS variables</a> that start with “--progress-”.
+		</p>
+		<div class="example resizable no-frontfire" data-source-highlight="progressbar">
+			<p>
+				<button id="get-value" class="button">Get value</button>
+				<input id="value-input" type="number" style="width: 120px;">
+				Prefix: <input id="prefix-input" type="text" style="width: 100px;">
+				Suffix: <input id="suffix-input" type="text" style="width: 100px;">
+				<button id="set-value" class="button">Set value</button>
+			</p>
+			<div id="progress1" class="progressbar p" data-opt-value="25" data-opt-value-suffix="%"></div>
+			<script>
+				F("#get-value").on("click", () => {
+					F("#value-input").value(F("#progress1").progressbar.value);
+					F("#prefix-input").value(F("#progress1").progressbar.valuePrefix);
+					F("#suffix-input").value(F("#progress1").progressbar.valueSuffix);
+				})
+				F("#set-value").on("click", () => {
+					F("#progress1").progressbar.value = F("#value-input").value();
+					F("#progress1").progressbar.valuePrefix = F("#prefix-input").value();
+					F("#progress1").progressbar.valueSuffix = F("#suffix-input").value();
+				})
+			</script>
+		</div>
+
+		<p>
+			The value is shown as-is. If the minimum is not 0 or the maximum is not 100, the value does not represent a percentage.
+			This can be suffixed with a total value to show absolute numbers, for example, of items processed.
+			If the label text does not fit inside the bar, it is placed outside of it.
+		</p>
+		<div class="example resizable no-frontfire" data-source-highlight="progressbar|min|max|value(Suffix)?">
+			<div class="progressbar p" data-opt="min: 100; max: 200; value: 120;"></div>
+			<div class="progressbar p" data-opt="max: 20; value: 1; valueSuffix: ' of 20 files';"></div>
+			<div class="progressbar p" data-opt="max: 20; value: 17; valueSuffix: ' of 20 files';"></div>
+		</div>
+
+		<h2 id="styles">Styles</h2>
+		<h3 id="styles-colors">Colours</h3>
+		<p>
+			Styles are set by adding one of the CSS classes <code class="css-class">error</code>, <code class="css-class">warning</code> or <code class="css-class">success</code> to the progress bar element.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="progressbar|min|max|value(Suffix)?">
+			<div class="progressbar error p" data-opt-value="40" data-opt-value-suffix="%"></div>
+			<div class="progressbar warning p" data-opt-value="40" data-opt-value-suffix="%"></div>
+			<div class="progressbar success p" data-opt-value="40" data-opt-value-suffix="%"></div>
+		</div>
+		<p>
+			The bar colours can also be changed with CSS variables.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="--progress-color">
+			<style>
+				.progressbar.orange
+				{
+					--progress-color: /**#ffa500**/orange;
+				}
+				.dark .progressbar.orange
+				{
+					--progress-color: /**#d2691e**/chocolate;
+				}
+			</style>
+			<div class="progressbar orange p" data-opt-value="40" data-opt-value-suffix="%"></div>
+			<div class="progressbar p" style="--progress-color: /**#1e90ff**/dodgerblue;" data-opt-value="40" data-opt-value-suffix="%"></div>
+		</div>
+
+		<h3 id="styles-no-border">no-border</h3>
+		<p>
+			The <code class="css-class">no-border</code> style can be combined with the other styles above.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="no-border">
+			<div class="progressbar no-border p" data-opt-value="40" data-opt-value-suffix="%"></div>
+			<div class="progressbar no-border success p" data-opt-value="40" data-opt-value-suffix="%"></div>
+		</div>
+
+		<h2 id="sizes">Sizes</h2>
+		<p>
+			Sizes are set by adding one of the CSS classes <code class="css-class">tiny</code>, <code class="css-class">small</code>, <code class="css-class">large</code> or <code class="css-class">big</code> to the progress bar element.
+			The tiny size never shows a value in its bar.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<= )(tiny|small|large|big|no-border)">
+			<p>tiny</p>
+			<div class="progressbar tiny p" data-opt-value="40" data-opt-value-suffix="%"></div>
+			<div class="progressbar tiny no-border p" data-opt-value="40" data-opt-value-suffix="%"></div>
+
+			<p>small</p>
+			<div class="progressbar small p" data-opt-value="40" data-opt-value-suffix="%"></div>
+			<div class="progressbar small no-border p" data-opt-value="40" data-opt-value-suffix="%"></div>
+
+			<p>(normal)</p>
+			<div class="progressbar p" data-opt-value="40" data-opt-value-suffix="%"></div>
+			<div class="progressbar no-border p" data-opt-value="40" data-opt-value-suffix="%"></div>
+
+			<p>large</p>
+			<div class="progressbar large p" data-opt-value="40" data-opt-value-suffix="%"></div>
+			<div class="progressbar large no-border p" data-opt-value="40" data-opt-value-suffix="%"></div>
+
+			<p>big</p>
+			<div class="progressbar big p" data-opt-value="40" data-opt-value-suffix="%"></div>
+			<div class="progressbar big no-border p" data-opt-value="40" data-opt-value-suffix="%"></div>
+		</div>
+
+		<h3 id="sizes-button">button</h3>
+		<p>
+			The special size <code class="css-class">button</code> has the height of a regular <code data-lang="html">&lt;button&gt;</code> element.
+			The <code class="css-class">inline</code> CSS class can be used to place the progress bar in a line with other content.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<= )(button|inline)">
+			<div class="buttons no-top-margin">
+				<button type="button" class="default">Save</button>
+				<button type="button">Upload</button>
+				<div class="progressbar inline button" data-opt-value="40" data-opt-value-suffix="%" style="width: 200px;"></div>
+			</div>
+		</div>
+
+		<h2 id="options">Options</h2>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>max</code></td>
+					<td>Number</td>
+					<td>The maximum value of the progress bar.</td>
+					<td>100</td>
+				</tr>
+				<tr>
+					<td><code>min</code></td>
+					<td>Number</td>
+					<td>The minimum value of the progress bar.</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td><code>value</code></td>
+					<td>Number</td>
+					<td>The current progress value.</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td><code>valuePrefix</code></td>
+					<td>String</td>
+					<td>The string to display before the value in the progress bar.</td>
+					<td>""</td>
+				</tr>
+				<tr>
+					<td><code>valueSuffix</code></td>
+					<td>String</td>
+					<td>The string to display after the value in the progress bar.</td>
+					<td>""</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="properties">Plugin properties</h2>
+		<p>
+			This plugin provides properties to access the progress bar state.
+		</p>
+
+		<div class="member">
+			<h3 id="min">min</h3>
+			<ul>
+				<li><code>min</code> → Number</li>
+			</ul>
+			<p>
+				Gets the minimum value of the first selected node, or sets the minimum value of all selected nodes.
+			</p>
+<div class="code">F("#progressbar1").progressbar.min = 10;
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="max">max</h3>
+			<ul>
+				<li><code>max</code> → Number</li>
+			</ul>
+			<p>
+				Gets the maximum value of the first selected node, or sets the maximum value of all selected nodes.
+			</p>
+<div class="code">F("#progressbar1").progressbar.max = 200;
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="value">value</h3>
+			<ul>
+				<li><code>value</code> → Number</li>
+			</ul>
+			<p>
+				Gets the current progress bar value of the first selected node, or sets the current progress bar value of all selected nodes.
+			</p>
+<div class="code">F("#progressbar1").progressbar.value = 80;
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="valuePrefix">valuePrefix</h3>
+			<ul>
+				<li><code>valuePrefix</code> → String</li>
+			</ul>
+			<p>
+				Gets the value prefix of the first selected node, or sets the value prefix of all selected nodes.
+			</p>
+<div class="code">F("#progressbar1").progressbar.valuePrefix = "File ";
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="valueSuffix">valueSuffix</h3>
+			<ul>
+				<li><code>valueSuffix</code> → String</li>
+			</ul>
+			<p>
+				Gets the value suffix of the first selected node, or sets the value suffix of all selected nodes.
+			</p>
+<div class="code">F("#progressbar1").progressbar.valueSuffix = "%";
+</div>
+		</div>
+
+		<h2 id="events">Plugin events</h2>
+		<p>
+			This plugin triggers events for the progress bar.
+		</p>
+
+		<div class="member">
+			<h3 id="change">change</h3>
+			<p>
+				Triggered when the progress bar value has changed.
+				The following properties are provided with the event:
+			</p>
+			<ul>
+				<li><code>value</code>: The new value of the progress bar. Changes to this property from the event handler are ignored.</li>
+			</ul>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

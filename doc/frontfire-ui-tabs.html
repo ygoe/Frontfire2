@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Tabs documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Tabs plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			Frontfire UI provides a layout for pages with separate content that can be switched through tab headers.
+		</p>
+		<p>
+			This plugin is only available in the Complete bundle.
+		</p>
+
+		<h2 id="tab-pages">Tab pages</h2>
+		<p>
+			To create a tab control, define a <code>&lt;div class="tabs"&gt;</code> element that contains the individual tab pages.
+			Each tab page is a <code>&lt;div&gt;</code> element.
+			The tab header text is defined in the <code>title</code> HTML attribute of each tab page element.
+			The tab control is focusable and the active page can be changed with the arrow keys when it has the focus.
+		</p>
+		<p>
+			Add the <code class="css-class">tabs</code> CSS class to an element, or call the <a href="frontfire-core.html#tabs"><code>tabs()</code></a> plugin method on it, to add the tab layout.
+		</p>
+		<p>
+			The colours of hovered and selected items can be customised with the <a href="frontfire-ui-variables.html?s=@tabs">CSS variables</a> that start with “--tabs-”.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="tabs|title">
+			<div class="tabs">
+				<div title="Tab 1">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam feugiat vehicula ante, quis ultrices metus ultricies sit amet. Maecenas ornare nunc a est imperdiet, in pulvinar odio porttitor. Ut et velit ante. Suspendisse ut sem auctor, interdum nulla a, pellentesque augue. Maecenas velit quam, ultrices sed blandit eget, pharetra a ligula. Praesent imperdiet sed turpis vitae vehicula. Morbi pretium, nisi eget laoreet finibus, metus ante dapibus nunc, ac consectetur erat est tincidunt turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla vitae urna tempor, dictum tortor id, accumsan tortor. Ut tortor est, finibus nec porttitor a, consectetur et orci. Proin fringilla lacus lorem, quis pellentesque libero fermentum sit amet. Maecenas vel dolor ultricies, sagittis risus vitae, tincidunt magna. Praesent quis congue felis. Morbi varius sapien risus, sed lobortis velit tincidunt ac.
+				</div>
+				<div title="Tab 2">
+					Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras non neque nunc. Aliquam maximus nisi eu nunc tincidunt scelerisque. Phasellus eu nunc tempus, hendrerit diam vel, porta mauris. Donec sit amet turpis ut sapien dapibus sodales. Nulla in elit ut enim malesuada elementum non quis dui. Donec luctus tincidunt elit nec convallis. Morbi lorem nunc, sollicitudin ac blandit ut, pharetra sed dolor.
+				</div>
+				<div title="Tab 3">
+					Ut placerat pharetra augue eget ultrices. Sed lobortis metus sapien, quis sollicitudin neque ultrices non. Ut nec metus aliquet, lacinia libero a, malesuada urna. Nullam faucibus nisl id convallis euismod. Phasellus massa massa, rhoncus in iaculis ac, blandit a velit. Suspendisse nec justo et enim lobortis porttitor. Nunc eget dui interdum, tristique neque lobortis, fringilla dui. Vestibulum sodales non metus a vehicula. Pellentesque sit amet ornare mauris.
+				</div>
+			</div>
+		</div>
+
+		<h2 id="preselect">Preselected page</h2>
+		<p>
+			A tab page can be preselected at load time by adding the <code class="css-class">active</code> CSS class to the page element.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="active">
+			<div class="tabs">
+				<div title="Tab 1">
+					Content of page 1
+				</div>
+				<div title="Tab 2" class="active">
+					Content of page 2
+				</div>
+				<div title="Tab 3">
+					Content of page 3
+				</div>
+			</div>
+		</div>
+
+		<h2 id="same-height">Same height for all pages</h2>
+		<p>
+			If all tab pages should have the same height of the largest page content, add the <code class="css-class">same-height</code> CSS class to the tab container element.
+			Click through the pages below to see how the height does not change, compared to above.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="same-height">
+			<div class="tabs same-height">
+				<div title="Tab 1">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam feugiat vehicula ante, quis ultrices metus ultricies sit amet. Maecenas ornare nunc a est imperdiet, in pulvinar odio porttitor. Ut et velit ante. Suspendisse ut sem auctor, interdum nulla a, pellentesque augue. Maecenas velit quam, ultrices sed blandit eget, pharetra a ligula. Praesent imperdiet sed turpis vitae vehicula. Morbi pretium, nisi eget laoreet finibus, metus ante dapibus nunc, ac consectetur erat est tincidunt turpis.
+				</div>
+				<div title="Tab 2">
+					Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras non neque nunc.
+				</div>
+				<div title="Tab 3">
+					Ut placerat pharetra augue eget ultrices. Sed lobortis metus sapien, quis sollicitudin neque ultrices non. Ut nec metus aliquet, lacinia libero a, malesuada urna.
+				</div>
+			</div>
+		</div>
+
+		<h2 id="flex">Flex child</h2>
+		<p>
+			If the tab container needs to be used in a flex container, add the <code class="css-class">flex</code> CSS class to the tab container element.
+			This sets the <code data-lang="style">display: flex</code> style for the tabs container and allows stretching it and scrolling in a tab page.
+			Reduce the window size or switch to mobile layout preview to see the scrolling in the first tab.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="tabs flex">
+			<div id="tabs-modal" class="modal" style="width: 80%; height: calc(80vh - 50px); position: relative;">
+				<div style="position: absolute; top: 15px; left: 15px; right: 15px; bottom: 15px; display: flex; flex-direction: column;">
+					<h2 class="no-top-margin">Modal title</h2>
+					<div class="tabs flex" style="flex-grow: 1;">
+						<div title="Tab 1">
+							<div style="flex-grow: 1; overflow-y: auto;">
+								<p class="no-top-margin">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam feugiat vehicula ante, quis ultrices metus ultricies sit amet. Maecenas ornare nunc a est imperdiet, in pulvinar odio porttitor. Ut et velit ante.</p>
+								<p>Suspendisse ut sem auctor, interdum nulla a, pellentesque augue. Maecenas velit quam, ultrices sed blandit eget, pharetra a ligula.</p>
+								<p>Praesent imperdiet sed turpis vitae vehicula. Morbi pretium, nisi eget laoreet finibus, metus ante dapibus nunc, ac consectetur erat est tincidunt turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+								<p class="no-bottom-margin">Nulla vitae urna tempor, dictum tortor id, accumsan tortor. Ut tortor est, finibus nec porttitor a, consectetur et orci. Proin fringilla lacus lorem, quis pellentesque libero fermentum sit amet. Maecenas vel dolor ultricies, sagittis risus vitae, tincidunt magna. Praesent quis congue felis. Morbi varius sapien risus, sed lobortis velit tincidunt ac.</p>
+							</div>
+						</div>
+						<div title="Tab 2">
+							<div style="flex-grow: 1; overflow-y: auto;">
+								Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras non neque nunc.
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<button id="open-tabs-modal">Open tabs modal</button>
+			<script>
+				F("#open-tabs-modal").on("click", () => {
+					F("#tabs-modal").modal();
+				});
+			</script>
+		</div>
+
+		<h2 id="html-title">HTML titles</h2>
+		<p>
+			The tab header may also be defined with HTML code by using the <code>data-title-html</code> HTML attribute instead of the <code>title</code> attribute.
+			The text title and HTML title can also be modified with the plugin methods <a href="#title">title()</a> and <a href="#titleHTML">titleHTML()</a>.
+		</p>
+		<p>
+			Additionally, CSS classes can be assigned to a tab header by using the <code>data-header-class</code> HTML attribute or calling the <a href="#headerClassList">headerClassList()</a> plugin method.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="data-title-html|data-header-class">
+			<style>
+				.tab-warning
+				{
+					color: /**#ff6347**/tomato !important;   /* Override normal tab color */
+				}
+				.tab-italic
+				{
+					font-style: italic;
+				}
+			</style>
+			<div class="tabs">
+				<div title="Tab 1">
+					Content of page 1
+				</div>
+				<div data-title-html="Tab <strong>2</strong>">
+					Content of page 2
+				</div>
+				<div data-title-html="<i class='material'>podcasts</i> Tab 3" data-header-class="tab-warning tab-italic">
+					Content of page 3
+				</div>
+			</div>
+		</div>
+
+		<p>
+			BTW, yes, in HTML attributes, only the delimiter quote character (<code>'</code>/<code>"</code>) and the escape character itself (<code>&amp;</code>) need to be escaped.
+			This is clearly defined in the <a href="https://www.w3.org/TR/2021/SPSD-html52-20210128/syntax.html#attribute-value-double-quoted-state">HTML 5.2 standard</a>.
+			So there’s no need to painfully escape left and right angle brackets (<code>&lt;</code>/<code>&gt;</code>) for these attributes when hand-typing HTML code.
+			The code shown in the examples is browser-generated and so serves as a good example.
+		</p>
+
+		<h2 id="no-border">No border</h2>
+		<p>
+			The borders can be removed by adding the <code class="css-class">no-border</code> CSS class to the container element.
+			This style can be used to remove visual clutter caused by the surrounding border lines, if there is no additional content below the tab container that could be confused as part of a tab page, like in the example box below.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="no-border">
+			<div class="tabs no-border">
+				<div title="Tab 1">
+					Content of page 1
+				</div>
+				<div title="Tab 2">
+					Content of page 2
+				</div>
+				<div title="Tab 3">
+					Content of page 3
+				</div>
+			</div>
+		</div>
+
+		<h2 id="sync">Synchronised tabs</h2>
+		<p>
+			When the tab page is changed, an <code>activeTabChange</code> event is triggered.
+			The tab page can be determined and switched by code.
+			Both features combined can be used to synchronise the selected page in two tab containers.
+			(This does not need to be the case on page load, as shown here, but any interaction will also update the other control.)
+		</p>
+		<div class="example p no-frontfire html-select-example" data-source-highlight="active(?=&quot;)|(?<=\.)activeTabIndex">
+			<div id="sync-source" class="tabs">
+				<div title="Tab 1">
+					Content of page 1
+				</div>
+				<div title="Tab 2" class="active">
+					Content of page 2
+				</div>
+				<div title="Tab 3">
+					Content of page 3
+				</div>
+			</div>
+			<br>
+			<div id="sync-target" class="tabs">
+				<div title="Tab 1">
+					Content of page 1
+				</div>
+				<div title="Tab 2">
+					Content of page 2
+				</div>
+				<div title="Tab 3">
+					Content of page 3
+				</div>
+			</div>
+			<script>
+				let syncSource = F("#sync-source");
+				let syncTarget = F("#sync-target");
+				syncSource.on("activeTabChange", () => {
+					syncTarget.tabs.activeTabIndex = syncSource.tabs.activeTabIndex;
+				});
+				syncTarget.on("activeTabChange", () => {
+					syncSource.tabs.activeTabIndex = syncTarget.tabs.activeTabIndex;
+				});
+			</script>
+		</div>
+
+		<h2 id="manipulations">Tab manipulations</h2>
+		<p>
+			Tabs can be added, removed and reordered by code and their title can be changed.
+			See the descriptions of the plugin methods below.
+		</p>
+		<div class="example p-top no-frontfire" data-source-highlight="(?<=\.)(addTab|title|(re)?moveTab)">
+			<div id="dynamic-tabs" class="tabs">
+				<div title="Tab 1">
+					Content of page 1
+				</div>
+				<div title="Tab 2">
+					Content of page 2
+				</div>
+				<div title="Tab 3">
+					Content of page 3
+				</div>
+			</div>
+			<p>
+				<input id="tab-title-input" type="text" style="width: 250px;" placeholder="New title">
+				<button id="add-tab">Add tab</button>
+				<button id="set-title">Set active tab title</button>
+				<button id="remove-tab">Remove active tab</button>
+				<button id="move-to-begin">Move to beginning</button>
+			</p>
+			<script>
+				F("#add-tab").on("click", () => {
+					let newTitle = F("#tab-title-input").value();
+					let page = F("<div>")
+						.attr("title", newTitle)
+						.text("New tab content");
+					F("#dynamic-tabs").tabs.addTab(page);
+				});
+				F("#set-title").on("click", () => {
+					let activeTab = F("#dynamic-tabs").tabs.activeTab;
+					let newTitle = F("#tab-title-input").value();
+					F("#dynamic-tabs").tabs.title(activeTab, newTitle);
+				});
+				F("#remove-tab").on("click", () => {
+					F("#dynamic-tabs").tabs.removeTab();
+				});
+				F("#move-to-begin").on("click", () => {
+					let activeTab = F("#dynamic-tabs").tabs.activeTab;
+					F("#dynamic-tabs").tabs.moveTab(activeTab, 0);
+				});
+			</script>
+		</div>
+
+		<h2 id="methods">Plugin methods</h2>
+		<p>
+			This plugin provides methods to control the tabs.
+		</p>
+
+		<div class="member">
+			<h3 id="addTab">addTab</h3>
+			<ul>
+				<li><code>addTab(page)</code> → void</li>
+			</ul>
+			<p>
+				Adds a new tab page and header from a page div element.
+				The new page does not need to be added to the document yet.
+				The new page can be a Node or a Frontfire instance.
+				If it is a Frontfire instance, only its first selected element will be used.
+			</p>
+<div class="code">let newPage = F("&lt;div&gt;Sample page&lt;/div&gt;");
+F("#tabs").tabs.addTab(newPage);
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="headerClassList">headerClassList</h3>
+			<ul>
+				<li><code>headerClassList(indexOrPage)</code> → ClassList</li>
+			</ul>
+			<p>
+				Gets the <code>classList</code> object of a tab header.
+				The page can be specified as the page element or its zero-based index.
+				The page can be a Node or a Frontfire instance.
+				If it is a Frontfire instance, only its first selected element will be used.
+				Negative indexes are counted from the end, i.e. -1 is the last tab, -2 the second-last etc.
+			</p>
+			<p>
+				The returned object has the same methods and properties as if using the <a href="frontfire-core.html#classList"><code>Frontfire.classList</code></a> property on an element.
+			</p>
+<div class="code">F("#tabs").tabs.headerClassList(0).add("new-class", "class2");
+F("#tabs").tabs.headerClassList(1).toggle("class3");
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="moveTab">moveTab</h3>
+			<ul>
+				<li><code>moveTab(indexOrPage, newIndex)</code> → void</li>
+			</ul>
+			<p>
+				Moves a tab to another position.
+				The page to move can be specified as the page element or its zero-based index.
+				The page can be a Node or a Frontfire instance.
+				If it is a Frontfire instance, only its first selected element will be used.
+				Negative indexes are counted from the end, i.e. -1 is the last tab, -2 the second-last etc.
+			</p>
+<div class="code">let activeTab = F("#tabs").tabs.activeTab;
+F("#tabs").tabs.moveTab(activeTab, 0);
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="removeTab">removeTab</h3>
+			<ul>
+				<li><code>removeTab()</code> → void</li>
+				<li><code>removeTab(page)</code> → void</li>
+				<li><code>removeTab(index)</code> → void</li>
+			</ul>
+			<p>
+				Removes a tab page and header.
+				The page to remove can be specified as the page element or its zero-based index.
+				The page can be a Node or a Frontfire instance.
+				If it is a Frontfire instance, only its first selected element will be used.
+				Negative indexes are counted from the end, i.e. -1 is the last tab, -2 the second-last etc.
+				If no argument was given, the currently active tab is removed.
+			</p>
+<div class="code">F("#tabs").tabs.removeTab(1);
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="title">title</h3>
+			<ul>
+				<li><code>title(indexOrPage)</code> → String</li>
+				<li><code>title(indexOrPage, title)</code> → void</li>
+			</ul>
+			<p>
+				Gets or sets the title of a tab page.
+				The page can be specified as the page element or its zero-based index.
+				The page can be a Node or a Frontfire instance.
+				If it is a Frontfire instance, only its first selected element will be used.
+				Negative indexes are counted from the end, i.e. -1 is the last tab, -2 the second-last etc.
+			</p>
+			<p>
+				If a new title is specified, it will be set; otherwise, the current tab title is returned.
+			</p>
+<div class="code">let oldTitle = F("#tabs").tabs.title(3);
+F("#tabs").tabs.title(3, "New title");
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="titleHTML">titleHTML</h3>
+			<ul>
+				<li><code>titleHTML(indexOrPage)</code> → String</li>
+				<li><code>titleHTML(indexOrPage, titleHtml)</code> → void</li>
+			</ul>
+			<p>
+				Gets or sets the title HTML of a tab page.
+				The page can be specified as the page element or its zero-based index.
+				The page can be a Node or a Frontfire instance.
+				If it is a Frontfire instance, only its first selected element will be used.
+				Negative indexes are counted from the end, i.e. -1 is the last tab, -2 the second-last etc.
+			</p>
+			<p>
+				If a new title is specified, it will be set; otherwise, the current tab title is returned.
+			</p>
+<div class="code">let oldTitle = F("#tabs").tabs.title(3);
+F("#tabs").tabs.title(3, "New &lt;em&gt;title&lt;/em&gt;");
+</div>
+		</div>
+
+		<h2 id="properties">Plugin properties</h2>
+		<p>
+			This plugin provides properties to access the tabs state.
+		</p>
+
+		<div class="member">
+			<h3 id="activeTab">activeTab</h3>
+			<ul>
+				<li><code>activeTab</code> → Node</li>
+			</ul>
+			<p>
+				Gets the active page in the first selected tab container, or sets the active page in all selected tab containers.
+				The page can be a Node or a Frontfire instance.
+				If it is a Frontfire instance, only its first selected element will be used.
+			</p>
+			<p>
+				If no tab page is active, undefined is returned.
+			</p>
+<div class="code">let activeTab = F("#tabs").tabs.activeTab;
+F("#tabs").tabs.activeTab = F("#first-tab-page");
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="activeTabIndex">activeTabIndex</h3>
+			<ul>
+				<li><code>activeTabIndex</code> → Number</li>
+			</ul>
+			<p>
+				Gets the index of the active page in the first selected tab container, or sets the index of the active page in all selected tab containers.
+				Negative indexes are counted from the end, i.e. -1 is the last tab, -2 the second-last etc.
+			</p>
+			<p>
+				If no tab page is active, -1 is returned.
+			</p>
+<div class="code">let activeTabIndex = F("#tabs").tabs.activeTabIndex;
+F("#tabs").tabs.activeTabIndex = 3;
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="pages">pages</h3>
+			<ul>
+				<li><code>pages</code> → ArrayList</li>
+			</ul>
+			<p>
+				Gets all page div elements.
+			</p>
+		</div>
+
+		<h2 id="events">Plugin events</h2>
+		<p>
+			This plugin triggers events for the tabs.
+		</p>
+
+		<div class="member">
+			<h3 id="activeTabChange">activeTabChange</h3>
+			<p>
+				Triggered when the active tab has changed.
+			</p>
+		</div>
+
+		<h2 id="template-tabs">Template tabs</h2>
+		<p>
+			Tabs can also be created from data records where all tab pages look identical or similar.
+			For each record, a tab page is created from a template and fields in the page are filled with the record data.
+			Each field element needs the <code>data-name</code> HTML attribute to bind it to a record field.
+			To prepare a tabs container for template pages, call the <a href="frontfire-core.html#templateTabs">templateTabs()</a> plugin method on a tabs container element.
+			The data pages can be added or read with the <a href="#template-methods">plugin methods</a> described below.
+		</p>
+		<p>
+			If the tab page contains a table that has a <code>data-name</code> attribute itself, the table is set up for template rows and will show the subrecords in that field.
+			Since this is done internally, the row template must be specified in a <code>data-opt</code> attribute at the table element.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="<template.*?>|template(?=:)|templateRows|addTabs?|loadJSON|getRecords|saveJSON|(?<=\.)title|(?<=<)table">
+			<div class="buttons p">
+				<button id="clear-tabs">Clear</button>
+				<hr>
+				<button id="add-template-tab">Add</button>
+				<button id="load-records">Load</button>
+				<button id="load-json">Load JSON</button>
+				<hr>
+				<button id="get-record">Get first record</button>
+				<button id="get-records">Get records</button>
+				<button id="save-json">Save JSON</button>
+			</div>
+
+			<div id="data-tabs1" class="tabs p" data-opt="template: #data-template1;">
+			</div>
+			<template id="data-template1">
+				<div class="form-row no-validation require-minitab no-top-margin">
+					<div class="label">Name</div>
+					<input type="text" data-name="name" size="1">
+
+					<div class="label">Location</div>
+					<select data-name="location">
+						<option>Africa</option>
+						<option>America</option>
+						<option>Asia</option>
+						<option>Australia</option>
+						<option>Europe</option>
+					</select>
+				</div>
+				<div class="form-row no-validation require-minitab no-bottom-margin">
+					<div class="label">Age</div>
+					<input type="number" data-name="age" size="1" min="0">
+
+					<div class="label"></div>
+					<label><input type="checkbox" data-name="verified"> Verified</label>
+				</div>
+
+				<h3>Spoken languages</h3>
+				<table data-name="languages" data-opt="template: #table-template1;" class="full-width no-border no-grid no-outer-padding">
+					<tr>
+						<th>Language</th>
+						<th>Level</th>
+						<th style="width: 30px;"></th>
+					</tr>
+				</table>
+				<button class="add-language">Add language</button>
+			</template>
+			<template id="table-template1">
+				<tr>
+					<td>
+						<input type="text" data-name="name" size="1" style="width: 100%; min-width: 80px;">
+					</td>
+					<td>
+						<select data-name="level" style="width: 100%; min-width: 100px;">
+							<option value="1">Beginner</option>
+							<option value="2">Intermediate</option>
+							<option value="3">Advanced</option>
+							<option value="4">Native</option>
+						</select>
+					</td>
+					<td>
+						<button class="delete-button caution narrow icon-only"><i class="material">delete</i></button>
+					</td>
+				</tr>
+			</template>
+
+			<!-- The hidden form field that provides stored data and submits back changed data. -->
+			<input type="hidden" name="recordsJson" value="">
+
+			<script>
+				// Demo data dafinition
+				let records = [
+					{ name: "Alice", location: "Africa", age: 39, verified: true, languages: [{ name: "English", level: 1 }, { name: "French", level: 4 }] },
+					{ name: "Bob", location: "Asia", age: 24, verified: false, languages: [{ name: "Spanish", level: 3 }] },
+					{ name: "Chris", location: "Europe", age: 72, verified: true }
+				];
+
+				let dataTabs;
+				function init() {
+					// This would normally be done immediately, but it would also destroy this
+					// example source code view, so it's deferred to the first button click.
+					if (!dataTabs)
+						dataTabs = F("#data-tabs1").templateTabs({
+							init: tabInit
+						});
+					// The JSON value would normally be set directly in HTML, but the source code
+					// requires view can only use double quotes as attribute value delimiter and
+					// that the JSON quotes to be escaped as &quot;, making the JSON unreadable.
+					// So we set it here.
+					F("input[name=recordsJson]").value('[{ "name": "Daniel", "location": "America", "age": 8, "verified": true }, { "name": "Ellen", "location": "Australia", "age": 34, "verified": false }]');
+				}
+
+				// Initialises a new tab page
+				function tabInit(tab) {
+					tab.F.autostart();
+					let nameInput = tab.querySelector("[data-name=name]");
+					nameInput.F.on("input change!", () => {
+						let title = nameInput.F.value();
+						if (!title)
+							title = "(Unnamed)";
+						F("#data-tabs1").tabs.title(tab, title);
+					});
+				}
+
+				// Sample button event handlers
+				F("#clear-tabs").on("click", () => {
+					F("#data-tabs1").tabs.pages.forEach(tab => F("#data-tabs1").tabs.removeTab(tab));
+				});
+				F("#add-template-tab").on("click", () => {
+					init();
+					dataTabs.addTab();
+				});
+				F("#load-records").on("click", () => {
+					init();
+					dataTabs.addTabs(records);
+				});
+				F("#load-json").on("click", () => {
+					init();
+					// Set the JSON field here so that it’s not loaded automatically in this example
+					dataTabs.loadJSON("input[name=recordsJson]");
+					F("#save-json").enable();
+				});
+				F("#get-record").on("click", () => {
+					init();
+					let record = dataTabs.getRecord(F("#data-tabs1").tabs.pages.first);
+					// Display the returned record
+					F.modal(JSON.stringify(record, null, "  "));
+				});
+				F("#get-records").on("click", () => {
+					init();
+					let records = dataTabs.getRecords();
+					// Display the returned records
+					F.modal(JSON.stringify(records, null, "  "));
+				});
+				F("#save-json").on("click", () => {
+					init();
+					// Requires JSON field set up, by “Load JSON” or normally by setting the option
+					dataTabs.saveJSON();
+					// Display the JSON field value
+					F.modal(F("input[name=recordsJson]").value());
+				});
+
+				// Handle add/delete language buttons (handled at the tab level, automatically
+				// covers all tabs/tables/buttons that happen to be created anyhow)
+				F("#data-tabs1").on("click", event => {
+					let addButton = F.findEventTarget(event, ".add-language");
+					if (addButton) {
+						F("#data-tabs1").tabs.activeTab.querySelector("[data-name=languages]").F.templateRows.addRow();
+						return;
+					}
+					let deleteButton = F.findEventTarget(event, ".delete-button");
+					if (deleteButton) {
+						deleteButton.closest("tr").remove();
+						return;
+					}
+				});
+			</script>
+		</div>
+		<script>
+			// Clear field that is auto-restored when reloading the page
+			F("input[name=recordsJson]").value("");
+			// Browser remembers this state when reloading! Must be initially disabled (not in the source view)
+			F.onReady(() => {
+				F("#save-json").disable();
+			});
+		</script>
+
+		<h3 id="template-options">Options</h3>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>init</code></td>
+					<td>Function</td>
+					<td>
+						A function that is called for each added tab after it has been added to the tabs container.
+						It gets the following arguments:
+						<ol>
+							<li>The tab page element</li>
+							<li>The record object</li>
+							<li>The original tabs container element as specified for the plugin (<code data-lang="html">&lt;div class="tabs"&gt;</code>)</li>
+						</ol>
+						If undefined, the standard Frontfire autostart is applied.
+						If null, nothing happens.
+					</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>jsonField</code></td>
+					<td>String, Node</td>
+					<td>
+						The form field that contains all records as JSON string.
+						If set, the tab pages are created at load time.
+						The template must also be set in the options then.
+						This option can be set later with the <a href="#template-loadJSON">loadJSON()</a> method.
+						It will be reused for saving the tabs data to a JSON field for form submit.
+					</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>template</code></td>
+					<td>String, Node</td>
+					<td>The template element that contains a tab page to use for all records. Specified as CSS selector or Node.</td>
+					<td>None</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3 id="template-methods">Plugin methods</h3>
+		<p>
+			This plugin provides methods to set and read the tabs data.
+		</p>
+
+		<div class="member">
+			<h4 id="template-addRow">addTab</h4>
+			<ul>
+				<li><code>addTab()</code> → Element</li>
+				<li><code>addTab(record)</code> → Element</li>
+			</ul>
+			<p>
+				Adds a new tab page with the specified record data.
+				If no record is specified, the new tab page will not be altered.
+			</p>
+		</div>
+
+		<div class="member">
+			<h4 id="template-addRows">addTabs</h4>
+			<ul>
+				<li><code>addTabs(records)</code> → Array(Element)</li>
+			</ul>
+			<p>
+				Adds new tab pages with the specified record data.
+			</p>
+		</div>
+
+		<div class="member">
+			<h4 id="template-getRecord">getRecord</h4>
+			<ul>
+				<li><code>getRecord(tab)</code> → Array</li>
+			</ul>
+			<p>
+				Returns the object with the data from the specified tab page fields.
+				If a tab was created without a record, a new object will be assigned so that subsequent calls return the same record instance.
+			</p>
+		</div>
+
+		<div class="member">
+			<h4 id="template-getRecords">getRecords</h4>
+			<ul>
+				<li><code>getRecords()</code> → Array</li>
+			</ul>
+			<p>
+				Returns an Array of objects with the data from the tab page fields.
+				If a tab was created without a record, a new object will be assigned so that subsequent calls return the same record instance.
+			</p>
+		</div>
+
+		<div class="member">
+			<h4 id="template-loadJSON">loadJSON</h4>
+			<ul>
+				<li><code>loadJSON()</code> → Array(Element)</li>
+				<li><code>loadJSON(jsonField)</code> → Array(Element)</li>
+			</ul>
+			<p>
+				Adds new tab pages with the data from the specified JSON form field, and remembers the field for later updating.
+				If the field is not specified, it must be set in the plugin options.
+				Returns the added tab page elements.
+			</p>
+		</div>
+
+		<div class="member">
+			<h4 id="template-saveJSON">saveJSON</h4>
+			<ul>
+				<li><code>saveJSON()</code> → void</li>
+				<li><code>saveJSON(jsonField)</code> → void</li>
+			</ul>
+			<p>
+				Saves the data from the tab page fields as JSON to a form field.
+				If the field is not specified, it must be set in the plugin options or in a previous loadJSON() call.
+			</p>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

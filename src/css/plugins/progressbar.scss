@@ -1,0 +1,97 @@
+.progressbar
+{
+	border: 1px solid var(--textbox-border);
+	border-radius: 0;
+	background-color: var(--textbox-background);
+	color: var(--textbox-color);
+	padding: 1px;
+	cursor: default;
+	transition: border-color var(--animation-duration) var(--animation-function), background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+	&.inline
+	{
+		display: inline-block;
+		vertical-align: bottom;
+	}
+	&.no-border
+	{
+		border: none;
+		padding: 0;
+		background-color: var(--progress-no-border-background);
+	}
+
+	.ff-bar
+	{
+		background-color: var(--progress-color);
+		height: 16px;
+		position: relative;
+		color: var(--progress-label-color, white);
+		line-height: 16px;
+		font-size: 12px;
+		font-weight: bold;
+		transition: width var(--animation-duration) var(--animation-function), background-color var(--animation-duration) var(--animation-function);
+
+		> span
+		{
+			position: absolute;
+			right: 4px;
+			white-space: nowrap;
+
+			&.outside
+			{
+				right: inherit;
+				left: 100%;
+				left: calc(100% + 4px);
+				color: black;
+			}
+		}
+	}
+
+	// Order of increasing severity to let that override the lower classes if multiple are applied
+	&.success .ff-bar
+	{
+		background-color: var(--progress-success-color);
+		color: var(--progress-success-label-color, white);
+	}
+	&.warning .ff-bar
+	{
+		background-color: var(--progress-warning-color);
+		color: var(--progress-warning-label-color, white);
+	}
+	&.error .ff-bar
+	{
+		background-color: var(--progress-error-color);
+		color: var(--progress-error-label-color, white);
+	}
+
+	&.tiny .ff-bar
+	{
+		height: 5px;
+		line-height: 5px;
+		> span
+		{
+			display: none;
+		}
+	}
+	&.small .ff-bar
+	{
+		height: 9px;
+		line-height: 9px;
+		font-size: 8px;
+	}
+	&.large .ff-bar
+	{
+		height: 32px;
+		line-height: 32px;
+	}
+	&.big .ff-bar
+	{
+		height: 60px;
+		line-height: 60px;
+	}
+	&.button .ff-bar
+	{
+		// button's line height + button's vertical padding - progressbar border and padding
+		height: calc(1rem * var(--default-line-height) + 10px - 4px);
+		line-height: calc(1rem * var(--default-line-height) + 10px - 4px);
+	}
+}

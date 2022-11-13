@@ -1,0 +1,2369 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>ArrayList documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+	<style>
+		table td
+		{
+			text-align: center;
+			min-width: 3em;
+		}
+	</style>
+</head>
+<body class="with-aside with-search">
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<div id="search-box">
+		<input id="search-text" type="text" placeholder="Type anywhere to search">
+	</div>
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">ArrayList</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p id="results-count"></p>
+		<p id="no-results">
+			No search results
+		</p>
+
+		<section class="intro">
+			<p>
+				<em>Introducing: the JavaScript Array in frustration-free packaging!</em>
+			</p>
+			<h3>What?</h3>
+			<p>
+				The ArrayList class implements a <strong>comfortable array collection</strong>.
+				It uses a JavaScript Array as its internal storage and provides a public interface inspired by .NET’s <a href="https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1"><strong>List</strong></a> and <a href="https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable"><strong>LINQ Enumerable</strong></a> types with a few more methods of JavaScript’s <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>, SQL (relational) group, join and set operations, and others.
+			</p>
+			<p>
+				It borrows its name from the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.collections.arraylist">ArrayList</a> class of .NET 1.1 which was mostly replaced by the generic (statically typed) List&lt;T&gt; class in .NET 2.0.
+				This is a good fit again for the dynamically-typed nature of JavaScript.
+			</p>
+			<h3>Why?</h3>
+			<p>
+				JavaScript arrays are historically a constant source of frustration.
+				The Array class tries to be a list, a queue and a stack all in one but does nothing right.
+				It has improved a little over the years, yet some basic operations like removing an item are still missing.
+				Names are also confusing, considering the Array.includes(), Set.has() and DOMTokenList.contains() methods.
+			</p>
+			<p>
+				The ArrayList class aims to reuse as much of JavaScript’s Array as possible but pack it into a clean and consistent API that offers all methods under the collection instance itself, instead of passing the array along as parameter or extending the Array prototype which might break in the future.
+				The only exception is the “L” property (for “list”) that is made available to all Arrays as kind of an extension property.
+				It allows using ArrayList methods on an Array with minimal effort and clutter.
+			</p>
+			<p>
+				As a result, ArrayList is <strong>compact</strong> and <strong>easy to use</strong>, increasing the developer’s productivity and happiness.
+				The minified and gzipped code is just <strong>3 KiB</strong>.
+				It is also fully covered by unit tests.
+			</p>
+			<h3>How?</h3>
+			<p>
+				Here are a few examples to show its usage and the results. First some list manipulation calls:
+			</p>
+<div class="code">// Start with a plain Array
+let arr = ["Berlin", "Paris"];
+// Insert at index 1
+arr.L.insert(1, "Amsterdam");
+→ arr: ["Berlin", "Amsterdam", "Paris"]
+// Add many
+arr.L.addRange(["Vienna", "Rome", "Oslo", "Helsinki"]);
+→ arr: ["Berlin", "Amsterdam", "Paris", "Vienna", "Rome", "Oslo", "Helsinki"]
+// Remove by predicate
+arr.L.removeAll(x => x.length > 6);
+→ arr: ["Berlin", "Paris", "Vienna", "Rome", "Oslo"]
+// Replace by value, also shuffle in the same line
+arr.L.replace("Rome", "London").shuffle();
+→ arr: ["Vienna", "London", "Oslo", "Paris", "Berlin"] (or other order)
+</div>
+			<p>
+				Then methods that return a new ArrayList and don’t affect the original array or list:
+			</p>
+<div class="code">// Return sorted copy, first by length, then by name
+arr.L.orderBy(x => x.length, x => x)
+→ ["Oslo", "Paris", "Berlin", "London", "Vienna"]
+// Skip 1 (“Vienna”), take next as long as they have the letter “L”
+arr.L.skip(1)
+	.takeWhile(x => x.match(/[Ll]/))
+→ ["London", "Oslo"]
+// Return all except these two
+arr.L.except(["Vienna", "Paris"])
+→ ["London", "Oslo", "Berlin"]
+// Return all and these if not already there
+arr.L.union(["Vienna", "Madrid"])
+→ ["Vienna", "London", "Oslo", "Paris", "Berlin", "Madrid"]
+</div>
+			<p>
+				Most of these methods are implemented independently from each other so they can also be copied into other applications and libraries individually.
+				Most method implementations are also rather short.
+				All methods have unit test cases for all possible combinations of inputs, also covering side effects.
+			</p>
+			<p>
+				<strong>Note:</strong><br>
+				As a general rule, all collections returned by ArrayList methods will be of the ArrayList type.
+				All ArrayList methods that take collections as parameters will accept Array and ArrayList instances, some might also accept any iterable.
+				The examples in this documentation are kept as simple as possible.
+				The test cases include both types of parameters where possible.
+			</p>
+			<p>
+				<strong>Note:</strong><br>
+				Where the Array methods expect a parameter like endIndex, referring to the last index before which to stop an operation, the ArrayList methods usually expect a count parameter, referring to the number of processed items. This is usually more intuitive, easier to write and in line with the .NET APIs.
+			</p>
+			<h3>Where?</h3>
+			<p>
+				As a modern JavaScript library, this code is compatible with the following environments:
+			</p>
+			<ul>
+				<li>Firefox 62 and later (released 2018-09)</li>
+				<li>Chrome 70 and later (released 2018-10, and browsers derived thereof)</li>
+				<li>Safari 12 and later (released 2018-09; by spec; little tested due to the lack of Apple hardware)</li>
+				<li>Node.js 12 and later (released 2019-04)</li>
+			</ul>
+			<p>
+				Earlier versions may work for a limited feature set.
+				The vastly outdated and now abandoned Internet Explorer is explicitly incompatible with this code.
+				Should you be stuck in the past for whatever reason, a transpiler like Babel and a few polyfills might help you out.
+			</p>
+			<p>
+				This library is released under the terms of the <strong>MIT licence</strong>.
+				See the complete licence text in the code repository for details.
+			</p>
+			<h3>Documentation</h3>
+			<p>
+				This documentation lists all public members of the ArrayList class.
+				The available parameters are listed for each method, describing which of them are optional or alternative in which combination.
+				The description explains the behaviour and parameter requirements.
+				The return value is shown after the arrow.
+				A link to the Array class method is provided where there’s great similarity in their function.
+			</p>
+			<p>
+				A few examples further describe the usage and effect of a method.
+				More comprehensive input and output of a method can be found in the separate test cases included in the source code.
+			</p>
+			<h3>Search</h3>
+			<p>
+				The members are categorised and can be searched (just type ahead).
+				The search also uses aliases for many entries.
+				Start the search text with an equals sign (=) to ignore aliases.
+				Start the search text with the ^ sign to also only find names starting with the search term.
+				Press Escape to reset the search.
+			</p>
+		</section>
+
+		<!------------------------------ BEGIN OF REFERENCE CONTENT ------------------------------>
+
+		<section>
+			<h2 id="constructor">Constructor</h2>
+
+			<div class="member">
+				<h3 id="ArrayList">ArrayList</h3>
+				<ul>
+					<li><code>new ArrayList(array)</code> → ArrayList</li>
+					<li><code>new ArrayList(iterable)</code> → ArrayList</li>
+					<li><code>new ArrayList(number)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Creates a new ArrayList instance that contains the items included in the specified Array or Iterable.
+					If an Array is specified, that Array is wrapped by the ArrayList instance and manipulations will also be seen in that Array and vice versa.
+					If a Number is specified, the new array length is set.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="Array_L">Array.L</h3>
+				<ul>
+					<li><code>Array.L</code> → ArrayList</li>
+				</ul>
+				<p>
+					The L property for Array instances provides access to the additional features implemented in ArrayList.
+					This is the only addition to other prototypes made by this library.
+					<code>array.L</code> is a shortcut for: <code>new ArrayList(array)</code>
+				</p>
+<div class="code">let arr = [1, 2, 3];
+arr.L.addRange([4, 5]);
+→ arr: [1, 2, 3, 4, 5]
+</div>
+				<p>
+					It can also be used to make use of ArrayList methods in a workflow that requires plain Arrays, together with the “array” property or toArray() method to get back the internal array.
+				</p>
+<div class="code">let arr = [1, 2, 3, 4];
+arr.L.take(3).reversed().array
+→ [3, 2, 1]
+→ arr: [1, 2, 3, 4]
+</div>
+				<p class="see-also">
+					See also: <a href="#array">ArrayList.array</a>, <a href="#toArray">ArrayList.toArray()</a>
+				</p>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="instance-properties">Instance properties</h2>
+
+			<div class="member">
+				<h3 id="array">array</h3>
+				<ul>
+					<li><code>array</code> → Array</li>
+				</ul>
+				<p>
+					Gets the internal array of the ArrayList instance.
+					This property cannot be written.
+					The returned array is the actual object used by the ArrayList instance.
+					It contains exactly the items of the collection.
+					Any changes done to this array will also be reflected in the ArrayList instance.
+				</p>
+				<p>
+					This property is the inverse of the ArrayList constructor that takes an Array instance to wrap.
+					It allows to switch from an Array to ArrayList (with the constructor or the “L” property added to the Array prototype) to use its manipulation methods and then switch back to Array for external use.
+				</p>
+				<p class="see-also">
+					See also: <a href="#toArray">ArrayList.toArray()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="first">first</h3>
+				<ul>
+					<li><code>first</code> → Any</li>
+				</ul>
+				<p>
+					Gets or sets the first item of the array.
+					If there is no first item, undefined is returned.
+				</p>
+				<p>
+					This is an alternative to: <code>ArrayList.array[0]</code>
+				</p>
+<div class="code">let arr = [1, 2, 3, 4];
+arr.L.first
+→ 1
+arr.L.first = 9;
+→ arr: [9, 2, 3, 4]
+arr = [];
+arr.L.first
+→ undefined
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="last">last</h3>
+				<ul>
+					<li><code>last</code> → Any</li>
+				</ul>
+				<p>
+					Gets or sets the last item of the array.
+					If the array is empty, undefined is returned and setting the property throws an error.
+				</p>
+				<p>
+					This is an alternative to: <code>ArrayList.array[ArrayList.length - 1]</code> or <code>ArrayList.get(-1)</code>
+				</p>
+<div class="code">let arr = [1, 2, 3, 4];
+arr.L.last
+→ 4
+arr.L.last = 9;
+→ arr: [1, 2, 3, 9]
+arr = [];
+arr.L.last
+→ undefined
+</div>
+			</div>
+
+			<div class="member" data-aliases="count">
+				<h3 id="length">length</h3>
+				<ul>
+					<li><code>length</code> → Number</li>
+				</ul>
+				<p>
+					Gets the number of items in the array.
+					This property cannot be written.
+				</p>
+				<p>
+					This returns the same value as: <code>ArrayList.array.length</code>
+				</p>
+<div class="code">let arr = [2, 4, 6, 8];
+arr.L.length
+→ 4
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/length">Array.length</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="second">second</h3>
+				<ul>
+					<li><code>second</code> → Any</li>
+				</ul>
+				<p>
+					Gets or sets the second item of the array.
+					If there is no second item, undefined is returned.
+				</p>
+				<p>
+					This is an alternative to: <code>ArrayList.array[1]</code>
+				</p>
+<div class="code">let arr = [1, 2, 3, 4];
+arr.L.second
+→ 2
+arr.L.second = 9;
+→ arr: [1, 9, 3, 4]
+arr = [];
+arr.L.second
+→ undefined
+arr.L.second = 9;
+→ arr: [&lt;empty slot&gt;, 9]
+</div>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="item-retrieval-methods">Item retrieval methods</h2>
+			<p>
+				These instance methods retrieve a single item from the array or a single aggregated value computed from the array.
+			</p>
+
+			<div class="member" data-aliases="reduce">
+				<h3 id="aggregate">aggregate</h3>
+				<ul>
+					<li><code>aggregate(reducer)</code> → Any</li>
+					<li><code>aggregate(initialValue, reducer)</code> → Any</li>
+				</ul>
+				<p>
+					Applies an accumulator function over the array.
+					The reducer function is called with two arguments and returns a single value that combines both.
+					Then the function is called with the previous return value and the next array item, until the last item.
+					If the initialValue is unset and the array is empty, undefined is returned.
+					If the initialValue is set, it is the first argument of the first call of the reducer function.
+				</p>
+<div class="code">["correct", "horse", "battery", "staple"].L.aggregate((a, b) => a + b)
+→ "correcthorsebatterystaple"
+[2, 3, 5, 7, 11].L.aggregate((a, b) => a + b)
+→ 28
+[2, 3, 5, 7, 11].L.aggregate(10, (a, b) => a + b)
+→ 38
+[].L.aggregate((a, b) => a + b)
+→ undefined
+[].L.aggregate(10, (a, b) => a + b)
+→ 10
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce">Array.reduce()</a>, <a href="#aggregateReversed">ArrayList.aggregateReversed()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="reduceRight">
+				<h3 id="aggregateReversed">aggregateReversed</h3>
+				<ul>
+					<li><code>aggregateReversed(reducer)</code> → Any</li>
+					<li><code>aggregateReversed(initialValue, reducer)</code> → Any</li>
+				</ul>
+				<p>
+					Applies an accumulator function over the array in reversed order.
+					See the aggregate() method for more details.
+				</p>
+<div class="code">["correct", "horse", "battery", "staple"].L.aggregate((a, b) => a + b)
+→ "staplebatteryhorsecorrect"
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/ReduceRight">Array.reduceRight()</a>, <a href="#aggregate">ArrayList.aggregate()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="every">
+				<h3 id="all">all</h3>
+				<ul>
+					<li><code>all(predicate)</code> → Boolean</li>
+					<li><code>all(predicate, thisArg)</code> → Boolean</li>
+				</ul>
+				<p>
+					Determines whether all items in the array satisfy a condition.
+					The predicate function gets three arguments:
+				</p>
+				<ol>
+					<li>The array item</li>
+					<li>Its index in the array</li>
+					<li>The entire array (the internal Array instance)</li>
+				</ol>
+				<p>
+					If thisArg is set, it is assigned to <code>this</code> when executing the predicate function.
+					If the array is empty, true is returned.
+					The parameter semantics is the same as the Array.every() method.
+				</p>
+<div class="code">[1, 2, 3].L.all(x => x > 0)
+→ true
+[-1, 0, 3].L.all(x => x > 0)
+→ false
+[-1, -2, -3].L.all(x => x > 0)
+→ false
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every">Array.every()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="some">
+				<h3 id="any">any</h3>
+				<ul>
+					<li><code>any()</code> → Boolean</li>
+					<li><code>any(predicate)</code> → Boolean</li>
+					<li><code>any(predicate, thisArg)</code> → Boolean</li>
+				</ul>
+				<p>
+					Determines whether any item in the array satisfies a condition.
+					The predicate function gets three arguments:
+				</p>
+				<ol>
+					<li>The array item</li>
+					<li>Its index in the array</li>
+					<li>The entire array (the internal Array instance)</li>
+				</ol>
+				<p>
+					If no predicate is specified, the return value is true only if the array contains any items.
+					If thisArg is set, it is assigned to <code>this</code> when executing the predicate function.
+					If the array is empty, false is returned.
+					The parameter semantics is the same as the Array.some() method.
+				</p>
+<div class="code">[1, 2, 3].L.any(x => x > 0)
+→ true
+[-1, 0, 3].L.any(x => x > 0)
+→ true
+[-1, -2, -3].L.any(x => x > 0)
+→ false
+[1, 2, 3].L.any()
+→ true
+[].L.any()
+→ false
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some">Array.some()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="avg mean">
+				<h3 id="average">average</h3>
+				<ul>
+					<li><code>average()</code> → Number</li>
+					<li><code>average(selector)</code> → Number</li>
+				</ul>
+				<p>
+					Computes the average value of items in the array.
+					The optional selector function is called for each item of the array and returns the value to use for the average computation.
+					If the selector is omitted, the array must contain numbers only.
+					If the array is empty, undefined is returned.
+				</p>
+<div class="code">[1, 2, 3, 4].L.average()
+→ 2.5
+[{a: 1}, {a: 2}].L.average(x => x.a)
+→ 1.5
+[].L.average()
+→ undefined
+</div>
+			</div>
+
+			<div class="member" data-aliases="find sort order">
+				<h3 id="binarySearch">binarySearch</h3>
+				<ul>
+					<li><code>binarySearch(item)</code> → Number</li>
+					<li><code>binarySearch(item, comparer)</code> → Number</li>
+				</ul>
+				<p>
+					Searches the sorted array for an item using the comparer and returns the zero-based index of the item.
+					If the item is not found, the return value is a negative number that is the bitwise complement (<code>~</code>) of the index of the next item that is larger than item or, if there is no larger item, the bitwise complement of the length property.
+				</p>
+<div class="code">[1, 2, 5, 7].L.binarySearch(2)
+→ 1
+[1, 2, 5, 7].L.binarySearch(-2)
+→ -1 (~0)
+[1, 2, 5, 7].L.binarySearch(4)
+→ -3 (~2)
+[1, 2, 5, 7].L.binarySearch(10)
+→ -5 (~4)
+[].L.binarySearch(2)
+→ -1 (~0)
+[{a: 1}, {a: 2}, {a: 5}].L.binarySearch({a: 5}, (x, y) => x.a - y.a)
+→ 2
+</div>
+			</div>
+
+			<div class="member" data-aliases="includes has indexOf">
+				<h3 id="contains">contains</h3>
+				<ul>
+					<li><code>contains(item)</code> → Boolean</li>
+					<li><code>contains(item, startIndex)</code> → Boolean</li>
+				</ul>
+				<p>
+					Determines whether an item exists in the array.
+					The parameter semantics is the same as the Array.includes() method.
+				</p>
+<div class="code">["Berlin", "Paris", "London"].L.contains("London")
+→ true
+["Berlin", "Paris", "London"].L.contains("Vienna")
+→ false
+["Berlin", "Paris", "London"].L.contains("Berlin", 1)
+→ false
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes">Array.includes()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="length">
+				<h3 id="count">count</h3>
+				<ul>
+					<li><code>count()</code> → Number</li>
+					<li><code>count(predicate)</code> → Number</li>
+				</ul>
+				<p>
+					Counts the items in the array that satisfy a condition.
+					If no predicate is specified, the array length is returned.
+				</p>
+<div class="code">["Berlin", "Paris", "London"].L.count()
+→ 3
+["Berlin", "Paris", "London"].L.count(x => x.length === 6)
+→ 2
+</div>
+			</div>
+
+			<div class="member" data-aliases="same">
+				<h3 id="equals">equals</h3>
+				<ul>
+					<li><code>equals(other)</code> → Boolean</li>
+				</ul>
+				<p>
+					Determines whether two arrays contain the same items in the same order.
+					The values are compared with the === operator.
+				</p>
+<div class="code">[1, 2, 3, 4].L.equals([1, 2, 3])
+→ false
+[1, 2, 3, 4].L.equals([1, 2, 4, 3])
+→ false
+[1, 2, 3, 4].L.equals([1, 2, 3, 4])
+→ true
+</div>
+				<p class="see-also">
+					See also: <a href="#setEquals">ArrayList.setEquals()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="search indexOf">
+				<h3 id="find">find</h3>
+				<ul>
+					<li><code>find(predicate)</code> → Any</li>
+					<li><code>find(predicate, thisArg)</code> → Any</li>
+				</ul>
+				<p>
+					Returns the first item in the array that satisfies a condition.
+					If no values satisfy the condition, undefined is returned.
+					The predicate function gets three arguments:
+				</p>
+				<ol>
+					<li>The array item</li>
+					<li>Its index in the array</li>
+					<li>The entire array (the internal Array instance)</li>
+				</ol>
+				<p>
+					If thisArg is set, it is assigned to <code>this</code> when executing the predicate function.
+					The parameter semantics is the same as the Array.find() method.
+				</p>
+<div class="code">["Paris", "Berlin", "London", "Oslo"].L.find(x => x.length === 6)
+→ "Berlin"
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find">Array.find()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="search indexOf">
+				<h3 id="findIndex">findIndex</h3>
+				<ul>
+					<li><code>findIndex(predicate)</code> → Number</li>
+					<li><code>findIndex(predicate, thisArg)</code> → Number</li>
+				</ul>
+				<p>
+					Returns the index of the first item in the array that satisfies a condition.
+					If no values satisfy the condition, the return value is -1.
+					The predicate function gets three arguments:
+				</p>
+				<ol>
+					<li>The array item</li>
+					<li>Its index in the array</li>
+					<li>The entire array (the internal Array instance)</li>
+				</ol>
+				<p>
+					If thisArg is set, it is assigned to <code>this</code> when executing the predicate function.
+					The parameter semantics is the same as the Array.findIndex() method.
+				</p>
+<div class="code">["Paris", "Berlin", "London", "Oslo"].L.findIndex(x => x.length === 6)
+→ 1
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex">Array.findIndex()</a>, <a href="#find">ArrayList.find()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="search indexOf">
+				<h3 id="findLast">findLast</h3>
+				<ul>
+					<li><code>findLast(predicate)</code> → Any</li>
+					<li><code>findLast(predicate, thisArg)</code> → Any</li>
+				</ul>
+				<p>
+					Returns the last item in the array that satisfies a condition.
+					If no values satisfy the condition, undefined is returned.
+					The predicate function gets three arguments:
+				</p>
+				<ol>
+					<li>The array item</li>
+					<li>Its index in the array</li>
+					<li>The entire array (the internal Array instance)</li>
+				</ol>
+				<p>
+					If thisArg is set, it is assigned to <code>this</code> when executing the predicate function.
+					The parameter semantics is the same as the Array.find() method.
+				</p>
+<div class="code">["Paris", "Berlin", "London", "Oslo"].L.findLast(x => x.length === 6)
+→ "London"
+</div>
+			</div>
+
+			<div class="member" data-aliases="search indexOf">
+				<h3 id="findLastIndex">findLastIndex</h3>
+				<ul>
+					<li><code>findLastIndex(predicate)</code> → Number</li>
+					<li><code>findLastIndex(predicate, thisArg)</code> → Number</li>
+				</ul>
+				<p>
+					Returns the index of the last item in the array that satisfies a condition.
+					If no values satisfy the condition, the return value is -1.
+					The predicate function gets three arguments:
+				</p>
+				<ol>
+					<li>The array item</li>
+					<li>Its index in the array</li>
+					<li>The entire array (the internal Array instance)</li>
+				</ol>
+				<p>
+					If thisArg is set, it is assigned to <code>this</code> when executing the predicate function.
+					The parameter semantics is the same as the Array.findIndex() method.
+				</p>
+<div class="code">["Paris", "Berlin", "London", "Oslo"].L.findLastIndex(x => x.length === 6)
+→ 2
+</div>
+				<p class="see-also">
+					See also: <a href="#findLast">ArrayList.findLast()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="get">get</h3>
+				<ul>
+					<li><code>get(index)</code> → Any</li>
+				</ul>
+				<p>
+					Returns the item at the positive or negative index of the array.
+					If the index is negative, it is counted from the end, i.e. -1 is the last, -2 the second-last item, etc.
+					If the index is outside the range of the array, undefined is returned.
+				</p>
+<div class="code">["Berlin", "Paris", "London", "Oslo"].L.get(0)
+→ "Berlin"
+["Berlin", "Paris", "London", "Oslo"].L.get(1)
+→ "Paris"
+["Berlin", "Paris", "London", "Oslo"].L.get(-2)
+→ "London"
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array[index]</a>, <a href="#set">ArrayList.set()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="find search">
+				<h3 id="indexOf">indexOf</h3>
+				<ul>
+					<li><code>indexOf(item)</code> → Number</li>
+				</ul>
+				<p>
+					Returns the first index of the item in the array.
+					If the item does not exist in the array, the return value is -1.
+				</p>
+<div class="code">["Berlin", "Paris", "London"].L.indexOf("London")
+→ 2
+["Berlin", "Paris", "London"].L.indexOf("Rome")
+→ -1
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf">Array.indexOf()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="concat string">
+				<h3 id="join">join</h3>
+				<ul>
+					<li><code>join()</code> → String</li>
+					<li><code>join(separator)</code> → String</li>
+				</ul>
+				<p>
+					Returns a string by concatenating all of the elements of the array, separated by commas or the specified separator string.
+					If the array has only one item, then that item will be returned without using the separator.
+					If the array is empty, an empty string is returned.
+				</p>
+<div class="code">["Berlin", "Paris", "London"].L.join()
+→ "Berlin,Paris,London"
+["Berlin", "Paris", "London"].L.join(" – ")
+→ "Berlin – Paris – London"
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join">Array.join()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="find search">
+				<h3 id="lastIndexOf">lastIndexOf</h3>
+				<ul>
+					<li><code>lastIndexOf(item)</code> → Number</li>
+				</ul>
+				<p>
+					Returns the last index of the item in the array.
+					If the item does not exist, the return value is -1.
+				</p>
+<div class="code">["Berlin", "Paris", "London", "Paris"].L.lastIndexOf("Paris")
+→ 3
+["Berlin", "Paris", "London", "Paris"].L.lastIndexOf("Rome")
+→ -1
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf">Array.lastIndexOf()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="max">max</h3>
+				<ul>
+					<li><code>max()</code> → Number</li>
+					<li><code>max(selector)</code> → Number</li>
+				</ul>
+				<p>
+					Computes the maximum value of the items in the array.
+					The optional selector function is called for each item of the array and returns the value to use for the maximum computation.
+					If the selector is omitted, the array must contain numbers only.
+					If the array is empty, undefined is returned.
+				</p>
+<div class="code">[1, 2, 3, 4].L.max()
+→ 4
+[{a: 1}, {a: 2}].L.max(x => x.a)
+→ 2
+[].L.max()
+→ undefined
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="min">min</h3>
+				<ul>
+					<li><code>min()</code> → Number</li>
+					<li><code>min(selector)</code> → Number</li>
+				</ul>
+				<p>
+					Computes the minimum value of the items in the array.
+					The optional selector function is called for each item of the array and returns the value to use for the minimum computation.
+					If the selector is omitted, the array must contain numbers only.
+					If the array is empty, undefined is returned.
+				</p>
+<div class="code">[1, 2, 3, 4].L.min()
+→ 1
+[{a: 1}, {a: 2}].L.min(x => x.a)
+→ 1
+[].L.min()
+→ undefined
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="sum">sum</h3>
+				<ul>
+					<li><code>sum()</code> → Number</li>
+					<li><code>sum(selector)</code> → Number</li>
+				</ul>
+				<p>
+					Computes the sum of the items in the array.
+					The optional selector function is called for each item of the array and returns the value to use for the sum computation.
+					If the selector is omitted, the array must contain numbers only.
+					If the array is empty, undefined is returned.
+				</p>
+<div class="code">[1, 2, 3, 4].L.sum()
+→ 10
+[{a: 1}, {a: 2}].L.sum(x => x.a)
+→ 3
+[].L.sum()
+→ undefined
+</div>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="manipulation-methods">Manipulation methods</h2>
+
+			<p>
+				These instance methods alter the contents of the array.
+				Most of these methods return the instance for chained calls, except the remove and replace methods.
+			</p>
+
+			<div class="member" data-aliases="push append">
+				<h3 id="add">add</h3>
+				<ul>
+					<li><code>add(item)</code> → this</li>
+				</ul>
+				<p>
+					Adds an item to the end of the array.
+				</p>
+<div class="code">let arr = [1, 2];
+arr.L.add(3);
+→ arr: [1, 2, 3]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push">Array.push()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="push append">
+				<h3 id="addRange">addRange</h3>
+				<ul>
+					<li><code>addRange(items)</code> → this</li>
+				</ul>
+				<p>
+					Adds many items to the end of the array.
+				</p>
+<div class="code">let arr = [1, 2];
+arr.L.addRange([3, 4, 5]);
+→ arr: [1, 2, 3, 4, 5]
+</div>
+				<p class="see-also">
+					See also: <a href="#concat">ArrayList.concat()</a> (copying alternative)
+				</p>
+			</div>
+
+			<div class="member" data-aliases="remove">
+				<h3 id="clear">clear</h3>
+				<ul>
+					<li><code>clear()</code> → this</li>
+				</ul>
+				<p>
+					Removes all items from the array.
+					This is equivalent of setting array.length = 0.
+				</p>
+<div class="code">let arr = [1, 2];
+arr.L.clear();
+→ arr: []
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="fill">fill</h3>
+				<ul>
+					<li><code>fill(value)</code> → this</li>
+					<li><code>fill(value, start)</code> → this</li>
+					<li><code>fill(value, start, count)</code> → this</li>
+				</ul>
+				<p>
+					Changes all elements in the array to a static value.
+					The length of the array is not changed.
+					If the array is empty, nothing is changed.
+					If the start is negative, it is counted from the end, i.e. -1 is the last, -2 the second-last item, etc.
+					If count is omitted, all items from the start index to the end of the array are changed.
+					If count is negative, the items until (excluding) the count index from the end of the array are changed, i.e. -1 excludes the last, -2 excludes the 2 last items, etc.
+				</p>
+<div class="code">let arr = [1, 2, 3];
+arr.L.fill(9);
+→ arr: [9, 9, 9]
+arr = [1, 2, 3, 4, 5];
+arr.L.fill(9, 3);
+→ arr: [1, 2, 3, 9, 9]
+arr = [1, 2, 3, 4, 5];
+arr.L.fill(9, 2, 2);
+→ arr: [1, 2, 9, 9, 5]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill">Array.fill()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="insert">insert</h3>
+				<ul>
+					<li><code>insert(index, item)</code> → this</li>
+				</ul>
+				<p>
+					Inserts an item into the array at the specified index.
+					If the index is negative, it is counted from the end, i.e. -1 is the last, -2 the second-last item, etc.
+					If index is greater than the array length, the item is added at the end of the array.
+					If the negative index points to a position before the start of the array, the item is inserted at the beginning of the array.
+				</p>
+<div class="code">let arr = [1, 2];
+arr.L.insert(0, 3);
+→ arr: [3, 1, 2]
+arr.L.insert(-1, 9);
+→ arr: [3, 1, 9, 2]
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="insertRange">insertRange</h3>
+				<ul>
+					<li><code>insertRange(index, items)</code> → this</li>
+				</ul>
+				<p>
+					Inserts many items into the array at the specified index.
+					If the index is negative, it is counted from the end, i.e. -1 is the last, -2 the second-last item, etc.
+					If index is greater than the array length, the items are added at the end of the array.
+					If the negative index points to a position before the start of the array, the item is inserted at the beginning of the array.
+				</p>
+<div class="code">let arr = [1, 2];
+arr.L.insert(1, [3, 4]);
+→ arr: [1, 3, 4, 2]
+</div>
+			</div>
+
+			<div class="member" data-aliases="delete">
+				<h3 id="remove">remove</h3>
+				<ul>
+					<li><code>remove(item)</code> → Boolean</li>
+				</ul>
+				<p>
+					Removes an item by value from the array.
+					The return value is true if the item was found; otherwise, false.
+				</p>
+<div class="code">let arr = [1, 2, 3, 4];
+arr.L.remove(3);
+→ arr: [1, 2, 4]
+</div>
+			</div>
+
+			<div class="member" data-aliases="delete">
+				<h3 id="removeAll">removeAll</h3>
+				<ul>
+					<li><code>removeAll(predicate)</code> → ArrayList</li>
+					<li><code>removeAll(predicate, thisArg)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Removes and returns all items from the array that satisfy a condition.
+					If no items were removed, the return valus is an empty array.
+					The predicate function gets three arguments:
+				</p>
+				<ol>
+					<li>The array item</li>
+					<li>Its index in the array</li>
+					<li>The entire array (the internal Array instance)</li>
+				</ol>
+				<p>
+					If thisArg is set, it is assigned to <code>this</code> when executing the predicate function.
+				</p>
+<div class="code">const even = x => x % 2 === 0;
+let arr = [1, 2, 3, 4, 5];
+arr.L.removeAll(even);
+→ arr: [1, 3, 5]
+</div>
+			</div>
+
+			<div class="member" data-aliases="delete">
+				<h3 id="removeAt">removeAt</h3>
+				<ul>
+					<li><code>removeAt(index)</code> → Any</li>
+				</ul>
+				<p>
+					Removes and returns an item by index from the array.
+					If the index is negative, it is counted from the end, i.e. -1 is the last, -2 the second-last item, etc.
+					If index is greater than the array length, nothing is removed and undefined is returned.
+					If the negative index points to a position before the start of the array, the first item is removed and returned.
+				</p>
+<div class="code">let arr = [1, 2, 3, 4];
+arr.L.removeAt(0);
+→ arr: [2, 3, 4]
+arr.L.removeAt(-1);
+→ arr: [2, 3]
+</div>
+			</div>
+
+			<div class="member" data-aliases="delete">
+				<h3 id="removeFirst">removeFirst</h3>
+				<ul>
+					<li><code>removeFirst()</code> → Any</li>
+				</ul>
+				<p>
+					Removes and returns the first item from the array.
+					If the array is empty, undefined is returned.
+				</p>
+<div class="code">let arr = [1, 2, 3, 4];
+arr.L.removeFirst();
+→ arr: [2, 3, 4]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift">Array.shift()</a>, <a href="#skip">ArrayList.skip()</a> (copying alternative)
+				</p>
+			</div>
+
+			<div class="member" data-aliases="delete">
+				<h3 id="removeLast">removeLast</h3>
+				<ul>
+					<li><code>removeLast()</code> → Any</li>
+				</ul>
+				<p>
+					Removes and returns the last item from the array.
+					If the array is empty, undefined is returned.
+				</p>
+<div class="code">let arr = [1, 2, 3, 4];
+arr.L.removeLast();
+→ arr: [1, 2, 3]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop">Array.pop()</a>, <a href="#skipLast">ArrayList.skipLast()</a> (copying alternative)
+				</p>
+			</div>
+
+			<div class="member" data-aliases="delete">
+				<h3 id="removeRange">removeRange</h3>
+				<ul>
+					<li><code>removeRange(items)</code> → ArrayList</li>
+					<li><code>removeRange(start)</code> → ArrayList</li>
+					<li><code>removeRange(start, count)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Removes and returns many items from the array, either by index and count or the specified items.
+					If the start is negative, it is counted from the end, i.e. -1 is the last, -2 the second-last item, etc.
+					If count is omitted, all items from the start index to the end of the array are removed.
+					If count is negative, the items until (excluding) the count index from the end of the array are removed, i.e. -1 keeps the last, -2 keeps the 2 last items, etc.
+					If no items were removed, the return valus is an empty array.
+				</p>
+<div class="code">let arr = [1, 2, 3, 4, 5, 6, 7, 8];
+arr.L.removeRange([2, 3]);
+→ arr: [1, 4, 5, 6, 7, 8]
+arr.L.removeRange(1, 2);
+→ arr: [1, 6, 7, 8]
+arr.L.removeRange(2);
+→ arr: [1, 6]
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="replace">replace</h3>
+				<ul>
+					<li><code>replace(oldItem, newItem)</code> → Boolean</li>
+				</ul>
+				<p>
+					Replaces the first item by the value of oldItem in the array.
+					The return value is true if the old item was found; otherwise, false.
+				</p>
+<div class="code">let arr = [1, 2, 3, 4];
+arr.L.replace(3, 9);
+→ arr: [1, 2, 9, 4]
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="reverse">reverse</h3>
+				<ul>
+					<li><code>reverse()</code> → this</li>
+				</ul>
+				<p>
+					Reverses the array in-place.
+				</p>
+<div class="code">let arr = [1, 2, 3, 4];
+arr.L.reverse();
+→ arr: [4, 3, 2, 1]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse">Array.reverse()</a>, <a href="#reversed">ArrayList.reversed()</a> (copying alternative)
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="set">set</h3>
+				<ul>
+					<li><code>set(index, value)</code> → this</li>
+				</ul>
+				<p>
+					Sets the item at the positive or negative index of the array.
+					If the index is negative, it is counted from the end, i.e. -1 is the last, -2 the second-last item, etc.
+					If index is greater than the array length, empty slots will be created between the old last and the new item.
+					If the negative index points to a position before the start of the array, the property representing the negative number is created but the set value is not part of the iterable items of the array.
+					This behaviour is identical to setting arbitrary indexes of a plain Array.
+				</p>
+<div class="code">let arr = [1, 2, 3, 4];
+arr.L.set(0, 9);
+→ arr: [9, 2, 3, 4]
+arr.L.set(-1, 8);
+→ arr: [9, 2, 3, 8]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array[index]</a>, <a href="#get">ArrayList.get()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="random">
+				<h3 id="shuffle">shuffle</h3>
+				<ul>
+					<li><code>shuffle()</code> → this</li>
+				</ul>
+				<p>
+					Shuffles the array using a <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates algorithm</a>.
+				</p>
+<div class="code">let arr = [1, 2, 3, 4, 5, 6];
+arr.L.shuffle();
+→ arr: [4, 6, 2, 3, 1, 5] (or other order)
+</div>
+			</div>
+
+			<div class="member" data-aliases="order">
+				<h3 id="sort">sort</h3>
+				<ul>
+					<li><code>sort()</code> → this</li>
+					<li><code>sort(comparer)</code> → this</li>
+				</ul>
+				<p>
+					Sorts the array using string order or the comparer function.
+				</p>
+<div class="code">let arr = ["plum", "strawberry", "apple", "peach", "carrot", "raspberry"];
+arr.L.sort();
+→ arr: ["apple", "carrot", "peach", "plum", "raspberry", "strawberry"]
+arr = [1, 4, 30, 5, 222];
+arr.L.sort();
+→ arr: [1, 222, 30, 4, 5]
+arr = [1, 4, 3, 5, 2];
+arr.L.sort((a, b) => b - a);
+→ arr: [5, 4, 3, 2, 1]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort">Array.sort()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="order">
+				<h3 id="sortBy">sortBy</h3>
+				<ul>
+					<li><code>sortBy(keySelector, …)</code> → this</li>
+				</ul>
+				<p>
+					Sorts the array in ascending order according to a key.
+					Secondary sorting is done by providing more key selector arguments.
+					An argument of 1 or -1 sets the sort direction of the following keys ascending or descending, respectively.
+				</p>
+				<p>
+					The comparison is done with the <code>&lt;</code> (less than) and <code>&gt;</code> (greater than) operators.
+					Two numbers are compared by their numeric value, two strings are compared lexically.
+					Mixed-type comparisons have unpredictable results.
+				</p>
+<div class="code">let arr = [
+	{ id: 5, name: "apple"},
+	{ id: 1, name: "raspberry"},
+	{ id: 4, name: "peach"},
+	{ id: 3, name: "carrot"},
+	{ id: 2, name: "apple"}
+];
+arr.L.sortBy(x => x.id);
+→ arr: [
+→   { id: 1, name: "raspberry"},
+→   { id: 2, name: "apple"},
+→   { id: 3, name: "carrot"},
+→   { id: 4, name: "peach"},
+→   { id: 5, name: "apple"}
+→ ]
+arr.L.sortBy(x => x.name, x => x.id);
+→ arr: [
+→   { id: 2, name: "apple"},
+→   { id: 5, name: "apple"},
+→   { id: 3, name: "carrot"},
+→   { id: 4, name: "peach"},
+→   { id: 1, name: "raspberry"}
+→ ]
+arr.L.sortBy(x => x.name, -1, x => x.id);
+→ arr: [
+→   { id: 5, name: "apple"},
+→   { id: 2, name: "apple"},
+→   { id: 3, name: "carrot"},
+→   { id: 4, name: "peach"},
+→   { id: 1, name: "raspberry"}
+→ ]
+</div>
+				<p class="see-also">
+					See also: <a href="#orderBy">ArrayList.orderBy()</a> (copying alternative)
+				</p>
+			</div>
+
+			<div class="member" data-aliases="order">
+				<h3 id="sortByDescending">sortByDescending</h3>
+				<ul>
+					<li><code>sortByDescending(keySelector, …)</code> → this</li>
+				</ul>
+				<p>
+					Sorts the array in descending order according to a key.
+					Secondary sorting is done by providing more key selector arguments.
+					An argument of 1 or -1 sets the sort direction of the following keys ascending or descending, respectively.
+				</p>
+				<p>
+					The comparison is done with the <code>&lt;</code> (less than) and <code>&gt;</code> (greater than) operators.
+					Two numbers are compared by their numeric value, two strings are compared lexically.
+					Mixed-type comparisons have unpredictable results.
+				</p>
+				<p>
+					See the sortBy() method for an example.
+					This method differs in that the initial sort order is descending instead of ascending.
+					Both methods behave identically if the first argument is 1 or -1.
+				</p>
+				<p class="see-also">
+					See also: <a href="#orderByDescending">ArrayList.orderByDescending()</a> (copying alternative)
+				</p>
+			</div>
+
+			<div class="member" data-aliases="order">
+				<h3 id="sortNumeric">sortNumeric</h3>
+				<ul>
+					<li><code>sortNumeric()</code> → this</li>
+				</ul>
+				<p>
+					Sorts the array using numerical order.
+					The array must contain numbers only.
+				</p>
+<div class="code">let arr = [1, 4, 30, 5, 222];
+arr.L.sortNumeric();
+→ arr: [1, 4, 5, 30, 222]
+</div>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="copy-methods">Copy methods</h2>
+
+			<p>
+				These instance methods return multiple items from the array in a new collection and do not alter the contents of the instance.
+			</p>
+			<p>
+				<strong>Note:</strong><br>
+				Most of these methods return an ArrayList instance even though the example output shown looks like a plain Array for brevity.
+				After all, JSON serialisation of ArrayList and Array have the same result.
+			</p>
+			<p>
+				<strong>Hint:</strong><br>
+				Copying the result items to a new array instance allocates additional memory.
+				If the method is called on an ArrayList instance that is already a new collection, for example in multiple chained method calls, a manipulating alternative (where available) may in some cases provide better runtime or memory performance.
+			</p>
+
+			<div class="member" data-aliases="split">
+				<h3 id="chunk">chunk</h3>
+				<ul>
+					<li><code>chunk(length)</code> → ArrayList</li>
+					<li><code>chunk(length, pad)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Chunks the array into multiple arrays of a maximum length, with optional padding of the last shorter chunk.
+					Each subarray is again an ArrayList instance.
+					The result can be converted to a plain Array of Arrays with the toArray() method.
+				</p>
+<div class="code">[1, 2, 3, 4, 5, 6].L.chunk(2)
+→ [[1, 2], [3, 4], [5, 6]]
+[1, 2, 3, 4, 5].L.chunk(2)
+→ [[1, 2], [3, 4], [5]]
+[1, 2, 3, 4, 5].L.chunk(2, "a")
+→ [[1, 2], [3, 4], [5, "a"]]
+</div>
+			</div>
+
+			<div class="member" data-aliases="append">
+				<h3 id="concat">concat</h3>
+				<ul>
+					<li><code>concat()</code> → ArrayList</li>
+					<li><code>concat(array, …)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Concatenates the array with the other specified arrays.
+					If no parameter is specified, this method behaves the same as the clone() method.
+				</p>
+<div class="code">[1, 2, 3].L.concat()
+→ [1, 2, 3] (copy of original array, with same items)
+[1, 2, 3].L.concat([4, 5])
+→ [1, 2, 3, 4, 5]
+[1, 2, 3].L.concat([4, 5], [6], [7])
+→ [1, 2, 3, 4, 5, 6, 7]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat">Array.concat()</a>, <a href="#addRange">ArrayList.addRange()</a> (manipulating alternative)
+				</p>
+			</div>
+
+			<div class="member" data-aliases="copy">
+				<h3 id="clone">clone</h3>
+				<ul>
+					<li><code>clone()</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a new array with the items from the array.
+				</p>
+<div class="code">[1, 2, 3].L.clone()
+→ [1, 2, 3] (copy of original array, with same items)
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat">Array.concat()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="repeat">
+				<h3 id="cycle">cycle</h3>
+				<ul>
+					<li><code>cycle(count)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a new array containing the items from the array, cycling until the target length has been reached.
+					If the array is empty, an empty array is returned.
+				</p>
+<div class="code">[1, 2, 3].L.cycle(2)
+→ [1, 2]
+[1, 2, 3].L.cycle(8)
+→ [1, 2, 3, 1, 2, 3, 1, 2]
+[].L.cycle(2)
+→ []
+</div>
+			</div>
+
+			<div class="member" data-aliases="flatten">
+				<h3 id="flat">flat</h3>
+				<ul>
+					<li><code>flat()</code> → ArrayList</li>
+					<li><code>flat(depth)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a new array with all sub-array elements concatenated into it recursively up to the specified depth.
+					If the depth is not set, it defaults to 1.
+				</p>
+<div class="code">[1, [2], [3, [4, 5, [6, 7]]]].L.flat()
+→ [1, 2, 3, [4, 5, [6, 7]]]
+[1, [2], [3, [4, 5, [6, 7]]]].L.flat(2)
+→ [1, 2, 3, 4, 5, [6, 7]]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat">Array.flat()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="slice">
+				<h3 id="getRange">getRange</h3>
+				<ul>
+					<li><code>getRange(start)</code> → ArrayList</li>
+					<li><code>getRange(start, count)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns items from the array.
+					If the start is negative, it is counted from the end, i.e. -1 is the last, -2 the second-last item, etc.
+					If count is omitted, all items from the start index to the end of the array are returned.
+					If count is negative, the items until (excluding) the count index from the end of the array are returned, i.e. -1 excludes the last, -2 excludes the 2 last items, etc.
+				</p>
+<div class="code">[1, 2, 3, 4, 5].L.getRange(3)
+→ [4, 5]
+[1, 2, 3, 4, 5].L.getRange(1, 3)
+→ [2, 3, 4]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice">Array.slice()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="groupBy">groupBy</h3>
+				<ul>
+					<li><code>groupBy(keySelector)</code> → Map</li>
+					<li><code>groupBy(keySelector, elementSelector)</code> → Map</li>
+				</ul>
+				<p>
+					Groups the items of the array according to the key selector function and returns a new Map from each group key and an ArrayList of the items in the group.
+					The order of the items in each returned group is the same as in the original array.
+				</p>
+<div class="code">let arr = [
+	{ key: 1, value: "a"},
+	{ key: 1, value: "b"},
+	{ key: 1, value: "c"},
+	{ key: 2, value: "d"},
+	{ key: 3, value: "e"}
+];
+arr.L.groupBy(x => x.key)
+→ Map {
+→   1: [{ key: 1, value: "a"}, { key: 1, value: "b"}, { key: 1, value: "c"}],
+→   2: [{ key: 2, value: "d"}],
+→   3: [{ key: 3, value: "e"}]
+→ }
+arr.L.groupBy(x => x.key, x => x.value)
+→ Map {
+→   1: ["a", "b", "c"],
+→   2: ["d"],
+→   3: ["e"]
+→ }
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="innerJoin">innerJoin</h3>
+				<ul>
+					<li><code>innerJoin(other)</code> → ArrayList</li>
+					<li><code>innerJoin(other, constraint)</code> → ArrayList</li>
+					<li><code>innerJoin(other, constraint, selector)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Correlates the elements of two arrays based on a join constraint.
+					The constraint function is called with two arguments, one item from each array, and returns true if the combination matches.
+					The result contains items that match in both arrays.
+					This corresponds to an inner join in SQL.
+					The order of the returned items is the same as the original array.
+					This method has a runtime complexity of O(n²).
+				</p>
+				<p>
+					If no constraint function is specified, the result is a cross join, or cartesian product, of the length of this array multiplied by the length of the other array.
+					If no selector is specified, Object.assign() is used to combine the properties of both matching items, where equally named properties of the other array overwrite properties of this array.
+					To keep separate properties with the same name from both array items, a selector must be used to project the properties to different names.
+				</p>
+<div class="code">let arr = [
+	{ id: 1, b: "1" },
+	{ id: 2, b: "2" },
+	{ id: 3, b: "3" }
+];
+let other = [
+	{ id2: 1, y: "11" },
+	{ id2: 1, y: "12" },
+	{ id2: 3, y: "33" },
+	{ id2: 4, y: "44" }
+];
+arr.L.innerJoin(other,
+	(left, right) => left.id === right.id2)
+→ [
+→   { id: 1, b: "1", id2: 1, y: "11" },
+→   { id: 1, b: "1", id2: 1, y: "12" },
+→   { id: 3, b: "3", id2: 3, y: "33" }
+→ ]
+arr.L.innerJoin(other,
+	(left, right) => left.id === right.id2,
+	(left, right) => ({ id: left.id, name: right.y }))
+→ [
+→   { id: 1, name: "11" },
+→   { id: 1, name: "12" },
+→   { id: 3, name: "33" }
+→ ]
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="leftJoin">leftJoin</h3>
+				<ul>
+					<li><code>leftJoin(other)</code> → ArrayList</li>
+					<li><code>leftJoin(other, constraint)</code> → ArrayList</li>
+					<li><code>leftJoin(other, constraint, selector)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Correlates the elements of two arrays based on a join constraint.
+					The constraint function is called with two arguments, one item from each array, and returns true if the combination matches.
+					The result contains all items from this array, and the matched items from the other array.
+					This corresponds to a left outer join in SQL.
+					The order of the returned items is the same as the original array.
+					This method has a runtime complexity of O(n²).
+				</p>
+				<p>
+					If no constraint function is specified, the result is a cross join, or cartesian product, of the length of this array multiplied by the length of the other array.
+					If no selector is specified, Object.assign() is used to combine the properties of both matching items, where equally named properties of the other array overwrite properties of this array.
+					To keep separate properties with the same name from both array items, a selector must be used to project the properties to different names.
+					If there was no match in the other array, the second argument to the selector function is null.
+				</p>
+<div class="code">let arr = [
+	{ id: 1, b: "1" },
+	{ id: 2, b: "2" },
+	{ id: 3, b: "3" }
+];
+let other = [
+	{ id2: 1, y: "11" },
+	{ id2: 1, y: "12" },
+	{ id2: 3, y: "33" },
+	{ id2: 4, y: "44" }
+];
+arr.L.leftJoin(other,
+	(left, right) => left.id === right.id2)
+→ [
+→   { id: 1, b: "1", id2: 1, y: "11" },
+→   { id: 1, b: "1", id2: 1, y: "12" },
+→   { id: 2, b: "2" },
+→   { id: 3, b: "3", id2: 3, y: "33" }
+→ ]
+arr.L.leftJoin(other,
+	(left, right) => left.id === right.id2,
+	(left, right) => ({
+		id: left.id,
+		name: right ? right.y : "none"
+	}))
+→ [
+→   { id: 1, name: "11" },
+→   { id: 1, name: "12" },
+→   { id: 2, name: "none" },
+→   { id: 3, name: "33" }
+→ ]
+</div>
+			</div>
+
+			<div class="member" data-aliases="sort">
+				<h3 id="orderBy">orderBy</h3>
+				<ul>
+					<li><code>orderBy(keySelector, …)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a copy of the array in ascending order according to a key.
+					Secondary sorting is done by providing more key selector arguments.
+					An argument of 1 or -1 sets the sort direction of the following keys ascending or descending, respectively.
+				</p>
+				<p>
+					The comparison is done with the <code>&lt;</code> (less than) and <code>&gt;</code> (greater than) operators.
+					Two numbers are compared by their numeric value, two strings are compared lexically.
+					Mixed-type comparisons have unpredictable results.
+				</p>
+<div class="code">let arr = [
+	{ id: 5, name: "apple"},
+	{ id: 1, name: "raspberry"},
+	{ id: 4, name: "peach"},
+	{ id: 3, name: "carrot"},
+	{ id: 2, name: "apple"}
+];
+arr.L.orderBy(x => x.id)
+→ [
+→   { id: 1, name: "raspberry"},
+→   { id: 2, name: "apple"},
+→   { id: 3, name: "carrot"},
+→   { id: 4, name: "peach"},
+→   { id: 5, name: "apple"}
+→ ]
+arr.L.orderBy(x => x.name, x => x.id)
+→ [
+→   { id: 2, name: "apple"},
+→   { id: 5, name: "apple"},
+→   { id: 3, name: "carrot"},
+→   { id: 4, name: "peach"},
+→   { id: 1, name: "raspberry"}
+→ ]
+arr.L.orderBy(x => x.name, -1, x => x.id)
+→ [
+→   { id: 5, name: "apple"},
+→   { id: 2, name: "apple"},
+→   { id: 3, name: "carrot"},
+→   { id: 4, name: "peach"},
+→   { id: 1, name: "raspberry"}
+→ ]
+</div>
+				<p class="see-also">
+					See also: <a href="#sortBy">ArrayList.sortBy()</a> (manipulating alternative)
+				</p>
+			</div>
+
+			<div class="member" data-aliases="sort">
+				<h3 id="orderByDescending">orderByDescending</h3>
+				<ul>
+					<li><code>orderByDescending(keySelector, …)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a copy of the array in descending order according to a key.
+					Secondary sorting is done by providing more key selector arguments.
+					An argument of 1 or -1 sets the sort direction of the following keys ascending or descending, respectively.
+				</p>
+				<p>
+					The comparison is done with the <code>&lt;</code> (less than) and <code>&gt;</code> (greater than) operators.
+					Two numbers are compared by their numeric value, two strings are compared lexically.
+					Mixed-type comparisons have unpredictable results.
+				</p>
+				<p>
+					See the orderBy() method for an example.
+					This method differs in that the initial sort order is descending instead of ascending.
+					Both methods behave identically if the first argument is 1 or -1.
+				</p>
+				<p class="see-also">
+					See also: <a href="#sortByDescending">ArrayList.sortByDescending()</a> (manipulating alternative)
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="outerJoin">outerJoin</h3>
+				<ul>
+					<li><code>outerJoin(other)</code> → ArrayList</li>
+					<li><code>outerJoin(other, constraint)</code> → ArrayList</li>
+					<li><code>outerJoin(other, constraint, selector)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Correlates the elements of two arrays based on a join constraint.
+					The constraint function is called with two arguments, one item from each array, and returns true if the combination matches.
+					The result contains all items when there is a match in either this or the other array.
+					This corresponds to a full outer join in SQL.
+					The order of the returned items is the same as the original array, followed by the new items from the other array.
+					This method has a runtime complexity of O(2n²).
+				</p>
+				<p>
+					If no constraint function is specified, the result is a cross join, or cartesian product, of the length of this array multiplied by the length of the other array.
+					If no selector is specified, Object.assign() is used to combine the properties of both matching items, where equally named properties of the other array overwrite properties of this array.
+					To keep separate properties with the same name from both array items, a selector must be used to project the properties to different names.
+					If there was no match in this or the other array, one of the arguments to the selector function is null.
+				</p>
+<div class="code">let arr = [
+	{ id: 1, b: "1" },
+	{ id: 2, b: "2" },
+	{ id: 3, b: "3" }
+];
+let other = [
+	{ id2: 1, y: "11" },
+	{ id2: 1, y: "12" },
+	{ id2: 3, y: "33" },
+	{ id2: 4, y: "44" }
+];
+arr.L.outerJoin(other,
+	(left, right) => left.id === right.id2)
+→ [
+→   { id: 1, b: "1", id2: 1, y: "11" },
+→   { id: 1, b: "1", id2: 1, y: "12" },
+→   { id: 2, b: "2" },
+→   { id: 3, b: "3", id2: 3, y: "33" },
+→   { id2: 4, y: "44" }
+→ ]
+arr.L.outerJoin(other,
+	(left, right) => left.id === right.id2,
+	(left, right) => ({
+		id: left ? left.id : right.id2,
+		name: right ? right.y : "none"
+	}))
+→ [
+→   { id: 1, name: "11" },
+→   { id: 1, name: "12" },
+→   { id: 2, name: "none" },
+→   { id: 3, name: "33" },
+→   { id: 4, name: "44" }
+→ ]
+</div>
+			</div>
+
+			<div class="member" data-aliases="reorder">
+				<h3 id="rearrange">rearrange</h3>
+				<ul>
+					<li><code>rearrange(mapper)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a copy of the array with the items rearranged by a mapping function that maps the source index to the target index.
+					The items are rearranged in their order in the array.
+					If the mapping function returns a target index twice, the last assigned value will overwrite previous values at that index.
+				</p>
+<div class="code">const mapper = index => (index + 2) % 6;
+[1, 2, 3, 4, 5, 6].L.rearrange(mapper)
+→ [5, 6, 1, 2, 3, 4]
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="repeat">repeat</h3>
+				<ul>
+					<li><code>repeat(count)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a copy of the array repeated multiple times.
+					If count is 0, the returned array is empty.
+				</p>
+<div class="code">[1, 2, 3].L.repeat(3)
+→ [1, 2, 3, 1, 2, 3, 1, 2, 3]
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="reversed">reversed</h3>
+				<ul>
+					<li><code>reversed()</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a reversed copy of the array.
+				</p>
+<div class="code">[1, 2, 3, 4].L.reversed()
+→ [4, 3, 2, 1]
+</div>
+				<p class="see-also">
+					See also: <a href="#reverse">ArrayList.reverse()</a> (manipulating alternative)
+				</p>
+			</div>
+
+			<div class="member" data-aliases="map project">
+				<h3 id="select">select</h3>
+				<ul>
+					<li><code>select(selector)</code> → ArrayList</li>
+					<li><code>select(selector, thisArg)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Projects each item in the array into a new form by calling the selector function for each item.
+					The returned array contains as many items as the array, with each return value of the selector function called with the original item as parameter.
+					If thisArg is set, it is assigned to <code>this</code> when executing the selector function.
+					The parameter semantics is the same as the Array.map() method.
+				</p>
+<div class="code">[1, 2, 3, 4].L.select(x => x + 10)
+→ [11, 12, 13, 14]
+let arr = [
+	{ key: 1, value: "a"},
+	{ key: 1, value: "b"},
+	{ key: 1, value: "c"},
+	{ key: 2, value: "d"},
+	{ key: 3, value: "e"}
+];
+arr.L.select(x => x.value)
+→ ["a", "b", "c", "d", "e"]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map">Array.map()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="slice">
+				<h3 id="skip">skip</h3>
+				<ul>
+					<li><code>skip(count)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a copy of the array without the first items.
+				</p>
+<div class="code">[1, 2, 3, 4, 5, 6].L.skip(2)
+→ [3, 4, 5, 6]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice">Array.slice()</a>, <a href="#removeFirst">ArrayList.removeFirst()</a> (manipulating alternative)
+				</p>
+			</div>
+
+			<div class="member" data-aliases="slice">
+				<h3 id="skipLast">skipLast</h3>
+				<ul>
+					<li><code>skipLast(count)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a copy of the array without the last items.
+				</p>
+<div class="code">[1, 2, 3, 4, 5, 6].L.skipLast(2)
+→ [1, 2, 3, 4]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice">Array.slice()</a>, <a href="#removeLast">ArrayList.removeLast()</a> (manipulating alternative)
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="skipWhile">skipWhile</h3>
+				<ul>
+					<li><code>skipWhile(predicate)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a copy of the array without the first items that satisfy a condition.
+					As soon as an item does not satisfy the condition, that and all subsequent items until the end of the array are returned, satisfying the condition or not.
+				</p>
+<div class="code">const even = x => x % 2 === 0;
+[2, 4, 6, 7, 8, 9].L.skipWhile(even)
+→ [7, 8, 9]
+</div>
+			</div>
+
+			<div class="member" data-aliases="slice">
+				<h3 id="take">take</h3>
+				<ul>
+					<li><code>take(count)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns the first items of the array.
+				</p>
+<div class="code">[1, 2, 3, 4, 5, 6].L.take(2)
+→ [1, 2]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice">Array.slice()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="takeAfter">takeAfter</h3>
+				<ul>
+					<li><code>takeAfter(item)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns all items in the array that occur after the specified item, not including the item itself.
+				</p>
+<div class="code">["a", "b", "c", "d", "e"].L.takeAfter("c")
+→ ["d", "e"]
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="takeBefore">takeBefore</h3>
+				<ul>
+					<li><code>takeBefore(item)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns all items in the array that occur before the specified item, not including the item itself.
+				</p>
+<div class="code">["a", "b", "c", "d", "e"].L.takeBefore("c")
+→ ["a", "b"]
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="takeEvery">takeEvery</h3>
+				<ul>
+					<li><code>takeEvery(step)</code> → ArrayList</li>
+					<li><code>takeEvery(step, start)</code> → ArrayList</li>
+					<li><code>takeEvery(step, start, count)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns every nth item of the array.
+					If start is omitted, the first returned item is the first item of the array.
+					The count defines how many items will be returned (if available), not how many items from the array will be considered.
+				</p>
+<div class="code">[1, 2, 3, 4, 5, 6, 7, 8].L.takeEvery(2)
+→ [1, 3, 5, 7]
+[1, 2, 3, 4, 5, 6, 7, 8].L.takeEvery(2, 1)
+→ [2, 4, 6, 8]
+[1, 2, 3, 4, 5, 6, 7, 8].L.takeEvery(2, 1, 3)
+→ [2, 4, 6]
+</div>
+			</div>
+
+			<div class="member" data-aliases="slice">
+				<h3 id="takeLast">takeLast</h3>
+				<ul>
+					<li><code>takeLast(count)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns the last items of the array.
+				</p>
+<div class="code">[1, 2, 3, 4, 5, 6].L.takeLast(2)
+→ [5, 6]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice">Array.slice()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="takeWhile">takeWhile</h3>
+				<ul>
+					<li><code>takeWhile(predicate)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns the first items of the array that satisfy a condition.
+					As soon as an item does not satisfy the condition, no further items of the array are returned, satisfying the condition or not.
+				</p>
+<div class="code">const even = x => x % 2 === 0;
+[2, 4, 6, 7, 8, 9].L.takeWhile(even)
+→ [2, 4, 6]
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="toArray">toArray</h3>
+				<ul>
+					<li><code>toArray()</code> → Array</li>
+				</ul>
+				<p>
+					Returns a plain Array of the items of the array, also converting all nested ArrayLists into Arrays.
+					The returned array is a new instance that contains the items from the internal array.
+					Any changes done to this array will not affect the ArrayList instance.
+				</p>
+				<p class="see-also">
+					See also: <a href="#array">ArrayList.array</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="toMap">toMap</h3>
+				<ul>
+					<li><code>toMap()</code> → Map</li>
+					<li><code>toMap(keySelector)</code> → Map</li>
+					<li><code>toMap(keyName)</code> → Map</li>
+					<li><code>toMap(keySelector, valueSelector)</code> → Map</li>
+					<li><code>toMap(keyName, valueSelector)</code> → Map</li>
+					<li><code>toMap(keySelector, valueName)</code> → Map</li>
+					<li><code>toMap(keyName, valueName)</code> → Map</li>
+				</ul>
+				<p>
+					Returns a Map of the items of the array.
+					The map key is determined by calling the keySelector function.
+					The corresponding value is determined by calling the valueSelector function.
+					The items are copied in their order in the array.
+					If the key function returns a key twice, the last assigned value will overwrite previous values for that key.
+				</p>
+				<p>
+					If no keySelector is provided, the source array must contain arrays with exactly 2 items each, as for the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/Map">Map</a> constructor.
+					The first of each array items is then used as key and the second item is the corresponding value.
+				</p>
+				<p>
+					If no valueSelector is provided, each source array item is used as the value.
+				</p>
+				<p>
+					Both the keySelector and valueSelector functions get three arguments:
+				</p>
+				<ol>
+					<li>The array item</li>
+					<li>Its index in the array</li>
+					<li>The entire array (the internal Array instance)</li>
+				</ol>
+				<p>
+					If keySelector or valueSelector is a string instead of a function, it specifies the name of the property to read from each item object.
+				</p>
+				<p>
+					See the <a href="#toObject">toObject()</a> method for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#toObject">ArrayList.toObject()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="toObject">toObject</h3>
+				<ul>
+					<li><code>toObject()</code> → Object</li>
+					<li><code>toObject(keySelector)</code> → Object</li>
+					<li><code>toObject(keyName)</code> → Object</li>
+					<li><code>toObject(keySelector, valueSelector)</code> → Object</li>
+					<li><code>toObject(keyName, valueSelector)</code> → Object</li>
+					<li><code>toObject(keySelector, valueName)</code> → Object</li>
+					<li><code>toObject(keyName, valueName)</code> → Object</li>
+				</ul>
+				<p>
+					Returns an Object of the items of the array.
+					The object key is determined by calling the keySelector function which must return a string value suitable for a JavaScript object property name.
+					The corresponding value is determined by calling the valueSelector function.
+					The items are copied in their order in the array.
+					If the key function returns a key twice, the last assigned value will overwrite previous values for that key.
+				</p>
+				<p>
+					If no keySelector is provided, the source array must contain arrays with exactly 2 items each, as for <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries">Object.fromEntries()</a>.
+					The first of each array items is then used as key and the second item is the corresponding value.
+				</p>
+				<p>
+					If no valueSelector is provided, each source array item is used as the value.
+				</p>
+				<p>
+					Both the keySelector and valueSelector functions get three arguments:
+				</p>
+				<ol>
+					<li>The array item</li>
+					<li>Its index in the array</li>
+					<li>The entire array (the internal Array instance)</li>
+				</ol>
+				<p>
+					If keySelector or valueSelector is a string instead of a function, it specifies the name of the property to read from each item object.
+				</p>
+<div class="code">// Convert [key, value] items
+[["a", 1], ["b", 2], ["c", 3]].L.toObject()
+→ { "a": 1, "b": 2, "c": 3 }
+// Use keySelector
+[1, 2, 3].L.toObject(item => -item)
+→ { "-1": 1, "-2": 2, "-3": 3 }
+// Use index-based keySelector
+[1, 2, 3].L.toObject((item, index) => index)
+→ { "0": 1, "1": 2, "2": 3 }
+// Use keySelector and valueSelector
+let data = [
+	{ key: "a", value: 1 },
+	{ key: "b", value: 2 },
+	{ key: "c", value: 3 }
+];
+data.L.toObject(item => item.key, item => item.value)
+→ { "a": 1, "b": 2, "c": 3 }
+// Use keySelector and valueSelector as strings
+data.L.toObject("key", "value")
+→ { "a": 1, "b": 2, "c": 3 }
+</div>
+				<p>
+					The inverse operation of the last example would be this:
+				</p>
+<div class="code">let data = { "a": 1, "b": 2, "c": 3 };
+Object.entries(data).map(e => ({ key: e[0], value: e[1] }))
+→ [
+→   { key: "a", value: 1 },
+→   { key: "b", value: 2 },
+→   { key: "c", value: 3 }
+→ ]
+</div>
+				<p class="see-also">
+					See also: <a href="#toMap">ArrayList.toMap()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="zip unzip weave">
+				<h3 id="transpose">transpose</h3>
+				<ul>
+					<li><code>transpose()</code> → ArrayList</li>
+					<li><code>transpose(chunkSize)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns an array of arrays where each array contains the first/second/etc. values from each of the current arrays.
+					It transposes a data table or matrix made of arrays of arrays of the values, also called zip/unzip.
+					Each subarray is again an ArrayList instance.
+					The result can be converted to a plain Array of Arrays with the toArray() method.
+				</p>
+				<table class="p">
+					<tr>
+						<td></td>
+						<td>out ↓</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>in →</td>
+						<td>a1</td>
+						<td>a2</td>
+						<td>a3</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>b1</td>
+						<td>b2</td>
+						<td>b3</td>
+					</tr>
+				</table>
+<div class="code">[["a1", "a2", "a3"], ["b1", "b2", "b3"]].L.transpose()
+→ [["a1", "b1"], ["a2", "b2"], ["a3", "b3"]]
+</div>
+				<p>
+					A single array can be converted for this method with the chunk() method.
+					The result can be converted to a single array with the flat() method.
+				</p>
+<div class="code">["a1", "a2", "a3", "b1", "b2", "b3"].L.chunk(3).transpose().flat()
+→ ["a1", "b1", "a2", "b2", "a3", "b3"]
+</div>
+				<p>
+					If the instance only contains a flat array, i.e. not an array of arrays, the method transposes it as a flat array directly.
+					Only in this case, the chunkSize is required.
+					The returned array will then also be flat.
+				</p>
+<div class="code">["a1", "a2", "a3", "b1", "b2", "b3"].L.transpose(3)
+→ ["a1", "b1", "a2", "b2", "a3", "b3"]
+</div>
+			</div>
+
+			<div class="member" data-aliases="filter">
+				<h3 id="where">where</h3>
+				<ul>
+					<li><code>where(predicate)</code> → ArrayList</li>
+					<li><code>where(predicate, thisArg)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns all items from the array that satisfy a condition.
+					Items that do not satisfy the condition are skipped in the returned array.
+					The order of the returned items is the same as the original array.
+					The predicate function gets three arguments:
+				</p>
+				<ol>
+					<li>The array item</li>
+					<li>Its index in the array</li>
+					<li>The entire array (the internal Array instance)</li>
+				</ol>
+				<p>
+					If thisArg is set, it is assigned to <code>this</code> when executing the predicate function.
+					The parameter semantics is the same as the Array.filter() method.
+				</p>
+<div class="code">const even = x => x % 2 === 0;
+[1, 2, 3, 4, 5, 6].L.where(even)
+→ [2, 4, 6]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter">Array.filter()</a>
+				</p>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="set-methods">Set methods</h2>
+
+			<p>
+				These instance methods provide set operations on the array.
+				Most of these methods should be available in the built-in Set type, but unfortunately are not.
+			</p>
+
+			<div class="member" data-aliases="unique">
+				<h3 id="distinct">distinct</h3>
+				<ul>
+					<li><code>distinct()</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a new array with the items from the array, without duplicates.
+					The order of the returned items is the same as the original array.
+				</p>
+<div class="code">[1, 5, 3, 2, 5, 3, 3, 4].L.distinct()
+→ [1, 5, 3, 2, 4]
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/Set">new Set()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="exclude minus difference">
+				<h3 id="except">except</h3>
+				<ul>
+					<li><code>except(other)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a new array with the unique items from the array, without (“minus”) all items from the other array, also called set difference.
+					The order of the returned items is the same as the original array.
+				</p>
+<div class="code">[1, 2, 3, 4, 5, 6].L.except([1, 4, 5])
+→ [2, 3, 6]
+</div>
+			</div>
+
+			<div class="member" data-aliases="and">
+				<h3 id="intersect">intersect</h3>
+				<ul>
+					<li><code>intersect(other)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a new array with the unique items that exist in both the array and the other array.
+					This corresponds to the boolean operator AND.
+					The order of the returned items is the same as the original array.
+				</p>
+<div class="code">[1, 2, 3, 4, 5, 6].L.intersect([1, 4, 5, 8, 9])
+→ [1, 4, 5]
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="isSubsetOf">isSubsetOf</h3>
+				<ul>
+					<li><code>isSubsetOf(other)</code> → Boolean</li>
+				</ul>
+				<p>
+					Determines whether the array is a subset of the other array.
+					If both arrays contain the same distinct items, the return value is true.
+				</p>
+<div class="code">[1, 2, 3].L.isSubsetOf([1, 2, 3, 4, 5])
+→ true
+[1, 2, 3].L.isSubsetOf([1, 2, 3])
+→ true
+[1, 2, 3].L.isSubsetOf([1, 2])
+→ false
+[1, 2, 3].L.isSubsetOf([5, 6])
+→ false
+[1, 2, 3].L.isSubsetOf([2, 4, 1, 5, 3])
+→ true
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="isSupersetOf">isSupersetOf</h3>
+				<ul>
+					<li><code>isSupersetOf(other)</code> → Boolean</li>
+				</ul>
+				<p>
+					Determines whether the array is a superset of the other array.
+					If both arrays contain the same distinct items, the return value is true.
+				</p>
+<div class="code">[1, 2, 3].L.isSupersetOf([1, 2, 3, 4, 5])
+→ false
+[1, 2, 3].L.isSupersetOf([1, 2, 3])
+→ true
+[1, 2, 3].L.isSupersetOf([1, 2])
+→ true
+[1, 2, 3].L.isSupersetOf([5, 6])
+→ false
+[1, 2, 3, 4, 5].L.isSupersetOf([2, 1, 3])
+→ true
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="setEquals">setEquals</h3>
+				<ul>
+					<li><code>setEquals(other)</code> → Boolean</li>
+				</ul>
+				<p>
+					Determines whether two arrays contain the same unique items but not necessarily in the same order (or quantity).
+					Items are compared with <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/has">Set.has()</a>.
+				</p>
+<div class="code">[1, 2, 3].L.setEquals([1, 2, 3, 4, 5])
+→ false
+[1, 2, 3].L.setEquals([1, 2, 3])
+→ true
+[1, 2, 3].L.setEquals([1, 2])
+→ false
+[1, 2, 3].L.setEquals([2, 1, 3])
+→ true
+[1, 2, 3].L.setEquals([1, 2, 3, 3, 3])
+→ true
+</div>
+				<p class="see-also">
+					See also: <a href="#equals">ArrayList.equals()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="xor">
+				<h3 id="symmetricDifference">symmetricDifference</h3>
+				<ul>
+					<li><code>symmetricDifference(other)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a new array with the unique items that exist in either the array or the other array but not in both (called <a href="https://en.wikipedia.org/wiki/Symmetric_difference">symmetric difference</a>).
+					This corresponds to the boolean operator XOR (exclusive OR).
+					The order of the returned items is the same as the original array, followed by the new items from the other array.
+				</p>
+<div class="code">[1, 2, 3, 4].L.symmetricDifference([3, 4, 5, 6])
+→ [1, 2, 5, 6]
+</div>
+			</div>
+
+			<div class="member" data-aliases="or">
+				<h3 id="union">union</h3>
+				<ul>
+					<li><code>union(other)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a new array with the unique items from the array and also from the other array.
+					This corresponds to the boolean operator OR.
+					The order of the returned items is the same as the original array, followed by the new items from the other array.
+				</p>
+<div class="code">[1, 2, 3, 4].L.union([3, 4, 5, 6])
+→ [1, 2, 3, 4, 5, 6]
+</div>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="void-methods">Void methods</h2>
+
+			<p>
+				These instance methods do not return items from the array and do not alter the contents of the instance.
+			</p>
+
+			<div class="member" data-aliases="each">
+				<h3 id="forEach">forEach</h3>
+				<ul>
+					<li><code>forEach(action)</code> → this</li>
+					<li><code>forEach(action, thisArg)</code> → this</li>
+				</ul>
+				<p>
+					Calls a function once for each item in the array.
+					The callback function gets three arguments:
+				</p>
+				<ol>
+					<li>The array item</li>
+					<li>Its index in the array</li>
+					<li>The entire array (the internal Array instance)</li>
+				</ol>
+				<p>
+					If thisArg is set, it is assigned to <code>this</code> when executing the callback function.
+					The parameter semantics is the same as the Array.forEach() method.
+				</p>
+<div class="code">["a", "b", "c"].L.forEach(x => console.log(x));
+→ a
+→ b
+→ c
+["a", "b", "c"].L.forEach(x => console.log(x, i));
+→ a 0
+→ b 1
+→ c 2
+</div>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach">Array.forEach()</a>
+				</p>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="infrastructure-methods">Infrastructure methods</h2>
+
+			<div class="member">
+				<h3 id="toJSON">toJSON</h3>
+				<ul>
+					<li><code>toJSON()</code> → Array</li>
+				</ul>
+				<p>
+					Returns the internal Array so that an ArrayList instance can be serialised to JSON just like a regular Array.
+					Be aware that the deserialised object will be an Array, not an ArrayList, because JSON cannot maintain the object type.
+				</p>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#tojson_behavior">JSON.stringify()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="toString">toString</h3>
+				<ul>
+					<li><code>toString()</code> → String</li>
+				</ul>
+				<p>
+					Returns the result of the toString() method on the internal Array.
+				</p>
+				<p class="see-also">
+					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString">Array.toString()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="Symbol_iterator">Symbol.iterator</h3>
+				<ul>
+					<li><code>[Symbol.iterator]</code> → Function</li>
+				</ul>
+				<p>
+					Returns the iterator function of the ArrayList instance.
+				</p>
+<div class="code">let list = [1, 2, 3].L.reversed();
+for (let x of list) {
+	console.log(x);
+}
+→ 3
+→ 2
+→ 1
+</div>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="static-methods">Static methods</h2>
+
+			<div class="member">
+				<h3 id="version">version</h3>
+				<ul>
+					<li><code>ArrayList.version</code> → String</li>
+				</ul>
+				<p>
+					Returns the version identifier string of the ArrayList library.
+				</p>
+<div class="code">ArrayList.version
+→ "<span class="version-id">1.0.0</span>"
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="range">range</h3>
+				<ul>
+					<li><code>ArrayList.range(start, count)</code> → ArrayList</li>
+					<li><code>ArrayList.range(start, count, step)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Creates an array that contains integer numbers from the start value, with the specified step or 1.
+					The step can be any integer (positive or negative) other than 0.
+				</p>
+<div class="code">ArrayList.range(2, 5)
+→ [2, 3, 4, 5, 6]
+ArrayList.range(2, 5, 10)
+→ [2, 12, 22, 32, 42]
+ArrayList.range(10, 3, -1)
+→ [10, 9, 8]
+</div>
+			</div>
+		</section>
+
+		<!------------------------------ END OF REFERENCE CONTENT ------------------------------>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2021–2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+	<script src="res/doc.js"></script>
+</body>
+</html>

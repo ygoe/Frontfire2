@@ -1,0 +1,1084 @@
+@use "../variables";
+
+// ==================== Form layout ====================
+
+:where(form)
+{
+	display: inline;
+
+	:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+
+	h1 { margin-bottom: 0.5em; }
+	:is(h2, h3, h4, h5, h6) { margin-bottom: 0; }
+}
+
+// A class to hide form fields that no user should fill out and bots love
+.form-trap
+{
+	display: none !important;
+}
+
+.form-row,
+.form-single-row
+{
+	margin-top: 1em;
+	margin-bottom: 1em;
+	display: grid;
+	grid-auto-columns: 1fr;
+	justify-content: space-between;
+}
+.form-row   // normal 3-line form rows with labels and validation messages
+{
+	grid-template-rows: max-content max-content max-content;
+	grid-gap: 1px 1em;
+	grid-auto-flow: column;
+}
+.form-single-row   // no labels or validation messages, just controls; allows custom responsive layouts
+{
+	grid-gap: 1em;
+	grid-auto-flow: row;
+	&.narrow
+	{
+		grid-gap: 0px;
+	}
+}
+
+.form-row.no-validation
+{
+	grid-template-rows: max-content max-content;
+}
+.form-row .label
+{
+	-webkit-user-select: none;   // for Safari
+	user-select: none;
+	align-self: end;
+	transition: color var(--animation-duration) var(--animation-function);
+}
+.form-row .label:not(:first-child)
+{
+	margin-top: 0px;
+}
+.form-row .label[disabled]
+{
+	color: var(--disabled-label-color);
+}
+.form-row label   // to contain a checkbox or radiobox
+{
+	justify-self: start;
+	align-self: center;
+	&.top
+	{
+		align-self: start;
+	}
+}
+
+// Responsive single-column fallbacks
+@mixin too-narrow
+{
+	grid-template-columns: 100% !important;
+	grid-auto-flow: row;
+
+	> .label:not(:first-child)
+	{
+		margin-top: 1em;
+	}
+}
+@media (max-width: variables.$viewportWidthPhone)
+{
+	.form-row.require-minitab { @include too-narrow; }
+}
+@media (max-width: variables.$viewportWidthMinitab)
+{
+	.form-row.require-tablet { @include too-narrow; }
+}
+@media (max-width: variables.$viewportWidthTablet)
+{
+	.form-row.require-desktop { @include too-narrow; }
+}
+@media (max-width: variables.$viewportWidthDesktop)
+{
+	.form-row.require-wide { @include too-narrow; }
+}
+
+
+// ==================== Labels ====================
+
+:where(label)
+{
+	-webkit-user-select: none;   // for Safari
+	user-select: none;
+	transition: color var(--animation-duration) var(--animation-function);
+
+	:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+
+	&:where([disabled])
+	{
+		color: var(--disabled-label-color);
+
+		:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+	}
+}
+
+.field-validation-error
+{
+	color: var(--validation-error-text);
+}
+
+
+// ==================== Text fields ====================
+
+:where(
+	input:is(
+		:not([type]),
+		[type^=date],
+		[type=email],
+		[type=month],
+		[type=number],
+		[type=password],
+		[type=search],
+		[type=tel],
+		[type=text],
+		[type=time],
+		[type=url],
+		[type=week]),
+	textarea,
+	select
+)
+{
+	min-width: 0;   // Allow shrinking for fair width sharing in form rows
+	border: 1px solid var(--textbox-border);
+	border-radius: 0;
+	background-color: var(--textbox-background);
+	color: var(--textbox-color);
+	padding: 4px 8px;
+	box-shadow: rgb(0, 0, 0, 0.05) 0 1px 2px inset;
+	transition: border var(--animation-duration) var(--animation-function), background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function), box-shadow var(--animation-duration) var(--animation-function);
+	:where(.dark) &
+	{
+		box-shadow: rgb(0, 0, 0, 0.4) 0 1px 2px inset;
+	}
+
+	&:where(:focus)
+	{
+		outline: var(--focus-outline);
+		outline-offset: var(--focus-outline-offset);
+		z-index: 2;   // Bring it above neighbouring elements to see the full outline
+	}
+	&:where(:not(:disabled).ff-focus-visible)
+	{
+		outline: var(--focus-keyboard-outline);
+		outline-offset: var(--focus-keyboard-outline-offset);
+		z-index: 2;   // Bring it above neighbouring elements to see the full outline
+	}
+	&:where(:hover:not(:disabled))
+	{
+		border-color: var(--textbox-hover-border);
+
+		&.input-validation-error
+		{
+			border-color: var(--validation-error-text);
+		}
+	}
+	&:where(:disabled)
+	{
+		border-color: var(--textbox-disabled-border);
+		color: var(--textbox-disabled-color);
+	}
+
+	// Cannot use :where() or it wouldn't apply
+	&::placeholder
+	{
+		font-style: italic;
+		opacity: 0.4;
+
+		// Selector for different (pseudo) element
+		:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+	}
+	&:focus::placeholder
+	{
+		opacity: 0.25;
+	}
+
+	&.input-validation-error
+	{
+		border-color: var(--validation-error-text);
+		background-color: var(--validation-error-background);
+	}
+
+	// Remove all borders around the text field
+	&.no-border
+	{
+		border: none;
+		box-shadow: none;
+		padding: 2px 0px;
+	}
+	// Remove all but the bottom border around the text field
+	&.underline
+	{
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		box-shadow: none;
+		// Also remove the horizontal padding, use when the background of the text field is not different from the parent
+		&.no-padding
+		{
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+	}
+	// Clear the background from the text field
+	&.transparent
+	{
+		background-color: transparent;
+	}
+
+	// All reverted rules above have specificity 0 so it's enough to revert it all down here
+	// (order matters, not selector complexity)
+	:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+}
+
+:where(input[type=number])
+{
+	// Make it a bit nicer
+	padding-right: 4px;
+
+	:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+
+	.ff-input-wrapper &
+	{
+		// Remove default spinner buttons, see https://stackoverflow.com/a/23374725
+		-moz-appearance: textfield;
+		&::-webkit-outer-spin-button, &::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+		// Reset to normal padding
+		padding-right: 8px;
+	}
+}
+
+.ff-input-wrapper
+{
+	display: inline-flex;
+	input
+	{
+		min-width: 0;
+		flex-grow: 1;
+		width: 100%;
+	}
+	button.ff-spinner-dec,
+	button.ff-spinner-inc
+	{
+		svg
+		{
+			stroke: var(--button-color);
+			stroke-width: 1.25;
+			transition: stroke var(--animation-duration) var(--animation-function);
+			.dark &
+			{
+				stroke-width: 1.5;
+			}
+		}
+		&:disabled
+		{
+			svg
+			{
+				stroke: var(--button-disabled-color);
+			}
+		}
+	}
+}
+
+// Wrapper for auto-height textarea
+.ff-textarea-wrapper
+{
+	position: relative;
+
+	> textarea
+	{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		resize: none;
+		// DEBUG:
+		//background-color: transparent;
+		//color: rgb(0, 0, 0, 0.3);
+	}
+	> div
+	{
+		width: 100%;
+		white-space: pre-wrap;
+		visibility: hidden;
+		// DEBUG:
+		//visibility: visible;
+		//color: red;
+	}
+}
+
+// Text field with label or icon at either side
+.segmented-input
+{
+	display: inline-flex;
+
+	> .label
+	{
+		border-top: 1px solid var(--textbox-border);
+		border-bottom: 1px solid var(--textbox-border);
+		background-color: var(--input-label-background);
+		padding: 4px 8px;
+		white-space: nowrap;
+		transition: border var(--animation-duration) var(--animation-function), background var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+		&:first-child { border-left: 1px solid var(--textbox-border); }
+		&:last-child { border-right: 1px solid var(--textbox-border); }
+
+		&.no-background
+		{
+			border: none;
+			background-color: transparent;
+			padding-top: 5px;
+			padding-bottom: 5px;
+		}
+	}
+	&[disabled] > .label
+	{
+		border-color: var(--textbox-disabled-border);
+	}
+
+	%textbox-icon
+	{
+		z-index: 10;   // Keep it above its :focus-visible element
+		width: 25px;
+		text-align: center;
+		align-self: center;
+		pointer-events: none;
+	}
+	// Place an icon at the left end of the text field
+	&.icon-left
+	{
+		> i
+		{
+			@extend %textbox-icon;
+			margin-right: -25px;
+			padding-left: 9px;
+		}
+		// class "no-padding" must also be applied to the "segmented-input" element to position the icon correctly
+		&.no-padding > i
+		{
+			padding-left: 0;
+			width: 16px;
+			margin-right: -16px;
+		}
+		> input
+		{
+			padding-left: 32px;
+			&.underline.no-padding
+			{
+				padding-left: 23px;
+			}
+		}
+	}
+	// Place an icon at the right end of the text field
+	&.icon-right
+	{
+		> input
+		{
+			padding-right: 32px;
+			&.underline.no-padding
+			{
+				padding-right: 23px;
+			}
+		}
+		> i
+		{
+			@extend %textbox-icon;
+			margin-left: -25px;
+			padding-right: 9px;
+		}
+		// class "no-padding" must also be applied to the "segmented-input" element to position the icon correctly
+		&.no-padding > i
+		{
+			padding-right: 0;
+			width: 16px;
+			margin-left: -16px;
+		}
+	}
+
+	> input,
+	> .ff-selectable-button
+	{
+		width: 100%;
+	}
+}
+
+.segmented-input .ff-input-wrapper
+{
+	flex-grow: 1;
+}
+
+
+// ==================== Buttons ====================
+
+// Similar selector as below: All buttons and also the <a> buttons
+:where(
+	button,
+	input[type=button],
+	input[type=color],
+	input[type=image],
+	input[type=reset],
+	input[type=submit],
+	a.button
+)
+{
+	// Calculate lightness values from light factor (lf):
+	// - start with the base lightness
+	// - add the factor towards 100% (only if the factor is > 0)
+	// - subtract the negative factor towards 0% (only if the factor is < 0)
+	--button-hover-background-l: calc(var(--button-background-l)
+		+ max(0%, (100% - var(--button-background-l)) * var(--button-hover-lf))
+		- max(0%, var(--button-background-l) * (0 - (var(--button-hover-lf)))));
+	--button-pressed-background-l: calc(var(--button-background-l)
+		+ max(0%, (100% - var(--button-background-l)) * var(--button-pressed-lf))
+		- max(0%, var(--button-background-l) * (0 - (var(--button-pressed-lf)))));
+	--button-disabled-background-l: calc(var(--button-background-l)
+		+ max(0%, (100% - var(--button-background-l)) * var(--button-disabled-lf))
+		- max(0%, var(--button-background-l) * (0 - (var(--button-disabled-lf)))));
+
+	--button-default-hover-background-l: calc(var(--button-default-background-l)
+		+ max(0%, (100% - var(--button-default-background-l)) * var(--button-default-hover-lf))
+		- max(0%, var(--button-default-background-l) * (0 - (var(--button-default-hover-lf)))));
+	--button-default-pressed-background-l: calc(var(--button-default-background-l)
+		+ max(0%, (100% - var(--button-default-background-l)) * var(--button-default-pressed-lf))
+		- max(0%, var(--button-default-background-l) * (0 - (var(--button-default-pressed-lf)))));
+
+	--button-caution-hover-background-l: calc(var(--button-caution-background-l)
+		+ max(0%, (100% - var(--button-caution-background-l)) * var(--button-caution-hover-lf))
+		- max(0%, var(--button-caution-background-l) * (0 - (var(--button-caution-hover-lf)))));
+	--button-caution-pressed-background-l: calc(var(--button-caution-background-l)
+		+ max(0%, (100% - var(--button-caution-background-l)) * var(--button-caution-pressed-lf))
+		- max(0%, var(--button-caution-background-l) * (0 - (var(--button-caution-pressed-lf)))));
+
+	display: inline-block;
+	text-align: center;
+	border: none;
+	border-radius: 0;
+	background-color: var(
+		--button-background,
+		hsl(var(--button-background-h), var(--button-background-s), var(--button-background-l)));
+	color: var(--button-color);
+	text-decoration: none !important;
+	padding: 5px 9px;   // textbox padding + 1 for the missing border
+	min-width: 75px;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;   // for Chrome/Android (and derivates)
+	transition: background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function), border var(--animation-duration) var(--animation-function);
+	&:where(:link, :visited)
+	{
+		color: var(--button-color);
+		text-decoration: none !important;
+	}
+	&:where(:link, :visited):where(:hover)
+	{
+		color: var(--button-color);
+	}
+	.larger &,
+	&.larger
+	{
+		padding: 7px 12px;
+	}
+
+	&:where(:not(:disabled):not([disabled]):focus-visible)
+	{
+		outline: var(--focus-keyboard-outline);
+		outline-offset: var(--focus-keyboard-outline-offset);
+		z-index: 2;   // Bring it above neighbouring elements to see the full outline
+	}
+	&:where(:not(:disabled):not([disabled]):hover)
+	{
+		background-color: var(
+			--button-hover-background,
+			hsl(var(--button-background-h), var(--button-background-s), var(--button-hover-background-l)));
+		transition: background-color 0s;
+	}
+	&:where(:not(:disabled):not([disabled])):where(:active, .ff-active)
+	{
+		background-color: var(
+			--button-pressed-background,
+			hsl(var(--button-background-h), var(--button-background-s), var(--button-pressed-background-l)));
+		transition: background-color 0s;
+		color: var(--button-pressed-color, var(--button-color));
+		&:where(:link, :visited),
+		&:where(:link, :visited):hover
+		{
+			color: var(--button-pressed-color, var(--button-color));
+		}
+	}
+	&:where(:disabled, [disabled])
+	{
+		background-color: var(
+			--button-disabled-background,
+			hsl(var(--button-background-h), var(--button-background-s), var(--button-disabled-background-l)));
+		color: var(--button-disabled-color);
+		cursor: default;
+		&:where(:link, :visited),
+		&:where(:link, :visited):where(:hover)
+		{
+			color: var(--button-disabled-color);
+		}
+	}
+
+	// All reverted rules above have specificity 0 so it's enough to revert it all down here
+	// (order matters, not selector complexity)
+	:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+
+	&.default:not(:disabled):not([disabled])
+	{
+		background-color: var(
+			--button-default-background,
+			hsl(var(--button-default-background-h), var(--button-default-background-s), var(--button-default-background-l)));
+		color: var(--button-default-color);
+		&:is(:link, :visited),
+		&:is(:link, :visited):hover
+		{
+			color: var(--button-default-color);
+		}
+
+		&:hover
+		{
+			background-color: var(
+				--button-default-hover-background,
+				hsl(var(--button-default-background-h), var(--button-default-background-s), var(--button-default-hover-background-l)));
+			transition: background-color 0s;
+		}
+		&:is(:active, .ff-active)
+		{
+			background-color: var(
+				--button-default-pressed-background,
+				hsl(var(--button-default-background-h), var(--button-default-background-s), var(--button-default-pressed-background-l)));
+			color: var(--button-default-pressed-color, var(--button-default-color));
+			transition: background-color 0s;
+			&:is(:link, :visited),
+			&:is(:link, :visited):hover
+			{
+				color: var(--button-default-pressed-color, var(--button-default-color));
+			}
+		}
+	}
+
+	&.caution:not(:disabled):not([disabled])
+	{
+		background-color: var(
+			--button-caution-background,
+			hsl(var(--button-caution-background-h), var(--button-caution-background-s), var(--button-caution-background-l)));
+		color: var(--button-caution-color);
+		&:is(:link, :visited),
+		&:is(:link, :visited):hover
+		{
+			color: var(--button-caution-color);
+		}
+
+		&:hover
+		{
+			background-color: var(
+				--button-caution-hover-background,
+				hsl(var(--button-caution-background-h), var(--button-caution-background-s), var(--button-caution-hover-background-l)));
+			transition: background-color 0s;
+		}
+		&:is(:active, .ff-active)
+		{
+			background-color: var(
+				--button-caution-pressed-background,
+				hsl(var(--button-caution-background-h), var(--button-caution-background-s), var(--button-caution-pressed-background-l)));
+			color: var(--button-caution-pressed-color, var(--button-caution-color));
+			transition: background-color 0s;
+			&:is(:link, :visited),
+			&:is(:link, :visited):hover
+			{
+				color: var(--button-caution-pressed-color, var(--button-caution-color));
+			}
+		}
+	}
+
+	&.transparent:not(:disabled):not([disabled])
+	{
+		// Calculate lightness values from light factor (lf):
+		// - start with the base lightness
+		// - add the factor towards 100% (only if the factor is > 0)
+		// - subtract the negative factor towards 0% (only if the factor is < 0)
+		--link-hover-color-l: calc(var(--link-color-l)
+			+ max(0%, (100% - var(--link-color-l)) * var(--link-hover-lf))
+			- max(0%, var(--link-color-l) * (0 - (var(--link-hover-lf)))));
+
+		background-color: var(--button-transparent-background, transparent);
+		color: var(--button-transparent-color, var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l))));
+		&:is(:link, :visited)
+		{
+			color: var(--button-transparent-color, var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l))));
+		}
+
+		&:hover
+		{
+			background-color: var(--button-transparent-hover-background);
+			color: var(--button-transparent-hover-color, var(--link-hover-color, var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-hover-color-l)))));
+			transition: background-color 0s, color 0s;
+			&:is(:link, :visited)
+			{
+				color: var(--button-transparent-hover-color, var(--link-hover-color, var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-hover-color-l)))));
+			}
+		}
+		&:is(:active, .ff-active)
+		{
+			background-color: var(--button-transparent-pressed-background,
+				var(--button-pressed-background,
+					hsl(var(--button-background-h), var(--button-background-s), var(--button-pressed-background-l))));
+			color: var(--button-transparent-pressed-color, var(--button-pressed-color, var(--button-color)));
+			transition: background-color 0s;
+			&:is(:link, :visited),
+			&:is(:link, :visited):hover
+			{
+				color: var(--button-transparent-pressed-color, var(--button-pressed-color, var(--button-color)));
+			}
+		}
+	}
+	&.transparent:is(:disabled, [disabled])
+	{
+		background-color: var(--button-transparent-background, transparent);
+		color: var(--button-disabled-color);
+		&:is(:link, :visited),
+		&:is(:link, :visited):hover
+		{
+			color: var(--button-disabled-color);
+		}
+	}
+
+	.ff-input-wrapper &,
+	&.narrow
+	{
+		min-width: calc(1em * var(--default-line-height) + 10px);   // line height + vertical padding
+		padding-left: 4px;
+		padding-right: 4px;
+	}
+	// :has() is only supported in Chrome 105+ (2022-08) and Safari 15.4+ (2022-03).
+	// Other browsers will not make use of the initial space-saving and start with shrinking the
+	// buttons immediately. This rule will be completely ignored by older browsers, so it needs to
+	// be defined separately. (And it also has a slightly different padding anyway.)
+	.overflow-buttons:has(.ff-overflow-shrunk) > &
+	{
+		min-width: calc(1em * var(--default-line-height) + 10px);   // line height + vertical padding
+		// Needs 1px more padding to align with narrow icon-only buttons from the start
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+
+	// Gap between icon and text as default when using an <i> icon in a button.
+	// To prevent that, add the 'icon-only' class to the button.
+	// Icon on the left side
+	&:where(:not(.icon-only):not(.icon-right)) :where(i)
+	{
+		margin-right: 3px;
+
+		:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
+	}
+	// Icon on the right side
+	&:not(.icon-only).icon-right i
+	{
+		margin-left: 3px;
+	}
+
+	i.material
+	{
+		font-size: 20px;
+		line-height: 1px;   // Don't increase the button's line height
+		vertical-align: -5px;
+	}
+
+	i.loading
+	{
+		vertical-align: -3px;
+	}
+}
+
+// Similar selector as above: Again, all buttons, but this time without the <a> element which already
+// appears as a link
+// These are the same colors as for normal links in the Typography plugin
+:is(
+	button.link,
+	input[type=button].link,
+	input[type=color].link,
+	input[type=image].link,
+	input[type=reset].link,
+	input[type=submit].link
+)
+{
+	// Calculate lightness values from light factor (lf):
+	// - start with the base lightness
+	// - add the factor towards 100% (only if the factor is > 0)
+	// - subtract the negative factor towards 0% (only if the factor is < 0)
+	--link-hover-color-l: calc(var(--link-color-l)
+		+ max(0%, (100% - var(--link-color-l)) * var(--link-hover-lf))
+		- max(0%, var(--link-color-l) * (0 - (var(--link-hover-lf)))));
+
+	border: none;
+	border-radius: 0;
+	background-color: transparent;
+	color: var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l)));
+	padding: 0;
+	text-decoration: var(--link-text-decoration, underline);
+	cursor: pointer;
+	min-width: unset;
+	transition: color var(--animation-duration) var(--animation-function);
+	&:not(:disabled):not([disabled]):focus-visible
+	{
+		outline: var(--focus-keyboard-outline);
+		z-index: 2;   // Bring it above neighbouring elements to see the full outline
+	}
+	&:not(:disabled):not([disabled]):is(:hover, :active, .ff-active)
+	{
+		background-color: transparent;
+		// default to normal link color, 25% darker
+		color: var(
+			--link-hover-color,
+			hsl(var(--link-color-h), var(--link-color-s), var(--link-hover-color-l)));
+		text-decoration: var(--link-hover-text-decoration, var(--link-text-decoration, none));
+		transition: color 0s;
+	}
+	&:is(:disabled, [disabled])
+	{
+		background-color: transparent;
+		color: var(--disabled-label-color);
+	}
+}
+
+// A buttons row in a form, which may wrap and should maintain the vertical distance between button rows
+:is(div, span).buttons
+{
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px 6px;
+	align-items: stretch;
+	&.center
+	{
+		justify-content: center;
+	}
+	&.overflow-buttons
+	{
+		flex-wrap: nowrap;
+		white-space: nowrap;
+
+		// Make the buttons here unshrinkable and let their text be truncated
+		:is(
+			button,
+			input[type=button],
+			input[type=color],
+			input[type=image],
+			input[type=reset],
+			input[type=submit],
+			a.button
+		)
+		{
+			flex-shrink: 0;
+			min-width: calc(1em * var(--default-line-height) + 10px);   // narrow's min-width: line height + vertical padding
+			// Only let selected buttons shrink
+			&.ff-overflow-shrunk:not(.narrow)
+			{
+				overflow: hidden;
+				text-overflow: ellipsis;
+				flex-shrink: unset;
+			}
+			.narrow-only
+			{
+				display: none;
+			}
+			&.narrow .narrow-only
+			{
+				display: unset;
+			}
+		}
+	}
+
+	// Separator line
+	> hr
+	{
+		height: calc(1em * var(--default-line-height) + 2px);
+		align-self: center;
+		margin: 0 2px;
+		border: none;
+		border-left: 1px solid var(--table-grid-color);
+		transition: border-left-color var(--animation-duration) var(--animation-function);
+	}
+
+	// Text label
+	> .label
+	{
+		align-self: center;
+	}
+}
+span.buttons
+{
+	display: inline-flex;
+}
+// Zero specificity so that classes "p" or "double-margin" can override the default buttons margin
+:where(div.buttons)
+{
+	margin-top: 2em;
+}
+
+:is(div, span).buttons.group,
+:is(div.buttons, .ff-input-wrapper, .segmented-input) > span.group
+{
+	// Calculate lightness values from light factor (lf):
+	// - start with the base lightness
+	// - add the factor towards 100% (only if the factor is > 0)
+	// - subtract the negative factor towards 0% (only if the factor is < 0)
+	--button-group-separator-l: calc(var(--button-background-l)
+		+ max(0%, (100% - var(--button-background-l)) * var(--button-group-separator-lf))
+		- max(0%, var(--button-background-l) * (0 - (var(--button-group-separator-lf)))));
+	--button-group-disabled-separator-l: calc(var(--button-background-l)
+		+ max(0%, (100% - var(--button-background-l)) * var(--button-group-disabled-separator-lf))
+		- max(0%, var(--button-background-l) * (0 - (var(--button-group-disabled-separator-lf)))));
+
+	gap: 0;
+
+	> :is(button, a):not(:first-child)
+	{
+		margin-left: 0px;
+		border-left: 1px solid var(
+			--button-group-separator-color,
+			hsl(var(--button-background-h), var(--button-background-s), var(--button-group-separator-l)));
+	}
+
+	// Use lighter separator if buttons on both sides are disabled
+	> button:disabled,
+	> a[disabled]
+	{
+		+ button:disabled,
+		+ a[disabled]
+		{
+			border-left-color: var(
+				--button-group-disabled-separator-color,
+				hsl(var(--button-background-h), var(--button-background-s), var(--button-group-disabled-separator-l)));
+		}
+	}
+}
+span.buttons.group,
+:is(div.buttons, .ff-input-wrapper, .segmented-input) > span.group
+{
+	display: inline-flex;
+}
+
+// Toggle button
+button.ff-toggle-button.ff-tb-active
+{
+	// Calculate lightness values from light factor (lf):
+	// - start with the base lightness
+	// - add the factor towards 100% (only if the factor is > 0)
+	// - subtract the negative factor towards 0% (only if the factor is < 0)
+	--button-active-hover-background-l: calc(var(--button-active-background-l)
+		+ max(0%, (100% - var(--button-active-background-l)) * var(--button-active-hover-lf))
+		- max(0%, var(--button-active-background-l) * (0 - (var(--button-active-hover-lf)))));
+	--button-active-pressed-background-l: calc(var(--button-active-background-l)
+		+ max(0%, (100% - var(--button-active-background-l)) * var(--button-active-pressed-lf))
+		- max(0%, var(--button-active-background-l) * (0 - (var(--button-active-pressed-lf)))));
+	--button-active-disabled-background-l: calc(var(--button-active-background-l)
+		+ max(0%, (100% - var(--button-active-background-l)) * var(--button-active-disabled-lf))
+		- max(0%, var(--button-active-background-l) * (0 - (var(--button-active-disabled-lf)))));
+
+	background-color: var(
+		--button-active-background,
+		hsl(var(--button-active-background-h), var(--button-active-background-s), var(--button-active-background-l)));
+	color: var(--button-active-color, var(--button-color));
+	&.transparent
+	{
+		background-color: var(
+			--button-active-background,
+			hsl(var(--button-active-background-h), var(--button-active-background-s), var(--button-active-background-l)));
+		color: var(--button-active-color, var(--button-color));
+	}
+	&:not(:disabled):not([disabled]):focus-visible
+	{
+		outline: var(--focus-keyboard-outline);
+		outline-offset: var(--focus-keyboard-outline-offset);
+		z-index: 2;   // Bring it above neighbouring elements to see the full outline
+	}
+	&:not(:disabled):not([disabled]):hover
+	{
+		background-color: var(
+			--button-active-hover-background,
+			hsl(var(--button-active-background-h), var(--button-active-background-s), var(--button-active-hover-background-l)));
+	}
+	&:not(:disabled):not([disabled]):is(:active, .ff-active)
+	{
+		background-color: var(
+			--button-active-pressed-background,
+			hsl(var(--button-active-background-h), var(--button-active-background-s), var(--button-active-pressed-background-l)));
+		color: var(--button-active-pressed-color, var(--button-active-color));
+	}
+	&[disabled]
+	{
+		background-color: var(
+			--button-active-disabled-background,
+			hsl(var(--button-active-background-h), var(--button-active-background-s), var(--button-active-disabled-background-l)));
+		color: var(--button-active-disabled-color, var(--button-active-color));
+	}
+}
+
+
+// ==================== Checkboxes, radiobuttons ====================
+
+// Based on: http://www.inserthtml.com/2012/06/custom-form-radio-checkbox/
+input:is([type=checkbox], [type=radio]).ff-checkbox
+{
+	// Move our replacement span over the original checkbox.
+	// Don't hide it or it won't be focusable anymore.
+	width: 18px;
+	margin-right: -18px;
+	opacity: 0.01;
+	&:focus { outline: none; }
+
+	+ span
+	{
+		display: inline-block;
+		margin: 3px 0 -3px;
+		border: 1px solid var(--textbox-border);
+		border-radius: 0;
+		background-color: var(--textbox-background);
+		padding: 8px;
+		box-shadow: rgb(0, 0, 0, 0.05) 0 1px 2px inset;
+		position: relative;
+		transition: border var(--animation-duration) var(--animation-function), background-color var(--animation-duration) var(--animation-function);
+	}
+	&:disabled + span
+	{
+		border-color: var(--textbox-disabled-border);
+	}
+	&:not(:disabled):focus + span
+	{
+		outline: var(--focus-outline);
+		outline-offset: var(--focus-outline-offset);
+		z-index: 2;   // Bring it above neighbouring elements to see the full outline
+	}
+	&:not(:disabled):focus-visible + span
+	{
+		outline: var(--focus-keyboard-outline);
+		outline-offset: var(--focus-keyboard-outline-offset);
+		z-index: 2;   // Bring it above neighbouring elements to see the full outline
+	}
+	&:hover:not(:disabled) + span,
+	label:hover &:not(:disabled) + span
+	{
+		border-color: var(--textbox-hover-border);
+	}
+	&.input-validation-error:hover:not(:disabled) + span,
+	label:hover &.input-validation-error:not(:disabled) + span
+	{
+		border-color: var(--validation-error-text);
+	}
+	&:active:not(:disabled) + span,
+	label:active &:not(:disabled) + span
+	{
+		border-color: var(--textbox-hover-border);
+		background-color: var(--checkbox-pressed-background, var(--button-background, hsl(var(--button-background-h), var(--button-background-s), var(--button-background-l))));
+		transition: background-color 0s;
+	}
+	&.input-validation-error:active:not(:disabled) + span,
+	label:active &.input-validation-error:not(:disabled) + span
+	{
+		border-color: var(--validation-error-text);   // mix($textboxFocusBorder, $validationErrorText, 50%);
+		background-color: var(--checkbox-validation-error-pressed-background);   // mix($checkboxPressedBackground, $validationErrorBackground, 50%);
+	}
+	&:checked + span::before
+	{
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-image: url('data:image/svg+xml,<svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M1,5L5,9L11,3" fill="none" stroke="black" stroke-width="2.2"/></svg>');
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+		opacity: 1;
+		transition: opacity var(--animation-duration) var(--animation-function);
+		.dark &
+		{
+			// Same with white stroke
+			background-image: url('data:image/svg+xml,<svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M1,5L5,9L11,3" fill="none" stroke="white" stroke-width="2.2"/></svg>');
+		}
+	}
+	&:checked:disabled + span::before
+	{
+		opacity: 0.5;
+	}
+	&:indeterminate + span::before
+	{
+		content: '';
+		display: block;
+		position: absolute;
+		top: 4px;
+		left: 4px;
+		right: 4px;
+		bottom: 4px;
+		background-color: black;
+		transition: background-color var(--animation-duration) var(--animation-function);
+	}
+	&:indeterminate:disabled + span::before
+	{
+		background-color: gray;
+	}
+	&.input-validation-error + span
+	{
+		border-color: var(--validation-error-text);
+		background-color: var(--validation-error-background);
+	}
+
+	label & + span
+	{
+		margin-right: 4px;
+	}
+	label.empty & + span
+	{
+		margin-right: 0;
+	}
+}
+
+input[type=radio].ff-checkbox
+{
+	+ span
+	{
+		border-radius: 100%;
+	}
+	&:checked + span::before
+	{
+		display: block;
+		content: '';
+		position: absolute;
+		top: 4px;
+		bottom: 4px;
+		left: 4px;
+		right: 4px;
+		background-color: black;
+		background-image: none;
+		border-radius: 100%;
+		.dark &
+		{
+			background-color: white;
+			background-image: none;
+		}
+	}
+	&:checked:disabled + span::before
+	{
+		background-color: gray;
+	}
+	&:indeterminate + span::before
+	{
+		display: none;
+	}
+}
+
+.indent-checkbox
+{
+	display: inline-block;
+	padding-left: 27px;
+}
+.indent-checkbox > input.ff-checkbox,
+.indent-checkbox > label > input.ff-checkbox
+{
+	margin-left: -27px;
+}

@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Typography documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Typography module</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			Frontfire UI provides a rich set of elementary typography styles.
+			These styles are consistent and encourage design best practices without you having to think about it too much.
+		</p>
+		<p>
+			This module is available in the Minimal and Complete bundles.
+		</p>
+
+		<h2 id="headers">Headers</h2>
+		<p>
+			The default HTML header elements are <code data-lang="html">&lt;h1&gt;</code> through <code data-lang="html">&lt;h6&gt;</code>.
+			They should be used correctly by their semantics, not their appearance.
+			Most browsers’ default level-1 header has a too big font size which is why many people lazily start their document structure on the 4th level, completely leaving out the document root and the first three levels of structure.
+			Frontfire comes with smaller header sizes by default to make it easier to use headers correctly without additional styling effort.
+		</p>
+		<p>
+			The header font sizes can be customised with the <code class="css-var">--h1-font-size</code>, <code class="css-var">--h2-font-size</code>, <code class="css-var">--h3-font-size</code> and <code class="css-var">--h4-font-size</code> CSS variables.
+			The header font weight is set with the <code class="css-var">--header-weight</code> CSS variable.
+		</p>
+		<div class="example no-frontfire">
+			<h1>Header 1</h1>
+			<p>Sample text</p>
+			<h2>Header 2</h2>
+			<p>Sample text</p>
+			<h3>Header 3</h3>
+			<p>Sample text</p>
+			<h4>Header 4</h4>
+			<p>Sample text</p>
+			<h5>Header 5</h5>
+			<p>Sample text</p>
+			<h6>Header 6</h6>
+			<p>Sample text</p>
+		</div>
+
+		<h3 id="headers-no-margin">Without margins</h3>
+		<p>
+			Where a header occurs within a box, like a modal or tab, and its top margin is undesired, remove it with the <code class="css-class">no-top-margin</code> class.
+			Similarly, the <code class="css-class">no-bottom-margin</code> class can be added to an element like <code data-lang="html">&lt;p&gt;</code> that would normally have such a margin.
+			The combination of both is the <code class="css-class">no-vertical-margin</code> class.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)(no-(top|bottom)-margin)">
+			<div style="border: solid 1px green; padding: 8px 10px;">
+				<h2 class="no-top-margin">Header</h2>
+				<p>Sample text</p>
+				<p class="no-bottom-margin">Sample text</p>
+			</div>
+		</div>
+
+		<h2 id="paragraphs">Paragraphs</h2>
+		<p>
+			This is a default paragraph with text content, defined with the standard <code data-lang="html">&lt;p&gt;</code> element.
+			Paragraphs have a vertical margin between each other to make it clear to the user that a separate thought or topic has started.
+		</p>
+
+		<h3 id="paragraphs-alignment">Alignment</h3>
+		<p>
+			Paragraph content can be aligned to the left side (which is default without any special markup) with the <code class="css-class">left</code> CSS class, to the right side with the <code class="css-class">right</code> CSS class, it can be centered with the <code class="css-class">center</code> CSS class, and it can be justified with the <code class="css-class">justify</code> CSS class.
+		</p>
+		<p>
+			Justified alignment only becomes more visible with multiple lines of text in a paragraph.
+			All content lines in the paragraph (except for the last line) will have the same length, regardless of the actual width of the words in a line.
+			This is achieved by evenly distributing the width of all white-space between the words.
+			In very narrow paragraphs and without hyphenation, this can easily lead to highly noticeable inconsistencies in word distance.
+			So use it with care or avoid it entirely.
+		</p>
+		<div class="example narrow no-frontfire" data-source-highlight="(?<=&quot;)(right|center|justify)">
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius orci eu mi tincidunt ullamcorper. Donec pulvinar massa eu purus vehicula, non pharetra odio facilisis. Donec viverra at neque sed ornare. Ut lobortis nisl eu tristique viverra.
+			</p>
+			<p class="center">
+				Sed auctor lacinia urna, et sollicitudin eros bibendum nec. Sed posuere leo ac erat gravida pulvinar. Cras eget augue vestibulum, egestas sapien quis, scelerisque lacus. Suspendisse faucibus augue neque, quis vestibulum turpis aliquet a.
+			</p>
+			<p class="right">
+				Donec sit amet elit eget lorem pharetra aliquam eget eget dui. Donec dictum massa nec blandit convallis. Sed felis eros, ornare id venenatis nec, lacinia eget tellus. Phasellus eget nisi vel orci euismod vehicula.
+			</p>
+			<p class="justify">
+				Mauris porttitor orci ac semper luctus. Sed tempor nunc urna, pellentesque eleifend erat euismod nec. Vivamus cursus erat vitae augue tempus, quis fringilla justo dignissim. Proin faucibus, nunc ut ultrices faucibus, nunc massa ultricies nisi, sit amet elementum purus mauris vel nisi. Maecenas ut dolor enim.
+			</p>
+		</div>
+
+		<h3 id="paragraphs-margin">Paragraph-like margins</h3>
+		<p>
+			<code data-lang="html">&lt;div&gt;</code> and <code data-lang="html">&lt;table&gt;</code> elements can be given the same vertical margin as <code data-lang="html">&lt;p&gt;</code> by adding the <code class="css-class">p</code> class to them.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;)p">
+			<div class="p">Sample text</div>
+			<div class="p">Sample text</div>
+			<div class="p">Sample text</div>
+		</div>
+
+		<p>
+			The vertical margin of <code data-lang="html">&lt;p&gt;</code>, <code data-lang="html">&lt;div class="p"&gt;</code>, <code data-lang="html">&lt;table class="p"&gt;</code> and <code data-lang="html">&lt;hr&gt;</code> elements can be doubled by adding the <code class="css-class">double-margin</code> class to them.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;)double-margin">
+			<p>Sample text</p>
+			<p class="double-margin">Sample text with more space around it</p>
+			<p>Sample text</p>
+		</div>
+
+		<h3 id="paragraphs-font-size">Change font-size</h3>
+		<p>
+			Any text can be made a bit smaller or larger than the default with the <code class="css-class">smaller</code> and <code class="css-class">larger</code> classes, respectively.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)(larger|smaller)">
+			Sample text with <span class="smaller">smaller parts</span> and <span class="larger">larger parts</span>.
+		</div>
+
+		<h2 id="links">Links</h2>
+		<p>
+			Hyperlinks are defined with the <code data-lang="html">&lt;a&gt;</code> element.
+			They use a blue text colour by default because this is the established UI convention since the beginnings of the web and users can immediately recognise the blue link as clickable and navigatable.
+			The colour and underlining effect can be configured.
+		</p>
+		<p>
+			The link colour and text decoration (underline) can be customised with the <code class="css-var">--link-color</code> and <code class="css-var">--link-text-decoration</code> CSS classes.
+			There are also the hover state variants <code class="css-var">--link-hover-color</code> and <code class="css-var">--link-hover-text-decoration</code>.
+			See their descriptions about how to use them.
+		</p>
+		<p>
+			Disabled links change their appearance as usual in app UIs.
+			To fully disable a link, add the <code>disabled</code> attribute and remove the <code>href</code> attribute on the <code data-lang="html">&lt;a&gt;</code> element.
+			You can move the previous href value to the element’s dataset to restore it when enabling the link again.
+			For convenience, the <a href="frontfire-core.html#disabled"><code data-lang="js">Frontfire.disabled</code></a> stashes and restores the <code>href</code> attribute as well.
+		</p>
+		<p>
+			<label><input type="checkbox" id="disable-links"> Disable links in the example</label>
+		</p>
+		<div id="link-example" class="example p no-frontfire" data-source-highlight="disabled" data-find=" data-ff-disabled-href=&quot;#&quot;" data-replace="">
+			<a href="#">Click here to get nowhere</a>
+		</div>
+		<script>
+			// addExampleCode will be defined at end of page
+			F.onReady(() => {
+				let disableLinksCheckbox = F("#disable-links").first;
+				disableLinksCheckbox.F.on("click!", () => {
+					let isChecked = disableLinksCheckbox.checked;
+					let links = F("#link-example a");
+					links.disabled = isChecked;
+					if (isChecked)
+						links.removeAttribute("href");
+					else
+						links.setAttribute("href", "#");
+					addExampleCode(F("#link-example"));
+				});
+			});
+			F("#link-example a").on("click", event => {
+				event.preventDefault();
+			});
+		</script>
+
+		<h2 id="separator">Separator</h2>
+		<p>
+			Separators with the <code data-lang="html">&lt;hr&gt;</code> element can be used to visually separate content with a horizontal line instead of whitespace.
+		</p>
+		<div class="example no-frontfire">
+			<p>Sample text</p>
+			<hr>
+			<p>Sample text</p>
+		</div>
+
+		<h2 id="lists">Lists</h2>
+		<div class="example no-frontfire">
+			<ul>
+				<li>There can be</li>
+				<li>unordered lists with the <code>&lt;ul&gt;</code> element that
+					<ul>
+						<li>only show a single
+							<ul>
+								<li>bullet graphic</li>
+							</ul></li>
+					</ul></li>
+				<li>before each list item.</li>
+			</ul>
+		</div>
+		<div class="example no-frontfire">
+			<ol>
+				<li>Ordered lists with the <code>&lt;ol&gt;</code> element have numbered</li>
+				<li>items each with a number increased</li>
+				<li>by one. This makes clear that order is relevant</li>
+				<li>and allows references to other items by their number.</li>
+			</ol>
+		</div>
+
+		<h2 id="code">Code and keys</h2>
+		<p>
+			Blocks of source code can be displayed in a fixed-width font with a <code data-lang="html">&lt;div class="code"&gt;</code> element.
+			It also sets a background colour to distinguish it from other content, and disables hyphenation.
+			The white-space handling is not changed by default and should be suitable for external syntax highlighting libraries.
+			You can, however, set a style like <code>white-space: pre;</code> or use the Frontfire CSS class <code class="css-class">pre-wrap</code> to preserve line breaks and whitespace unchanged (as do these documentation pages).
+		</p>
+		<p>
+			Text may also contain inline code with the <code data-lang="html">&lt;code&gt;</code> tag within flow content.
+		</p>
+		<p>
+			The background colour can be customised with the <code class="css-var">--code-background</code> CSS variable, the padding of block and inline code with <code class="css-var">--code-padding</code> and <code class="css-var">--code-inline-padding</code>, respectively.
+		</p>
+		<p>
+			Besides code there can also be non-semantically monospace-styled text with the <code data-lang="html">&lt;tt&gt;</code> element (for teletype text).
+			This has no background colour by default.
+			The <code data-lang="html">&lt;pre&gt;</code> and <code data-lang="html">&lt;samp&gt;</code> elements look the same.
+			Monospace font can be applied to <code data-lang="html">&lt;textarea&gt;</code> input elements with the <code class="css-class">monospace</code> CSS class.
+		</p>
+		<p>
+			Use the <code data-lang="html">&lt;kbd&gt;</code> element to style labels as keys on the computer’s keyboard.
+		</p>
+		<div class="example p-top no-frontfire">
+			<div class="code">
+				void main()<br>
+				{<br>
+				&nbsp; &nbsp; printf("Hello world.\n");<br>
+				}
+			</div>
+			<p>
+				This is a sample text that refers to a <code>Class</code> name or a <code>doSomethingClever()</code> function. And here is some <tt>text in a fixed-width font</tt>.
+			</p>
+			<p>
+				Press <kbd>Ctrl</kbd>+<kbd>Any</kbd> to activate some function.
+			</p>
+		</div>
+
+		<h2 id="floating">Floating elements</h2>
+		<p>
+			To keep an element out of the vertical area of a floating element, add the <code class="css-class">clearfix</code> class to it.
+			This adds a <code>float</code> break before and after the element.
+		</p>
+		<p>
+			<strong>Note:</strong><br>
+			There are several CSS classes available for <a href="frontfire-ui-image.html#float">aligning images</a>.
+			In this example, the alignment is shown with inline CSS for better understanding.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;)clearfix|float: left;">
+			<p>
+				Sample text
+			</p>
+			<img src="../logo/frontfire.svg" style="height: 70px; float: left; margin-right: 1em;">
+			<p>
+				Sample text besides the image
+			</p>
+			<p class="clearfix">
+				Sample text below the image
+			</p>
+		</div>
+
+		<h2 id="sticky-aside">Sticky aside</h2>
+		<p>
+			A floating element can be kept visible in the scrolling viewport and to the side of the content flow.
+			Define the scope of the aside element by adding the <code class="css-class">sticky-aside-container</code> CSS class to the parent element.
+			Then add the <code class="css-class">sticky-aside</code> class to the side element.
+			By default there is no visual styling for the side element, but you can give it the appearance of a box or anything you like.
+			The layout is entirely provided by CSS, there are no JavaScript event handlers used for this.
+		</p>
+		<p>
+			The default alignment is at the right side.
+			To move the side column to the left, add the <code class="css-class">aside-left</code> class to the parent element.
+		</p>
+		<p>
+			With one of the CSS classes <code class="css-class">require-minitab</code>, <code class="css-class">require-tablet</code>, <code class="css-class">require-desktop</code> and <code class="css-class">require-wide</code>, the side element is unfloated and the side column
+			is freed when the screen width drops below the specified required width.
+		</p>
+		<p>
+			The column width, gap and sticky vertical offset can be customised with the <a href="frontfire-ui-variables.html">CSS variables</a> that start with “--sticky-aside-”.
+		</p>
+		<p>
+			<label><input type="checkbox" id="sticky-aside-left"> Move side column to the left</label><br>
+			<label><input type="checkbox" id="sticky-aside-width"> Change side column width</label>
+		</p>
+		<div class="example no-frontfire sticky-aside-example" data-source-highlight="(?<=&quot;)(sticky-aside(-container)?)|aside-left">
+			<div class="sticky-aside-container">
+				<div class="sticky-aside">
+					<strong>I have my own column and remain visible next to the content when scrolling.</strong>
+				</div>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget justo eros. Quisque tristique efficitur turpis aliquam cursus. Pellentesque tempor tincidunt odio. Curabitur blandit, elit eget eleifend varius, ex velit convallis ligula, eget interdum elit libero a purus.
+				</p>
+				<p>
+					Maecenas pharetra iaculis neque ut tristique. Fusce et eros quam. Nulla pellentesque turpis lacus, non congue nisl finibus vel. Sed vitae dui urna. Quisque sollicitudin tincidunt orci a volutpat. Aenean sapien nisl, feugiat eget mattis nec, varius et enim. Suspendisse urna nunc, aliquet eu mauris ac, ultrices venenatis ipsum. Aliquam auctor lacus ex, dictum faucibus lacus pretium quis.
+				</p>
+				<p>
+					Nulla ultrices felis neque, quis congue urna lacinia eu. Nunc mattis odio velit, et fringilla erat venenatis sit amet. Vivamus pretium dignissim libero, a dictum metus mollis non.
+				</p>
+			</div>
+		</div>
+		<script>
+			// addExampleCode will be defined at end of page
+			F.onReady(() => {
+				let stickyAsideLeftCheckbox = F("#sticky-aside-left").first;
+				stickyAsideLeftCheckbox.F.on("click!", () => {
+					F(".sticky-aside-example .sticky-aside-container").classList.toggle("aside-left", stickyAsideLeftCheckbox.checked);
+					addExampleCode(F(".sticky-aside-example"));
+				});
+				let stickyAsideWidthCheckbox = F("#sticky-aside-width").first;
+				stickyAsideWidthCheckbox.F.on("click!", () => {
+					if (stickyAsideWidthCheckbox.checked)
+						F(".sticky-aside-example .sticky-aside-container").setAttribute("style", "--sticky-aside-width: 20vw;");
+					else
+						F(".sticky-aside-example .sticky-aside-container").removeAttribute("style");
+					addExampleCode(F(".sticky-aside-example"));
+				});
+			});
+		</script>
+
+		<h2 id="loading">Loading indicator</h2>
+		<p>
+			A loading indicator is a small icon that rotates and informs the user about an ongoing activity.
+			It does not show the progress of the operation.
+			The size and shape of the indicator can be customised with several additional CSS classes:
+		</p>
+		<ul>
+			<li><code class="css-class">middle</code>: Vertically centers the indicator with the text line. Normally it is aligned at the bottom which makes the position predictable when used alone without text.</li>
+			<li><code class="css-class">small</code>, <code class="css-class">medium</code>, <code class="css-class">large</code>: Change the size of the indicator.</li>
+			<li><code class="css-class">thin</code>, <code class="css-class">thick</code>: Change the thickness of the circle line.</li>
+			<li><code class="css-class">slow</code>, <code class="css-class">fast</code>: Let the animation run slower or faster.</li>
+			<li><code class="css-class">reverse</code>: Let the animation run in the reverse direction.</li>
+		</ul>
+		<div class="example p-bottom no-frontfire" data-source-highlight="(?<=&quot;| )(loading|middle|small|medium|large|thick|thin|fast|slow|reverse|icon-label)">
+			<p>
+				<i class="loading middle small"></i> Small &nbsp;
+				<i class="loading middle medium"></i> Medium &nbsp;
+				<i class="loading middle"></i> (Default) &nbsp;
+				<i class="loading middle large"></i> Large &nbsp;
+			</p>
+			<p>
+				<i class="loading thin"></i> Thin &nbsp;
+				<i class="loading thick"></i> Thick &nbsp;
+				<i class="loading fast"></i> Fast &nbsp;
+				<i class="loading slow"></i> Slow &nbsp;
+				<i class="loading reverse"></i> Reverse
+			</p>
+			<div style="background: var(--code-background); padding: 20px;">
+				<div class="icon-label">
+					<i class="loading"></i>
+					Loading, please wait…
+				</div>
+			</div>
+		</div>
+
+		<p>
+			The indicator colours can be changed with CSS variables.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="--loading-(?:highlight-)?color">
+			<style>
+				i.loading.red
+				{
+					--loading-highlight-color: tomato;
+				}
+				i.loading.blue
+				{
+					--loading-color: rgb(26, 128, 230, 0.3);
+					--loading-highlight-color: rgb(26, 128, 230);
+				}
+				.dark i.loading.blue
+				{
+					--loading-color: rgb(71, 153, 235, 0.4);
+					--loading-highlight-color: rgb(90, 166, 242);
+				}
+			</style>
+			<i class="loading middle red"></i> Red &nbsp;
+			<i class="loading middle blue"></i> Blue &nbsp;
+			<i class="loading middle" style="--loading-highlight-color: limegreen;"></i> Green
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+@use "../variables";
+
+.modal
+{
+	position: relative;
+	display: none;
+	border: 1px solid #0078d7;
+	box-shadow: 0 6px 20px rgb(0, 0, 0, 0.3);
+	background: white;
+	padding: 25px;
+	color: black;
+	max-width: 80%;
+	max-height: calc(100% - 30px);
+	@media (max-width: variables.$viewportWidthPhone)
+	{
+		max-width: 100%;
+		margin: 10px;
+	}
+	&.wide
+	{
+		max-width: calc(100% - 30px);
+		@media (max-width: variables.$viewportWidthPhone)
+		{
+			max-width: 100%;
+		}
+	}
+	.dark &
+	{
+		background: var(--dark-background);
+		color: var(--dark-text-color);
+	}
+
+	.buttons
+	{
+		margin-top: 20px;
+		justify-content: center;
+	}
+}
+
+.ff-modal-container
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	z-index: 2000;   // above off-canvas
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	.modal
+	{
+		display: block;
+	}
+}
+
+.ff-modal-close-button
+{
+	position: absolute;
+	display: block;
+	top: 0;
+	right: 0;
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	font-size: 19px;
+	line-height: 19px;
+	transition: background var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+	&:is(:link, :visited)
+	{
+		color: gray;
+		text-decoration: none;
+	}
+	&::after
+	{
+		display: block;
+		content: '\D7';
+	}
+	&:hover
+	{
+		background: #e81123;
+		text-decoration: none;
+		transition: background 0s, color 0s;
+		&:is(:link, :visited)
+		{
+			color: white;
+		}
+	}
+}

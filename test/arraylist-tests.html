@@ -1,0 +1,716 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ArrayList tests</title>
+	<script src="../src/js/build/arraylist.min.js"></script>
+</head>
+
+<body>
+</body>
+
+<script>
+try {
+	// Test each method with all supported kinds of arguments (except thisArg)
+
+	// Static functions
+	if (JSON.stringify(ArrayList.range(1, 5).array) !== "[1,2,3,4,5]") throw new Error("ArrayList.range() failed without step.");
+	if (JSON.stringify(ArrayList.range(2, 3, 2).array) !== "[2,4,6]") throw new Error("ArrayList.range() failed with step.");
+	if (JSON.stringify(ArrayList.range(10, 5, -2).array) !== "[10,8,6,4,2]") throw new Error("ArrayList.range() failed with negative step.");
+
+	// Constructor and array property
+	if (JSON.stringify(ArrayList().array) !== "[]") throw new Error("ArrayList() failed without argument.");
+	if (JSON.stringify(ArrayList([1, 2]).array) !== "[1,2]") throw new Error("ArrayList() failed with argument.");
+	let list = new ArrayList(3);
+	if (JSON.stringify(list.array) !== "[null,null,null]") throw new Error("ArrayList() failed with integer argument (1).");
+	if (list.array.length !== 3) throw new Error("ArrayList() failed with integer argument (2).");
+	let nodeList = document.childNodes;
+	list = new ArrayList(nodeList);
+	if (list.array === nodeList) throw new Error("ArrayList() failed with iterable argument.");
+
+	// Properties
+	// length
+	assert([], a => a.L.length, 0, "length failed with empty array.");
+	assert([1, 2], a => a.L.length, 2, "length failed with non-empty array.");
+	// first
+	assert([], a => a.L.first, undefined, "first failed with empty array.");
+	assert([1, 2], a => a.L.first, 1, "first failed with non-empty array.");
+	assert([], a => a.L.first = 4, 4, [4], "first setter failed with empty array.");
+	assert([1, 2], a => a.L.first = 4, 4, [4, 2], "first setter failed with non-empty array.");
+	// second
+	assert([], a => a.L.second, undefined, "second failed with empty array.");
+	assert([1, 2, 3], a => a.L.second, 2, "second failed with non-empty array.");
+	assert([], a => a.L.second = 4, 4, [null, 4], "second setter failed with empty array.");
+	assert([1, 2], a => a.L.second = 4, 4, [1, 4], "second setter failed with non-empty array.");
+	// last
+	assert([], a => a.L.last, undefined, "last failed with empty array.");
+	assert([1, 2], a => a.L.last, 2, "last failed with non-empty array.");
+	assert([1, 2, 3], a => a.L.last = 4, 4, [1, 2, 4], "last setter failed with non-empty array.");
+
+	// Item retrieval methods
+	// aggregate
+	assert([], a => a.L.aggregate((a, b) => 2 * a + b), undefined, "aggregate() failed with empty array without initialValue.");
+	assert([1, 2, 3], a => a.L.aggregate((a, b) => 2 * a + b), 11, "aggregate() failed with non-empty array without initialValue.");
+	assert([], a => a.L.aggregate(0, (a, b) => 2 * a + b), 0, "aggregate() failed with empty array with initialValue.");
+	assert([1, 2, 3], a => a.L.aggregate(10, (a, b) => 2 * a + b), 91, "aggregate() failed with non-empty array with initialValue.");
+	// aggregateReversed
+	assert([], a => a.L.aggregateReversed((a, b) => 2 * a + b), undefined, "aggregateReversed() failed with empty array without initialValue.");
+	assert([1, 2, 3], a => a.L.aggregateReversed((a, b) => 2 * a + b), 17, "aggregateReversed() failed with non-empty array without initialValue.");
+	assert([], a => a.L.aggregateReversed(0, (a, b) => 2 * a + b), 0, "aggregateReversed() failed with empty array with initialValue.");
+	assert([1, 2, 3], a => a.L.aggregateReversed(10, (a, b) => 2 * a + b), 97, "aggregateReversed() failed with non-empty array with initialValue.");
+	// all
+	assert([], a => a.L.all(i => i > 0), true, "all() failed with empty array.");
+	assert([1, 2], a => a.L.all(i => i > 0), true, "all() failed with positive items.");
+	assert([-1, -2], a => a.L.all(i => i > 0), false, "all() failed with negative items.");
+	assert([1, -2], a => a.L.all(i => i > 0), false, "all() failed with mixed items.");
+	// any
+	assert([], a => a.L.any(), false, "any() failed without predicate.");
+	assert([1], a => a.L.any(), true, "any() failed with items without predicate.");
+	assert([], a => a.L.any(i => i > 0), false, "any() failed with empty array.");
+	assert([1, 2], a => a.L.any(i => i > 0), true, "any() failed with positive items.");
+	assert([-1, -2], a => a.L.any(i => i > 0), false, "any() failed with negative items.");
+	assert([1, -2], a => a.L.any(i => i > 0), true, "any() failed with mixed items.");
+	// average
+	assert([], a => a.L.average(), undefined, "average() failed with empty array.");
+	assert([1, 2, 3, 4], a => a.L.average(), 2.5, "average() failed without selector.");
+	assert([1, 2, 3, 4], a => a.L.average(i => -i), -2.5, "average() failed with selector.");
+	// binarySearch
+	assert([], a => a.L.binarySearch(2), ~0, "binarySearch() failed with empty array.");
+	assert([1, 2, 5, 7], a => a.L.binarySearch(2), 1, "binarySearch() failed with existing item (1).");
+	assert([1, 2, 5, 7], a => a.L.binarySearch(-2), ~0, "binarySearch() failed with small non-existing item.");
+	assert([1, 2, 5, 7], a => a.L.binarySearch(10), ~4, "binarySearch() failed with big non-existing item.");
+	assert([1, 2, 5, 7], a => a.L.binarySearch(4), ~2, "binarySearch() failed with middle non-existing item.");
+	assert([1, 2, 5, 7, 8], a => a.L.binarySearch(2), 1, "binarySearch() failed with existing item (2).");
+	assert([1, 2, 5, 7, 8, 9], a => a.L.binarySearch(2), 1, "binarySearch() failed with existing item (3).");
+	assert([1, 2, 5, 7, 8, 9, 10], a => a.L.binarySearch(2), 1, "binarySearch() failed with existing item (4).");
+	assert([1, 2, 5, 7, 8], a => a.L.binarySearch(5), 2, "binarySearch() failed with existing item (5).");
+	assert([1, 2, 5, 7, 8, 9], a => a.L.binarySearch(5), 2, "binarySearch() failed with existing item (6).");
+	assert([1, 2, 5, 7, 8, 9, 10], a => a.L.binarySearch(5), 2, "binarySearch() failed with existing item (7).");
+	assert([{a: 1}, {a: 2}, {a: 5}, {a: 7}], a => a.L.binarySearch({a: 5}, (a, b) => a.a - b.a), 2, "binarySearch() failed with existing item with comparer.");
+	assert([{a: 1}, {a: 2}, {a: 5}, {a: 7}], a => a.L.binarySearch({a: 4}, (a, b) => a.a - b.a), ~2, "binarySearch() failed with middle non-existing item with comparer.");
+	// contains
+	assert([], a => a.L.contains(0), false, "contains() failed with empty array.");
+	assert([1, 2, 3, 4], a => a.L.contains(3), true, "contains() failed with existing item.");
+	assert([1, 2, 3, 4], a => a.L.contains(0), false, "contains() failed with non-existing item.");
+	assert([1, 2, 3, 4], a => a.L.contains(2, 1), true, "contains() failed with existing item after startIndex.");
+	assert([1, 2, 3, 4], a => a.L.contains(2, 3), false, "contains() failed with non-existing item after startIndex.");
+	// count
+	assert([], a => a.L.count(), 0, "count() failed with empty array without predicate.");
+	assert([], a => a.L.count(i => i >= 0), 0, "count() failed with empty array with predicate.");
+	assert([2, 3, 4], a => a.L.count(), 3, "count() failed without predicate.");
+	assert([2, 3, 4], a => a.L.count(i => i > 3), 1, "count() failed with predicate.");
+	// equals
+	assert([], a => a.L.equals([]), true, "equals() failed with empty arrays.");
+	assert([1], a => a.L.equals([]), false, "equals() failed with different lengths.");
+	assert([1], a => a.L.equals([1]), true, "equals() failed with same content.");
+	assert([1, 2], a => a.L.equals([1, "2"]), false, "equals() failed with different types.");
+	assert([1, 2], a => a.L.equals([2, 1]), false, "equals() failed with different order.");
+	assert([2, 1], a => a.L.equals([2, 1].L), true, "equals() failed with different order (as ArrayList).");
+	// find
+	assert([], a => a.L.find(i => i >= 2), undefined, "find() failed with empty array.");
+	assert([1, 2, 3, 2], a => a.L.find(i => i >= 2), 2, "find() failed with existing item.");
+	assert([1, 2, 3, 2], a => a.L.find(i => i < 0), undefined, "find() failed with non-existing item.");
+	// findIndex
+	assert([], a => a.L.findIndex(i => i >= 2), -1, "findIndex() failed with empty array.");
+	assert([1, 2, 3, 2], a => a.L.findIndex(i => i >= 2), 1, "findIndex() failed with existing item.");
+	assert([1, 2, 3, 2], a => a.L.findIndex(i => i < 0), -1, "findIndex() failed with non-existing item.");
+	// findLast
+	assert([], a => a.L.findLast(i => i >= 2), undefined, "findLast() failed with empty array.");
+	assert([1, 2, 3, 2], a => a.L.findLast(i => i >= 2), 2, "findLast() failed with existing item.");
+	assert([1, 2, 3, 2], a => a.L.findLast(i => i < 0), undefined, "findLast() failed with non-existing item.");
+	// findLastIndex
+	assert([], a => a.L.findLastIndex(i => i >= 2), -1, "findLastIndex() failed with empty array.");
+	assert([1, 2, 3, 2], a => a.L.findLastIndex(i => i >= 2), 3, "findLastIndex() failed with existing item.");
+	assert([1, 2, 3, 2], a => a.L.findLastIndex(i => i < 0), -1, "findLastIndex() failed with non-existing item.");
+	// get
+	assert([1, 2, 3], a => a.L.get(1), 2, "get() failed with positive index.");
+	assert([1, 2, 3, 4], a => a.L.get(-2), 3, "get() failed with negative index.");
+	// indexOf
+	assert([], a => a.L.indexOf(2), -1, "indexOf() failed with empty array.");
+	assert([1, 2, 3, 2], a => a.L.indexOf(2), 1, "indexOf() failed with existing item.");
+	assert([1, 2, 3, 2], a => a.L.indexOf(-2), -1, "indexOf() failed with non-existing item.");
+	// join
+	assert([], a => a.L.join(), "", "join() failed with empty array.");
+	assert([1], a => a.L.join(), "1", "join() failed with single item.");
+	assert([1, 2], a => a.L.join(), "1,2", "join() failed with multiple items.");
+	assert([], a => a.L.join("--"), "", "join() failed with empty array with separator.");
+	assert([1], a => a.L.join("--"), "1", "join() failed with single item with separator.");
+	assert([1, 2, 3], a => a.L.join("--"), "1--2--3", "join() failed with multiple items with separator.");
+	assert([1, 2, 3], a => a.L.join(""), "123", "join() failed with multiple items with empty separator.");
+	// lastIndexOf
+	assert([], a => a.L.lastIndexOf(2), -1, "lastIndexOf() failed with empty array.");
+	assert([1, 2, 3, 2], a => a.L.lastIndexOf(2), 3, "lastIndexOf() failed with existing item.");
+	assert([1, 2, 3, 2], a => a.L.lastIndexOf(-2), -1, "lastIndexOf() failed with non-existing item.");
+	// max
+	assert([], a => a.L.max(), undefined, "max() failed with empty array.");
+	assert([1, 4, 2], a => a.L.max(), 4, "max() failed without selector.");
+	assert([1, 4, 2], a => a.L.max(i => -i), -1, "max() failed with selector.");
+	// min
+	assert([], a => a.L.min(), undefined, "min() failed with empty array.");
+	assert([1, 4, 2], a => a.L.min(), 1, "min() failed without selector.");
+	assert([1, 4, 2], a => a.L.min(i => -i), -4, "min() failed with selector.");
+	// sum
+	assert([], a => a.L.sum(), 0, "sum() failed with empty array.");
+	assert([1, 2, 3, 4], a => a.L.sum(), 10, "sum() failed without selector.");
+	assert([1, 2, 3, 4], a => a.L.sum(i => -i), -10, "sum() failed with selector.");
+
+	// Manipulation methods
+	// add
+	assert([], a => a.L.add(3), "this", [3], "add() failed with empty array.");
+	assert([1, 2], a => a.L.add(3), "this", [1, 2, 3], "add() failed with non-empty array.");
+	// addRange
+	assert([], a => a.L.addRange([]), "this", [], "addRange() failed with empty array without new items.");
+	assert([1, 2], a => a.L.addRange([]), "this", [1, 2], "addRange() failed with non-empty array without new items.");
+	assert([], a => a.L.addRange([3, 4]), "this", [3, 4], "addRange() failed with empty array with new items.");
+	assert([1, 2], a => a.L.addRange([3, 4]), "this", [1, 2, 3, 4], "addRange() failed with non-empty array with new items.");
+	assert([1, 2], a => a.L.addRange([3, 4].L), "this", [1, 2, 3, 4], "addRange() failed with non-empty array with new items (as ArrayList).");
+	// clear
+	assert([], a => a.L.clear(), "this", [], "clear() failed with empty array.");
+	assert([1, 2], a => a.L.clear(), "this", [], "clear() failed with non-empty array.");
+	// fill
+	assert([], a => a.L.fill(3), "this", [], "fill() failed with empty array.");
+	assert([1, 2], a => a.L.fill(3), "this", [3, 3], "fill() failed with non-empty array.");
+	assert([1, 2, 3, 4, 5], a => a.L.fill(9, 3), "this", [1, 2, 3, 9, 9], "fill() failed with non-empty array with start value.");
+	assert([1, 2, 3, 4, 5], a => a.L.fill(9, -1), "this", [1, 2, 3, 4, 9], "fill() failed with non-empty array with negative start value.");
+	assert([1, 2, 3, 4, 5], a => a.L.fill(9, 2, 2), "this", [1, 2, 9, 9, 5], "fill() failed with non-empty array with start value with count.");
+	assert([1, 2, 3, 4, 5], a => a.L.fill(9, -2, 1), "this", [1, 2, 3, 9, 5], "fill() failed with non-empty array with negative start value with count.");
+	assert([1, 2, 3, 4, 5], a => a.L.fill(9, 2, -2), "this", [1, 2, 9, 4, 5], "fill() failed with non-empty array with start value with negative count.");
+	// insert
+	assert([], a => a.L.insert(0, 3), "this", [3], "insert() failed with empty array.");
+	assert([1, 2], a => a.L.insert(0, 3), "this", [3, 1, 2], "insert() failed with non-empty array at beginning.");
+	assert([1, 2], a => a.L.insert(1, 3), "this", [1, 3, 2], "insert() failed with non-empty array in middle.");
+	assert([1, 2], a => a.L.insert(2, 3), "this", [1, 2, 3], "insert() failed with non-empty array at end.");
+	assert([1, 2], a => a.L.insert(3, 3), "this", [1, 2, 3], "insert() failed with non-empty array after end.");
+	assert([1, 2], a => a.L.insert(-1, 3), "this", [1, 3, 2], "insert() failed with non-empty array with negative index.");
+	assert([1, 2], a => a.L.insert(-10, 3), "this", [3, 1, 2], "insert() failed with non-empty array with negative index before start.");
+	// insertRange
+	assert([], a => a.L.insertRange(0, [3, 4]), "this", [3, 4], "insertRange() failed with empty array.");
+	assert([1, 2], a => a.L.insertRange(0, [3, 4]), "this", [3, 4, 1, 2], "insertRange() failed with non-empty array at beginning.");
+	assert([1, 2], a => a.L.insertRange(1, [3, 4]), "this", [1, 3, 4, 2], "insertRange() failed with non-empty array in middle.");
+	assert([1, 2], a => a.L.insertRange(2, [3, 4]), "this", [1, 2, 3, 4], "insertRange() failed with non-empty array at end.");
+	assert([1, 2], a => a.L.insertRange(3, [3, 4]), "this", [1, 2, 3, 4], "insertRange() failed with non-empty array after end.");
+	assert([1, 2], a => a.L.insertRange(-1, [3, 4]), "this", [1, 3, 4, 2], "insertRange() failed with non-empty array with negative index.");
+	assert([1, 2], a => a.L.insertRange(-10, [3, 4]), "this", [3, 4, 1, 2], "insertRange() failed with non-empty array with negative index before start.");
+	// remove
+	assert([], a => a.L.remove(2), false, [], "remove() failed with empty array.");
+	assert([1, 2], a => a.L.remove(2), true, [1], "remove() failed with non-empty array with existing item.");
+	assert([1, 2], a => a.L.remove(3), false, [1, 2], "remove() failed with non-empty array with non-existing item.");
+	// removeAll
+	assert([], a => a.L.removeAll(), [], [], "removeAll() failed with empty array without predicate.");
+	assert([1, 2], a => a.L.removeAll(), [1, 2], [], "removeAll() failed with non-empty array without predicate.");
+	assert([], a => a.L.removeAll(i => i > 2), [], [], "removeAll() failed with empty array with predicate.");
+	assert([1, 2, 3, 4], a => a.L.removeAll(i => i > 2), [3, 4], [1, 2], "removeAll() failed with non-empty array with matching predicate.");
+	assert([1, 2, 3, 4], a => a.L.removeAll(i => i > 10), [], [1, 2, 3, 4], "removeAll() failed with non-empty array with non-matching predicate.");
+	// removeAt
+	assert([], a => a.L.removeAt(0), undefined, [], "removeAt() failed with empty array.");
+	assert([1, 2, 3], a => a.L.removeAt(0), 1, [2, 3], "removeAt() failed with non-empty array at beginning.");
+	assert([1, 2, 3], a => a.L.removeAt(2), 3, [1, 2], "removeAt() failed with non-empty array at end.");
+	assert([1, 2, 3], a => a.L.removeAt(3), undefined, [1, 2, 3], "removeAt() failed with non-empty array after end.");
+	assert([1, 2, 3], a => a.L.removeAt(-1), 3, [1, 2], "removeAt() failed with non-empty array with negative index.");
+	assert([1, 2, 3], a => a.L.removeAt(-10), 1, [2, 3], "removeAt() failed with non-empty array with negative index before start.");
+	// removeFirst
+	assert([], a => a.L.removeFirst(), undefined, [], "removeFirst() failed with empty array.");
+	assert([1, 2, 3], a => a.L.removeFirst(), 1, [2, 3], "removeFirst() failed with non-empty array.");
+	// removeLast
+	assert([], a => a.L.removeLast(), undefined, [], "removeLast() failed with empty array.");
+	assert([1, 2, 3], a => a.L.removeLast(), 3, [1, 2], "removeLast() failed with non-empty array.");
+	// removeRange
+	assert([], a => a.L.removeRange(0, 2), [], [], "removeRange() failed with empty array.");
+	assert([1, 2, 3], a => a.L.removeRange(0, 2), [1, 2], [3], "removeRange() failed with non-empty array with positive count.");
+	assert([1, 2, 3], a => a.L.removeRange(1, 2), [2, 3], [1], "removeRange() failed with non-empty array with positive start with positive count.");
+	assert([1, 2, 3], a => a.L.removeRange(0, -2), [1], [2, 3], "removeRange() failed with non-empty array with negative count.");
+	assert([1, 2, 3], a => a.L.removeRange(1, -1), [2], [1, 3], "removeRange() failed with non-empty array with positive start with negative count.");
+	assert([1, 2, 3], a => a.L.removeRange(-2, 1), [2], [1, 3], "removeRange() failed with non-empty array with negative start with positive count.");
+	assert([1, 2, 3], a => a.L.removeRange(-2, -1), [2], [1, 3], "removeRange() failed with non-empty array with negative start with negative count.");
+	assert([1, 2, 3], a => a.L.removeRange(1), [2, 3], [1], "removeRange() failed with non-empty array without count.");
+	assert([1, 2, 3, 4], a => a.L.removeRange([1, 3]), [1, 3], [2, 4], "removeRange() failed with non-empty array with items to remove.");
+	assert([1, 2, 3, 4], a => a.L.removeRange([1, 3].L), [1, 3], [2, 4], "removeRange() failed with non-empty array with items to remove (as ArrayList).");
+	// replace
+	assert([], a => a.L.replace(1, 5), false, [], "replace() failed with empty array.");
+	assert([1, 2, 3], a => a.L.replace(1, 5), true, [5, 2, 3], "replace() failed with non-empty array with existing item.");
+	assert([1, 2, 3], a => a.L.replace(5, 6), false, [1, 2, 3], "replace() failed with non-empty array with non-existing item.");
+	// reverse
+	assert([], a => a.L.reverse(), "this", [], "reverse() failed with empty array.");
+	assert([1, 2, 3], a => a.L.reverse(), "this", [3, 2, 1], "reverse() failed with non-empty array of odd length.");
+	assert([1, 2, 3, 4], a => a.L.reverse(), "this", [4, 3, 2, 1], "reverse() failed with non-empty array of even length.");
+	// set
+	assert([], a => a.L.set(0, 1), "this", [1], "set() failed with empty array.");
+	assert([1, 2], a => a.L.set(0, 9), "this", [9, 2], "set() failed with non-empty array.");
+	assert([1], a => a.L.set(2, 9), "this", [1, null, 9], "set() failed with non-empty array after end.");
+	assert([1, 2], a => a.L.set(-1, 9), "this", [1, 9], "set() failed with non-empty array with negative index.");
+	assert([1], a => a.L.set(-10, 9), "this", [1], "set() failed with non-empty array with negative index after end.");
+	// shuffle
+	let arr = [1,2,3,4,5,6,7,8,9];
+	let prevArr = arr.concat();
+	for (let i = 0; i < 50; i++) {
+		let shuffled = arr.concat().L.shuffle();
+		if (JSON.stringify(arr) === JSON.stringify(shuffled.array)) throw new Error("shuffle() has not changed the order of the array. This happens very rarely and is not an error. Please test again.");
+		if (JSON.stringify(prevArr) === JSON.stringify(shuffled.array)) throw new Error("shuffle() has produced the same item order twice. This happens very rarely and is not an error. Please test again.");
+		if (JSON.stringify(arr) !== JSON.stringify(shuffled.sort().array)) throw new Error("shuffle() has changed the items of the array.");
+		prevArr = shuffled;
+	}
+	// sort
+	assert([], a => a.L.sort(), "this", [], "sort() failed with empty array.");
+	assert([1, 3, 14, -2], a => a.L.sort(), "this", [-2, 1, 14, 3], "sort() failed with non-empty array without comparer.");
+	assert([1, 3, 14, -2], a => a.L.sort((a, b) => Math.abs(a) - Math.abs(b)), "this", [1, -2, 3, 14], "sort() failed with non-empty array with comparer.");
+	// sortBy
+	assert([], a => a.L.sortBy(x => x), "this", [], "sortBy() failed with empty array.");
+	assert([1, 3, 14, -2], a => a.L.sortBy(x => x), "this", [-2, 1, 3, 14], "sortBy() failed with non-empty array.");
+	arr = [{a: 1, b: 5}, {a: 3}, {a: 14}, {a: -2}];
+	arr.L.sortBy(x => x.a);
+	if (JSON.stringify(arr) !== '[{"a":-2},{"a":1,"b":5},{"a":3},{"a":14}]') throw new Error("sortBy() failed with a key selector.");
+	arr = [{a: 1, b: 5}, {a: 1, b: 3}, {a: 14, b: 0}, {a: -2}];
+	arr.L.sortBy(x => x.a, x => x.b);
+	if (JSON.stringify(arr) !== '[{"a":-2},{"a":1,"b":3},{"a":1,"b":5},{"a":14,"b":0}]') throw new Error("sortBy() failed with multiple key selectors. Return value was " + JSON.stringify(arr) + ".");
+	arr = [{a: 1, b: 5}, {a: 1, b: 3}, {a: 1, b: 10}, {a: -2}];
+	arr.L.sortBy(x => x.a, -1, x => x.b);
+	if (JSON.stringify(arr) !== '[{"a":-2},{"a":1,"b":10},{"a":1,"b":5},{"a":1,"b":3}]') throw new Error("sortBy() failed with multiple key selectors and switched direction. Return value was " + JSON.stringify(arr) + ".");
+	// sortByDescending
+	assert([], a => a.L.sortByDescending(x => x), "this", [], "sortByDescending() failed with empty array.");
+	assert([1, 3, 14, -2], a => a.L.sortByDescending(x => x), "this", [14, 3, 1, -2], "sortByDescending() failed with non-empty array.");
+	// sortNumeric
+	assert([], a => a.L.sortNumeric(), "this", [], "sortNumeric() failed with empty array.");
+	assert([1, 3, 14, -2], a => a.L.sortNumeric(), "this", [-2, 1, 3, 14], "sortNumeric() failed with non-empty array.");
+
+	// Copy methods
+	// chunk
+	assert([], a => a.L.chunk(3), [], "chunk() failed with empty array.");
+	assert([1, 2, 3, 4, 5, 6], a => a.L.chunk(3), [[1, 2, 3], [4, 5, 6]], "chunk() failed with non-empty aligned array.");
+	assert([1, 2, 3, 4], a => a.L.chunk(3), [[1, 2, 3], [4]], "chunk() failed with non-empty unaligned array.");
+	assert([1, 2, 3, 4, 5, 6], a => a.L.chunk(3, "a"), [[1, 2, 3], [4, 5, 6]], "chunk() failed with non-empty aligned array with pad.");
+	assert([1, 2, 3, 4], a => a.L.chunk(3, "a"), [[1, 2, 3], [4, "a", "a"]], "chunk() failed with non-empty unaligned array with pad.");
+	let chunks = [1, 2].L.chunk(1);
+	if (!(chunks.first instanceof ArrayList)) throw new Error("chunk() failed. Inner array was not an ArrayList instance.");
+	// concat
+	assert([], a => a.L.concat(), [], "concat() failed with empty array without second array.");
+	assert([], a => a.L.concat([]), [], "concat() failed with empty array with empty second array.");
+	assert([], a => a.L.concat([1, 2]), [1, 2], "concat() failed with empty array with non-empty second array.");
+	assert([1, 2], a => a.L.concat(), [1, 2], "concat() failed with non-empty array without second array.");
+	assert([1, 2], a => a.L.concat([]), [1, 2], "concat() failed with non-empty array with empty second array.");
+	assert([1, 2], a => a.L.concat([3, 4]), [1, 2, 3, 4], "concat() failed with non-empty array with non-empty second array.");
+	assert([1, 2], a => a.L.concat([3, 4].L), [1, 2, 3, 4], "concat() failed with non-empty array with non-empty second array (as ArrayList).");
+	assert([1, 2], a => a.L.concat([3, 4], []), [1, 2, 3, 4], "concat() failed with non-empty array with empty third array.");
+	assert([1, 2], a => a.L.concat([3, 4], [5, 6]), [1, 2, 3, 4, 5, 6], "concat() failed with non-empty array with non-empty third array.");
+	assert([1, 2], a => a.L.concat([3, 4], [5, 6].L), [1, 2, 3, 4, 5, 6], "concat() failed with non-empty array with non-empty third array (as ArrayList).");
+	// clone
+	assert([], a => a.L.clone(), [], "clone() failed with empty array.");
+	assert([1, 2], a => a.L.clone(), [1, 2], "clone() failed with non-empty array.");
+	// cycle
+	assert([], a => a.L.cycle(0), [], "cycle() failed with empty array.");
+	assert([], a => a.L.cycle(10), [], "cycle() failed with empty array with count.");
+	assert([1, 2, 3], a => a.L.cycle(0), [], "cycle() failed with count 0.");
+	assert([1, 2, 3], a => a.L.cycle(2), [1, 2], "cycle() failed with count less than length.");
+	assert([1, 2, 3], a => a.L.cycle(3), [1, 2, 3], "cycle() failed with count equal to length.");
+	assert([1, 2, 3], a => a.L.cycle(10), [1, 2, 3, 1, 2, 3, 1, 2, 3, 1], "cycle() failed with count greater than length.");
+	assert([1, 2, 3], a => a.L.cycle(-2), [], "cycle() failed with negative count.");
+	// flat
+	assert([], a => a.L.flat(), [], "flat() failed with empty array.");
+	assert([1, 2], a => a.L.flat(), [1, 2], "flat() failed with flat array.");
+	assert([1, [2, 3]], a => a.L.flat(), [1, 2, 3], "flat() failed with 1-nested array.");
+	assert([1, [2, [3, 4]]], a => a.L.flat(), [1, 2, [3, 4]], "flat() failed with 2-nested array.");
+	assert([1, [2, [3, 4]]], a => a.L.flat(2), [1, 2, 3, 4], "flat() failed with 2-nested array and depth 2.");
+	assert([1, [2, [3, [4, 5]]]], a => a.L.flat(2), [1, 2, 3, [4, 5]], "flat() failed with 3-nested array and depth 2.");
+	// getRange
+	assert([], a => a.L.getRange(0), [], "getRange() failed with empty array with positive start without count.");
+	assert([1, 2, 3], a => a.L.getRange(1), [2, 3], "getRange() failed with non-empty array with positive start without count.");
+	assert([], a => a.L.getRange(0, 2), [], "getRange() failed with empty array with positive start with positive count.");
+	assert([1, 2, 3, 4], a => a.L.getRange(1, 2), [2, 3], "getRange() failed with non-empty array with positive start with positive count.");
+	assert([], a => a.L.getRange(-2), [], "getRange() failed with empty array with negative start without count.");
+	assert([1, 2, 3, 4], a => a.L.getRange(-2), [3, 4], "getRange() failed with non-empty array with negative start without count.");
+	assert([], a => a.L.getRange(-2, 2), [], "getRange() failed with empty array with negative start with positive count.");
+	assert([1, 2, 3, 4], a => a.L.getRange(-3, 2), [2, 3], "getRange() failed with non-empty array with negative start with positive count.");
+	assert([], a => a.L.getRange(-2, -2), [], "getRange() failed with empty array with negative start with negative count.");
+	assert([1, 2, 3, 4], a => a.L.getRange(-3, -2), [2], "getRange() failed with non-empty array with negative start with negative count.");
+	// groupBy
+	arr = [1,2,3,4,5,6,7];
+	let groups = arr.L.groupBy(i => i % 2);
+	if (!(groups instanceof Map)) throw new Error("groupBy() result is not a Map.");
+	if (groups.size !== 2) throw new Error("groupBy() result Map does not have the expected number of entries.");
+	if (!(groups.get(0) instanceof ArrayList)) throw new Error("groupBy() result key 0 is not an ArrayList.");
+	if (!(groups.get(1) instanceof ArrayList)) throw new Error("groupBy() result key 1 is not an ArrayList.");
+	if (JSON.stringify(groups.get(0)) !== "[2,4,6]") throw new Error("groupBy() result key 0 does not have the expected entries.");
+	if (JSON.stringify(groups.get(1)) !== "[1,3,5,7]") throw new Error("groupBy() result key 1 does not have the expected entries.");
+	if (JSON.stringify(arr) !== "[1,2,3,4,5,6,7]") throw new Error("groupBy() modified the source array.");
+	groups = arr.L.groupBy(i => i % 2, i => -i);
+	if (JSON.stringify(groups.get(0)) !== "[-2,-4,-6]") throw new Error("groupBy() with element selector result key 0 does not have the expected entries.");
+	if (JSON.stringify(groups.get(1)) !== "[-1,-3,-5,-7]") throw new Error("groupBy() with element selector result key 1 does not have the expected entries.");
+	// innerJoin
+	assert(
+		[],
+		a => a.L.innerJoin(
+			[{id2: 1, y: "11"}, {id2: 2, y: "22"}, {id2: 3, y: "33"}],
+			(a, b) => a.id === b.id2),
+		[],
+		"innerJoin() failed with empty array.");
+	assert(
+		[{id: 1, b: "1"}, {id: 2, b: "2"}, {id: 3, b: "3"}],
+		a => a.L.innerJoin(
+			[{id2: 1, y: "11"}, {id2: 2, y: "22"}, {id2: 3, y: "33"}],
+			(a, b) => a.id === b.id2),
+		[{id: 1, b: "1", id2: 1, y: "11"}, {id: 2, b: "2", id2: 2, y: "22"}, {id: 3, b: "3", id2: 3, y: "33"}],
+		"innerJoin() failed with array (1).");
+	assert(
+		[{id: 1, b: "1"}, {id: 2, b: "2"}, {id: 3, b: "3"}],
+		a => a.L.innerJoin(
+			[{id2: 1, y: "11"}, {id2: 1, y: "12"}, {id2: 3, y: "33"}, {id2: 4, y: "44"}],
+			(a, b) => a.id === b.id2),
+		[{id: 1, b: "1", id2: 1, y: "11"}, {id: 1, b: "1", id2: 1, y: "12"}, {id: 3, b: "3", id2: 3, y: "33"}],
+		"innerJoin() failed with array (2).");
+	assert(
+		[{id: 1, b: "1"}, {id: 2, b: "2"}, {id: 3, b: "3"}],
+		a => a.L.innerJoin(
+			[{id2: 1, y: "11"}, {id2: 2, y: "22"}, {id2: 3, y: "33"}],
+			(a, b) => a.id === b.id2,
+			(a, b) => ({ id: a.id, name: b.y })),
+		[{id: 1, name: "11"}, {id: 2, name: "22"}, {id: 3, name: "33"}],
+		"innerJoin() failed with selector.");
+	assert(
+		[{id: 1, b: "1"}, {id: 2, b: "2"}, {id: 3, b: "3"}],
+		a => a.L.innerJoin([{id2: 1, y: "11"}, {id2: 2, y: "22"}]),
+		[{id: 1, b: "1", id2: 1, y: "11"}, {id: 1, b: "1", id2: 2, y: "22"},
+		{id: 2, b: "2", id2: 1, y: "11"}, {id: 2, b: "2", id2: 2, y: "22"},
+		{id: 3, b: "3", id2: 1, y: "11"}, {id: 3, b: "3", id2: 2, y: "22"}],
+		"innerJoin() failed without constraint (cross join).");
+	// leftJoin
+	assert(
+		[],
+		a => a.L.leftJoin(
+			[{id2: 1, y: "11"}, {id2: 2, y: "22"}, {id2: 3, y: "33"}],
+			(a, b) => a.id === b.id2),
+		[],
+		"leftJoin() failed with empty array.");
+	assert(
+		[{id: 1, b: "1"}, {id: 2, b: "2"}, {id: 3, b: "3"}],
+		a => a.L.leftJoin(
+			[{id2: 1, y: "11"}, {id2: 2, y: "22"}, {id2: 3, y: "33"}],
+			(a, b) => a.id === b.id2),
+		[{id: 1, b: "1", id2: 1, y: "11"}, {id: 2, b: "2", id2: 2, y: "22"}, {id: 3, b: "3", id2: 3, y: "33"}],
+		"leftJoin() failed with array (1).");
+	assert(
+		[{id: 1, b: "1"}, {id: 2, b: "2"}, {id: 3, b: "3"}],
+		a => a.L.leftJoin(
+			[{id2: 1, y: "11"}, {id2: 1, y: "12"}, {id2: 3, y: "33"}, {id2: 4, y: "44"}],
+			(a, b) => a.id === b.id2),
+		[{id: 1, b: "1", id2: 1, y: "11"}, {id: 1, b: "1", id2: 1, y: "12"}, {id: 2, b: "2"}, {id: 3, b: "3", id2: 3, y: "33"}],
+		"leftJoin() failed with array (2).");
+	// orderBy
+	assert([], a => a.L.orderBy(x => x), [], "orderBy() failed with empty array.");
+	assert([1, 3, 14, -2], a => a.L.orderBy(x => x), [-2, 1, 3, 14], "orderBy() failed with non-empty array.");
+	arr = [{a: 1, b: 5}, {a: 3}, {a: 14}, {a: -2}];
+	arr = arr.L.orderBy(x => x.a).array;
+	if (JSON.stringify(arr) !== '[{"a":-2},{"a":1,"b":5},{"a":3},{"a":14}]') throw new Error("orderBy() failed with a key selector.");
+	arr = [{a: 1, b: 5}, {a: 1, b: 3}, {a: 14, b: 0}, {a: -2}];
+	arr = arr.L.orderBy(x => x.a, x => x.b).array;
+	if (JSON.stringify(arr) !== '[{"a":-2},{"a":1,"b":3},{"a":1,"b":5},{"a":14,"b":0}]') throw new Error("orderBy() failed with multiple key selectors. Return value was " + JSON.stringify(arr) + ".");
+	arr = [{a: 1, b: 5}, {a: 1, b: 3}, {a: 1, b: 10}, {a: -2}];
+	arr = arr.L.orderBy(x => x.a, -1, x => x.b).array;
+	if (JSON.stringify(arr) !== '[{"a":-2},{"a":1,"b":10},{"a":1,"b":5},{"a":1,"b":3}]') throw new Error("orderBy() failed with multiple key selectors and switched direction. Return value was " + JSON.stringify(arr) + ".");
+	// orderByDescending
+	assert([], a => a.L.orderByDescending(x => x), [], "orderByDescending() failed with empty array.");
+	assert([1, 3, 14, -2], a => a.L.orderByDescending(x => x), [14, 3, 1, -2], "orderByDescending() failed with non-empty array.");
+	// outerJoin
+	assert(
+		[],
+		a => a.L.outerJoin(
+			[{id2: 1, y: "11"}, {id2: 2, y: "22"}, {id2: 3, y: "33"}],
+			(a, b) => a.id === b.id2),
+		[{id2: 1, y: "11"}, {id2: 2, y: "22"}, {id2: 3, y: "33"}],
+		"outerJoin() failed with empty array.");
+	assert(
+		[{id: 1, b: "1"}, {id: 2, b: "2"}, {id: 3, b: "3"}],
+		a => a.L.outerJoin(
+			[{id2: 1, y: "11"}, {id2: 2, y: "22"}, {id2: 3, y: "33"}],
+			(a, b) => a.id === b.id2),
+		[{id: 1, b: "1", id2: 1, y: "11"}, {id: 2, b: "2", id2: 2, y: "22"}, {id: 3, b: "3", id2: 3, y: "33"}],
+		"outerJoin() failed with array (1).");
+	assert(
+		[{id: 1, b: "1"}, {id: 2, b: "2"}, {id: 3, b: "3"}],
+		a => a.L.outerJoin(
+			[{id2: 1, y: "11"}, {id2: 1, y: "12"}, {id2: 3, y: "33"}, {id2: 4, y: "44"}],
+			(a, b) => a.id === b.id2),
+		[{id: 1, b: "1", id2: 1, y: "11"}, {id: 1, b: "1", id2: 1, y: "12"}, {id: 2, b: "2"}, {id: 3, b: "3", id2: 3, y: "33"}, {id2: 4, y: "44"}],
+		"outerJoin() failed with array (2).");
+	// rearrange
+	assert([], a => a.L.rearrange(x => x), [], "rearrange() failed with empty array.");
+	assert([1, 2, 3], a => a.L.rearrange(x => x), [1, 2, 3], "rearrange() failed with non-empty array and identity mapping.");
+	assert([1, 2, 3, 4], a => a.L.rearrange(x => (x % 2) * 2 + Math.floor(x / 2)), [1, 3, 2, 4], "rearrange() failed with non-empty array and non-identity mapping.");
+	assert([1, 2, 3, 4], a => a.L.rearrange(x => 0), [4], "rearrange() failed with non-empty array and constant mapping.");
+	// repeat
+	assert([], a => a.L.repeat(0), [], "repeat() failed with empty array with count 0.");
+	assert([], a => a.L.repeat(1), [], "repeat() failed with empty array with count 1.");
+	assert([], a => a.L.repeat(2), [], "repeat() failed with empty array with count 2.");
+	assert([1, 2], a => a.L.repeat(0), [], "repeat() failed with non-empty array with count 0.");
+	assert([1, 2], a => a.L.repeat(1), [1, 2], "repeat() failed with non-empty array with count 1.");
+	assert([1, 2], a => a.L.repeat(2), [1, 2, 1, 2], "repeat() failed with non-empty array with count 2.");
+	// reversed
+	assert([], a => a.L.reversed(), [], "reversed() failed with empty array.");
+	assert([1, 2, 3], a => a.L.reversed(), [3, 2, 1], "reversed() failed with non-empty array of odd length.");
+	assert([1, 2, 3, 4], a => a.L.reversed(), [4, 3, 2, 1], "reversed() failed with non-empty array of even length.");
+	// select
+	assert([], a => a.L.select(i => i > 0), [], "select() failed with empty array.");
+	assert([1, -2, 3], a => a.L.select(i => i > 0), [true, false, true], "select() failed with non-empty array.");
+	// skip
+	assert([], a => a.L.skip(0), [], "skip() failed with empty array with count 0.");
+	assert([1, 2, 3], a => a.L.skip(0), [1, 2, 3], "skip() failed with non-empty array with count 0.");
+	assert([], a => a.L.skip(2), [], "skip() failed with empty array with count 2.");
+	assert([1, 2, 3, 4], a => a.L.skip(2), [3, 4], "skip() failed with non-empty array with count 2.");
+	// skipLast
+	assert([], a => a.L.skipLast(0), [], "skipLast() failed with empty array with count 0.");
+	assert([1, 2, 3], a => a.L.skipLast(0), [1, 2, 3], "skipLast() failed with non-empty array with count 0.");
+	assert([], a => a.L.skipLast(2), [], "skipLast() failed with empty array with count 2.");
+	assert([1, 2, 3, 4], a => a.L.skipLast(2), [1, 2], "skipLast() failed with non-empty array with count 2.");
+	// skipWhile
+	assert([], a => a.L.skipWhile(i => i < 3), [], "skipWhile() failed with empty array.");
+	assert([3, 4, 1], a => a.L.skipWhile(i => i < 3), [3, 4, 1], "skipWhile() failed with non-empty array (1).");
+	assert([1, 2, 3, 4, 1], a => a.L.skipWhile(i => i < 3), [3, 4, 1], "skipWhile() failed with non-empty array (2).");
+	// take
+	assert([], a => a.L.take(0), [], "take() failed with empty array with count 0.");
+	assert([1, 2, 3], a => a.L.take(0), [], "take() failed with non-empty array with count 0.");
+	assert([], a => a.L.take(2), [], "take() failed with empty array with count 2.");
+	assert([1, 2, 3, 4], a => a.L.take(2), [1, 2], "take() failed with non-empty array with count 2.");
+	// takeAfter
+	assert([], a => a.L.takeAfter(2), [], "takeAfter() failed with empty array.");
+	assert([1, 2, 3, 4, 1, 2], a => a.L.takeAfter(2), [3, 4, 1, 2], "takeAfter() failed with non-empty array.");
+	// takeBefore
+	assert([], a => a.L.takeBefore(2), [], "takeBefore() failed with empty array.");
+	assert([1, 2, 3, 4, 1, 2], a => a.L.takeBefore(2), [1], "takeBefore() failed with non-empty array.");
+	// takeEvery
+	assert([], a => a.L.takeEvery(1), [], "takeEvery() failed with empty array.");
+	assert([1, 2, 3], a => a.L.takeEvery(1), [1, 2, 3], "takeEvery() failed with non-empty array with step 1.");
+	assert([1, 2, 3, 4, 5, 6], a => a.L.takeEvery(2), [1, 3, 5], "takeEvery() failed with non-empty array with step 2.");
+	assert([1, 2, 3, 4, 5, 6], a => a.L.takeEvery(2, undefined, 2), [1, 3], "takeEvery() failed with non-empty array with step 2 with count 2.");
+	assert([1, 2, 3, 4, 5, 6], a => a.L.takeEvery(2, 1), [2, 4, 6], "takeEvery() failed with non-empty array with step 2 with start 1.");
+	assert([1, 2, 3, 4, 5, 6], a => a.L.takeEvery(2, 1, 2), [2, 4], "takeEvery() failed with non-empty array with step 2 with start 1 with count 2.");
+	// takeLast
+	assert([], a => a.L.takeLast(0), [], "takeLast() failed with empty array with count 0.");
+	assert([1, 2, 3], a => a.L.takeLast(0), [], "takeLast() failed with non-empty array with count 0.");
+	assert([], a => a.L.takeLast(2), [], "takeLast() failed with empty array with count 2.");
+	assert([1, 2, 3, 4], a => a.L.takeLast(2), [3, 4], "takeLast() failed with non-empty array with count 2.");
+	// takeWhile
+	assert([], a => a.L.takeWhile(i => i < 3), [], "takeWhile() failed with empty array.");
+	assert([3, 4, 1], a => a.L.takeWhile(i => i < 3), [], "takeWhile() failed with non-empty array (1).");
+	assert([1, 2, 3, 4, 1], a => a.L.takeWhile(i => i < 3), [1, 2], "takeWhile() failed with non-empty array (2).");
+	// toArray
+	arr = [1,2,3].L.toArray();
+	if (!Array.isArray(arr)) throw new Error("toArray() result is not an Array.");
+	if (arr.length !== 3) throw new Error("toArray() result Array does not have the expected number of entries.");
+	if (arr[0] !== 1) throw new Error("toArray() result Array index 0 does not have the expected value.");
+	if (arr[1] !== 2) throw new Error("toArray() result Array index 1 does not have the expected value.");
+	if (arr[2] !== 3) throw new Error("toArray() result Array index 2 does not have the expected value.");
+	arr = [1,[2],[3,4].L].L.toArray();
+	if (!Array.isArray(arr)) throw new Error("toArray() result is not an Array.");
+	if (arr.length !== 3) throw new Error("toArray() result Array does not have the expected number of entries.");
+	if (arr[0] !== 1) throw new Error("toArray() result Array index 0 does not have the expected value.");
+	if (!Array.isArray(arr[1])) throw new Error("toArray() result Array index 1 is not an Array.");
+	if (arr[1].length !== 1) throw new Error("toArray() result Array index 1 Array does not have the expected number of entries.");
+	if (arr[1][0] !== 2) throw new Error("toArray() result Array index 1 Array index 0 does not have the expected value.");
+	if (!Array.isArray(arr[2])) throw new Error("toArray() result Array index 2 is not an Array.");
+	if (arr[2].length !== 2) throw new Error("toArray() result Array index 2 Array does not have the expected number of entries.");
+	if (arr[2][0] !== 3) throw new Error("toArray() result Array index 2 Array index 0 does not have the expected value.");
+	if (arr[2][1] !== 4) throw new Error("toArray() result Array index 2 Array index 1 does not have the expected value.");
+	// toMap
+	arr = [1,2,3];
+	let map = arr.L.toMap(item => -item);
+	if (!(map instanceof Map)) throw new Error("toMap() with keySelector result is not a Map.");
+	if (map.size !== 3) throw new Error("toMap() with keySelector result Map does not have the expected number of entries.");
+	if (map.get(-1) !== 1) throw new Error("toMap() with keySelector result key 1 does not have the expected value.");
+	if (map.get(-2) !== 2) throw new Error("toMap() with keySelector result key 2 does not have the expected value.");
+	if (map.get(-3) !== 3) throw new Error("toMap() with keySelector result key 3 does not have the expected value.");
+	if (JSON.stringify(arr) !== "[1,2,3]") throw new Error("toMap() modified the source array.");
+	map = arr.L.toMap((item, i) => i);
+	if (!(map instanceof Map)) throw new Error("toMap() with index-keySelector result is not a Map.");
+	if (map.size !== 3) throw new Error("toMap() with index-keySelector result Map does not have the expected number of entries.");
+	if (map.get(0) !== 1) throw new Error("toMap() with index-keySelector result key 0 does not have the expected value.");
+	if (map.get(1) !== 2) throw new Error("toMap() with index-keySelector result key 1 does not have the expected value.");
+	if (map.get(2) !== 3) throw new Error("toMap() with index-keySelector result key 2 does not have the expected value.");
+	arr = [["a",1],["b",2],["c",3]];
+	map = arr.L.toMap();
+	if (!(map instanceof Map)) throw new Error("toMap() without keySelector result is not a Map.");
+	if (map.size !== 3) throw new Error("toMap() without keySelector result Map does not have the expected number of entries.");
+	if (map.get("a") !== 1) throw new Error("toMap() without keySelector result key a does not have the expected value.");
+	if (map.get("b") !== 2) throw new Error("toMap() without keySelector result key b does not have the expected value.");
+	if (map.get("c") !== 3) throw new Error("toMap() without keySelector result key c does not have the expected value.");
+	arr = [{key:"a",value:1},{key:"b",value:2},{key:"c",value:3}];
+	map = arr.L.toMap(item => item.key, item => item.value);
+	if (!(map instanceof Map)) throw new Error("toMap() with keySelector and valueSelector result is not a Map.");
+	if (map.size !== 3) throw new Error("toMap() with keySelector and valueSelector result Map does not have the expected number of entries.");
+	if (map.get("a") !== 1) throw new Error("toMap() with keySelector and valueSelector result key a does not have the expected value.");
+	if (map.get("b") !== 2) throw new Error("toMap() with keySelector and valueSelector result key b does not have the expected value.");
+	if (map.get("c") !== 3) throw new Error("toMap() with keySelector and valueSelector result key c does not have the expected value.");
+	map = arr.L.toMap("key", "value");
+	if (!(map instanceof Map)) throw new Error("toMap() with string-keySelector and string-valueSelector result is not a Map.");
+	if (map.size !== 3) throw new Error("toMap() with string-keySelector and string-valueSelector result Map does not have the expected number of entries.");
+	if (map.get("a") !== 1) throw new Error("toMap() with string-keySelector and string-valueSelector result key a does not have the expected value.");
+	if (map.get("b") !== 2) throw new Error("toMap() with string-keySelector and string-valueSelector result key b does not have the expected value.");
+	if (map.get("c") !== 3) throw new Error("toMap() with string-keySelector and string-valueSelector result key c does not have the expected value.");
+	// toObject
+	arr = [1,2,3];
+	let obj = arr.L.toObject(item => -item);
+	if (typeof obj !== "object") throw new Error("toObject() with keySelector result is not an object.");
+	if (JSON.stringify(obj) !== '{"-1":1,"-2":2,"-3":3}') throw new Error("toObject() with keySelector result is unexpected.");
+	if (JSON.stringify(arr) !== "[1,2,3]") throw new Error("toObject() modified the source array.");
+	obj = arr.L.toObject((item, i) => i);
+	if (typeof obj !== "object") throw new Error("toObject() with index-keySelector result is not an object.");
+	if (JSON.stringify(obj) !== '{"0":1,"1":2,"2":3}') throw new Error("toObject() with index-keySelector result is unexpected.");
+	arr = [["a",1],["b",2],["c",3]];
+	obj = arr.L.toObject();
+	if (typeof obj !== "object") throw new Error("toObject() without keySelector result is not an object.");
+	if (JSON.stringify(obj) !== '{"a":1,"b":2,"c":3}') throw new Error("toObject() without keySelector result is unexpected.");
+	arr = [{key:"a",value:1},{key:"b",value:2},{key:"c",value:3}];
+	obj = arr.L.toObject(item => item.key, item => item.value);
+	if (typeof obj !== "object") throw new Error("toObject() with keySelector and valueSelector result is not an object.");
+	if (JSON.stringify(obj) !== '{"a":1,"b":2,"c":3}') throw new Error("toObject() with keySelector and valueSelector result is unexpected.");
+	obj = arr.L.toObject("key", "value");
+	if (typeof obj !== "object") throw new Error("toObject() with string-keySelector and string-valueSelector result is not an object.");
+	if (JSON.stringify(obj) !== '{"a":1,"b":2,"c":3}') throw new Error("toObject() with string-keySelector and string-valueSelector result is unexpected.");
+	// transpose
+	assert([], a => a.L.transpose(), [], "transpose() failed with empty array.");
+	assert([[1, 2, 3]], a => a.L.transpose(), [[1], [2], [3]], "transpose() failed with single array.");
+	assert([[1, 2, 3].L], a => a.L.transpose(), [[1], [2], [3]], "transpose() failed with single array (as ArrayList).");
+	assert([[1, 2, 3], [11, 12, 13]], a => a.L.transpose(), [[1, 11], [2, 12], [3, 13]], "transpose() failed with multiple arrays.");
+	assert([[1, 2, 3].L, [11, 12, 13].L], a => a.L.transpose(), [[1, 11], [2, 12], [3, 13]], "transpose() failed with multiple arrays (as ArrayList).");
+	assert([[1, 2, 3], [11, 12]], a => a.L.transpose(), [[1, 11], [2, 12], [3, undefined]], "transpose() failed with arrays of different length.");
+	assert([1, 2, 3, 4], a => a.L.transpose(2), [1, 3, 2, 4], "transpose() failed with flat array and chunk size 2.");
+	assert([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], a => a.L.transpose(3), [1, 4, 7, 10, 13, 2, 5, 8, 11, 14, 3, 6, 9, 12, 15], "transpose() failed with flat array and chunk size 3.");
+	assert([1, 2, 3, 4, 5, 6, 7], a => a.L.transpose(3), [1, 4, 7, 2, 5, undefined, 3, 6], "transpose() failed with flat array and chunk size 3 and uneven length.");
+	// where
+	assert([], a => a.L.where(i => i > 0), [], "where() failed with empty array.");
+	assert([1, -2, 3], a => a.L.where(i => i > 0), [1, 3], "where() failed with non-empty array.");
+
+	// Set methods
+	// distinct
+	assert([], a => a.L.distinct(), [], "distinct() failed with empty array.");
+	assert([1, 2, 3], a => a.L.distinct(), [1, 2, 3], "distinct() failed with distinct array.");
+	assert([2, 3, 2, 3, 1], a => a.L.distinct(), [2, 3, 1], "distinct() failed with non-distinct array.");
+	// except
+	assert([], a => a.L.except([]), [], "except() failed with empty array.");
+	assert([1, 2, 3, 3], a => a.L.except([]), [1, 2, 3], "except() failed with non-empty array and empty other array.");
+	assert([1, 2, 3, 3], a => a.L.except([3, 4, 5]), [1, 2], "except() failed with non-empty array and non-empty other array.");
+	assert([1, 2, 3, 3], a => a.L.except([3, 4, 5].L), [1, 2], "except() failed with non-empty array and non-empty other array (as ArrayList).");
+	// intersect
+	assert([], a => a.L.intersect([]), [], "intersect() failed with empty array.");
+	assert([1, 2, 3, 3], a => a.L.intersect([]), [], "intersect() failed with non-empty array and empty other array.");
+	assert([1, 2, 3, 3], a => a.L.intersect([3, 4, 5, 1]), [1, 3], "intersect() failed with non-empty array and non-empty other array.");
+	assert([1, 2, 3, 3], a => a.L.intersect([3, 4, 5, 1].L), [1, 3], "intersect() failed with non-empty array and non-empty other array (as ArrayList).");
+	// isSubsetOf
+	assert([], a => a.L.isSubsetOf([]), true, "isSubsetOf() failed with empty arrays.");
+	assert([1], a => a.L.isSubsetOf([]), false, "isSubsetOf() failed with non-empty array and empty other array.");
+	assert([], a => a.L.isSubsetOf([1]), true, "isSubsetOf() failed with empty array and non-empty other array.");
+	assert([1, 2], a => a.L.isSubsetOf([1, 2]), true, "isSubsetOf() failed with equal entries.");
+	assert([1], a => a.L.isSubsetOf([1, 2]), true, "isSubsetOf() failed with less entries.");
+	assert([1], a => a.L.isSubsetOf([1, 2].L), true, "isSubsetOf() failed with less entries (as ArrayList).");
+	assert([1, 2, 3], a => a.L.isSubsetOf([1, 2]), false, "isSubsetOf() failed with more entries.");
+	assert([1, 3], a => a.L.isSubsetOf([1, 2]), false, "isSubsetOf() failed with additional entries.");
+	// isSupersetOf
+	assert([], a => a.L.isSupersetOf([]), true, "isSupersetOf() failed with empty arrays.");
+	assert([1], a => a.L.isSupersetOf([]), true, "isSupersetOf() failed with non-empty array and empty other array.");
+	assert([], a => a.L.isSupersetOf([1]), false, "isSupersetOf() failed with empty array and non-empty other array.");
+	assert([1, 2], a => a.L.isSupersetOf([1, 2]), true, "isSupersetOf() failed with equal entries.");
+	assert([1], a => a.L.isSupersetOf([1, 2]), false, "isSupersetOf() failed with less entries.");
+	assert([1, 2, 3], a => a.L.isSupersetOf([1, 2]), true, "isSupersetOf() failed with more entries.");
+	assert([1, 2, 3], a => a.L.isSupersetOf([1, 2].L), true, "isSupersetOf() failed with more entries (as ArrayList).");
+	assert([1, 3], a => a.L.isSupersetOf([1, 2]), false, "isSupersetOf() failed with additional entries.");
+	// setEquals
+	assert([], a => a.L.setEquals([]), true, "setEquals() failed with empty arrays.");
+	assert([1], a => a.L.setEquals([]), false, "setEquals() failed with different lengths.");
+	assert([1], a => a.L.setEquals([1]), true, "setEquals() failed with same content.");
+	assert([1, 2], a => a.L.setEquals([1, "2"]), false, "setEquals() failed with different types.");
+	assert([1, 2], a => a.L.setEquals([2, 1]), true, "setEquals() failed with different order.");
+	assert([1, 2], a => a.L.setEquals([2, 1].L), true, "setEquals() failed with different order (as ArrayList).");
+	assert([1, 2, 2], a => a.L.setEquals([2, 1]), true, "setEquals() failed with non-unique items (1).");
+	assert([1, 2], a => a.L.setEquals([2, 2, 1]), true, "setEquals() failed with non-unique items (2).");
+	assert([1, 2], a => a.L.setEquals([2, 1, 3]), false, "setEquals() failed with different sets.");
+	// symmetricDifference
+	assert([], a => a.L.symmetricDifference([]), [], "symmetricDifference() failed with empty array.");
+	assert([1, 2, 3, 1], a => a.L.symmetricDifference([]), [1, 2, 3], "symmetricDifference() failed with non-empty array and empty other array.");
+	assert([1, 2, 3, 1], a => a.L.symmetricDifference([3, 4, 5, 1]), [2, 4, 5], "symmetricDifference() failed with non-empty array and non-empty other array.");
+	assert([1, 2, 3, 1], a => a.L.symmetricDifference([3, 4, 5, 1].L), [2, 4, 5], "symmetricDifference() failed with non-empty array and non-empty other array (as ArrayList).");
+	// union
+	assert([], a => a.L.union([]), [], "union() failed with empty arrays.");
+	assert([1, 2, 3, 3], a => a.L.union([]), [1, 2, 3], "union() failed with non-empty array and empty other array.");
+	assert([], a => a.L.union([1, 2, 2, 3]), [1, 2, 3], "union() failed with empty array and non-empty other array.");
+	assert([2, 3, 3], a => a.L.union([3, 4, 5, 1, 5]), [2, 3, 4, 5, 1], "union() failed with non-empty array and non-empty other array.");
+	assert([2, 3, 3], a => a.L.union([3, 4, 5, 1, 5].L), [2, 3, 4, 5, 1], "union() failed with non-empty array and non-empty other array (as ArrayList).");
+
+	// Void methods
+	// forEach
+	arr = [];
+	assert([], a => a.L.forEach(i => arr.push(i * 2)), "this", "forEach() failed with empty array.");
+	if (JSON.stringify(arr) !== "[]") throw new Error("forEach() result is unexpected with empty array.");
+	arr = [];
+	assert([1, 2, 3], a => a.L.forEach(i => arr.push(i * 2)), "this", "forEach() failed with non-empty array.");
+	if (JSON.stringify(arr) !== "[2,4,6]") throw new Error("forEach() result is unexpected with non-empty array.");
+
+	// Iterator
+	arr = [];
+	for (let item of ArrayList()) {
+		arr.push(item);
+	}
+	if (JSON.stringify(arr) !== "[]") throw new Error("for/of loop result is unexpected with empty array.");
+	arr = [];
+	for (let item of ArrayList([1, 2, 3])) {
+		arr.push(item);
+	}
+	if (JSON.stringify(arr) !== "[1,2,3]") throw new Error("for/of loop result is unexpected with non-empty array.");
+
+	document.body.textContent = "All tests passed.";
+}
+catch (error) {
+	console.error(error);
+	document.body.textContent = error;
+}
+
+function assert(array, fn, result, newArray, message) {
+	// newArray parameter is optional
+	if (typeof newArray === "string") {
+		message = newArray;
+		newArray = undefined;
+	}
+	
+	// Backup original array
+	const originalArray = JSON.stringify(array);
+
+	const ret = fn(array);
+	if (Array.isArray(result)) {
+		if (Array.isArray(ret)) {
+			throw new Error(message + " Return type was Array, should probably be ArrayList instead.");
+			//if (JSON.stringify(ret) !== JSON.stringify(result))
+			//	throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
+		}
+		else if (ret instanceof ArrayList) {
+			if (JSON.stringify(ret.array) !== JSON.stringify(result))
+				throw new Error(message + " Return value was " + JSON.stringify(ret.array) + ", expected " + JSON.stringify(result) + ".");
+		}
+		else {
+			throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
+		}
+	}
+	else if (Number.isNaN(result)) {
+		if (!Number.isNaN(ret))
+			throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
+	}
+	else if (result === "this") {
+		// Should actually test for the same ArrayList instance but that is only created in fn()
+		// so we don't have it here. We just compare its internal array instead, it must be the
+		// same, too.
+		if (ret.array !== array)
+			throw new Error(message + " Return value was not the same array.");
+	}
+	else {
+		if (ret !== result)
+			throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
+	}
+	
+	if (newArray) {
+		if (JSON.stringify(array) !== JSON.stringify(newArray))
+			throw new Error(message + " Array was " + JSON.stringify(array) + ", expected " + JSON.stringify(newArray) + ".");
+	}
+	else {
+		if (JSON.stringify(array) !== originalArray)
+			throw new Error(message + " Array was manipulated from " + originalArray + " to " + JSON.stringify(array) + ".");
+		if (Array.isArray(ret) && ret === array)
+			throw new Error(message + " Original array was returned instead of new array.");
+	}
+}
+</script>
+</html>

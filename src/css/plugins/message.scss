@@ -1,0 +1,123 @@
+:is(p, div).message
+{
+	padding: 6px 10px;
+	position: relative;
+	transition: background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+
+	&.transparent
+	{
+		padding: 0;
+		&.icon
+		{
+			padding-left: 26px;   // icon width (20) + text padding (6)
+		}
+	}
+	&.critical
+	{
+		background-color: var(--critical-background, hsl(var(--critical-background-h), var(--critical-background-s), var(--critical-background-l)));
+		color: var(--critical-color);
+		--link-color: var(--critical-color);
+		--link-hover-color: var(--critical-color);
+		--link-text-decoration: underline;
+	}
+	&.error
+	{
+		background-color: var(--error-background, hsl(var(--error-background-h), var(--error-background-s), var(--error-background-l)));
+		color: var(--error-color);
+		--link-color: var(--error-color);
+		--link-hover-color: var(--error-color);
+		--link-text-decoration: underline;
+	}
+	&.warning
+	{
+		background-color: var(--warning-background, hsl(var(--warning-background-h), var(--warning-background-s), var(--warning-background-l)));
+		color: var(--warning-color);
+		--link-color: var(--warning-color);
+		--link-hover-color: var(--warning-color);
+		--link-text-decoration: underline;
+	}
+	&.information
+	{
+		background-color: var(--information-background, hsl(var(--information-background-h), var(--information-background-s), var(--information-background-l)));
+		color: var(--information-color);
+		--link-color: var(--information-color);
+		--link-hover-color: var(--information-color);
+		--link-text-decoration: underline;
+	}
+	&.success
+	{
+		background-color: var(--success-background, hsl(var(--success-background-h), var(--success-background-s), var(--success-background-l)));
+		color: var(--success-color);
+		--link-color: var(--success-color);
+		--link-hover-color: var(--success-color);
+		--link-text-decoration: underline;
+	}
+
+	&.icon
+	{
+		padding-left: 36px;   // box padding (10) + icon width (20) + text padding (6)
+
+		> i:first-child,
+		> .icon
+		{
+			display: block;
+			float: left;
+			margin-left: -26px;   // icon width (20) + text padding (6)
+			line-height: var(--default-line-height);
+		}
+		> i.material:first-child
+		{
+			margin-left: -28px;   // inner icon padding (2) + icon width (20) + text padding (6)
+			font-size: 20px;
+			line-height: 1;
+		}
+	}
+
+	&.closable
+	{
+		padding-right: 31px;
+	}
+	&.ff-closed
+	{
+		transform-origin: 50% 0%;
+		transform: scaleY(0);
+		opacity: 0;
+		transition: transform var(--animation-duration) var(--animation-function), opacity var(--animation-duration) var(--animation-function), margin-bottom var(--animation-duration) var(--animation-function);
+		// TODO: margin-bottom transition is for commented out JavaScript code when closing a message
+	}
+}
+
+.ff-message-close-button
+{
+	position: absolute;
+	display: block;
+	top: 0;
+	right: 0;
+	width: 25px;
+	padding-top: 2px;   // message's top padding - 4px to compensate the lower x form
+	color: inherit !important;
+	text-decoration: none !important;
+	opacity: 0.6;
+	text-align: center;
+	font-size: 19px;
+	line-height: 1;
+	transition: opacity var(--animation-duration) var(--animation-function);
+
+	.message.transparent &
+	{
+		top: -1px;
+		padding-top: 0;
+	}
+
+	&::after
+	{
+		display: block;
+		content: '\D7';
+	}
+	&:hover
+	{
+		color: inherit;
+		opacity: 1;
+		transition: opacity 0s;
+	}
+}

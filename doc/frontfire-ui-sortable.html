@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Sortable documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+	<style>
+		ul.sortable > li
+		{
+			background-color: rgb(160, 160, 160, 0.3);
+			margin: 3px 0;
+			cursor: default;
+		}
+		ul ul.sortable > li
+		{
+			background-color: rgb(160, 160, 160, 0.4);
+		}
+		ul.sortable .dragging
+		{
+			box-shadow: rgba(0, 0, 0, 0.3) 0 1px 5px;
+		}
+
+		.sortable > :is(div, tr)
+		{
+			transition: background-color 0.2s ease;
+		}
+		.sortable > :is(div, tr, li.dragging)
+		{
+			background-color: rgb(255, 255, 255, 0.75);
+		}
+		.dark .sortable > :is(div, tr, li.dragging)
+		{
+			background-color: rgb(32, 32, 32, 0.75);
+		}
+
+		div.sortable > div
+		{
+			display: inline-block;
+			margin-right: 0px;
+			border: 1px solid gray;
+			padding: 20px;
+			cursor: default;
+		}
+
+		div.sortable.grid
+		{
+			width: 300px;
+			background-color: rgb(255, 192, 0, 0.15);
+		}
+
+		div.sortable.grid > div
+		{
+			min-width: 70px;
+			min-height: 70px;
+			margin: 10px;
+			text-align: center;
+		}
+
+		div.sortable.grid2 > div
+		{
+			margin: 4px;
+			padding: 4px 8px;
+			border: none;
+			border-radius: 3px;
+			background-color: rgb(58, 114, 172, 0.7) !important;
+			color: white;
+			text-align: center;
+		}
+
+		.ff-sortable-placeholder
+		{
+			background-color: #ffccbb !important;
+		}
+		.dark .ff-sortable-placeholder
+		{
+			background-color: #886655 !important;
+		}
+
+		div.sortable.grid2 .ff-sortable-placeholder
+		{
+			border: 1px dashed rgb(58, 114, 172, 0.6) !important;
+			padding: 3px 7px;
+			background-color: rgb(58, 114, 172, 0.2) !important;
+		}
+	</style>
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Sortable plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			Frontfire UI allows sorting elements within their parent by mouse, touch or other pointer interaction.
+		</p>
+		<p>
+			This plugin is available in the Minimal and Complete bundles.
+		</p>
+
+		<h2 id="description">Description</h2>
+		<p>
+			When adding the sortable feature to an element with the <code class="css-class">sortable</code> CSS class, or by calling the <a href="frontfire-core.html#sortable"><code>sortable()</code></a> plugin method, all of its children can be reordered within the parent by picking and move a child element to another position.
+			The sorting and movement can be constrained by providing <a href="#options">options</a> to that method or handling <a href="#events">events</a>.
+		</p>
+		<p>
+			The examples on this page use additional CSS styles that are not shown in the source boxes.
+			Read the source code of this page or use the browser’s DOM inspector to see these styles.
+		</p>
+
+		<h2 id="vertical">Vertical layout</h2>
+		<h3 id="vertical-list">List items</h3>
+		<p>
+			In a vertical layout, children can be sorted in the vertical direction.
+			The following example demonstrates this with an unordered list.
+		</p>
+		<p>
+			Items can be added and removed with any DOM method at any time without further considerations.
+		</p>
+		<div class="example p-top no-frontfire" data-source-highlight="(?<=&quot;)sortable(?=&quot;)|dragClass">
+			<ul class="sortable" id="sortable-list" data-opt="dragClass: dragging;">
+				<li>Item 1</li>
+				<li>Item 2</li>
+				<li>Item 3</li>
+				<li>Item 4</li>
+				<li>Item 5</li>
+				<li>Item 6</li>
+				<li>Item 7</li>
+				<li>Item 8 <strong>extra text</strong></li>
+			</ul>
+			<p>
+				<button type="button" id="add-list-item">Add item</button>
+			</p>
+
+			<script>
+				let nextIndex = 9;
+				F("#add-list-item").on("click", () => {
+					let item = F(`<li>New item ${nextIndex++}</li>`).appendTo("#sortable-list");
+				});
+			</script>
+		</div>
+
+		<h3 id="vertical-list-handle">List items with sort handles</h3>
+		<p>
+			The following example shows how list items can only be sorted when using the handle at the right end.
+			This allows scrolling the page normally on touch screens.
+		</p>
+		<div class="example p-top no-frontfire" data-source-highlight="(?<=&quot;)sortable(?=&quot;)|handle(?=: )|dragCursor">
+			<style>
+				span.handle
+				{
+					float: right;
+					padding: 0 5px;
+					cursor: ns-resize;
+					opacity: 0.5;
+				}
+				span.handle:hover
+				{
+					opacity: 1;
+				}
+			</style>
+			<ul class="sortable" id="sortable-list" data-opt="handle: span.handle; dragCursor: ns-resize; dragClass: dragging;">
+				<li>Item 1 <span class="handle">sort</span></li>
+				<li>Item 2 <span class="handle">sort</span></li>
+				<li>Item 3 <span class="handle">sort</span></li>
+				<li>Item 4 <span class="handle">sort</span></li>
+				<li>Item 5 <span class="handle">sort</span></li>
+				<li>Item 6 <span class="handle">sort</span></li>
+				<li>Item 7 <span class="handle">sort</span></li>
+				<li>Item 8 <span class="handle">sort</span></li>
+			</ul>
+		</div>
+
+		<h3 id="vertical-table">Table body rows</h3>
+		<p>
+			To prevent the table header or footer to be sorted, the sortable feature should only be applied to the <code data-lang="html">&lt;tbody&gt;</code> element.
+			All of its children, the table body rows, will be sortable without restrictions.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)sortable">
+			<table>
+				<thead>
+					<tr>
+						<th style="width: 120px;">Column A</th>
+						<th>Column B</th>
+						<th>Column C</th>
+						<th>Column D</th>
+					</tr>
+				</thead>
+				<tbody class="sortable">
+					<tr>
+						<td>A1 Text</td>
+						<td>B1</td>
+						<td>C1</td>
+						<td>D1</td>
+					</tr>
+					<tr>
+						<td>A2</td>
+						<td>B2 Text</td>
+						<td>C2</td>
+						<td>D2</td>
+					</tr>
+					<tr>
+						<td>A3</td>
+						<td>B3</td>
+						<td>C3 Text</td>
+						<td>D3</td>
+					</tr>
+					<tr>
+						<td>A4</td>
+						<td>B4</td>
+						<td>C4</td>
+						<td>D4 very long text <strong>with more words</strong></td>
+					</tr>
+					<tr>
+						<td>A5</td>
+						<td>B5</td>
+						<td>C5</td>
+						<td>D5</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<h2 id="horizontal">Horizontal layout</h2>
+		<p>
+			The sort orientation (vertical or horizontal) is determined from the first child element.
+			For block-display elements, the orientation is vertical; otherwise, it is horizontal.
+			The elements in the following example are set as <code data-lang="style">display: inline-block</code> by CSS.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)sortable">
+			<div class="sortable">
+				<div>A</div>
+				<div>B</div>
+				<div>C</div>
+				<div>D</div>
+				<div>E</div>
+				<div>F</div>
+				<div>G with extras</div>
+				<div>H</div>
+			</div>
+		</div>
+
+		<p>
+			If the sortable element is empty, this decision will be deferred until the first child is added.
+		</p>
+		<div class="example p-top no-frontfire" data-source-highlight="(?<=&quot;)sortable">
+			<div class="sortable" id="horizontal-sortable">
+			</div>
+			<p>
+				<button type="button" id="add-horizontal-item">Add item</button>
+			</p>
+
+			<script>
+				let nextHIndex = 1;
+				F("#add-horizontal-item").on("click", () => {
+					let item = F(`<div>${nextHIndex++}</div>`).appendTo("#horizontal-sortable");
+				});
+			</script>
+		</div>
+
+		<h3 id="horizontal-regular-grid">Regular grid layout</h3>
+		<p>
+			The items in this example are set to a constant width by CSS.
+			This makes them appear as a regular grid.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)sortable">
+			<div class="sortable grid">
+				<div>A</div>
+				<div>B</div>
+				<div>C</div>
+				<div>D</div>
+				<div>E</div>
+				<div>F</div>
+				<div>G</div>
+				<div>H</div>
+			</div>
+		</div>
+
+		<h3 id="horizontal-irregular-grid">Irregular grid layout</h3>
+		<p>
+			The following example works like the one above where you can add new items.
+			It already has many items of different size added to better demonstrate the line wrapping.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)sortable|drag-cursor">
+			<div class="sortable grid2" data-opt-drag-cursor="grabbing">
+				<div>Lorem</div>
+				<div>ipsum</div>
+				<div>dolor</div>
+				<div>sit</div>
+				<div>amet</div>
+				<div>consectetur</div>
+				<div>adipiscing</div>
+				<div>elit</div>
+				<div>Duis</div>
+				<div>ante</div>
+				<div>nibh</div>
+				<div>mattis</div>
+				<div>ut</div>
+				<div>efficitur</div>
+				<div>a</div>
+				<div>posuere</div>
+				<div>semper</div>
+				<div>quam</div>
+				<div>Vivamus</div>
+				<div>efficitur</div>
+				<div>dolor</div>
+				<div>at</div>
+				<div>diam</div>
+				<div>gravida</div>
+				<div>vitae</div>
+				<div>porttitor</div>
+				<div>turpis</div>
+				<div>venenatis</div>
+				<div>Fusce</div>
+				<div>convallis</div>
+				<div>metus</div>
+				<div>eget</div>
+				<div>gravida</div>
+				<div>pulvinar</div>
+			</div>
+		</div>
+
+		<h2 id="using-events">Using events</h2>
+		<p>
+			Events can be used to react on sort actions and cancel any of them.
+			See the description of <a href="#events">events</a> below.
+		</p>
+		<div class="example p-top no-frontfire" data-source-highlight="(?<=&quot;)sortable(?=&quot;)|sortablestart|sortablechange|sortableend|(?&lt;=\.)after">
+			<div id="sortable1" class="sortable">
+				<div>Lorem</div>
+				<div>ipsum</div>
+				<div>dolor</div>
+				<div>sit</div>
+				<div>amet</div>
+				<div>consectetur</div>
+				<div>adipiscing</div>
+				<div>elit</div>
+			</div>
+			<p id="sortable1-status">
+				No event yet
+			</p>
+			<p>
+				<label><input id="sortable1-deny" type="checkbox"> Deny new placement</label>
+			</p>
+
+			<script>
+				F("#sortable1").on("sortablestart", event => {
+					F("#sortable1-status").textContent = "Element \"" + event.target.textContent + "\" picked up";
+				});
+				F("#sortable1").on("sortablechange", event => {
+					F("#sortable1-status").textContent = "Element \"" + event.target.textContent + "\" placed " +
+						(event.after ? "after \"" + event.after.textContent + "\"" : "at start");
+				});
+				F("#sortable1").on("sortableend", event => {
+					F("#sortable1-status").textContent = "Element \"" + event.target.textContent + "\" dropped " +
+						(event.after ? "after \"" + event.after.textContent + "\"" : "at start");
+					if (F("#sortable1-deny").checked)
+						event.preventDefault();
+				});
+			</script>
+		</div>
+
+		<h2 id="nested">Nested sortables</h2>
+		<p>
+			Sortable elements can also be nested.
+			Each child element can only be sorted among the other siblings of the same parent.
+			The parent element itself can be sorted by dragging it in all areas that are not covered by a sortable child.
+			If no such non-overlapping areas exist, you can use drag handles for each element, as <a href="#vertical-list-handle">shown above</a>.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)sortable|axis|containment">
+			<ul class="sortable" data-opt="axis: y; containment: parent; dragClass: dragging;">
+				<li>
+					A
+					<ul class="sortable" data-opt="axis: y; containment: parent; dragClass: dragging;">
+						<li>A1</li>
+						<li>A2</li>
+						<li>A3</li>
+						<li>A4</li>
+					</ul>
+				</li>
+				<li>
+					B
+					<ul class="sortable" data-opt="axis: y; containment: parent; dragClass: dragging;">
+						<li>B1</li>
+						<li>B2</li>
+						<li>B3</li>
+						<li>B4</li>
+					</ul>
+				</li>
+				<li>
+					C
+					<ul class="sortable" data-opt="axis: y; containment: parent; dragClass: dragging;">
+						<li>C1</li>
+						<li>C2</li>
+						<li>C3</li>
+						<li>C4</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+		<h2 id="options">Options</h2>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>axis</code></td>
+					<td>String</td>
+					<td>Constrains the drag movement along the “x” or “y” axis.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>cancel</code></td>
+					<td>String, Node(s)</td>
+					<td>The element(s) that cannot start a drag operation, as CSS selector within the scope of the element to drag, or Node (collection).</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>containment</code></td>
+					<td>String, Node(s)</td>
+					<td>Constrains the drag movement inside the specified element, specified as CSS selector or Node (collection), or the “parent” of the dragged element or the “viewport”.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>dragClass</code></td>
+					<td>String, Iterable</td>
+					<td>CSS classes to add to the element while it’s being dragged.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>dragCursor</code></td>
+					<td>String</td>
+					<td>The mouse cursor to show during dragging.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>handle</code></td>
+					<td>String, Node(s)</td>
+					<td>The element(s) that can start a drag operation, as CSS selector within the scope of the element to drag, or Node (collection).</td>
+					<td>The element to drag</td>
+				</tr>
+				<tr>
+					<td><code>scroll</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the window should scroll to keep the dragged element visible.</td>
+					<td>false</td>
+				</tr>
+				<tr>
+					<td><code>stack</code></td>
+					<td>String, Node(s), Boolean</td>
+					<td>The elements among which the dragged element will be pulled to the front. Specified as CSS selector or Node (collection). true to stack all sortable children.</td>
+					<td>None</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="methods">Plugin methods</h2>
+		<p>
+			This plugin provides methods to control the sortable.
+		</p>
+
+		<div class="member">
+			<h3 id="remove">remove</h3>
+			<ul>
+				<li><code>remove()</code> → Frontfire</li>
+			</ul>
+			<p>
+				Removes the sortable features from the elements.
+			</p>
+		</div>
+
+		<h2 id="events">Plugin events</h2>
+		<p>
+			This plugin triggers events for the sortable elements.
+		</p>
+
+		<div class="member">
+			<h3 id="sortablechange">sortablechange</h3>
+			<p>
+				Triggered for the sorted child while it is being moved and when a new drop position is selected.
+				The following properties are provided with the event:
+			</p>
+			<ul>
+				<li><code>after</code>: The other child element that this element was sorted after. If unset, it was moved at the start.</li>
+			</ul>
+		</div>
+
+		<div class="member">
+			<h3 id="sortableend">sortableend</h3>
+			<p>
+				Triggered for the sorted child when the sort operation has ended.
+				The following properties are provided with the event:
+			</p>
+			<ul>
+				<li><code>after</code>: The other child element that this element was sorted after. If unset, it was moved at the start.</li>
+				<li><code>initialIndex</code>: The index of the sorted child before it was moved.</li>
+				<li><code>newIndex</code>: The index of the sorted child after moving it.</li>
+			</ul>
+		</div>
+
+		<div class="member">
+			<h3 id="sortablemove">sortablemove</h3>
+			<p>
+				Triggered for the sorted child element when it is being moved.
+				This event can be cancelled by calling <code>event.preventDefault()</code> to prevent the current movement.
+			</p>
+		</div>
+
+		<div class="member">
+			<h3 id="sortablestart">sortablestart</h3>
+			<p>
+				Triggered for a child element when it is starting to be sorted.
+				This event can be cancelled by calling <code>event.preventDefault()</code> to prevent the sorting.
+			</p>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Draggable documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+	<style>
+		[id^=draggable-], .draggable-stack
+		{
+			display: inline-block;
+			vertical-align: top;
+			width: 120px;
+			height: 80px;
+			border: 1px solid #80d030;
+			background: #ccecac;
+			padding: 5px 10px;
+			text-align: center;
+			user-select: none;
+		}
+		[id^=draggable].dragging
+		{
+			box-shadow: rgba(0, 0, 0, 0.2) 0 3px 6px;
+		}
+		#draggable-cont
+		{
+			width: 250px;
+			height: 140px;
+		}
+		[id^=draggable] [id^=draggable]
+		{
+			background: #b9e58d;
+		}
+		[id^=draggable] span
+		{
+			background: #505050;
+			color: #ffffff;
+		}
+		.container
+		{
+			border: 1px dashed silver;
+			height: 241px;
+		}
+		.container.grid
+		{
+			border: none;
+			background: url('data:image/svg+xml;utf8,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><rect fill="none" stroke="lightsalmon" stroke-width="1" x="0" y="0" width="21" height="21"/></svg>') #f8f8f8;
+		}
+	</style>
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Draggable plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			Frontfire UI allows making any element draggable by mouse, touch or other pointer interaction.
+		</p>
+		<p>
+			This plugin is available in the Minimal and Complete bundles.
+		</p>
+
+		<h2 id="description">Description</h2>
+		<p>
+			Draggable elements allow the user to pick and move an element to another position on the page.
+			Call the <a href="frontfire-core.html#draggable"><code>draggable()</code></a> plugin method on any element to add the draggable feature.
+			The element movement can be constrained by providing <a href="#options">options</a> to that method or handling <a href="#events">events</a>.
+			This feature provides a low-level behaviour to elements that usually is not used on its own but rather by other Frontfire UI features to build upon it.
+		</p>
+		<p>
+			The examples on this page use additional CSS styles that are not shown in the source boxes.
+			Read the source code of this page or use the browser’s DOM inspector to see these styles.
+		</p>
+
+		<h2 id="basic">Basic examples</h2>
+		<p>
+			Here are examples that demonstrate the basic usage of the draggable feature.
+			These static-positioned elements will be changed to relative position to maintain their new position but still take their space in the layout flow.
+			You can also start with absolute-positioned elements which won’t be changed then.
+			Touch actions to scroll the page are disabled in the direction the elements may be dragged.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?&lt;=\.)draggable|drag-cursor|axis|draggablestart">
+			<div id="draggable-any" data-opt-drag-cursor="move">
+				<input type="checkbox" checked> Drag me anywhere (if checked)
+			</div>
+			<div id="draggable-x" data-opt-drag-cursor="ew-resize">
+				Drag me horizontally
+			</div>
+			<div id="draggable-y" data-opt-drag-cursor="ns-resize">
+				Drag me vertically
+			</div>
+
+			<script>
+				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
+				F.onReady(() => {
+					F("#draggable-any").draggable();
+					F("#draggable-any").on("draggablestart", event => {
+						if (!F("#draggable-any input").checked)
+							event.preventDefault();
+					});
+
+					F("#draggable-x").draggable({ axis: "x" });
+					F("#draggable-y").draggable({ axis: "y" });
+				});
+			</script>
+		</div>
+
+		<h2 id="within-container">Draggable within a container</h2>
+		<p>
+			The allowed placement of a draggable element can be restricted to another element or the parent element with the <code>containment</code> option.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?&lt;=\.)draggable|containment|(?&lt;=&quot;)parent">
+			<div id="container1" class="container">
+				<div id="draggable-cont" style="cursor: grab;" data-opt-drag-cursor="grabbing">
+					Drag me within the container<br>
+					<div id="draggable-parent" style="cursor: grab;" data-opt-drag-cursor="grabbing">Drag me within my parent</div>
+				</div>
+			</div>
+
+			<script>
+				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
+				F.onReady(() => {
+					F("#draggable-cont").draggable({ containment: "#container1" });
+					F("#draggable-parent").draggable({ containment: "parent" });
+					F("#draggable-parent").on("draggablestart", event => {
+						event.currentTarget.classList.add("dragging");
+					});
+					F("#draggable-parent").on("draggableend", event => {
+						event.currentTarget.classList.remove("dragging");
+					});
+				});
+			</script>
+		</div>
+
+		<h2 id="auto-scrolling">Auto-scrolling</h2>
+		<p>
+			With the <code>scroll</code> option, the page will be scrolled if the element is dragged out of the viewport.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?&lt;=\.)draggable|scroll(?=:)">
+			<div id="draggable-scroll" style="z-index: 20;">Drag me out of the page to scroll</div>
+
+			<script>
+				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
+				F.onReady(() => {
+					F("#draggable-scroll").draggable({ scroll: true, containment: "html" });
+				});
+			</script>
+		</div>
+
+		<h2 id="reverting">Reverting</h2>
+		<div class="example p no-frontfire" data-source-highlight="(?&lt;=\.)draggable|draggableend|(?&lt;=\.)revert">
+			<div id="draggable-revert">Drag me and I will come back</div>
+
+			<script>
+				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
+				F.onReady(() => {
+					F("#draggable-revert").draggable();
+					F("#draggable-revert").on("draggableend", event => {
+						event.revert();
+					});
+				});
+			</script>
+		</div>
+
+		<h2 id="stacking">Stacking</h2>
+		<p>
+			Usually, dragged elements maintain their original Z order, which is the document order by default.
+			With the <code>stack</code> option, each last-moved element is brought on top of all other elements selected by the CSS selector.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?&lt;=\.)draggable|stack(?=:)">
+			<div class="draggable-stack">1. Drag me and I will be at the top</div>
+			<div class="draggable-stack">2. Drag me and I will be at the top</div>
+			<div class="draggable-stack">3. Drag me and I will be at the top</div>
+			<div class="draggable-stack">4. Drag me and I will be at the top</div>
+			<div class="draggable-stack">5. Drag me and I will be at the top</div>
+
+			<script>
+				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
+				F.onReady(() => {
+					F(".draggable-stack").draggable({ stack: ".draggable-stack" });
+				});
+			</script>
+		</div>
+
+		<h2 id="drag-handle">Drag handle</h2>
+		<p>
+			Instead of starting the drag operation anywhere on an element, handles and cancel regions can be defined that are the only place where elements can be dragged or places where no dragging can be initiated, respectively.
+			These handles can also lie outside of the element.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?&lt;=\.)draggable|(handle|cancel)(?=:)">
+			<div id="draggable-handle">
+				<span style="display: block;">Drag me<br>here</span>
+				<span style="display: inline-block; position: relative; top: 40px;">or here</span>
+			</div>
+			<div id="draggable-cancel">Drag me <span>but not here</span></div>
+
+			<script>
+				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
+				F.onReady(() => {
+					F("#draggable-handle").draggable({ handle: "span" });
+					F("#draggable-cancel").draggable({ cancel: "span" });
+				});
+			</script>
+		</div>
+
+		<h2 id="snap-to-grid">Snapping to grid within the container</h2>
+		<div class="example p no-frontfire" data-source-highlight="(?&lt;=\.)draggable|grid(?=:)">
+			<div id="container2" class="container grid">
+				<div id="draggable-grid">Drag me with grid snapping</div>
+				<div id="draggable-grid-x">Drag me horizontally with grid</div>
+			</div>
+
+			<script>
+				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
+				F.onReady(() => {
+					F("#draggable-grid").draggable({ containment: "#container2", grid: [20, 20] });
+					F("#draggable-grid-x").draggable({ containment: "#container2", axis: "x", grid: [20, 20] });
+				});
+			</script>
+		</div>
+
+		<h2 id="event-example">Drag move event handler</h2>
+		<p>
+			The following draggable element will stick to a circle line around the centre.
+			By handling the <code>draggablemove</code> event, the new point is set so that it stays at the circle outline.
+		</p>
+		<p>
+			The dragging can also be started by clicking or touching anywhere in the light grey square around the circle.
+			This is set as the <code>catchElement</code> in the options of the draggable.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?&lt;=\.)draggable|catchElement|draggablemove|newPoint">
+			<div style="padding: 20px; background: #f6f6f6; width: 190px;">
+				<div style="position: relative; width: 150px; height: 150px; border: dashed 1px gray; border-radius: 100%;">
+					<div id="draggable-circle" style="position: absolute; top: -20px; left: 55px; width: 40px; height: 40px; border-radius: 100%; background: #80d030;"></div>
+				</div>
+			</div>
+
+			<script>
+				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
+				F.onReady(() => {
+					F("#draggable-circle").draggable({ catchElement: F("#draggable-circle").parentElement.parentElement });
+					F("#draggable-circle").on("draggablemove", event => {
+						let draggableRadius = F("#draggable-circle").borderWidth / 2;
+						let circleRect = F("#draggable-circle").parentElement.rect;
+						let radius = circleRect.width / 2;
+
+						// Compute angle of draggable from centre
+						let angle = Math.atan2(
+							(event.newPoint.left + draggableRadius) - (circleRect.left + radius),
+							(circleRect.top + radius) - (event.newPoint.top + draggableRadius));
+						console.log(event.newPoint, (angle / 2 / Math.PI * 360 + 360) % 360);
+
+						// Determine point on circle at this angle
+						event.newPoint = {
+							top: Math.round(-Math.cos(angle) * radius * 100) / 100 + circleRect.top + radius - draggableRadius,
+							left: Math.round(Math.sin(angle) * radius * 100) / 100 + circleRect.left + radius - draggableRadius
+						};
+					});
+				});
+			</script>
+		</div>
+
+		<h2 id="options">Options</h2>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>axis</code></td>
+					<td>String</td>
+					<td>Constrains the drag movement along the “x” or “y” axis.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>cancel</code></td>
+					<td>String, Node(s)</td>
+					<td>The element(s) that cannot start a drag operation, as CSS selector within the scope of the element to drag, or Node (collection).</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>catchElement</code></td>
+					<td>String, Node(s)</td>
+					<td>An element that catches all pointer input and moves the draggable to that point. Specified as CSS selector or Node (collection).</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>containment</code></td>
+					<td>String, Node(s)</td>
+					<td>Constrains the drag movement inside the specified element, specified as CSS selector or Node (collection), or the “parent” of the dragged element or the “viewport”.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>dragClass</code></td>
+					<td>String, Iterable</td>
+					<td>CSS classes to add to the element while it’s being dragged.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>dragCursor</code></td>
+					<td>String</td>
+					<td>The mouse cursor to show during dragging.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>grid</code></td>
+					<td>Number array</td>
+					<td>The grid to snap the dragged element to during dragging, as <code>[x, y]</code> in pixels. The grid is aligned at the top left corner of the parent element.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>handle</code></td>
+					<td>String, Node(s)</td>
+					<td>The element(s) that can start a drag operation, as CSS selector within the scope of the element to drag, or Node (collection).</td>
+					<td>The element to drag</td>
+				</tr>
+				<tr>
+					<td><code>scroll</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the window should scroll to keep the dragged element visible.</td>
+					<td>false</td>
+				</tr>
+				<tr>
+					<td><code>stack</code></td>
+					<td>String, Node(s)</td>
+					<td>The elements among which the dragged element will be pulled to the front. Specified as CSS selector or Node (collection).</td>
+					<td>None</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="methods">Plugin methods</h2>
+		<p>
+			This plugin provides methods to control the draggable.
+		</p>
+
+		<div class="member">
+			<h3 id="remove">remove</h3>
+			<ul>
+				<li><code>remove()</code> → Frontfire</li>
+			</ul>
+			<p>
+				Removes the draggable features from the elements.
+			</p>
+		</div>
+
+		<h2 id="events">Plugin events</h2>
+		<p>
+			This plugin triggers events for the draggable elements.
+		</p>
+
+		<div class="member">
+			<h3 id="draggableend">draggableend</h3>
+			<p>
+				Triggered when the drag operation has ended.
+				The following methods are provided with the event:
+			</p>
+			<ul>
+				<li><code>revert()</code>: Moves the dragged element back to its initial position where it was before dragging it.</li>
+			</ul>
+		</div>
+
+		<div class="member">
+			<h3 id="draggablemove">draggablemove</h3>
+			<p>
+				Triggered when the dragged element is being moved.
+				This event can be cancelled by calling <code>event.preventDefault()</code> to prevent the current movement, but if the element has already been moved, it is usually better to set the event’s <code>newPoint</code> property to a desired position.
+				The following properties are provided with the event:
+			</p>
+			<ul>
+				<li><code>elemRect</code>: The initial position and size of the dragged element. An object with the <code>left</code>, <code>top</code>, <code>right</code>, <code>bottom</code>, <code>width</code> and <code>height</code> properties.</li>
+				<li><code>newPoint</code>: The top-left position of the element after applying the movement. An object with the <code>left</code> and <code>top</code> properties. This property can be set to any other position where the element should be moved instead.</li>
+			</ul>
+		</div>
+
+		<div class="member">
+			<h3 id="draggablestart">draggablestart</h3>
+			<p>
+				Triggered when the element is starting to be dragged.
+				This event can be cancelled by calling <code>event.preventDefault()</code> to prevent the dragging.
+				The following properties are provided with the event:
+			</p>
+			<ul>
+				<li><code>dragPoint</code>: The point where the element was initially touched. An object with the <code>left</code> and <code>top</code> properties.</li>
+				<li><code>newPoint</code>: The current point of the pointer where the dragging should start. An object with the <code>left</code> and <code>top</code> properties.</li>
+			</ul>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

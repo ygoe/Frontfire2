@@ -1,0 +1,3895 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI CSS variables documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside with-search">
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<div id="search-box">
+		<input id="search-text" type="text" placeholder="Type anywhere to search">
+	</div>
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Frontfire UI CSS variables</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p id="results-count"></p>
+		<p id="no-results">
+			No search results
+		</p>
+
+		<section class="intro">
+			<h2>Introduction</h2>
+			<p>
+				The styles that are defined by Frontfire use certain values that the web designer may need to change for their individual site or app.
+				Redeclaring entire styles would make a copy of the default styles that will probably never see an update or may have a high complexity and many dependencies.
+				Instead, the key values are exposed as <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties">CSS custom properties</a>, also known as CSS variables.
+				These variables are set by Frontfire with a default value and can be overridden to alter certain aspects of the default styles.
+			</p>
+			<h3>Cascaded variables</h3>
+			<p>
+				Custom properties are also subject to the cascade (the “C” in CSS) and inherit their value from their parent.
+				That means that the value of a variable can be set for a different scope, defined by CSS selectors like any other style.
+				It can also be set in the inline style attribute for an individual element.
+				One place where that inheritance is used is the dark theme.
+				Most elements only use a variable to define their style, and that variable is altered in contexts using the dark theme with the CSS <code class="css-class">dark</code> class.
+				That then automatically changes the whole style in these contexts without any specific rules in the original style.
+				You can also change the variables for scopes like paragraphs, modals or any other container element.
+			</p>
+			<div class="example full-width" data-source-highlight="--link-(?:hover-)?color">
+				<style>
+					.custom
+					{
+						--link-color: tomato;
+						--link-hover-color: firebrick;
+					}
+				</style>
+				<p>
+					Sample text with a <a href="#">default link</a>.
+				</p>
+				<p class="custom">
+					Custom style with a <a href="#">different link colour</a>.
+				</p>
+				<p>
+					Sample text with an <a href="#" style="--link-color-h: 120; --link-color-l: 42%;">individually-styled link</a>.
+				</p>
+			</div>
+			<h3>Limitations</h3>
+			<p>
+				The variables cascading has some important limitations that might not be obvious.
+			</p>
+			<p>
+				The values of CSS variables are not freely inherited to every <em>element</em>, they are only inherited to each <em>style property</em> that references them.
+				For example, the <a href="#default-text-color"><code>--default-text-color</code></a> variable is referenced from rules for <code data-lang="html">&lt;html&gt;</code> and the <code data-lang="css">.dark</code> selector.
+				The variable value is only inherited to all <code data-lang="style-value">var()</code> instances to set a style, and that style is then inherited to all descendant elements.
+				Redefining the variable anywhere else will not change the style there immediately.
+				Be sure to set the variables at a high enough level in the document so that they take the desired effect.
+				Most variables described here are predefined in the <code data-lang="css">:root</code> scope, some are redefined for <code data-lang="css">.dark</code>.
+				It depends on the use of the variable whether you can redefine it somewhere else, like the hyperlink colours can be redefined down to the <code data-lang="html">&lt;a&gt;</code> element because its colour is set there.
+			</p>
+			<p>
+				This equally applies to variables that are set to another variable’s value.
+				Both variables seem to be the same, but if the source variable is set to a different value in a deeper scope, the second variable will remain unaffected.
+				So even if the Frontfire source code copies one variable to another, setting one later always requires setting the other again afterwards.
+			</p>
+			<h3>Documentation</h3>
+			<p>
+				Sometimes it can be confusing where a CSS variable comes from or what its purpose is.
+				This reference serves as a global directory of all variables provided by Frontfire.
+				The description explains the effect that setting the variable has and the plugins they are used in.
+			</p>
+			<p>
+				Variables with the tag “initially unset” are not set by Frontfire but can be set by the web page and will be picked up.
+				That means that you cannot use these variables yourself unless you also set them, if only to their default value.
+				This works by using the documented default value as fallback value, here for example <code data-lang="style-value">14px</code> in <code data-lang="style-value">var(--variable-name, 14px)</code>.
+			</p>
+			<h3>Search</h3>
+			<p>
+				The variables can be searched (just type ahead).
+				The search also uses aliases for many entries.
+				Start the search text with an equals sign (=) to ignore aliases.
+				Start the search text with the ^ sign to also only find names starting with the search term.
+				Start the search text with the at sign (@) to search by source plugins.
+				Press Escape to reset the search.
+			</p>
+		</section>
+
+		<!------------------------------ BEGIN OF REFERENCE CONTENT ------------------------------>
+
+		<section>
+			<h2>Variable names</h2>
+
+			<div class="member">
+				<h3 id="animation-duration">--animation-duration</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/time">time</a>
+					<span class="default">Default:</span> 0.2s
+				</p>
+				<p>
+					The duration of most animations and transitions of visual effects.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-duration">animation-duration</a> CSS property.
+				</p>
+				<p class="see-also">
+					See also: <a href="#animation-function">--animation-function</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="animation-function">--animation-function</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function">easing function</a>
+					<span class="default">Default:</span> ease
+				</p>
+				<p>
+					The timing function of most animations and transitions of visual effects.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timing-function">animation-timing-function</a> CSS property.
+				</p>
+				<p class="see-also">
+					See also: <a href="#animation-duration">--animation-duration</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="breakpoint-desktop">--breakpoint-desktop</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 1200px
+				</p>
+				<p>
+					The maximum viewport width of a desktop or laptop monitor.
+					This value is defined in the SCSS source file of Frontfire UI and provided as CSS variable for convenience.
+					The variable should not be changed directly.
+					All breakpoint widths are listed in the documentation of the <code class="css-class">require-desktop</code> CSS class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#breakpoint-phone">--breakpoint-phone</a>, <a href="#breakpoint-minitab">--breakpoint-minitab</a>, <a href="#breakpoint-tablet">--breakpoint-tablet</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="breakpoint-minitab">--breakpoint-minitab</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 760px
+				</p>
+				<p>
+					The maximum viewport width of a small tablet device.
+					This value is defined in the SCSS source file of Frontfire UI and provided as CSS variable for convenience.
+					The variable should not be changed directly.
+					All breakpoint widths are listed in the documentation of the <code class="css-class">require-desktop</code> CSS class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#breakpoint-phone">--breakpoint-phone</a>, <a href="#breakpoint-tablet">--breakpoint-tablet</a>, <a href="#breakpoint-desktop">--breakpoint-desktop</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="breakpoint-phone">--breakpoint-phone</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 540px
+				</p>
+				<p>
+					The maximum viewport width of a phone device.
+					This value is defined in the SCSS source file of Frontfire UI and provided as CSS variable for convenience.
+					The variable should not be changed directly.
+					All breakpoint widths are listed in the documentation of the <code class="css-class">require-desktop</code> CSS class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#breakpoint-minitab">--breakpoint-minitab</a>, <a href="#breakpoint-tablet">--breakpoint-tablet</a>, <a href="#breakpoint-desktop">--breakpoint-desktop</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="breakpoint-tablet">--breakpoint-tablet</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 900px
+				</p>
+				<p>
+					The maximum viewport width of a regular tablet device.
+					This value is defined in the SCSS source file of Frontfire UI and provided as CSS variable for convenience.
+					The variable should not be changed directly.
+					All breakpoint widths are listed in the documentation of the <code class="css-class">require-desktop</code> CSS class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#breakpoint-phone">--breakpoint-phone</a>, <a href="#breakpoint-minitab">--breakpoint-minitab</a>, <a href="#breakpoint-desktop">--breakpoint-desktop</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-active-background">--button-active-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#toggle-button">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of toggle buttons in the active state.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the button background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--button-active-background-h), var(--button-active-background-s), var(--button-active-background-l))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-active-hover-background">--button-active-hover-background</a>, <a href="#button-active-pressed-background">--button-active-pressed-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-active-background-h">--button-active-background-h</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value &lt; 360
+					<span class="default">Default:</span> 0
+					<span class="source">(for <a href="frontfire-ui-form.html#toggle-button">Form</a>)</span>
+				</p>
+				<p>
+					The hue of the background colour of toggle buttons in the active state, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-active-background">--button-active-background</a>, <a href="#button-active-background-l">--button-active-background-l</a>, <a href="#button-active-background-s">--button-active-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-active-background-l">--button-active-background-l</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 44%
+					<span class="default">Dark default:</span> 80%
+					<span class="source">(for <a href="frontfire-ui-form.html#toggle-button">Form</a>)</span>
+				</p>
+				<p>
+					The lightness of the background colour of toggle buttons in the active state, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-active-background">--button-active-background</a>, <a href="#button-active-background-h">--button-active-background-h</a>, <a href="#button-active-background-s">--button-active-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-active-background-s">--button-active-background-s</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 0%
+					<span class="source">(for <a href="frontfire-ui-form.html#toggle-button">Form</a>)</span>
+				</p>
+				<p>
+					The saturation of the background colour of toggle buttons in the active state, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-active-background">--button-active-background</a>, <a href="#button-active-background-h">--button-active-background-h</a>, <a href="#button-active-background-l">--button-active-background-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-active-color">--button-active-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #f0f0f0
+					<span class="default">Dark default:</span> #202020
+					<span class="source">(for <a href="frontfire-ui-form.html#toggle-button">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of toggle buttons in the active state.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-active-pressed-color">--button-active-pressed-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-active-disabled-background">--button-active-disabled-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#toggle-button">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of toggle buttons in the active state while they are pushed down.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the button hover background colour is computed from the three H, S and L variables <code class="css-var">--button-active-background-h</code>, <code class="css-var">--button-active-background-s</code> and <code class="css-var">--button-active-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--button-active-disabled-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-active-background">--button-active-background</a>, <a href="#button-active-disabled-lf">--button-active-disabled-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-active-disabled-color">--button-active-disabled-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#toggle-button">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of toggle buttons in the active state while they are pushed down.
+					The default value is:<br>
+					<code data-lang="style-value">var(--button-active-color)</code>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-active-disabled-lf">--button-active-disabled-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> 0.5
+					<span class="default">Dark default:</span> -0.35
+					<span class="source">(for <a href="frontfire-ui-form.html#toggle-button">Form</a>)</span>
+				</p>
+				<p>
+					The lightness factor of toggle buttons in the active state while they are pushed down.
+					The base lightness from <code class="css-var">--button-active-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-active-disabled-background">--button-active-disabled-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-active-hover-background">--button-active-hover-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#toggle-button">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of toggle buttons in the active state when they are hovered by the mouse cursor.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the button hover background colour is computed from the three H, S and L variables <code class="css-var">--button-active-background-h</code>, <code class="css-var">--button-active-background-s</code> and <code class="css-var">--button-active-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--button-active-hover-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-active-background">--button-active-background</a>, <a href="#button-active-hover-lf">--button-active-hover-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-active-hover-lf">--button-active-hover-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.08
+					<span class="default">Dark default:</span> -0.12
+					<span class="source">(for <a href="frontfire-ui-form.html#toggle-button">Form</a>)</span>
+				</p>
+				<p>
+					The lightness factor of toggle buttons in the active state when they are hovered by the mouse cursor.
+					The base lightness from <code class="css-var">--button-active-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-active-hover-background">--button-active-hover-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-active-pressed-background">--button-active-pressed-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#toggle-button">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of toggle buttons in the active state while they are pushed down.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the button hover background colour is computed from the three H, S and L variables <code class="css-var">--button-active-background-h</code>, <code class="css-var">--button-active-background-s</code> and <code class="css-var">--button-active-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--button-active-pressed-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-active-background">--button-active-background</a>, <a href="#button-active-pressed-lf">--button-active-pressed-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-active-pressed-color">--button-active-pressed-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#toggle-button">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of toggle buttons in the active state while they are pushed down.
+					The default value is:<br>
+					<code data-lang="style-value">var(--button-active-color)</code>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-active-pressed-lf">--button-active-pressed-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.2
+					<span class="default">Dark default:</span> -0.25
+					<span class="source">(for <a href="frontfire-ui-form.html#toggle-button">Form</a>)</span>
+				</p>
+				<p>
+					The lightness factor of toggle buttons in the active state while they are pushed down.
+					The base lightness from <code class="css-var">--button-active-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-active-pressed-background">--button-active-pressed-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-background">--button-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of buttons.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the button background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--button-background-h), var(--button-background-s), var(--button-background-l))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-hover-background">--button-hover-background</a>, <a href="#button-pressed-background">--button-pressed-background</a>, <a href="#button-disabled-background">--button-disabled-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-background-h">--button-background-h</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value &lt; 360
+					<span class="default">Default:</span> 0
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The hue of the background colour of buttons, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-background">--button-background</a>, <a href="#button-background-l">--button-background-l</a>, <a href="#button-background-s">--button-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-background-l">--button-background-l</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 87%
+					<span class="default">Dark default:</span> 35%
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The lightness of the background colour of buttons, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-background">--button-background</a>, <a href="#button-background-h">--button-background-h</a>, <a href="#button-background-s">--button-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-background-s">--button-background-s</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 0%
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The saturation of the background colour of buttons, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-background">--button-background</a>, <a href="#button-background-h">--button-background-h</a>, <a href="#button-background-l">--button-background-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-caution-background">--button-caution-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of buttons with the <code class="css-class">caution</code> CSS class.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the button background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--button-caution-background-h), var(--button-caution-background-s), var(--button-caution-background-l))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-caution-hover-background">--button-caution-hover-background</a>, <a href="#button-caution-pressed-background">--button-caution-pressed-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-caution-background-h">--button-caution-background-h</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value &lt; 360
+					<span class="default">Default:</span> <em>see description</em>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The hue of the background colour of buttons with the <code class="css-class">caution</code> CSS class, in the HSL colour space.
+					The default value is:<br>
+					<code data-lang="style-value">var(--error-background-h)</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-caution-background">--button-caution-background</a>, <a href="#button-caution-background-l">--button-caution-background-l</a>, <a href="#button-caution-background-s">--button-caution-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-caution-background-l">--button-caution-background-l</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> <em>see description</em>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The lightness of the background colour of buttons with the <code class="css-class">caution</code> CSS class, in the HSL colour space.
+					The default value is:<br>
+					<code data-lang="style-value">var(--error-background-l)</code><br>
+					The default value for the dark theme is:<br>
+					<code data-lang="style-value">calc(var(--error-background-l) * 0.9)</code><br>
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-caution-background">--button-caution-background</a>, <a href="#button-caution-background-h">--button-caution-background-h</a>, <a href="#button-caution-background-s">--button-caution-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-caution-background-s">--button-caution-background-s</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> <em>see description</em>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The saturation of the background colour of buttons with the <code class="css-class">caution</code> CSS class, in the HSL colour space.
+					The default value is:<br>
+					<code data-lang="style-value">var(--error-background-s)</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-caution-background">--button-caution-background</a>, <a href="#button-caution-background-h">--button-caution-background-h</a>, <a href="#button-caution-background-l">--button-caution-background-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-caution-color">--button-caution-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #ffffff
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of buttons with the <code class="css-class">caution</code> CSS class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-caution-pressed-color">--button-caution-pressed-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-caution-hover-background">--button-caution-hover-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of buttons with the <code class="css-class">caution</code> CSS class when they are hovered by the mouse cursor.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the button hover background colour is computed from the three H, S and L variables <code class="css-var">--button-caution-background-h</code>, <code class="css-var">--button-caution-background-s</code> and <code class="css-var">--button-caution-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--button-caution-hover-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-caution-background">--button-caution-background</a>, <a href="#button-caution-hover-lf">--button-caution-hover-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-caution-hover-lf">--button-caution-hover-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.1
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The lightness factor of buttons with the <code class="css-class">caution</code> CSS class when they are hovered by the mouse cursor.
+					The base lightness from <code class="css-var">--button-caution-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-caution-hover-background">--button-caution-hover-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-caution-pressed-background">--button-caution-pressed-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of buttons with the <code class="css-class">caution</code> CSS class while they are pushed down.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the button hover background colour is computed from the three H, S and L variables <code class="css-var">--button-caution-background-h</code>, <code class="css-var">--button-caution-background-s</code> and <code class="css-var">--button-caution-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--button-caution-pressed-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-caution-background">--button-caution-background</a>, <a href="#button-caution-pressed-lf">--button-caution-pressed-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-caution-pressed-color">--button-caution-pressed-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of buttons with the <code class="css-class">caution</code> CSS class while they are pushed down.
+					The default value is:<br>
+					<code data-lang="style-value">var(--button-caution-color)</code>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-caution-pressed-lf">--button-caution-pressed-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.3
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The lightness factor of buttons with the <code class="css-class">caution</code> CSS class while they are pushed down.
+					The base lightness from <code class="css-var">--button-caution-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-caution-pressed-background">--button-caution-pressed-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-color">--button-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #000000
+					<span class="default">Dark default:</span> <em>see description</em>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of buttons.
+					The default value for the dark theme is:<br>
+					<code data-lang="style-value">var(--default-text-color)</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-pressed-color">--button-pressed-color</a>, <a href="#button-disabled-color">--button-disabled-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-default-background">--button-default-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of buttons with the <code class="css-class">default</code> CSS class.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the button background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--button-default-background-h), var(--button-default-background-s), var(--button-default-background-l))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-default-hover-background">--button-default-hover-background</a>, <a href="#button-default-pressed-background">--button-default-pressed-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-default-background-h">--button-default-background-h</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value &lt; 360
+					<span class="default">Default:</span> 225
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The hue of the background colour of buttons with the <code class="css-class">default</code> CSS class, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-default-background">--button-default-background</a>, <a href="#button-default-background-l">--button-default-background-l</a>, <a href="#button-default-background-s">--button-default-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-default-background-l">--button-default-background-l</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 50%
+					<span class="default">Dark default:</span> 65%
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The lightness of the background colour of buttons with the <code class="css-class">default</code> CSS class, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-default-background">--button-default-background</a>, <a href="#button-default-background-h">--button-default-background-h</a>, <a href="#button-default-background-s">--button-default-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-default-background-s">--button-default-background-s</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 73%
+					<span class="default">Dark default:</span> 100%
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The saturation of the background colour of buttons with the <code class="css-class">default</code> CSS class, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-default-background">--button-default-background</a>, <a href="#button-default-background-h">--button-default-background-h</a>, <a href="#button-default-background-l">--button-default-background-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-default-color">--button-default-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #ffffff
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of buttons with the <code class="css-class">default</code> CSS class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-default-pressed-color">--button-default-pressed-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-default-hover-background">--button-default-hover-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of buttons with the <code class="css-class">default</code> CSS class when they are hovered by the mouse cursor.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the button hover background colour is computed from the three H, S and L variables <code class="css-var">--button-default-background-h</code>, <code class="css-var">--button-default-background-s</code> and <code class="css-var">--button-default-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--button-default-hover-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-default-background">--button-default-background</a>, <a href="#button-default-hover-lf">--button-default-hover-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-default-hover-lf">--button-default-hover-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.15
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The lightness factor of buttons with the <code class="css-class">default</code> CSS class when they are hovered by the mouse cursor.
+					The base lightness from <code class="css-var">--button-default-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-default-hover-background">--button-default-hover-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-default-pressed-background">--button-default-pressed-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of buttons with the <code class="css-class">default</code> CSS class while they are pushed down.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the button hover background colour is computed from the three H, S and L variables <code class="css-var">--button-default-background-h</code>, <code class="css-var">--button-default-background-s</code> and <code class="css-var">--button-default-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--button-default-pressed-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-default-background">--button-default-background</a>, <a href="#button-default-pressed-lf">--button-default-pressed-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-default-pressed-color">--button-default-pressed-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of buttons with the <code class="css-class">default</code> CSS class while they are pushed down.
+					The default value is:<br>
+					<code data-lang="style-value">var(--button-default-color)</code>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-default-pressed-lf">--button-default-pressed-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.35
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The lightness factor of buttons with the <code class="css-class">default</code> CSS class while they are pushed down.
+					The base lightness from <code class="css-var">--button-default-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-default-pressed-background">--button-default-pressed-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-disabled-background">--button-disabled-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of disabled buttons.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the button hover background colour is computed from the three H, S and L variables <code class="css-var">--button-background-h</code>, <code class="css-var">--button-background-s</code> and <code class="css-var">--button-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--button-disabled-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-background">--button-background</a>, <a href="#button-disabled-lf">--button-disabled-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-disabled-color">--button-disabled-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #808080
+					<span class="default">Dark default:</span> #909090
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of disabled buttons.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-color">--button-color</a>, <a href="#button-pressed-color">--button-pressed-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-disabled-lf">--button-disabled-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> 0.5
+					<span class="default">Dark default:</span> -0.35
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons-group">Form</a>)</span>
+				</p>
+				<p>
+					The lightness factor of disabled buttons.
+					The base lightness from <code class="css-var">--button-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-disabled-background">--button-disabled-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-group-disabled-separator-color">--button-group-disabled-separator-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons-group">Form</a>)</span>
+				</p>
+				<p>
+					The line colour of separators between disabled buttons in a group.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the group separator colour is computed from the three H, S and L variables <code class="css-var">--button-background-h</code>, <code class="css-var">--button-background-s</code> and <code class="css-var">--button-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--button-group-disabled-separator-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-group-disabled-separator-lf">--button-group-disabled-separator-lf</a>, <a href="#button-group-separator-color">--button-group-separator-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-group-disabled-separator-lf">--button-group-disabled-separator-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.05
+					<span class="default">Dark default:</span> 0
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons-group">Form</a>)</span>
+				</p>
+				<p>
+					The lightness factor of the line colour of separators between disabled buttons in a group.
+					The base lightness from <code class="css-var">--button-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-group-disabled-separator-color">--button-group-disabled-separator-color</a>, <a href="#button-group-separator-lf">--button-group-separator-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-group-separator-color">--button-group-separator-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons-group">Form</a>)</span>
+				</p>
+				<p>
+					The line colour of separators between buttons in a group.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the group separator colour is computed from the three H, S and L variables <code class="css-var">--button-background-h</code>, <code class="css-var">--button-background-s</code> and <code class="css-var">--button-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--button-group-separator-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-group-separator-lf">--button-group-separator-lf</a>, <a href="#button-group-disabled-separator-color">--button-group-disabled-separator-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-group-separator-lf">--button-group-separator-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.15
+					<span class="default">Dark default:</span> 0.2
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The lightness factor of the line colour of separators between buttons in a group.
+					The base lightness from <code class="css-var">--button-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-group-separator-color">--button-group-separator-color</a>, <a href="#button-group-disabled-separator-lf">--button-group-disabled-separator-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-hover-background">--button-hover-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of buttons when they are hovered by the mouse cursor.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the button hover background colour is computed from the three H, S and L variables <code class="css-var">--button-background-h</code>, <code class="css-var">--button-background-s</code> and <code class="css-var">--button-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--button-hover-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-background">--button-background</a>, <a href="#button-hover-lf">--button-hover-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-hover-lf">--button-hover-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.08
+					<span class="default">Dark default:</span> 0.12
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The lightness factor of buttons when they are hovered by the mouse cursor.
+					The base lightness from <code class="css-var">--button-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-hover-background">--button-hover-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-pressed-background">--button-pressed-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of buttons while they are pushed down.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the button hover background colour is computed from the three H, S and L variables <code class="css-var">--button-background-h</code>, <code class="css-var">--button-background-s</code> and <code class="css-var">--button-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--button-pressed-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-background">--button-background</a>, <a href="#button-pressed-lf">--button-pressed-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-pressed-color">--button-pressed-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of buttons while they are pushed down.
+					The default value is:<br>
+					<code data-lang="style-value">var(--button-color)</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-disabled-color">--button-disabled-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-pressed-lf">--button-pressed-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.2
+					<span class="default">Dark default:</span> 0.25
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The lightness factor of buttons while they are pushed down.
+					The base lightness from <code class="css-var">--button-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-pressed-background">--button-pressed-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-transparent-background">--button-transparent-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> transparent <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of buttons with the <code class="css-class">transparent</code> CSS class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-transparent-hover-background">--button-transparent-hover-background</a>, <a href="#button-transparent-color">--button-transparent-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-transparent-color">--button-transparent-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of buttons with the <code class="css-class">transparent</code> CSS class.
+					The default value is the same as <code class="css-var">--link-color</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-transparent-background">--button-transparent-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-transparent-hover-background">--button-transparent-hover-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> rgb(0, 0, 0, 0.07)
+					<span class="default">Dark default:</span> rgb(255, 255, 255, 0.14)
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of buttons with the <code class="css-class">transparent</code> CSS class when they are hovered by the mouse cursor.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-transparent-background">--button-transparent-background</a>, <a href="#button-transparent-color">--button-transparent-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-transparent-hover-color">--button-transparent-hover-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of buttons with the <code class="css-class">transparent</code> CSS class when they are hovered by the mouse cursor.
+					The default value is the same as <code class="css-var">--link-hover-color</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-transparent-background">--button-transparent-background</a>, <a href="#button-transparent-color">--button-transparent-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-transparent-pressed-background">--button-transparent-pressed-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of buttons with the <code class="css-class">transparent</code> CSS class while they are pushed down.
+					The default value is the same as <code class="css-var">--button-pressed-background</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-transparent-background">--button-transparent-background</a>, <a href="#button-transparent-pressed-color">--button-transparent-pressed-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button-transparent-pressed-color">--button-transparent-pressed-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of buttons with the <code class="css-class">transparent</code> CSS class while they are pushed down.
+					The default value is the same as <code class="css-var">--button-pressed-color</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button-transparent-color">--button-transparent-color</a>, <a href="#button-transparent-pressed-background">--button-transparent-pressed-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="checkbox-pressed-background">--checkbox-pressed-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-form.html#single-field-checkbox">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of checkboxes while they are pushed down.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the button background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--button-background-h), var(--button-background-s), var(--button-background-l))</code><br>
+					If <code class="css-var">--button-background</code> is set, it is also used as fallback for this variable if unset.
+				</p>
+				<p class="see-also">
+					See also: <a href="#checkbox-validation-error-pressed-background">--checkbox-validation-error-pressed-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="checkbox-validation-error-pressed-background">--checkbox-validation-error-pressed-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #e9bebe
+					<span class="default">Dark default:</span> #854747
+					<span class="source">(for <a href="frontfire-ui-form.html#single-field-checkbox">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of checkboxes that have a validation error while they are pushed down.
+				</p>
+				<p class="see-also">
+					See also: <a href="#checkbox-pressed-background">--checkbox-pressed-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="code-background">--code-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> rgb(0, 0, 0, 0.06)
+					<span class="default">Dark default:</span> rgb(255, 255, 255, 0.12)
+					<span class="source">(for <a href="frontfire-ui-typography.html#code">Typography</a>)</span>
+				</p>
+				<p>
+					The background colour of block <code data-lang="html">&lt;div class="code"&gt;</code> and inline <code data-lang="html">&lt;code&gt;</code> elements.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="code-inline-padding">--code-inline-padding</h3>
+				<p>
+					<span class="type">Type:</span> padding
+					<span class="default">Default:</span> 0 2px
+					<span class="source">(for <a href="frontfire-ui-typography.html#code">Typography</a>)</span>
+				</p>
+				<p>
+					The padding of inline <code data-lang="html">&lt;code&gt;</code> elements.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding">padding</a> CSS property.
+				</p>
+				<p class="see-also">
+					See also: <a href="#code-padding">--code-padding</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="code-padding">--code-padding</h3>
+				<p>
+					<span class="type">Type:</span> padding
+					<span class="default">Default:</span> 6px 10px
+					<span class="source">(for <a href="frontfire-ui-typography.html#code">Typography</a>)</span>
+				</p>
+				<p>
+					The padding of block <code data-lang="html">&lt;div class="code"&gt;</code> elements.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding">padding</a> CSS property.
+				</p>
+				<p class="see-also">
+					See also: <a href="#code-padding">--code-padding</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="critical-background">--critical-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The background colour of <code class="css-class">critical</code> message boxes.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--critical-background-h), var(--critical-background-s), var(--critical-background-l))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#critical-color">--critical-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="critical-background-h">--critical-background-h</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value &lt; 360
+					<span class="default">Default:</span> 347
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The hue of the background colour of <code class="css-class">critical</code> message boxes, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#critical-background">--critical-background</a>, <a href="#critical-background-l">--critical-background-l</a>, <a href="#critical-background-s">--critical-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="critical-background-l">--critical-background-l</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 35%
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The lightness of the background colour of <code class="css-class">critical</code> message boxes, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#critical-background">--critical-background</a>, <a href="#critical-background-h">--critical-background-h</a>, <a href="#critical-background-s">--critical-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="critical-background-s">--critical-background-s</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 79%
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The saturation of the background colour of <code class="css-class">critical</code> message boxes, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#critical-background">--critical-background</a>, <a href="#critical-background-h">--critical-background-h</a>, <a href="#critical-background-l">--critical-background-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="critical-color">--critical-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #ffffff
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The text colour of <code class="css-class">critical</code> message boxes.
+				</p>
+				<p class="see-also">
+					See also: <a href="#critical-background">--critical-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="default-background">--default-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #ffffff
+					<span class="default">Dark default:</span> #202020
+					<span class="source">(for <a href="frontfire-ui-typography.html">Typography</a>)</span>
+				</p>
+				<p>
+					The background colour for the page.
+					This is redefined for the <code class="css-class">dark</code> CSS class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#default-text-color">--default-text-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="default-font-family">--default-font-family</h3>
+				<p>
+					<span class="type">Type:</span> font families
+					<span class="default">Default:</span> <em>see description</em>
+					<span class="source">(for <a href="frontfire-ui-typography.html">Typography</a>)</span>
+				</p>
+				<p>
+					The default font for the page.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family">font-family</a> CSS property.
+					The default value is:<br>
+					<code data-lang="style-value">var(--system-font-family)</code><br>
+				</p>
+				<p>
+					This is the place to include custom fonts to use as default, for example:<br>
+					<code data-lang="style">--default-font-family: "My Custom Font", var(--system-font-family);</code><br>
+				</p>
+				<p class="see-also">
+					See also: <a href="#monospace-font-family">--monospace-font-family</a>, <a href="#default-font-size">--default-font-size</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="default-font-size">--default-font-size</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 14px
+					<span class="source">(for <a href="frontfire-ui-typography.html">Typography</a>)</span>
+				</p>
+				<p>
+					The default font size for the page.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size">font-size</a> CSS property.
+				</p>
+				<p class="see-also">
+					See also: <a href="#default-font-family">--default-font-family</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="default-line-height">--default-line-height</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 &lt; value
+					<span class="default">Default:</span> 1.42857
+					<span class="source">(for <a href="frontfire-ui-typography.html">Typography</a>)</span>
+				</p>
+				<p>
+					The factor of the default line height for the page, relative to the default font size.
+				</p>
+				<p>
+					<strong>Note:</strong><br>
+					Frontfire uses a very maintainable system of line heights by only setting this single factor that applies to all elements at their different font sizes.
+					Using a single factor for different base sizes always results in non-integer product values for most font sizes.
+					Browsers understand fractional positions but will round each element to its nearest pixel.
+					This results in slightly inconsistent line height, varying by one pixel.
+					What is usually invisible in paragraphs of text or short messages, becomes more obvious for example in selectables when scrolling through the items with the arrow keys.
+				</p>
+				<p>
+					The default value of this variable has been optimised to produce a near-integer line height at the default font size of 14px.
+					If you change the <a href="#default-font-size">--default-font-size</a> variable, you should also consider setting this variable to a value whose product with the font-size results in an integer size to avoid inconsistent line heights.
+					For example, start with (default-font-size · 1.4), round the result, and divide the rounded value by the default-font-size to get an optimised line-height factor.
+				</p>
+				<div class="form-row no-validation require-tablet" style="grid-template-columns: 150px 120px 110px 100px 90px 1fr;">
+					<div class="label">Font size</div>
+					<span class="segmented-input">
+						<input id="calc-default-font-size" type="number" value="14" min="1">
+						<span class="label">px</span>
+					</span>
+
+					<div class="label">Line height factor</div>
+					<input id="calc-line-height-factor" type="number" value="1.4" min="0.5" step="0.05">
+
+					<div class="label">Optimised factor</div>
+					<input id="calc-ideal-line-height-factor" class="auto-select" readonly>
+
+					<div class="label">Real line height</div>
+					<input id="calc-real-line-height" class="auto-select" readonly>
+
+					<div class="label">One off every</div>
+					<input id="calc-off-every-pixels" class="auto-select" readonly>
+				</div>
+				<p class="see-also">
+					See also: <a href="#default-font-size">--default-font-size</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="default-text-color">--default-text-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #000000
+					<span class="default">Dark default:</span> #f0f0f0
+					<span class="source">(for <a href="frontfire-ui-typography.html">Typography</a>)</span>
+				</p>
+				<p>
+					The text colour for the page.
+					This is redefined for the <code class="css-class">dark</code> CSS class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#default-background">--default-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="disabled-label-color">--disabled-label-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #a0a0a0
+					<span class="source">(for <a href="frontfire-ui-form.html">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of a form field label for a disabled field, and for disabled hyperlinks (<code data-lang="html">&lt;a&gt;</code>) and link-styled buttons.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="error-background">--error-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The background colour of <code class="css-class">error</code> message boxes.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--error-background-h), var(--error-background-s), var(--error-background-l))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#error-color">--error-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="error-background-h">--error-background-h</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value &lt; 360
+					<span class="default">Default:</span> 17
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The hue of the background colour of <code class="css-class">error</code> message boxes, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#error-background">--error-background</a>, <a href="#error-background-l">--error-background-l</a>, <a href="#error-background-s">--error-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="error-background-l">--error-background-l</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 43%
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The lightness of the background colour of <code class="css-class">error</code> message boxes, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#error-background">--error-background</a>, <a href="#error-background-h">--error-background-h</a>, <a href="#error-background-s">--error-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="error-background-s">--error-background-s</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 78%
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The saturation of the background colour of <code class="css-class">error</code> message boxes, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#error-background">--error-background</a>, <a href="#error-background-h">--error-background-h</a>, <a href="#error-background-l">--error-background-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="error-color">--error-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #ffffff
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The text colour of <code class="css-class">error</code> message boxes.
+				</p>
+				<p class="see-also">
+					See also: <a href="#error-background">--error-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="focus-keyboard-outline">--focus-keyboard-outline</h3>
+				<p>
+					<span class="type">Type:</span> outline
+					<span class="default">Default:</span> <em>see description</em>
+				</p>
+				<p>
+					The outline around elements that match the <code>:focus-visible</code> selector or that are otherwise focused and currently operated by keyboard input.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/outline">outline</a> CSS property.
+					The default value is:<br>
+					<code data-lang="style-value">solid 2px hsl(var(--selection-h), var(--selection-s), var(--selection-l), 0.5)</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#focus-keyboard-outline-offset">--focus-keyboard-outline-offset</a>, <a href="#focus-outline">--focus-outline</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="focus-keyboard-outline-full-offset">--focus-keyboard-outline-full-offset</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> -2px
+				</p>
+				<p>
+					Similar to <a href="#focus-keyboard-outline-offset">--focus-keyboard-outline-offset</a> but this offset will move the outline completely inside the focused element.
+					It must be set to the same length as for <a href="#focus-keyboard-outline">--focus-keyboard-outline</a>.
+					This variable can be used to show the full focus outline on elements that must not paint outside their bounding box because of hidden overflow.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="focus-keyboard-outline-offset">--focus-keyboard-outline-offset</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> -1px
+				</p>
+				<p>
+					The offset of the outline around elements that match the <code>:focus-visible</code> selector or that are otherwise focused and currently operated by keyboard input.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/outline-offset">outline-offset</a> CSS property.
+					The default value of -1px moves the outline by 1 pixel inwards so that it usually overlaps with the element’s border line and still extends one more pixel to the outside.
+				</p>
+				<p class="see-also">
+					See also: <a href="#focus-keyboard-outline">--focus-keyboard-outline</a>, <a href="#focus-outline-offset">--focus-outline-offset</a>, <a href="#focus-keyboard-outline-full-offset">--focus-keyboard-outline-full-offset</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="focus-outline">--focus-outline</h3>
+				<p>
+					<span class="type">Type:</span> outline
+					<span class="default">Default:</span> <em>see description</em>
+				</p>
+				<p>
+					The outline around elements that match the <code>:focus</code> selector but are currently not operated by keyboard input.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/outline">outline</a> CSS property.
+					The default value is:<br>
+					<code data-lang="style-value">solid 1px hsl(var(--selection-h), var(--selection-s), var(--selection-l), 0.5)</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#focus-outline-offset">--focus-outline-offset</a>, <a href="#focus-keyboard-outline">--focus-keyboard-outline</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="focus-outline-offset">--focus-outline-offset</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> -1px
+				</p>
+				<p>
+					The offset of the outline around elements that match the <code>:focus</code> selector but are currently not operated by keyboard input.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/outline-offset">outline-offset</a> CSS property.
+					The default value of -1px moves the outline by 1 pixel inwards so that it usually completely overlaps with the element’s border line.
+				</p>
+				<p class="see-also">
+					See also: <a href="#focus-outline">--focus-outline</a>, <a href="#focus-keyboard-outline-offset">--focus-keyboard-outline-offset</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="h1-font-size">--h1-font-size</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 2rem
+					<span class="source">(for <a href="frontfire-ui-typography.html#headers">Typography</a>)</span>
+				</p>
+				<p>
+					The font size for headers <code data-lang="html">&lt;h1&gt;</code>.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size">font-size</a> CSS property.
+				</p>
+				<p class="see-also">
+					See also: <a href="#default-font-size">--default-font-size</a>, <a href="#h2-font-size">--h2-font-size</a>, <a href="#h3-font-size">--h3-font-size</a>, <a href="#h4-font-size">--h4-font-size</a>, <a href="#header-weight">--header-weight</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="h2-font-size">--h2-font-size</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 1.6rem
+					<span class="source">(for <a href="frontfire-ui-typography.html#headers">Typography</a>)</span>
+				</p>
+				<p>
+					The font size for headers <code data-lang="html">&lt;h2&gt;</code>.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size">font-size</a> CSS property.
+				</p>
+				<p class="see-also">
+					See also: <a href="#default-font-size">--default-font-size</a>, <a href="#h1-font-size">--h1-font-size</a>, <a href="#h3-font-size">--h3-font-size</a>, <a href="#h4-font-size">--h4-font-size</a>, <a href="#header-weight">--header-weight</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="h3-font-size">--h3-font-size</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 1.3rem
+					<span class="source">(for <a href="frontfire-ui-typography.html#headers">Typography</a>)</span>
+				</p>
+				<p>
+					The font size for headers <code data-lang="html">&lt;h3&gt;</code>.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size">font-size</a> CSS property.
+				</p>
+				<p class="see-also">
+					See also: <a href="#default-font-size">--default-font-size</a>, <a href="#h1-font-size">--h1-font-size</a>, <a href="#h2-font-size">--h2-font-size</a>, <a href="#h4-font-size">--h4-font-size</a>, <a href="#header-weight">--header-weight</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="h4-font-size">--h4-font-size</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 1.1rem
+					<span class="source">(for <a href="frontfire-ui-typography.html#headers">Typography</a>)</span>
+				</p>
+				<p>
+					The font size for headers <code data-lang="html">&lt;h4&gt;</code>.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size">font-size</a> CSS property.
+					The headers <code data-lang="html">&lt;h5&gt;</code> and <code data-lang="html">&lt;h6&gt;</code> have the <code class="css-var">--default-font-size</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#default-font-size">--default-font-size</a>, <a href="#h1-font-size">--h1-font-size</a>, <a href="#h2-font-size">--h2-font-size</a>, <a href="#h3-font-size">--h3-font-size</a>, <a href="#header-weight">--header-weight</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="header-weight">--header-weight</h3>
+				<p>
+					<span class="type">Type:</span> font weight
+					<span class="default">Default:</span> 600
+					<span class="source">(for <a href="frontfire-ui-typography.html#headers">Typography</a>)</span>
+				</p>
+				<p>
+					The font weight for headers <code data-lang="html">&lt;h1&gt;</code> to <code data-lang="html">&lt;h6&gt;</code>.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight">font-weight</a> CSS property.
+					The value 600 (semibold) is better for the Windows default font Segoe UI, it is effectively rendered as 700 (bold) on Android.
+				</p>
+				<p class="see-also">
+					See also: <a href="#h1-font-size">--h1-font-size</a>, <a href="#h2-font-size">--h2-font-size</a>, <a href="#h3-font-size">--h3-font-size</a>, <a href="#h4-font-size">--h4-font-size</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="image-caption-color">--image-caption-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #666666
+					<span class="default">Dark default:</span> #888888
+					<span class="source">(for <a href="frontfire-ui-image.html#caption">Image</a>)</span>
+				</p>
+				<p>
+					The text colour of image captions, the text directly below an image.
+					See the plugin page for examples.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="information-background">--information-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The background colour of <code class="css-class">information</code> message boxes.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--information-background-h), var(--information-background-s), var(--information-background-l))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#information-color">--information-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="information-background-h">--information-background-h</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value &lt; 360
+					<span class="default">Default:</span> 202
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The hue of the background colour of <code class="css-class">information</code> message boxes, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#information-background">--information-background</a>, <a href="#information-background-l">--information-background-l</a>, <a href="#information-background-s">--information-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="information-background-l">--information-background-l</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 84%
+					<span class="default">Dark default:</span> 37%
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The lightness of the background colour of <code class="css-class">information</code> message boxes, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#information-background">--information-background</a>, <a href="#information-background-h">--information-background-h</a>, <a href="#information-background-s">--information-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="information-background-s">--information-background-s</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 78%
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The saturation of the background colour of <code class="css-class">information</code> message boxes, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#information-background">--information-background</a>, <a href="#information-background-h">--information-background-h</a>, <a href="#information-background-l">--information-background-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="information-color">--information-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #000000
+					<span class="default">Dark default:</span> #ffffff
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The text colour of <code class="css-class">information</code> message boxes.
+				</p>
+				<p class="see-also">
+					See also: <a href="#information-background">--information-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="input-label-background">--input-label-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #f4f4f4
+					<span class="default">Dark default:</span> #303030
+					<span class="source">(for <a href="frontfire-ui-form.html#segmented-input">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of a label in a segmented input field.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="larger-font-size">--larger-font-size</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 1.3em
+					<span class="source">(for <a href="frontfire-ui-typography.html#paragraphs-font-size">Typography</a>)</span>
+				</p>
+				<p>
+					The font size for larger than default text.
+					This is used for all elements with the <code class="css-class">larger</code> CSS class.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size">font-size</a> CSS property.
+				</p>
+				<p class="see-also">
+					See also: <a href="#default-font-size">--default-font-size</a>, <a href="#smaller-font-size">--smaller-font-size</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="link-color">--link-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-typography.html#links">Typography</a>)</span>
+				</p>
+				<p>
+					The text colour of hyperlinks (<code data-lang="html">&lt;a&gt;</code>) and link-styled buttons.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the link colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#link-hover-color">--link-hover-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="link-color-h">--link-color-h</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value &lt; 360
+					<span class="default">Default:</span> 226
+					<span class="source">(for <a href="frontfire-ui-typography.html#links">Typography</a>)</span>
+				</p>
+				<p>
+					The hue of the text colour of hyperlinks (<code data-lang="html">&lt;a&gt;</code>) and link-styled buttons, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#link-color">--link-color</a>, <a href="#link-color-l">--link-color-l</a>, <a href="#link-color-s">--link-color-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="link-color-l">--link-color-l</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 51%
+					<span class="default">Dark default:</span> 78%
+					<span class="source">(for <a href="frontfire-ui-typography.html#links">Typography</a>)</span>
+				</p>
+				<p>
+					The lightness of the text colour of hyperlinks (<code data-lang="html">&lt;a&gt;</code>) and link-styled buttons, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#link-color">--link-color</a>, <a href="#link-color-h">--link-color-h</a>, <a href="#link-color-s">--link-color-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="link-color-s">--link-color-s</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 73%
+					<span class="default">Dark default:</span> 100%
+					<span class="source">(for <a href="frontfire-ui-typography.html#links">Typography</a>)</span>
+				</p>
+				<p>
+					The saturation of the text colour of hyperlinks (<code data-lang="html">&lt;a&gt;</code>) and link-styled buttons, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#link-color">--link-color</a>, <a href="#link-color-h">--link-color-h</a>, <a href="#link-color-l">--link-color-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="link-hover-color">--link-hover-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-typography.html#links">Typography</a>)</span>
+				</p>
+				<p>
+					The text colour of hyperlinks (<code data-lang="html">&lt;a&gt;</code>) and link-styled buttons when they are hovered by the mouse cursor.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the link hover colour is computed from the three H, S and L variables <code class="css-var">--link-color-h</code>, <code class="css-var">--link-color-s</code> and <code class="css-var">--link-color-l</code> where the lightness is adjusted by the factor in <code class="css-var">--link-hover-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#link-color">--link-color</a>, <a href="#link-hover-lf">--link-hover-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="link-hover-lf">--link-hover-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.25
+					<span class="default">Dark default:</span> 0.2
+					<span class="source">(for <a href="frontfire-ui-typography.html#links">Typography</a>)</span>
+				</p>
+				<p>
+					The lightness factor of hyperlinks (<code data-lang="html">&lt;a&gt;</code>) and link-styled buttons when they are hovered by the mouse cursor.
+					The base lightness from <code class="css-var">--link-color-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#link-hover-color">--link-hover-color</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="underline">
+				<h3 id="link-hover-text-decoration">--link-hover-text-decoration</h3>
+				<p>
+					<span class="type">Type:</span> text decoration
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-typography.html#links">Typography</a>)</span>
+				</p>
+				<p>
+					The text decoration of hyperlinks (<code data-lang="html">&lt;a&gt;</code>) and link-styled buttons when they are hovered by the mouse cursor.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration">text-decoration</a> CSS property.
+					If unset, the text decoration is:<br>
+					<code data-lang="style-value">var(--link-hover-text-decoration, var(--link-text-decoration, underline))</code><br>
+					That means, by default it is <code>underline</code>, but if <code class="css-var">--link-text-decoration</code> was defined, its value will also be used by the hovered style by default.
+				</p>
+				<p class="see-also">
+					See also: <a href="#link-hover-text-decoration-color">--link-hover-text-decoration-color</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="underline">
+				<h3 id="link-hover-text-decoration-color">--link-hover-text-decoration-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-typography.html#links">Typography</a>)</span>
+				</p>
+				<p>
+					The color of the text decoration of hyperlinks (<code data-lang="html">&lt;a&gt;</code>) and link-styled buttons when they are hovered by the mouse cursor.
+					If unset, the text decoration is:<br>
+					<code data-lang="style-value">var(--link-hover-text-decoration-color, var(--link-text-decoration-color, transparent))</code><br>
+					That means, by default it is <code>transparent</code>, but if <code class="css-var">--link-text-decoration-color</code> was defined, its value will also be used by the hovered style by default.
+				</p>
+				<p class="see-also">
+					See also: <a href="#link-hover-text-decoration">--link-hover-text-decoration</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="link-invert-hover-color">--link-invert-hover-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-image.html#overlay-text">Image</a>)</span>
+				</p>
+				<p>
+					The background colour of hyperlinks as image overlay when they are hovered by the mouse cursor.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the colour is computed from the three H, S and L variables <code class="css-var">--link-color-h</code>, <code class="css-var">--link-color-s</code> and <code class="css-var">--link-color-l</code> where the lightness is adjusted by the factor in <code class="css-var">--link-invert-hover-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#link-color">--link-color</a>, <a href="#link-invert-hover-lf">--link-invert-hover-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="link-invert-hover-lf">--link-invert-hover-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.15 <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-image.html#overlay-text">Image</a>)</span>
+				</p>
+				<p>
+					The lightness factor of hyperlinks as image overlay when they are hovered by the mouse cursor.
+					The base lightness from <code class="css-var">--link-color-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#link-invert-hover-color">--link-invert-hover-color</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="underline">
+				<h3 id="link-text-decoration">--link-text-decoration</h3>
+				<p>
+					<span class="type">Type:</span> text decoration
+					<span class="default">Default:</span> underline <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-typography.html#links">Typography</a>)</span>
+				</p>
+				<p>
+					The text decoration of hyperlinks (<code data-lang="html">&lt;a&gt;</code>) and link-styled buttons.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration">text-decoration</a> CSS property.
+				</p>
+				<p class="see-also">
+					See also: <a href="#link-hover-text-decoration">--link-hover-text-decoration</a>, <a href="#link-text-decoration-color">--link-text-decoration-color</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="underline">
+				<h3 id="link-text-decoration-color">--link-text-decoration-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> currentcolor <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-typography.html#links">Typography</a>)</span>
+				</p>
+				<p>
+					The color of the text decoration of hyperlinks (<code data-lang="html">&lt;a&gt;</code>) and link-styled buttons.
+					The default value `currentcolor` means that the text colour of the link will be used for its underlining as well.
+				</p>
+				<p class="see-also">
+					See also: <a href="#link-hover-text-decoration">--link-hover-text-decoration</a>, <a href="#link-text-decoration-color">--link-text-decoration-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="loading-color">--loading-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> rgb(0, 0, 0, 0.1)
+					<span class="default">Dark default:</span> rgb(255, 255, 255, 0.15)
+					<span class="source">(for <a href="frontfire-ui-typography.html#loading">Typography</a>)</span>
+				</p>
+				<p>
+					The ring colour of loading indicator <code data-lang="html">&lt;i class="loading"&gt;</code> elements.
+				</p>
+				<p class="see-also">
+					See also: <a href="#loading-highlight-color">--loading-highlight-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="loading-highlight-color">--loading-highlight-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> rgb(0, 0, 0, 0.6)
+					<span class="default">Dark default:</span> rgb(255, 255, 255, 0.8)
+					<span class="source">(for <a href="frontfire-ui-typography.html#loading">Typography</a>)</span>
+				</p>
+				<p>
+					The rotating highlight colour of loading indicator <code data-lang="html">&lt;i class="loading"&gt;</code> elements.
+				</p>
+				<p class="see-also">
+					See also: <a href="#loading-color">--loading-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="menu-active-background">--menu-active-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The background colour of active menu items.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the menu active item background colour is computed from the three H, S and L variables <code class="css-var">--menu-background-h</code>, <code class="css-var">--menu-background-s</code> and <code class="css-var">--menu-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--menu-active-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu-background">--menu-background</a>, <a href="#menu-active-lf">--menu-active-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="menu-active-color">--menu-active-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The text colour of active menu items.
+					The default value is:<br>
+					<code data-lang="style-value">var(--menu-color)</code>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="menu-active-lf">--menu-active-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.2
+					<span class="default">Dark default:</span> 0.25
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The lightness factor of active menu items.
+					The base lightness from <code class="css-var">--menu-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu-active-background">--menu-active-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="menu-background">--menu-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The background colour of menus.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the menu background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--menu-background-h), var(--menu-background-s), var(--menu-background-l))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu-hover-background">--menu-hover-background</a>, <a href="#menu-active-background">--menu-active-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="menu-background-h">--menu-background-h</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value &lt; 360
+					<span class="default">Default:</span> 0
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The hue of the background colour of menus, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu-background">--menu-background</a>, <a href="#menu-background-l">--menu-background-l</a>, <a href="#menu-background-s">--menu-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="menu-background-l">--menu-background-l</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 87%
+					<span class="default">Dark default:</span> 35%
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The lightness of the background colour of menus, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu-background">--menu-background</a>, <a href="#menu-background-h">--menu-background-h</a>, <a href="#menu-background-s">--menu-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="menu-background-s">--menu-background-s</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 0%
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The saturation of the background colour of menus, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu-background">--menu-background</a>, <a href="#menu-background-h">--menu-background-h</a>, <a href="#menu-background-l">--menu-background-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="menu-color">--menu-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #000000
+					<span class="default">Dark default:</span> <em>see description</em>
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The text colour of menus.
+					The default value for the dark theme is:<br>
+					<code data-lang="style-value">var(--default-text-color)</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu-background-color">--menu-background-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="menu-hover-background">--menu-hover-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The background colour of menu items when they are hovered by the mouse cursor.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the menu item hover background colour is computed from the three H, S and L variables <code class="css-var">--menu-background-h</code>, <code class="css-var">--menu-background-s</code> and <code class="css-var">--menu-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--menu-hover-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu-background">--menu-background</a>, <a href="#menu-hover-lf">--menu-hover-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="menu-hover-color">--menu-hover-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The text colour of menu items when they are hovered by the mouse cursor.
+					The default value is:<br>
+					<code data-lang="style-value">var(--menu-color)</code>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="menu-hover-lf">--menu-hover-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.08
+					<span class="default">Dark default:</span> 0.12
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The lightness factor of menu items when they are hovered by the mouse cursor.
+					The base lightness from <code class="css-var">--menu-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu-hover-background">--menu-hover-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="monospace-font-family">--monospace-font-family</h3>
+				<p>
+					<span class="type">Type:</span> font families
+					<span class="default">Default:</span> <em>see description</em>
+					<span class="source">(for <a href="frontfire-ui-typography.html#code">Typography</a>)</span>
+				</p>
+				<p>
+					The font for monospace elements like <code data-lang="html">&lt;code&gt;</code>, <code data-lang="html">&lt;tt&gt;</code>, <code data-lang="html">&lt;pre&gt;</code>, <code data-lang="html">&lt;samp&gt;</code>, <code data-lang="html">&lt;div class="code"&gt;</code> and all elements with the <code class="css-class">monospace</code> CSS class.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family">font-family</a> CSS property.
+					The default value is:<br>
+					<code data-lang="style-value">Consolas, monospace</code><br>
+				</p>
+				<p class="see-also">
+					See also: <a href="#default-font-family">--default-font-family</a>, <a href="#monospace-font-size">--monospace-font-size</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="monospace-font-size">--monospace-font-size</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 13px
+					<span class="source">(for <a href="frontfire-ui-typography.html#code">Typography</a>)</span>
+				</p>
+				<p>
+					The font size for monospace elements.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size">font-size</a> CSS property.
+				</p>
+				<p class="see-also">
+					See also: <a href="#monospace-font-family">--monospace-font-family</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="monospace-line-height-factor">--monospace-line-height</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 &lt; value
+					<span class="default">Default:</span> 1.3 <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-typography.html#code">Typography</a>)</span>
+				</p>
+				<p>
+					The factor of the line height for monospace elements, relative to the monospace font size.
+				</p>
+				<p class="see-also">
+					See also: <a href="#monospace-font-size">--monospace-font-size</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="notification-bar-critical-opacity">--notification-bar-critical-opacity</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value ≤ 1
+					<span class="default">Default:</span> 0.35
+					<span class="default">Dark default:</span> 0.3
+					<span class="source">(for <a href="frontfire-ui-notification.html">Notification</a>)</span>
+				</p>
+				<p>
+					The opacity of the timeout progress bar in a notification box of the <code>critical</code> type.
+					The fill colour of that progress bar is set by <code class="css-var">--critical-color</code>.
+					The background colour of the notification box is set by <code class="css-var">--critical-background</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#notification-bar-error-opacity">--notification-bar-error-opacity</a>, <a href="#notification-bar-warning-opacity">--notification-bar-warning-opacity</a>, <a href="#notification-bar-information-opacity">--notification-bar-information-opacity</a>, <a href="#notification-bar-success-opacity">--notification-bar-success-opacity</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="notification-bar-error-opacity">--notification-bar-error-opacity</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value ≤ 1
+					<span class="default">Default:</span> 0.35
+					<span class="default">Dark default:</span> 0.3
+					<span class="source">(for <a href="frontfire-ui-notification.html">Notification</a>)</span>
+				</p>
+				<p>
+					The opacity of the timeout progress bar in a notification box of the <code>error</code> type.
+					The fill colour of that progress bar is set by <code class="css-var">--error-color</code>.
+					The background colour of the notification box is set by <code class="css-var">--error-background</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#notification-bar-critical-opacity">--notification-bar-critical-opacity</a>, <a href="#notification-bar-warning-opacity">--notification-bar-warning-opacity</a>, <a href="#notification-bar-information-opacity">--notification-bar-information-opacity</a>, <a href="#notification-bar-success-opacity">--notification-bar-success-opacity</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="notification-bar-information-opacity">--notification-bar-information-opacity</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value ≤ 1
+					<span class="default">Default:</span> 0.12
+					<span class="default">Dark default:</span> 0.3
+					<span class="source">(for <a href="frontfire-ui-notification.html">Notification</a>)</span>
+				</p>
+				<p>
+					The opacity of the timeout progress bar in a notification box of the <code>information</code> type.
+					The fill colour of that progress bar is set by <code class="css-var">--information-color</code>.
+					The background colour of the notification box is set by <code class="css-var">--information-background</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#notification-bar-critical-opacity">--notification-bar-critical-opacity</a>, <a href="#notification-bar-error-opacity">--notification-bar-error-opacity</a>, <a href="#notification-bar-warning-opacity">--notification-bar-warning-opacity</a>, <a href="#notification-bar-success-opacity">--notification-bar-success-opacity</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="notification-bar-success-opacity">--notification-bar-success-opacity</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value ≤ 1
+					<span class="default">Default:</span> 0.12
+					<span class="default">Dark default:</span> 0.3
+					<span class="source">(for <a href="frontfire-ui-notification.html">Notification</a>)</span>
+				</p>
+				<p>
+					The opacity of the timeout progress bar in a notification box of the <code>success</code> type.
+					The fill colour of that progress bar is set by <code class="css-var">--success-color</code>.
+					The background colour of the notification box is set by <code class="css-var">--success-background</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#notification-bar-critical-opacity">--notification-bar-critical-opacity</a>, <a href="#notification-bar-error-opacity">--notification-bar-error-opacity</a>, <a href="#notification-bar-warning-opacity">--notification-bar-warning-opacity</a>, <a href="#notification-bar-information-opacity">--notification-bar-information-opacity</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="notification-bar-warning-opacity">--notification-bar-warning-opacity</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value ≤ 1
+					<span class="default">Default:</span> 0.12
+					<span class="default">Dark default:</span> 0.2
+					<span class="source">(for <a href="frontfire-ui-notification.html">Notification</a>)</span>
+				</p>
+				<p>
+					The opacity of the timeout progress bar in a notification box of the <code>warning</code> type.
+					The fill colour of that progress bar is set by <code class="css-var">--warning-color</code>.
+					The background colour of the notification box is set by <code class="css-var">--warning-background</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#notification-bar-critical-opacity">--notification-bar-critical-opacity</a>, <a href="#notification-bar-error-opacity">--notification-bar-error-opacity</a>, <a href="#notification-bar-information-opacity">--notification-bar-information-opacity</a>, <a href="#notification-bar-success-opacity">--notification-bar-success-opacity</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="notification-top-base">--notification-top-base</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 0px
+					<span class="source">(for <a href="frontfire-ui-notification.html">Notification</a>)</span>
+				</p>
+				<p>
+					The top position of notification boxes.
+					This can be adjusted to be just below a fixed header element.
+				</p>
+				<p class="see-also">
+					See also: <a href="#notification-z-index">--notification-z-index</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="notification-z-index">--notification-z-index</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="default">Default:</span> 4000
+					<span class="source">(for <a href="frontfire-ui-notification.html">Notification</a>)</span>
+				</p>
+				<p>
+					The z-index style of notification boxes.
+					This is normally above all other Frontfire elements but can be adjusted to be just underneath a fixed header element to preserve the effect of notifications disappearing towards the top.
+				</p>
+				<p class="see-also">
+					See also: <a href="#notification-top-base">--notification-top-base</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="page-width">--page-width</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="range">Range:</span> 1px ≤ value
+					<span class="default">Default:</span> 900px
+					<span class="source">(for <a href="frontfire-ui-page.html#page-width">Page</a>)</span>
+				</p>
+				<p>
+					The maximum width of elements with the <code class="css-class">page-width</code> CSS class, limited to the window width.
+					See the plugin page for a comprehensive description of this class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#page-width-padding">--page-width-padding</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="page-width-padding">--page-width-padding</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="range">Range:</span> 0px ≤ value
+					<span class="default">Default:</span> 15px
+					<span class="source">(for <a href="frontfire-ui-page.html#page-width">Page</a>)</span>
+				</p>
+				<p>
+					The horizontal padding of elements with the <code class="css-class">page-width</code> or <code class="css-class">full-page-width</code> class.
+					See the plugin page for a comprehensive description of this class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#page-width">--page-width</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="progress-color">--progress-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #808080
+					<span class="source">(for <a href="frontfire-ui-progressbar.html">Progressbar</a>)</span>
+				</p>
+				<p>
+					The bar colour of a progress bar.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progress-label-color">--progress-label-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="progress-error-color">--progress-error-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #c44818
+					<span class="source">(for <a href="frontfire-ui-progressbar.html">Progressbar</a>)</span>
+				</p>
+				<p>
+					The bar colour of a progress bar with the <code class="css-class">error</code> CSS class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progress-error-label-color">--progress-error-label-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="progress-error-label-color">--progress-error-label-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #ffffff <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-progressbar.html">Progressbar</a>)</span>
+				</p>
+				<p>
+					The label colour of a progress bar with the <code class="css-class">error</code> CSS class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progress-error-color">--progress-error-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="progress-label-color">--progress-label-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #ffffff <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-progressbar.html">Progressbar</a>)</span>
+				</p>
+				<p>
+					The label colour of a progress bar.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progress-color">--progress-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="progress-no-border-background">--progress-no-border-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> rgb(160, 160, 160, 0.12)
+					<span class="source">(for <a href="frontfire-ui-progressbar.html">Progressbar</a>)</span>
+				</p>
+				<p>
+					The background colour of a progress bar without a border (<code class="css-class">no-border</code> CSS class).
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="progress-success-color">--progress-success-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #6ec418
+					<span class="source">(for <a href="frontfire-ui-progressbar.html">Progressbar</a>)</span>
+				</p>
+				<p>
+					The bar colour of a progress bar with the <code class="css-class">success</code> CSS class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progress-success-label-color">--progress-success-label-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="progress-success-label-color">--progress-success-label-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #ffffff <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-progressbar.html">Progressbar</a>)</span>
+				</p>
+				<p>
+					The label colour of a progress bar with the <code class="css-class">success</code> CSS class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progress-success-color">--progress-success-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="progress-warning-color">--progress-warning-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #dfb511
+					<span class="source">(for <a href="frontfire-ui-progressbar.html">Progressbar</a>)</span>
+				</p>
+				<p>
+					The bar colour of a progress bar with the <code class="css-class">warning</code> CSS class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progress-warning-label-color">--progress-warning-label-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="progress-warning-label-color">--progress-warning-label-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #ffffff <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-progressbar.html">Progressbar</a>)</span>
+				</p>
+				<p>
+					The label colour of a progress bar with the <code class="css-class">warning</code> CSS class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progress-warning-color">--progress-warning-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selectable-focused-border">--selectable-focused-border</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					The border colour of focused items in a selection view.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the item background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-focused-a))</code>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selectable-hover-background">--selectable-hover-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					The background colour of unselected items in a selection view when they are hovered by the mouse cursor.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the item background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-hover-a))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable-hover-color">--selectable-hover-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selectable-hover-color">--selectable-hover-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					The text colour of unselected items in a selection view when they are hovered by the mouse cursor.
+					The default value is:<br>
+					<code data-lang="style-value">var(--textbox-color)</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable-hover-background">--selectable-hover-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selectable-selected-background">--selectable-selected-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					The background colour of selected items in a selection view.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the item background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-selected-a))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable-selected-color">--selectable-selected-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selectable-selected-color">--selectable-selected-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					The text colour of selected items in a selection view.
+					The default value is:<br>
+					<code data-lang="style-value">var(--textbox-color)</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable-selected-background">--selectable-selected-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selectable-selected-disabled-background">--selectable-selected-disabled-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> rgb(180, 180, 180, 0.3)
+					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					The background colour of selected items in a selection view, where the individual item or the entire selection view is disabled.
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable-selected-background">--selectable-selected-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selectable-selected-hover-background">--selectable-selected-hover-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					The background colour of selected items in a selection view when they are hovered by the mouse cursor.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the item background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-selected-hover-a))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable-selected-color">--selectable-selected-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selection-focused-a">--selection-focused-a</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value ≤ 1
+					<span class="default">Default:</span> 0.4
+					<span class="default">Dark default:</span> 0.7
+					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					The alpha value (opacity) of the border colour of focused items in a selection view.
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable-focused-border">--selectable-focused-border</a>, <a href="#selection-h">--selection-h</a>, <a href="#selection-s">--selection-s</a>, <a href="#selection-l">--selection-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selection-h">--selection-h</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value &lt; 360
+					<span class="default">Default:</span> 212
+					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					The hue of the background colour of selected items in a selection view, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable-selected-background">--selectable-selected-background</a>, <a href="#selection-l">--selection-l</a>, <a href="#selection-s">--selection-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selection-hover-a">--selection-hover-a</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value ≤ 1
+					<span class="default">Default:</span> 0.08
+					<span class="default">Dark default:</span> 0.15
+					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					The alpha value (opacity) of the background colour of unselected items in a selection view when they are hovered by the mouse cursor.
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable-hover-background">--selectable-hover-background</a>, <a href="#selection-h">--selection-h</a>, <a href="#selection-s">--selection-s</a>, <a href="#selection-l">--selection-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selection-l">--selection-l</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 100%
+					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					The lightness of the background colour of selected items in a selection view, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable-selected-background">--selectable-selected-background</a>, <a href="#selection-h">--selection-h</a>, <a href="#selection-s">--selection-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selection-s">--selection-s</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 50%
+					<span class="default">Dark default:</span> 60%
+					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					The saturation of the background colour of selected items in a selection view, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable-selected-background">--selectable-selected-background</a>, <a href="#selection-h">--selection-h</a>, <a href="#selection-l">--selection-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selection-selected-a">--selection-selected-a</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value ≤ 1
+					<span class="default">Default:</span> 0.3
+					<span class="default">Dark default:</span> 0.6
+					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					The alpha value (opacity) of the background colour of selected items in a selection view.
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable-selected-background">--selectable-selected-background</a>, <a href="#selection-h">--selection-h</a>, <a href="#selection-s">--selection-s</a>, <a href="#selection-l">--selection-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selection-selected-hover-a">--selection-selected-hover-a</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value ≤ 1
+					<span class="default">Default:</span> 0.35
+					<span class="default">Dark default:</span> 0.67
+					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					The alpha value (opacity) of the background colour of selected items in a selection view when they are hovered by the mouse cursor.
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable-selected-hover-background">--selectable-selected-hover-background</a>, <a href="#selection-h">--selection-h</a>, <a href="#selection-s">--selection-s</a>, <a href="#selection-l">--selection-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-background">--slider-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #dddddd
+					<span class="default">Dark default:</span> #505050
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The background colour of the slider track bar.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background">background</a> CSS property and can also define images or gradients.
+				</p>
+				<p class="see-also">
+					See also: <a href="#slider-range-background">--slider-range-background</a>, <a href="#slider-handle-background">--slider-handle-background</a>, <a href="#slider-disabled-background">--slider-disabled-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-disabled-background">--slider-disabled-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #eeeeee
+					<span class="default">Dark default:</span> #404040
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The background colour of the disabled slider track bar.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background">background</a> CSS property and can also define images or gradients.
+				</p>
+				<p class="see-also">
+					See also: <a href="#slider-background">--slider-background</a>, <a href="#slider-disabled-handle-background">--slider-disabled-handle-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-disabled-handle-background">--slider-disabled-handle-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #aaaaaa
+					<span class="default">Dark default:</span> #909090
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The background colour of handles in a disabled slider.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background">background</a> CSS property and can also define images or gradients.
+				</p>
+				<p class="see-also">
+					See also: <a href="#slider-disabled-background">--slider-disabled-background</a>, <a href="#slider-handle-background">--slider-handle-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-disabled-large-tick-color">--slider-disabled-large-tick-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #bbbbbb
+					<span class="default">Dark default:</span> #909090
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The line and text colour of large ticks and their labels in a disabled slider.
+				</p>
+				<p class="see-also">
+					See also: <a href="#slider-disabled-small-tick-color">--slider-disabled-small-tick-color</a>, <a href="#slider-large-tick-color">--slider-large-tick-color</a>, <a href="#slider-tick-label-font-size">--slider-tick-label-font-size</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-disabled-small-tick-color">--slider-disabled-small-tick-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #dddddd
+					<span class="default">Dark default:</span> #707070
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The line and text colour of small ticks and their labels in a disabled slider.
+				</p>
+				<p class="see-also">
+					See also: <a href="#slider-disabled-large-tick-color">--slider-disabled-large-tick-color</a>, <a href="#slider-small-tick-color">--slider-small-tick-color</a>, <a href="#slider-tick-label-font-size">--slider-tick-label-font-size</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-handle-background">--slider-handle-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #505050
+					<span class="default">Dark default:</span> #d0d0d0
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The background colour of handles in a slider.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background">background</a> CSS property and can also define images or gradients.
+				</p>
+				<p class="see-also">
+					See also: <a href="#slider-background">--slider-background</a>, <a href="#slider-handle-hover-background">--slider-handle-hover-background</a>, <a href="#slider-handle-pressed-background">--slider-handle-pressed-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-handle-border-radius">--slider-handle-border-radius</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="range">Range:</span> 0px ≤ value
+					<span class="default">Default:</span> 0 <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The border radius of the draggable slider handle.
+					To make circular handles, set <a href="#slider-handle-length">--slider-handle-length</a>, <a href="#slider-handle-width">--slider-handle-width</a> and this variable to the same values of the desired handle diameter.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-handle-hover-background">--slider-handle-hover-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #505050
+					<span class="default">Dark default:</span> #d0d0d0
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The background colour of slider handles when they are hovered by the mouse cursor.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background">background</a> CSS property and can also define images or gradients.
+				</p>
+				<p class="see-also">
+					See also: <a href="#slider-background">--slider-background</a>, <a href="#slider-handle-background">--slider-handle-background</a>, <a href="#slider-handle-pressed-background">--slider-handle-pressed-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-handle-length">--slider-handle-length</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="range">Range:</span> 0px ≤ value
+					<span class="default">Default:</span> 10px
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The length of the draggable slider handle in drag direction, along the track bar.
+					If this is 0px, the handle will be invisible.
+				</p>
+				<p class="see-also">
+					See also: <a href="#slider-handle-width">--slider-handle-width</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-handle-pressed-background">--slider-handle-pressed-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #000000
+					<span class="default">Dark default:</span> #f0f0f0
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The background colour of slider handles while they are being clicked on.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background">background</a> CSS property and can also define images or gradients.
+				</p>
+				<p class="see-also">
+					See also: <a href="#slider-background">--slider-background</a>, <a href="#slider-handle-background">--slider-handle-background</a>, <a href="#slider-handle-hover-background">--slider-handle-hover-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-handle-width">--slider-handle-width</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="range">Range:</span> 0px ≤ value
+					<span class="default">Default:</span> 20px
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The width of the draggable handle, across the track bar.
+					If this is 0px, the handle will be invisible.
+				</p>
+				<p class="see-also">
+					See also: <a href="#slider-handle-length">--slider-handle-length</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-large-tick-color">--slider-large-tick-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #808080
+					<span class="default">Dark default:</span> #c0c0c0
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The line and text colour of large ticks and their labels in a slider.
+				</p>
+				<p class="see-also">
+					See also: <a href="#slider-small-tick-color">--slider-small-tick-color</a>, <a href="#slider-disabled-large-tick-color">--slider-disabled-large-tick-color</a>, <a href="#slider-tick-label-font-size">--slider-tick-label-font-size</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-margin">--slider-margin</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="range">Range:</span> 0px ≤ value
+					<span class="default">Default:</span> 8px
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The additional touchable width outside of the visible slider track bar, to both sides.
+				</p>
+				<p class="see-also">
+					See also: <a href="#slider-width">--slider-width</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-range-background">--slider-range-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #808080
+					<span class="default">Dark default:</span> #b0b0b0
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The background colour of the active range in a slider track bar.
+					The default range spans from the base value (default 0) to the single handle value, or between two handles.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background">background</a> CSS property and can also define images or gradients.
+				</p>
+				<p class="see-also">
+					See also: <a href="#slider-background">--slider-background</a>, <a href="#slider-handle-background">--slider-handle-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-small-tick-color">--slider-small-tick-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #c0c0c0
+					<span class="default">Dark default:</span> #808080
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The line and text colour of small ticks and their labels in a slider.
+				</p>
+				<p class="see-also">
+					See also: <a href="#slider-large-tick-color">--slider-large-tick-color</a>, <a href="#slider-disabled-small-tick-color">--slider-disabled-small-tick-color</a>, <a href="#slider-tick-label-font-size">--slider-tick-label-font-size</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-tick-label-font-size">--slider-tick-label-font-size</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 0.85em
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The font size for tick labels in a slider.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size">font-size</a> CSS property.
+				</p>
+				<p class="see-also">
+					See also: <a href="#slider-large-tick-color">--slider-large-tick-color</a>, <a href="#slider-small-tick-color">--slider-small-tick-color</a>, <a href="#slider-disabled-large-tick-color">--slider-disabled-large-tick-color</a>, <a href="#slider-disabled-small-tick-color">--slider-disabled-small-tick-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider-width">--slider-width</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="range">Range:</span> 1px ≤ value
+					<span class="default">Default:</span> 10px
+					<span class="source">(for <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					The width of the slider track bar.
+				</p>
+				<p class="see-also">
+					See also: <a href="#slider-margin">--slider-margin</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="smaller-font-size">--smaller-font-size</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 0.8em
+					<span class="source">(for <a href="frontfire-ui-typography.html#paragraphs-font-size">Typography</a>)</span>
+				</p>
+				<p>
+					The font size for smaller than default text.
+					This is used for all elements with the <code class="css-class">smaller</code> CSS class.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size">font-size</a> CSS property.
+				</p>
+				<p class="see-also">
+					See also: <a href="#default-font-size">--default-font-size</a>, <a href="#larger-font-size">--larger-font-size</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="sticky-aside-gap">--sticky-aside-gap</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 2rem
+					<span class="source">(for <a href="frontfire-ui-typography.html#sticky-aside">Typography</a>)</span>
+				</p>
+				<p>
+					The gap between content and the column for a sticky side element.
+				</p>
+				<p class="see-also">
+					See also: <a href="#sticky-aside-width">--sticky-aside-width</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="sticky-aside-top">--sticky-aside-top</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 0px
+					<span class="source">(for <a href="frontfire-ui-typography.html#sticky-aside">Typography</a>)</span>
+				</p>
+				<p>
+					The vertical position of a sticky side element.
+					Can be set to the height of a fixed top header bar, to place the side element below that fixed element and keep it visible.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/top">top</a> CSS property.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="sticky-aside-width">--sticky-aside-width</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 200px
+					<span class="source">(for <a href="frontfire-ui-typography.html#sticky-aside">Typography</a>)</span>
+				</p>
+				<p>
+					The width of the column for a sticky side element.
+				</p>
+				<p class="see-also">
+					See also: <a href="#sticky-aside-gap">--sticky-aside-gap</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="sticky-header-top">--sticky-header-top</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 0px
+					<span class="source">(for <a href="frontfire-ui-table.html#sticky-header">Table</a>)</span>
+				</p>
+				<p>
+					The vertical position of table sticky table headers with the <code class="css-class">sticky-header</code> CSS class.
+					Can be set to the height of a fixed top header bar, to place the header below that fixed element and keep it visible.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/top">top</a> CSS property.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="submenu-active-background">--submenu-active-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The background colour of active submenu items.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the submenu active item background colour is computed from the three H, S and L variables <code class="css-var">--submenu-background-h</code>, <code class="css-var">--submenu-background-s</code> and <code class="css-var">--submenu-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--submenu-active-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#submenu-background">--submenu-background</a>, <a href="#submenu-active-lf">--submenu-active-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="submenu-active-color">--submenu-active-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The text colour of active submenu items.
+					The default value is:<br>
+					<code data-lang="style-value">var(--submenu-color)</code>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="submenu-active-lf">--submenu-active-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.2
+					<span class="default">Dark default:</span> 0.2
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The lightness factor of active submenu items.
+					The base lightness from <code class="css-var">--submenu-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#submenu-active-background">--submenu-active-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="submenu-background">--submenu-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The background colour of submenus.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the submenu background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--submenu-background-h), var(--submenu-background-s), var(--submenu-background-l))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#submenu-hover-background">--submenu-hover-background</a>, <a href="#submenu-active-background">--submenu-active-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="submenu-background-h">--submenu-background-h</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value &lt; 360
+					<span class="default">Default:</span> 0
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The hue of the background colour of submenus, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#submenu-background">--submenu-background</a>, <a href="#submenu-background-l">--submenu-background-l</a>, <a href="#submenu-background-s">--submenu-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="submenu-background-l">--submenu-background-l</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 96%
+					<span class="default">Dark default:</span> 25%
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The lightness of the background colour of submenus, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#submenu-background">--submenu-background</a>, <a href="#submenu-background-h">--submenu-background-h</a>, <a href="#submenu-background-s">--submenu-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="submenu-background-s">--submenu-background-s</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 0%
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The saturation of the background colour of submenus, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#submenu-background">--submenu-background</a>, <a href="#submenu-background-h">--submenu-background-h</a>, <a href="#submenu-background-l">--submenu-background-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="submenu-color">--submenu-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #000000
+					<span class="default">Dark default:</span> <em>see description</em>
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The text colour of submenus.
+					The default value for the dark theme is:<br>
+					<code data-lang="style-value">var(--default-text-color)</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#submenu-background-color">--submenu-background-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="submenu-hover-background">--submenu-hover-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The background colour of submenu items when they are hovered by the mouse cursor.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the submenu item hover background colour is computed from the three H, S and L variables <code class="css-var">--submenu-background-h</code>, <code class="css-var">--submenu-background-s</code> and <code class="css-var">--submenu-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--submenu-hover-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#submenu-background">--submenu-background</a>, <a href="#submenu-hover-lf">--submenu-hover-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="submenu-hover-color">--submenu-hover-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The text colour of submenu items when they are hovered by the mouse cursor.
+					The default value is:<br>
+					<code data-lang="style-value">var(--submenu-color)</code>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="submenu-hover-lf">--submenu-hover-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.08
+					<span class="default">Dark default:</span> 0.1
+					<span class="source">(for <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					The lightness factor of submenu items when they are hovered by the mouse cursor.
+					The base lightness from <code class="css-var">--submenu-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#submenu-hover-background">--submenu-hover-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="success-background">--success-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The background colour of <code class="css-class">success</code> message boxes.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--success-background-h), var(--success-background-s), var(--success-background-l))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#success-color">--success-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="success-background-h">--success-background-h</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value &lt; 360
+					<span class="default">Default:</span> 90
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The hue of the background colour of <code class="css-class">success</code> message boxes, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#success-background">--success-background</a>, <a href="#success-background-l">--success-background-l</a>, <a href="#success-background-s">--success-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="success-background-l">--success-background-l</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 78%
+					<span class="default">Dark default:</span> 29%
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The lightness of the background colour of <code class="css-class">success</code> message boxes, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#success-background">--success-background</a>, <a href="#success-background-h">--success-background-h</a>, <a href="#success-background-s">--success-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="success-background-s">--success-background-s</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 78%
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The saturation of the background colour of <code class="css-class">success</code> message boxes, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#success-background">--success-background</a>, <a href="#success-background-h">--success-background-h</a>, <a href="#success-background-l">--success-background-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="success-color">--success-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #000000
+					<span class="default">Dark default:</span> #ffffff
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The text colour of <code class="css-class">success</code> message boxes.
+				</p>
+				<p class="see-also">
+					See also: <a href="#success-background">--success-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="system-font-family">--system-font-family</h3>
+				<p>
+					<span class="type">Type:</span> font families
+					<span class="default">Default:</span> <em>see description</em>
+					<span class="source">(for <a href="frontfire-ui-typography.html">Typography</a>)</span>
+				</p>
+				<p>
+					Names all system fonts of most operating systems.
+					This is the default font set when using Frontfire.
+					It should nicely blend into other apps and UI of the device you’re using.
+					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family">font-family</a> CSS property.
+					The default value is:<br>
+					<code data-lang="style-value">system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"</code><br>
+				</p>
+				<p class="see-also">
+					See also: <a href="#default-font-family">--default-font-family</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="hr separator">
+				<h3 id="table-grid-color">--table-grid-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #d8d8d8
+					<span class="default">Dark default:</span> #585858
+					<span class="source">(for <a href="frontfire-ui-table.html">Table</a>)</span>
+				</p>
+				<p>
+					The border and grid line colour of tables, and also the border line of the separator <code data-lang="html">&lt;hr&gt;</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#table-header-background">--table-header-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="table-header-background">--table-header-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> rgb(0, 0, 0, 0.04)
+					<span class="default">Dark default:</span> rgb(255, 255, 255, 0.12)
+					<span class="source">(for <a href="frontfire-ui-table.html">Table</a>)</span>
+				</p>
+				<p>
+					The background colour of table header cells.
+				</p>
+				<p class="see-also">
+					See also: <a href="#table-grid-color">--table-grid-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="tabs-active-header-background">--tabs-active-header-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> transparent
+					<span class="source">(for <a href="frontfire-ui-tabs.html">Tabs</a>)</span>
+				</p>
+				<p>
+					The background colour of active tab headers.
+				</p>
+				<p class="see-also">
+					See also: <a href="#tabs-inactive-header-background">--tabs-inactive-header-background</a>, <a href="#tabs-page-background">--tabs-page-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="tabs-border-color">--tabs-border-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #d8d8d8
+					<span class="default">Dark default:</span> #606060
+					<span class="source">(for <a href="frontfire-ui-tabs.html">Tabs</a>)</span>
+				</p>
+				<p>
+					The border colour of tab headers and pages.
+				</p>
+				<p class="see-also">
+					See also: <a href="#tabs-color">--tabs-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="tabs-color">--tabs-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em>
+					<span class="source">(for <a href="frontfire-ui-tabs.html">Tabs</a>)</span>
+				</p>
+				<p>
+					The text colour of tab headers and pages.
+					The default value is:<br>
+					<code data-lang="style-value">var(--default-text-color)</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#tabs-border-color">--tabs-border-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="tabs-inactive-header-background">--tabs-inactive-header-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #f4f4f4
+					<span class="default">Dark default:</span> #383838
+					<span class="source">(for <a href="frontfire-ui-tabs.html">Tabs</a>)</span>
+				</p>
+				<p>
+					The background colour of inactive tab headers.
+				</p>
+				<p class="see-also">
+					See also: <a href="#tabs-active-header-background">--tabs-active-header-background</a>, <a href="#tabs-inactive-header-hover-background">--tabs-inactive-header-hover-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="tabs-inactive-header-hover-background">--tabs-inactive-header-hover-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #fafafa
+					<span class="default">Dark default:</span> #2c2c2c
+					<span class="source">(for <a href="frontfire-ui-tabs.html">Tabs</a>)</span>
+				</p>
+				<p>
+					The background colour of inactive tab headers when they are hovered by the mouse cursor.
+				</p>
+				<p class="see-also">
+					See also: <a href="#tabs-inactive-header-background">--tabs-inactive-header-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="tabs-noborder-active">--tabs-noborder-active</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em>
+					<span class="source">(for <a href="frontfire-ui-tabs.html">Tabs</a>)</span>
+				</p>
+				<p>
+					The bottom border colour of active tab headers with the <code class="css-class">no-border</code> CSS class.
+					The default value is:<br>
+					<code data-lang="style-value">hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#tabs-noborder-hover">--tabs-noborder-hover</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="tabs-noborder-hover">--tabs-noborder-hover</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em>
+					<span class="source">(for <a href="frontfire-ui-tabs.html">Tabs</a>)</span>
+				</p>
+				<p>
+					The bottom border colour of inactive tab headers with the <code class="css-class">no-border</code> CSS class when they are hovered by the mouse cursor.
+					The default value is:<br>
+					<code data-lang="style-value">hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l), 0.25)</code><br>
+					The default value for the dark theme is:<br>
+					<code data-lang="style-value">hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l), 0.45)</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#tabs-noborder-active">--tabs-noborder-active</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="tabs-page-background">--tabs-page-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> transparent
+					<span class="source">(for <a href="frontfire-ui-tabs.html">Tabs</a>)</span>
+				</p>
+				<p>
+					The background colour of the visible tab page.
+				</p>
+				<p class="see-also">
+					See also: <a href="#tabs-active-header-background">--tabs-active-header-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="textbox-background">--textbox-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #ffffff
+					<span class="default">Dark default:</span> <em>see description</em>
+					<span class="source">(for <a href="frontfire-ui-form.html#single-field-text">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of a form text field or similar types like select or checkbox.
+					The default value for the dark theme is:<br>
+					<code data-lang="style-value">var(--default-background)</code>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="textbox-border">--textbox-border</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #cccccc
+					<span class="default">Dark default:</span> #707070
+					<span class="source">(for <a href="frontfire-ui-form.html#single-field-text">Form</a>)</span>
+				</p>
+				<p>
+					The border colour of a form text field or similar types like select or checkbox.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="textbox-color">--textbox-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #000000
+					<span class="default">Dark default:</span> <em>see description</em>
+					<span class="source">(for <a href="frontfire-ui-form.html#single-field-text">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of a form text field or similar types like select.
+					The default value for the dark theme is:<br>
+					<code data-lang="style-value">var(--default-text-color)</code>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="textbox-disabled-border">--textbox-disabled-border</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #e4e4e4
+					<span class="default">Dark default:</span> #505050
+					<span class="source">(for <a href="frontfire-ui-form.html#single-field-text">Form</a>)</span>
+				</p>
+				<p>
+					The border colour of a disabled form text field or similar types like select or checkbox.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="textbox-disabled-color">--textbox-disabled-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #a0a0a0
+					<span class="default">Dark default:</span> #808080
+					<span class="source">(for <a href="frontfire-ui-form.html#single-field-text">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of a disabled form text field or similar types like select.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="textbox-hover-border">--textbox-hover-border</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #999999
+					<span class="source">(for <a href="frontfire-ui-form.html#single-field-text">Form</a>)</span>
+				</p>
+				<p>
+					The border colour of a form text field or similar types like select or checkbox when it is hovered by the mouse cursor.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="thin-scrollbar-thumb">--thin-scrollbar-thumb</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> rgb(0, 0, 0, 0.3)
+					<span class="default">Dark default:</span> rgb(255, 255, 255, 0.3)
+					<span class="source">(for <a href="frontfire-ui-page.html">Page</a>)</span>
+				</p>
+				<p>
+					The colour of the thumb of a thin scrollbar.
+					Used for elements with the <code class="css-class">thin-scrollbar</code> CSS class.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="validation-error-background">--validation-error-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #ffdddd
+					<span class="default">Dark default:</span> #502020
+					<span class="source">(for <a href="frontfire-ui-form.html#single-field-validation-errors">Form</a>)</span>
+				</p>
+				<p>
+					The background colour of a form field that has a validation error.
+				</p>
+				<p class="see-also">
+					See also: <a href="#validation-error-text">--validation-error-text</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="validation-error-text">--validation-error-text</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #ff0000
+					<span class="default">Dark default:</span> #f00000
+					<span class="source">(for <a href="frontfire-ui-form.html#single-field-validation-errors">Form</a>)</span>
+				</p>
+				<p>
+					The text colour of a form field validation error message, and the border colour of a form field that has a validation error.
+				</p>
+				<p class="see-also">
+					See also: <a href="#validation-error-background">--validation-error-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="warning-background">--warning-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The background colour of <code class="css-class">warning</code> message boxes.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--warning-background-h), var(--warning-background-s), var(--warning-background-l))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#warning-color">--warning-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="warning-background-h">--warning-background-h</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value &lt; 360
+					<span class="default">Default:</span> 48
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The hue of the background colour of <code class="css-class">warning</code> message boxes, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#warning-background">--warning-background</a>, <a href="#warning-background-l">--warning-background-l</a>, <a href="#warning-background-s">--warning-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="warning-background-l">--warning-background-l</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 67%
+					<span class="default">Dark default:</span> 43%
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The lightness of the background colour of <code class="css-class">warning</code> message boxes, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#warning-background">--warning-background</a>, <a href="#warning-background-h">--warning-background-h</a>, <a href="#warning-background-s">--warning-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="warning-background-s">--warning-background-s</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 86%
+					<span class="default">Dark default:</span> 100%
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The saturation of the background colour of <code class="css-class">warning</code> message boxes, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#warning-background">--warning-background</a>, <a href="#warning-background-h">--warning-background-h</a>, <a href="#warning-background-l">--warning-background-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="warning-color">--warning-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #000000
+					<span class="source">(for <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The text colour of <code class="css-class">warning</code> message boxes.
+				</p>
+				<p class="see-also">
+					See also: <a href="#warning-background">--warning-background</a>
+				</p>
+			</div>
+		</section>
+
+		<!------------------------------ END OF REFERENCE CONTENT ------------------------------>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+	<script src="res/doc.js"></script>
+	<script>
+		F("#calc-default-font-size, #calc-line-height-factor").on("input!", () => {
+			let fontSize = F("#calc-default-font-size").value();
+			let factor = F("#calc-line-height-factor").value();
+			let idealFactor = Math.round(fontSize * factor) / fontSize;
+			idealFactor = Math.round(idealFactor * 100000) / 100000;
+			let lineHeight = fontSize * idealFactor;
+			let frac = Math.abs(lineHeight - Math.round(lineHeight))
+			let offEveryPixels = "never";
+			if (frac !== 0)
+				offEveryPixels = Math.round(1 / frac) + "px";
+			lineHeight = Math.round(lineHeight * 10000000) / 10000000;
+			F("#calc-ideal-line-height-factor").value(idealFactor);
+			F("#calc-real-line-height").value(lineHeight + "px");
+			F("#calc-off-every-pixels").value(offEveryPixels);
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,1035 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Form documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Form module</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			Frontfire UI provides a responsive form layout system that is suitable for most data entry scenarios and can be customised for almost every special need.
+		</p>
+		<p>
+			This module and all of its plugins is available in the Minimal and Complete bundles.
+		</p>
+
+		<h2 id="basic-layout">Basic layout</h2>
+		<p>
+			A form consists of a number of input fields and each of them should have a label that explains to the user what input is expected here.
+			There are three common solutions to place the field labels which are summarised as follows:
+		</p>
+		<ol>
+			<li>Place above or below the text input field – Requires more vertical space and extra distance between the fields for a safe association of labels and fields.</li>
+			<li>Place to the left of the text input field – Saves vertical space but imposes requirements on window width, also the label length is limited and the input fields need separate alignment.</li>
+			<li>Place inside the text input field as placeholder text – No additional space required but the label is invisible as soon as text is entered in the field which is problematic when opening a pre-filled form.</li>
+		</ol>
+		<p>
+			Option 3 can be ruled out immediately, although it is still used in some places.
+			Option 2 causes almost unsolvable issues with responsive layout because the window width is too limited on mobile devices (in their default portrait orientation).
+			This leaves option 1 as the best compromise, and that is what Frontfire uses.
+			That layout also allows placing per-field validation messages of sufficient length below each field, so that’s a plus, too.
+			To compensate a little for the higher vertical space demand, shorter fields may be pulled on the same line.
+			This can easily be reverted on smller screens where each field uses its own line again.
+		</p>
+		<p>
+			The following diagram illustrates that form layout.
+		</p>
+		<div style="max-width: 500px; border: solid 2px darkgray; padding: 2px;">
+			Form
+			<div style="border: solid 2px rgb(230, 149, 0, 0.6); padding: 2px;">
+				Form row
+				<div style="display: flex; gap: 10px;">
+					<div style="flex-grow: 1; border: dashed 1px rgb(0, 127, 255); padding: 2px;">
+						Field group (not an element)
+						<div style="border: solid 1px rgb(0, 127, 255); padding: 2px;">
+							Label
+						</div>
+						<div style="margin-top: 2px; border: solid 1px rgb(0, 127, 255); padding: 2px;">
+							Input
+						</div>
+						<div style="margin-top: 2px; border: solid 1px rgb(0, 127, 255); padding: 2px;">
+							Validation message
+						</div>
+					</div>
+					<div style="flex-grow: 1; border: dashed 1px rgb(0, 127, 255); padding: 2px;">
+						Field group (not an element)
+						<div style="border: solid 1px rgb(0, 127, 255); padding: 2px;">
+							Label
+						</div>
+						<div style="margin-top: 2px; border: solid 1px rgb(0, 127, 255); padding: 2px;">
+							Input
+						</div>
+						<div style="margin-top: 2px; border: solid 1px rgb(0, 127, 255); padding: 2px;">
+							Validation message
+						</div>
+					</div>
+				</div>
+			</div>
+			<div style="margin-top: 10px; border: solid 2px rgb(230, 149, 0, 0.6); padding: 2px;">
+				Form row (same as above)
+			</div>
+		</div>
+
+		<h2 id="single-field">Single-field layout</h2>
+		<h3 id="single-field-text">Text fields</h3>
+		<p>
+			In a simple layout, a field always covers a full row from the left to the right edge.
+			All fields are wrapped in a <code data-lang="html">&lt;div class="form-row"&gt;</code> element.
+			The <code class="css-class">form-row</code> CSS class provides the basic layout for one or more input fields in one row.
+			The field label must be marked with the <code class="css-class">label</code> class.
+			A validation error message can be displayed below each field.
+		</p>
+		<p>
+			There are several CSS classes for special text field styles:
+		</p>
+		<ul>
+			<li><code class="css-class">no-border</code>: Removes the border of an input element.</li>
+			<li><code class="css-class">transparent</code>: Makes the background of an input element transparent so that a parent background image shows through.</li>
+			<li><code class="css-class">underline</code>: Removes the border of an input element on all sides but the bottom. This creates the simplified style of a paper form that only provides a single line whereon to write. The remaining left and right padding can be removed with the additional <code class="css-class">no-padding</code> class.</li>
+		</ul>
+		<p>
+			The style of text fields and similar form fields can be customised with the <a href="frontfire-ui-variables.html?s=^--textbox-">CSS variables</a> that start with “--textbox-”.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;)(form-row|label)">
+			<div class="form-row">
+				<div class="label">Field label</div>
+				<input type="text">
+				<div></div>
+			</div>
+		</div>
+
+		<h3 id="single-field-validation-errors">Validation errors</h3>
+		<p>
+			Validation errors are added with the <code class="css-class">input-validation-error</code> class on the input element and the <code class="css-class">field-validation-error</code> class on the following label that contains the error message.
+			These classes are automatically set by ASP.NET Core tag helpers.
+		</p>
+		<p>
+			The style of validation errors can be customised with the <a href="frontfire-ui-variables.html?s=^--validation-error-">CSS variables</a> that start with “--validation-error-”.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(form-row|(field|input)-validation-error)">
+			<div class="form-row">
+				<div class="label">Field label</div>
+				<input type="text" class="input-validation-error">
+				<div class="field-validation-error">Error message</div>
+			</div>
+		</div>
+
+		<h3 id="single-field-checkbox">Checkbox fields</h3>
+		<p>
+			This also works for checkbox fields.
+			For now, the first (<code class="css-class">label</code> class) element can be left out.
+		</p>
+		<p>
+			By the way, the Frontfire style for checkbox inputs is optimised for the case that you insert a white-space between the <code data-lang="html">&lt;input type="checkbox"&gt;</code> element and the label text, both children of the <code data-lang="html">&lt;label&gt;</code> element that makes the label text clickable for the checkbox as well.
+			Leaving out that white-space reduces the distance between the checkbox and the text and should be avoided.
+			The spacing is optimised for that white-space because it’s more often easier to add it than to avoid it.
+		</p>
+		<p>
+			The style of checkboxes and radiobuttons can be customised with the <a href="frontfire-ui-variables.html?s=^--checkbox-">CSS variables</a> that start with “--checkbox-”.
+		</p>
+		<p>
+			Checkbox or radio button elements created by code can be styled by calling the <a href="frontfire-core.html#styleCheckbox"><code>styleCheckbox()</code></a> plugin method on them.
+		</p>
+		<div class="example no-frontfire">
+			<div class="form-row">
+				<label><input type="checkbox"> Keep me updated</label>
+				<div></div>
+			</div>
+			<div class="form-row">
+				<label><input type="checkbox" class="input-validation-error"> Accept terms of service</label>
+				<div class="field-validation-error">Acceptance required.</div>
+			</div>
+		</div>
+
+		<p>
+			The label text of checkbox fields should be indented so that a wrapped line does not start at the left edge of the checkbox border but aligned with the text of the first line, right after the checkbox.
+			Add the <code class="css-class">indent-checkbox</code> CSS class to the <code data-lang="html">&lt;label&gt;</code> element to indent the text.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(indent-checkbox)">
+			<div class="form-row">
+				<label class="indent-checkbox">
+					<input type="checkbox">
+					I accept the terms of service and agree with the storage and handling of my data in accordance with the data protection policy of this website. I can revoke my consent at any time without giving reasons.
+				</label>
+			</div>
+		</div>
+
+		<h2 id="multi-field">Multi-field layout</h2>
+		<p>
+			Multiple fields can be placed in a single row.
+			If nothing else is specified, all fields share the row width equally.
+			Error message elements need to be present because each field is made of 3 elements.
+			The grid layout ensures that all parts are placed at the same vertical offset.
+		</p>
+		<div class="example no-frontfire">
+			<div class="form-row">
+				<div class="label">First field label</div>
+				<input type="text">
+				<div></div>
+
+				<div class="label">Second field label</div>
+				<input type="number" class="input-validation-error">
+				<div class="field-validation-error">Error message</div>
+			</div>
+		</div>
+
+		<h3 id="multi-field-no-validation">Without validation messages</h3>
+		<p>
+			When no validation messages are used, the document structure can be simplified by leaving them out.
+			The class <code class="css-class">no-validation</code> must be used for the row in this case.
+			This reduces the number of elements for a field from 3 to 2.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(no-validation)">
+			<div class="form-row no-validation">
+				<div class="label">First field label</div>
+				<input type="text">
+
+				<div class="label">Second field label</div>
+				<input type="number">
+			</div>
+		</div>
+
+		<h2 id="responsive-layout">Responsive layout</h2>
+		<p>
+			As explained above, the fields that share a form row need to be arranged below each other when screen space runs out.
+			Now the class <code class="css-class">require-minitab</code> indicates that the form row switches to a single-field layout when the screen width drops below the width of a small tablet.
+			The following classes are available: <code class="css-class">require-minitab</code>, <code class="css-class">require-tablet</code>, <code class="css-class">require-desktop</code>, <code class="css-class">require-wide</code>
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(require-minitab)">
+			<div class="form-row require-minitab">
+				<div class="label">First field label</div>
+				<input type="text" class="input-validation-error">
+				<div class="field-validation-error">Error message</div>
+
+				<div class="label">Second field label</div>
+				<input type="number">
+				<div></div>
+			</div>
+		</div>
+		<p>
+			<strong>Note:</strong><br>
+			Since this uses CSS media queries, resizing the example box on this page would not help.
+			To see the responsiveness in action, you’ll have to use your browser’s device preview from the developer tools.
+			In Firefox, press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd>.
+			In Chrome, press <kbd>F12</kbd> before that.
+			On a mobile device, it may be sufficient to rotate it.
+			This also applies to all following examples.
+		</p>
+
+		<h2 id="custom-layout">Custom layout</h2>
+		<h3 id="custom-layout-widths">Individual widths</h3>
+		<p>
+			To set different widths for each field in a row, the CSS property <code>grid-template-columns</code> must be set for the row.
+			This property of the CSS grid layout accepts a list of width values for each column.
+			Common values are <code>1fr</code> (and other numeric values with the <code>fr</code> unit) for proportional widths, <code>max-content</code> for the content’s desired width, and fixed lengths in pixels or other units.
+			See the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns">CSS specification</a> for details.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(grid-template-columns)">
+			<div class="form-row require-minitab" style="grid-template-columns: 2fr 1fr max-content max-content;">
+				<div class="label">First field label</div>
+				<input type="text" class="input-validation-error">
+				<div class="field-validation-error">Error message</div>
+
+				<div class="label">Second field label with so much text that it needs a second line</div>
+				<input type="text">
+				<div></div>
+
+				<div class="label"></div>
+				<label><input type="checkbox"> Checkbox 1</label>
+				<div></div>
+
+				<div class="label"></div>
+				<label><input type="checkbox" class="input-validation-error"> Checkbox 2</label>
+				<div class="field-validation-error">First error<br>Second error</div>
+			</div>
+		</div>
+
+		<h3 id="custom-layout-css">CSS definition</h3>
+		<p>
+			Custom (responsive) layouts can be achieved by defining a CSS class for a row that defines the column widths separately.
+			In a CSS stylesheet, different values can be assigned to the class using media queries.
+			In this example, no labels or validation messages can be used because the option fields may be arranged in one or more rows and columns.
+		</p>
+		<div class="example no-frontfire">
+			<style>
+				.form-single-row.custom
+				{
+					/* 4 inputs per row */
+					grid-template-columns: repeat(4, max-content);
+				}
+				@media (max-width: 500px)
+				{
+					.form-single-row.custom
+					{
+						/* 2 inputs per row */
+						grid-template-columns: repeat(2, max-content);
+					}
+				}
+				@media (max-width: 360px)
+				{
+					.form-single-row.custom
+					{
+						/* 1 input per row */
+						grid-template-columns: max-content;
+					}
+				}
+			</style>
+			<div class="form-single-row custom">
+				<label><input type="radio" name="radio1" value="1"> Option 1</label>
+				<label><input type="radio" name="radio1" value="2"> Option 2</label>
+				<label><input type="radio" name="radio1" value="3"> Option 3</label>
+				<label><input type="radio" name="radio1" value="4" class="input-validation-error"> Option 4</label>
+			</div>
+		</div>
+
+		<h2 id="buttons">Buttons</h2>
+		<p>
+			Most forms have a set of buttons at their end to let the user perform actions.
+			These buttons should be placed in a <code data-lang="html">&lt;div class="buttons"&gt;</code> element for proper spacing.
+		</p>
+		<p>
+			There are several CSS classes for special button styles:
+		</p>
+		<ul>
+			<li><code class="css-class">default</code>: Changes the appearance of the button to make it pop out and draw attention on it. This can be used for the default action of a form that is invoked when pressing the <kbd>Enter</kbd> key, usually submitting the form with the first action like saving the input. It can also be used for Call-to-Action (CTA) buttons that are designed to prompt an immediate response.</li>
+			<li><code class="css-class">caution</code>: Changes the appearance of the button to give it a colour that implies danger. This can be used for actions that have dangerous results if used accidentally, like deleting data. You should always request a separate confirmation from the user before actually executing the dangerous action, or alternatively provide a quick and easy method to undo it. By default they use a red colour instead of grey, and have an inverted text colour.</li>
+			<li><code class="css-class">transparent</code>: Makes the background of a button transparent. This makes the button very unobtrusive so it can be used for back-out actions like a cancel button that leaves the form without saving changes.</li>
+		</ul>
+		<p>
+			The style of buttons can be customised with the <a href="frontfire-ui-variables.html?s=^--button-">CSS variables</a> that start with “--button-”.
+		</p>
+		<p>
+			A separator line between buttons can be added with the <code data-lang="html">&lt;hr&gt;</code> HTML element.
+			This separator only works in <code data-lang="html">&lt;div&gt;</code> or <code data-lang="html">&lt;span&gt;</code> elements with the <code class="css-class">buttons</code> class.
+		</p>
+		<p>
+			Text labels can be added in a buttons row with the <code class="css-class">label</code> class that vertically centers the text in the row.
+		</p>
+		<div class="example p-bottom no-frontfire" data-source-highlight="(?<=&quot;| )(buttons)|<hr>|(?<=span class=&quot;)label">
+			<div class="form-row">
+				<div class="label">First field label</div>
+				<input type="text">
+				<div></div>
+			</div>
+			<div class="form-row">
+				<div class="label">Second field label</div>
+				<input type="text">
+				<div></div>
+			</div>
+			<div class="buttons">
+				<button class="default"><i class="material">check.7</i> OK</button>
+				<button class="caution"><i class="material">delete.fill</i> Delete</button>
+				<button><i class="material">favorite</i> Remember this</button>
+				<button disabled><i class="material">help</i> What?</button>
+				<span class="label">Actions:</span>
+				<button class="narrow icon-only"><i class="material">call.fill</i></button>
+				<button class="narrow icon-only"><i class="material">attach_file</i></button>
+				<hr>
+				<a class="button" href="#">Link button</a>
+				<button class="transparent narrow">Cancel</button>
+			</div>
+		</div>
+
+		<p>
+			The buttons will wrap in another line and keep their spacing if they won’t fit all in one row.
+			You can also use the buttons class outside of traditional forms.
+			To remove the default top margin that separates the buttons from the form fields, add the universal <code class="css-class">no-top-margin</code> CSS class.
+		</p>
+		<div class="example resizable narrow p no-frontfire">
+			<div class="buttons no-top-margin">
+				<button class="default"><i class="material">check.7</i> OK</button>
+				<button><i class="material">close.7</i> Cancel</button>
+				<button class="caution"><i class="material">delete.fill</i> Delete</button>
+				<button disabled><i class="material">help</i> What?</button>
+				<button><i class="material">favorite</i> Remember this</button>
+				<button>A very long action name</button>
+				<button>Something else</button>
+				<button>Even more</button>
+			</div>
+		</div>
+
+		<p>
+			The buttons can be horizontally centred with the <code class="css-class">center</code> CSS class.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="center">
+			<div class="buttons center no-top-margin">
+				<button class="default"><i class="material">check.7</i> OK</button>
+				<button><i class="material">close.7</i> Cancel</button>
+			</div>
+		</div>
+
+		<h3 id="buttons-icon">Buttons with an icon</h3>
+		<p>
+			As already shown above, an icon can be used in a button to visually assist the button text.
+			Just add a regular <code data-lang="html">&lt;i&gt;</code> element before the text as you would normally.
+			There should be a white-space between the icon and the text, similar to checkboxes and their label text.
+			The spacing is optimised for that white-space because it’s more often easier to add it than to avoid it.
+		</p>
+		<p>
+			The icon can also be placed at the right side of the button, after the text.
+			This is more appropriate for some icons like a right-arrow to indicate the continuation of a process.
+			There can also be a <a href="frontfire-ui-typography.html#loading">loading indicator</a> at the right side of the button.
+			For proper spacing (see below), the button needs the <code class="css-class">icon-right</code> CSS class when the button is at the right side instead of the left.
+		</p>
+		<p>
+			The distance between the icon and the text is increased a little for visual reasons.
+			This is more needed for Font Awesome icons, less for the Material Symbols included in this documentation.
+			This distance is applied on the right side for left icons, and on the left side for right icons.
+			This single-side margin will off-centre an icon when there is no text at all.
+			To avoid that and keep the icon perfectly centred, add the <code class="css-class">icon-only</code> CSS class to the button.
+			(The first icon-only button in the following example lacks this class to demonstrate the issue.)
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(icon-right|icon-only)">
+			<div class="buttons no-top-margin">
+				<button><i class="material">language</i> Language</button>
+				<button class="icon-right">Continue <i class="material">arrow_forward</i></button>
+				<button class="icon-right">Publish <i class="loading small"></i></button>
+				<button class="narrow"><i class="material">help</i></button>
+				<button class="narrow icon-only"><i class="material">help</i></button>
+			</div>
+		</div>
+		<p>
+			As you might see, the loading indicator needs some individual colour tweaking for the different backgrounds when used in a button, especially for the inverted button types.
+			This is not shown here for the brevity of the example.
+		</p>
+
+		<h3 id="buttons-group">Button groups</h3>
+		<div class="sticky-aside-container">
+			<div class="sticky-aside aside-options">
+				<div><label class="indent-checkbox"><input type="checkbox" id="disable-button-group"> Disable buttons</label></div>
+			</div>
+			<p>
+				Buttons can be placed in a group without a gap between them.
+				You can mix <code data-lang="html">&lt;button&gt;</code data-lang="html"> elements with button-styled hyperlinks (<code>&lt;a&gt;</code>) freely.
+				Here the entire buttons container makes a button group:
+			</p>
+			<div id="button-group-example" class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(group)">
+				<div class="buttons group no-top-margin">
+					<button class="default"><i class="material">check.7</i> OK</button>
+					<button><i class="material">close.7</i> Cancel</button>
+					<button><i class="material">delete.fill</i> Delete</button>
+					<button class="narrow icon-only" disabled><i class="material">call.fill</i></button>
+					<a class="button narrow icon-only" href="#"><i class="material">attach_file</i></a>
+				</div>
+			</div>
+		</div>
+		<script>
+			let disableButtonsCheckbox = F("#disable-button-group").first;
+			disableButtonsCheckbox.F.on("click!", () => {
+				F("#button-group-example button").disabled = disableButtonsCheckbox.checked;
+				F("#button-group-example button.narrow").disabled = true;   // Keep initial state
+				F("#button-group-example a").F.disabled = disableButtonsCheckbox.checked;   // Sets disabled attribute
+			});
+		</script>
+
+		<p>
+			Only some of the buttons can be grouped together by using a separate container element with the <code class="css-class">group</code> class among other buttons:
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(group)">
+			<div class="buttons no-top-margin">
+				<button class="default"><i class="material">check.7</i> OK</button>
+				<button><i class="material">close.7</i> Cancel</button>
+				<span class="group">
+					<button class="narrow icon-only"><i class="material">call.fill</i></button>
+					<a class="button narrow icon-only" href="#"><i class="material">attach_file</i></a>
+					<button class="narrow icon-only"><i class="material">favorite</i></button>
+				</span>
+				<button>Other</button>
+			</div>
+		</div>
+		<p>
+			The style of button group separators can be customised with the <a href="frontfire-ui-variables.html?s=^--button-group-separator-">CSS variables</a> that start with “--button-group-separator-”.
+		</p>
+
+		<h3 id="buttons-link">Link-styled buttons</h3>
+		<p>
+			Like <code data-lang="html">&lt;a&gt;</code> links can be styled as buttons, a <code data-lang="html">&lt;button&gt;</code> or <code data-lang="html">&lt;input type="button"&gt;</code> and similar types can also be styled as links by adding the <code class="css-class">link</code> CSS class.
+			They are not quite the same because their text selection and drag behaviour remains unchanged and differs from each other.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)(link)">
+			<div class="buttons no-top-margin">
+				<button class="link">OK</button>
+				<button class="link">Cancel</button>
+				<a href="#">Real link</a>
+			</div>
+		</div>
+
+		<h2 id="three-state">Tree-state checkboxes</h2>
+		<p>
+			While checkboxes in HTML support the third, indeterminate state, that represents an unset value or a set of inconsistent values by setting the <code>indeterminate</code> property, it cannot be reached by user interaction.
+			Frontfire allows this be adding the <code class="css-class">three-state</code> CSS class to the checkbox input element, or alternatively calling the <a href="frontfire-core.html#threeState"><code>threeState()</code></a> plugin method on it.
+			Any click on the checkbox will then cycle through all three states and allow the user to reach the indeterminate state directly.
+		</p>
+		<p>
+			The <code>indeterminate</code> state can be set through code, but then the <code>threeState()</code> method must be called again on the checkbox element to update its internal state for correct cycling through the states by the user.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(three-state)">
+			<label><input type="checkbox" class="three-state"> Order sunny weather</label>
+		</div>
+
+		<h2 id="spinner">Numeric spinners</h2>
+		<div class="sticky-aside-container">
+			<div class="sticky-aside aside-options">
+				<div><label class="indent-checkbox"><input type="checkbox" id="disable-spinner"> Disable spinner</label></div>
+				<div><label class="indent-checkbox"><input type="checkbox" id="hide-spinner"> Hide spinner</label></div>
+			</div>
+			<p>
+				Any numeric input field like <code data-lang="html">&lt;input type="number"&gt;</code> will be converted into a touch-friendly numeric spinner with big decrement and increment buttons.
+				Input elements created by code can be enhanced by calling the <a href="frontfire-core.html#spinner"><code>spinner()</code></a> plugin method on them.
+				The buttons are <a href="#repeat-button">repeat-buttons</a> so you can long-press them and the value is continuously decremented or incremented automatically, at an increasing speed (within limits).
+			</p>
+			<div id="spinner-example" class="example p no-frontfire">
+				<input type="number" value="10">
+			</div>
+			<p>
+				The spinner can be enabled and disabled by setting the <code>disabled</code> property of the input element by any means (through Frontfire or the native DOM API).
+				The control buttons will follow the disabled state automatically.
+			</p>
+			<p>
+				The spinner can be shown and hidden by setting the <code>Frontfire.visible</code> property of the input element.
+				Alternatively, the Frontfire methods <a href="frontfire-core.html#show"><code>show()</code></a>, <a href="frontfire-core.html#hide"><code>hide()</code></a> and <a href="frontfire-core.html#toggle"><code>toggle()</code></a> can be called.
+				Other ways like manipulating the <code>style.display</code> property directly will not work.
+				The added buttons will be shown or hidden along with the input element.
+			</p>
+		</div>
+		<script>
+			let disableSpinnerCheckbox = F("#disable-spinner").first;
+			disableSpinnerCheckbox.F.on("click!", () => {
+				F("#spinner-example input").disabled = disableSpinnerCheckbox.checked;
+			});
+			let hideSpinnerCheckbox = F("#hide-spinner").first;
+			hideSpinnerCheckbox.F.on("click!", () => {
+				F("#spinner-example input").visible = !hideSpinnerCheckbox.checked;
+			});
+		</script>
+
+		<h3 id="spinner-range">Value range</h3>
+		<div class="sticky-aside-container">
+			<div class="sticky-aside aside-options">
+				<div><label class="indent-checkbox"><input type="checkbox" id="disable-spinner2"> Disable spinner</label></div>
+			</div>
+			<p>
+				The spinner supports the usual range limits with the <code>min</code> and <code>max</code> attributes.
+				Any decrement or increment through the buttons beyond that valid range will be rejected.
+			</p>
+			<div id="spinner-example2" class="example p no-frontfire">
+				<input type="number" value="5" min="5" max="20">
+			</div>
+		</div>
+		<script>
+			let disableSpinnerCheckbox2 = F("#disable-spinner2").first;
+			disableSpinnerCheckbox2.F.on("click!", () => {
+				F("#spinner-example2 input").disabled = disableSpinnerCheckbox2.checked;
+			});
+		</script>
+
+		<p>
+			The <code>step</code> attribute is also supported and behaves like the browser-native implementation.
+			This attribute is, like <code>min</code> and <code>max</code>, a validation attribute.
+			That means that manually typed values that do not satisfy these requirements will be rejected by the browser and the form will not be submitted.
+			If you only want to use the step as an input aid but still accept any other values, use the <code>data-step</code> attribute instead.
+			It will be considered by the spinner but not by the browser.
+			The same applies to the <code>data-min</code> and <code>data-max</code> attributes.
+			Use those to limit the range reachable by the buttons but still allow other manual input.
+		</p>
+		<div class="example no-frontfire">
+			<p>
+				<input type="number" value="10" min="4" max="20" step="2">
+			</p>
+			<p>
+				<input type="number" value="10" min="4" max="20" data-step="2">
+			</p>
+			<p>
+				<input type="number" value="10" data-min="0" data-max="10000" data-step="0.1">
+			</p>
+		</div>
+
+		<h3 id="spinner-step-factor">Exponential steps</h3>
+		<p>
+			The spinner also supports exponential steps with the <code>data-step-factor</code> attribute.
+			This factor will be applied to the value with each button click, instead of a linear addition or subtraction.
+			There is no corresponding attribute in the HTML standard, so the data attribute is the only option here.
+		</p>
+		<div class="example no-frontfire">
+			<p>
+				<input type="number" value="10" min="0.0000000000001" max="1000000000000" data-step-factor="10"> (Factor 10)
+			</p>
+			<p>
+				<input type="number" value="16" min="1" max="1024" data-step-factor="2"> (Factor 2)
+			</p>
+		</div>
+
+		<h3 id="spinner-options">Options</h3>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>buttons</code></td>
+					<td>Boolean</td>
+					<td>
+						Indicates whether the increment/decrement button are added to the input element.
+						If set to false, the ArrowUp/ArrowDown keys will also be disabled and no longer change the value to the nearest step.
+					</td>
+					<td>true</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="segmented-input">Segmented inputs</h2>
+		<h3 id="segmented-input-label">With labels</h3>
+		<p>
+			A label can be placed before and/or after an input field to further describe its meaning.
+			This can be a value prefix that is never typed in, or the unit of a numeric value.
+			Wrap the input field in an element with the <code class="css-class">segmented-input</code> CSS class.
+			Any labels (before or after the input) are marked with the <code class="css-class">label</code> class.
+		</p>
+		<p>
+			The style of the labels can be customised with the CSS variable <code class="css-var">--input-label-background</code>.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(segmented-input|label)">
+			<div class="segmented-input">
+				<span class="label">AX-</span>
+				<input type="text" value="12C" style="width: 120px;">
+			</div>
+		</div>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(segmented-input|label)">
+			<div class="segmented-input">
+				<span class="label">AX-</span>
+				<input type="number" value="20" min="1" max="999" style="width: 120px;">
+			</div>
+		</div>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(segmented-input|label)">
+			<div class="segmented-input">
+				<input type="number" value="20" min="1" max="999" style="width: 120px;">
+				<span class="label">days</span>
+			</div>
+		</div>
+
+		<p>
+			The border and background of a label can be removed with the additional <code class="css-class">no-background</code> CSS class.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(no-background)">
+			<div class="segmented-input">
+				<input type="number" value="20" min="1" max="999" style="width: 120px;">
+				<span class="label no-background">days</span>
+			</div>
+		</div>
+
+		<h3 id="segmented-input-button">With buttons</h3>
+		<p>
+			A segmented input can also bind one or multiple buttons with an input field.
+			The button(s) can provide a specific action on the input data, like a lookup or details view.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(segmented-input)">
+			<div class="segmented-input">
+				<input type="text" style="width: 120px;">
+				<button class="narrow icon-only"><i class="material">search</i></button>
+			</div>
+		</div>
+
+		<p>
+			To combine multiple buttons with a separator line, put them in a <code data-lang="html">&lt;span class="group"&gt;</code> element like with a <a href="#buttons-group">button group</a>.
+			<code data-lang="html">&lt;button&gt;</code> and <code data-lang="html">&lt;a class="button"&gt;</code> elements can be mixed in the group as usual.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(segmented-input|group)">
+			<div class="segmented-input">
+				<input type="text" style="width: 120px;">
+				<span class="group">
+					<button class="narrow icon-only"><i class="material">attach_file</i></button>
+					<button class="narrow icon-only"><i class="material">download</i></button>
+					<a class="button narrow icon-only" href="javascript:"><i class="material">edit.fill</i></a>
+				</span>
+			</div>
+		</div>
+
+		<h3 id="segmented-input-icon">With icons</h3>
+		<p>
+			You can also insert icons or a <a href="frontfire-ui-typography.html#loading">loading indicator</a> at the start or end of the input field.
+			Add the <code class="css-class">icon-left</code> CSS class to the wrapper element to have the child icon element be placed at the left end within the input field, or the <code class="css-class">icon-right</code> class for the right end.
+			The element of a left icon must be placed before the input field, a right icon must be placed after the input field in the document.
+			Both, a left and right icon, cannot be combined.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(icon-left|icon-right)">
+			<div class="form-row no-validation">
+				<div class="label">Telephone number</div>
+				<div class="segmented-input icon-left">
+					<i class="material m-16px">call.fill</i>
+					<input type="tel">
+				</div>
+
+				<div class="label">Second field</div>
+				<div class="segmented-input icon-right">
+					<input type="text">
+					<i class="material m-16px">sensors</i>
+				</div>
+
+				<div class="label">Third field</div>
+				<div class="segmented-input icon-right">
+					<input type="text">
+					<i class="loading small"></i>
+				</div>
+			</div>
+		</div>
+
+		<h2 id="toggle-button">Toggle buttons</h2>
+		<div class="sticky-aside-container">
+			<div class="sticky-aside aside-options">
+				<div><label class="indent-checkbox"><input type="checkbox" id="disable-toggle-buttons"> Disable toggle buttons</label></div>
+				<div><label class="indent-checkbox"><input type="checkbox" id="hide-toggle-buttons"> Hide toggle buttons</label></div>
+			</div>
+			<p>
+				A toggle button is a button that switches between an active and inactive state with each click.
+				The active state is visualised by a contrast colour and it can mean the permanent activation of a certain function.
+				To create a toggle button automatically at page loading, use a checkbox and add the <code class="css-class">toggle-button</code> CSS class to it.
+				To create it by code, call the <a href="frontfire-core.html#toggleButton"><code>toggleButton()</code></a> plugin method on a checkbox element.
+				The checkbox element will be hidden and replaced by the new button.
+				But the checkbox is still there and it remains the element you should use to determine or change the current state.
+				Just get or set its <code>checked</code> property as usual.
+			</p>
+			<p>
+				The style of the active state buttons can be customised with the <a href="frontfire-ui-variables.html?s=^--button-active-">CSS variables</a> that start with “--button-active-”.
+			</p>
+			<div id="toggle-button-example" class="example p no-frontfire">
+				<label><input type="checkbox" class="toggle-button"> Press me</label>
+				<label><input type="checkbox" id="toggle-button2"> Press me</label>
+				<script>
+					// Wrapping in onReady() only to keep this raw source code visible, you don't do that
+					F.onReady(() => {
+						F("#toggle-button2").toggleButton();
+					});
+				</script>
+			</div>
+			<p>
+				The toggle button can be enabled and disabled by setting the <code>disabled</code> property of the checkbox element by any means (through Frontfire or the native DOM API).
+				Since it was visibly replaced by the button, that button will follow the disabled state automatically.
+			</p>
+			<p>
+				The toggle button can be shown and hidden by setting the <code>Frontfire.visible</code> property of the checkbox element.
+				Alternatively, the Frontfire methods <a href="frontfire-core.html#show"><code>show()</code></a>, <a href="frontfire-core.html#hide"><code>hide()</code></a> and <a href="frontfire-core.html#toggle"><code>toggle()</code></a> can be called.
+				Other ways like manipulating the <code>style.display</code> property directly will not work.
+				Since it was visibly replaced by the button, that button will be shown or hidden instead of the checkbox element.
+			</p>
+		</div>
+		<script>
+			let disableToggleButtonsCheckbox = F("#disable-toggle-buttons").first;
+			disableToggleButtonsCheckbox.F.on("click!", () => {
+				F("#toggle-button-example input").disabled = disableToggleButtonsCheckbox.checked;
+			});
+			let hideToggleButtonsCheckbox = F("#hide-toggle-buttons").first;
+			hideToggleButtonsCheckbox.F.on("click!", () => {
+				F("#toggle-button-example input").visible = !hideToggleButtonsCheckbox.checked;
+			});
+		</script>
+
+		<h3 id="toggle-button-events">Events</h3>
+		<p>
+			When an HTML <code data-lang="html">&lt;input type="checkbox"&gt;</code> element is replaced, the visible element is not the original element that was in the document.
+			To make it easier to use certain events with the UI element, they are forwarded to the original <code data-lang="html">&lt;input type="checkbox"&gt;</code> element using the <a href="frontfire-core.html#forwardUIEvents"><code data-lang="js">Frontfire.forwardUIEvents()</code></a> method.
+		</p>
+		<p>
+			The active state of the toggle button is changed on the click event, so you can listen on that to know when the state has changed.
+		</p>
+		<div class="example p-top no-frontfire">
+			<label><input type="checkbox" id="toggle-button1" class="toggle-button"> Press me</label>
+			<p id="toggle-button-event-log">
+				Events:
+			</p>
+			<script>
+				// pointermove, pointerout, pointerover not shown because of their frequency
+				F("#toggle-button1").on(
+					"blur click contextmenu dblclick focus focusin focusout input keydown keyup pointercancel pointerdown pointerenter pointerleave pointerup wheel",
+					event => {
+						// Log to console for further inspection
+						console.log(event);
+						F("#toggle-button-event-log").textContent += " " + event.type;
+					});
+			</script>
+		</div>
+
+		<h2 id="repeat-button">Repeat buttons</h2>
+		<p>
+			A repeat button is a button that does not only trigger a single click event after pressing and releasing it, but that continuously triggers events while the button is still pressed.
+			Add the <code class="css-class">repeat-button</code> CSS class to a button element, or call the <a href="frontfire-core.html#repeatButton"><code>repeatButton()</code></a> plugin method on it, to enable the feature.
+			It then triggers a <code>repeatclick</code> repeatedly, starting slowly and turning faster by the time, until a minimum interval is reached.
+		</p>
+		<div class="example p no-frontfire">
+			<button id="repeat-button1" class="repeat-button">Press me long</button> <span id="repeat-info">0</span>
+			<script>
+				let repeatCounter = 0;
+				F("#repeat-button1").on("repeatclick", event => {
+					F("#repeat-info").textContent = ++repeatCounter;
+				});
+			</script>
+		</div>
+
+		<h3 id="repeat-button-options">Options</h3>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>focus</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the button is focused when clicked.</td>
+					<td>true</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="auto-height">Auto-height textarea</h2>
+		<p>
+			The <code data-lang="html">&lt;textarea&gt;</code> element is a multi-line text input field.
+			Its size can be specified and the user may resize its width and/or height interactively.
+			But often, it would be helpful if the text field just goes out of the way and sets its size automatically to fit its current content.
+			This is what the auto-height plugin does.
+		</p>
+		<p>
+			Add the <code class="css-class">auto-height</code> CSS class to a <code data-lang="html">&lt;textarea&gt;</code> element, or call the <a href="frontfire-core.html#autoHeight"><code>autoHeight()</code></a> plugin method on it, and it will change its height automatically.
+			It requires JavaScript to function but relies solely on CSS for proper resizing and precise measuring.
+		</p>
+		<div class="example resizable p no-frontfire" data-source-highlight="auto-height">
+			<textarea class="auto-height" data-opt="maxRows: 8;" style="width: 400px; max-width: 100%;"></textarea>
+		</div>
+
+		<h3 id="auto-height-options">Options</h3>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>extraRows</code></td>
+					<td>Number</td>
+					<td>The number of empty rows to show after the input content.</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td><code>maxRows</code></td>
+					<td>Number</td>
+					<td>The maximum number of rows to show for very long content. If unset, the textarea will expand infinitely and will never show a scroll bar.</td>
+					<td>undefined</td>
+				</tr>
+				<tr>
+					<td><code>minRows</code></td>
+					<td>Number</td>
+					<td>The minimum number of rows to show for an empty input.</td>
+					<td>3</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="auto-select">Auto-select text fields</h2>
+		<p>
+			Some text fields are meant to be copied only, especially when they are readonly and cannot be modified by the user.
+			In these cases, the content can be selected automatically when clicking on or focusing the field element.
+			Add the <code class="css-class">auto-select</code> CSS class to a text input field, or call the <a href="frontfire-core.html#autoSelect"><code>autoSelect()</code></a> plugin method on it, to activate this behaviour.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="auto-select|readonly">
+			<input type="text" value="Sample text" readonly class="auto-select" style="width: 200px;">
+		</div>
+
+		<h2 id="submit-lock">Form submit lock</h2>
+		<p>
+			Sometimes the processing of form data takes a bit time until the next page is loaded.
+			During that time, the only visual feedback that the user sees is a page loading indicator in the browser’s tab header.
+			Impatient users might click on the button a second time while the data is still being processed.
+			Defective mouse buttons might also accidentally cause a double-click on the button when actually clicked just once.
+			All of this may result in the form to be submitted multiple times and the corresponding action to run more than once, too.
+		<p>
+		<p>
+			To avoid these situations, the button must be locked, or disabled, after clicking it to prevent another accidental or premature form submit.
+			This button deactivation also provides more visual feedback to the user, so that they know the input was successful.
+			If the button has an icon in an <code data-lang="html">&lt;i&gt;</code> element, that icon will be replaced with a <a href="frontfire-ui-typography.html#loading">loading indicator</a> for as long as the button is disabled.
+			In case the server does not respond or another failure occurs, the button will be re-enabled for safety after a configurable timeout.
+		<p>
+		<p>
+			Add the <code class="css-class">submit-lock</code> CSS class to a <code data-lang="html">&lt;button type="submit"&gt;</code> or <code data-lang="html">&lt;input type="submit"&gt;</code> element, or call the <a href="frontfire-core.html#submitLock"><code>submitLock()</code></a> plugin method on it, and it will add the form submit behaviour.
+		</p>
+		<div class="example p no-frontfire">
+			<form target="submit-lock-target">
+				<div class="buttons no-top-margin">
+					<button type="submit" class="default submit-lock" data-opt-timeout="10">
+						<i class="material">check</i> Send form
+					</button>
+					<input type="submit" class="submit-lock" value="Alternative submit">
+				</div>
+			</form>
+			<p>
+				Direct control with plugin methods:
+			</p>
+			<div class="buttons no-top-margin">
+				<button id="lock-now">Lock now</button>
+				<button id="unlock-now">Unlock now</button>
+			</div>
+			<script>
+				F("#lock-now").on("click", event => F("form [type=submit]").submitLock.lock());
+				F("#unlock-now").on("click", event => F("form [type=submit]").submitLock.unlock());
+			</script>
+		</div>
+		<p>
+			The form in the above example will submit to the following iframe to demonstrate how the originating page remains open.
+			This has the same effect as if the form response would not load in some time.
+		</p>
+		<iframe name="submit-lock-target" style="width: 700px; max-width: 100%; height: 100px; border: solid 1px silver;"></iframe>
+
+		<h3 id="submit-lock-options">Options</h3>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>timeout</code></td>
+					<td>Number</td>
+					<td>The lock timeout, in seconds.</td>
+					<td>30</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3 id="submit-lock-methods">Plugin methods</h3>
+		<p>
+			This plugin provides methods to control the button state directly.
+		</p>
+
+		<div class="member">
+			<h4 id="submit-lock-lock">lock</h4>
+			<ul>
+				<li><code>lock()</code> → void</li>
+				<li><code>lock(timeout)</code> → void</li>
+			</ul>
+			<p>
+				Locks the button immediately.
+				This includes disabling the button, replacing the icon and automatically unlocking after the specified timeout.
+				If no timeout was specified, the default timeout option value for the button is used.
+			</p>
+<div class="code">F("#submit-button").submitLock.lock();
+</div>
+		</div>
+
+		<div class="member">
+			<h4 id="submit-lock-unlock">unlock</h4>
+			<ul>
+				<li><code>unlock()</code> → void</li>
+			</ul>
+			<p>
+				Unlocks the button immediately.
+				This includes enabling the button and restoring the icon.
+			</p>
+<div class="code">F("#submit-button").submitLock.unlock();
+</div>
+		</div>
+
+		<h2 id="overflow-buttons">Overflow buttons</h2>
+		<p>
+			Normally, a buttons panel wraps to fit all buttons.
+			If space is at a premium like on mobile device screens, it can be better to shrink the buttons to fit them in a single row.
+			Only buttons with an icon and text can be shrunk.
+			First the text of the right-most button is truncated, then its text is completely removed.
+			This process repeats for all suitable buttons from right to left, until all buttons fit in a row.
+			This feature is enabled by adding the <code class="css-class">overflow-buttons</code> CSS class to a <code data-lang="html">&lt;div class="buttons"&gt;</code> element.
+		</p>
+		<p>
+			If the icon of a button has the additional <code class="css-class">narrow-only</code> CSS class, it will not be shown if the text is still there, but only as a replacement when the text was hidden.
+			Providing an icon with this class is a way to also shrink buttons that normally have no icon.
+		</p>
+		<p>
+			As the width of the buttons can change on user interaction, the button visibilities needs to be updated at appropriate times.
+			This can be triggered with the update() plugin method.
+			See the descriptions of the plugin methods below.
+		</p>
+		<div class="example resizable p no-frontfire" data-source-highlight="(?<=[&quot; ])(overflow-buttons|narrow-only)">
+			<div class="buttons overflow-buttons no-top-margin">
+				<button class="default"><i class="material">check.7</i> OK</button>
+				<button class="caution"><i class="material">delete.fill</i> Delete</button>
+				<a class="button transparent"><i class="material narrow-only">close</i> Cancel</a>
+				<button><i class="material">favorite</i> Remember this</button>
+				<button disabled><i class="material">help</i> What?</button>
+				<button class="narrow icon-only"><i class="material">call.fill</i></button>
+				<button class="narrow icon-only"><i class="material">attach_file</i></button>
+			</div>
+		</div>
+
+		<h3 id="overflow-buttons-methods">Plugin methods</h3>
+		<p>
+			This plugin provides methods to control the layout.
+		</p>
+
+		<div class="member">
+			<h4 id="overflow-buttons-update">update</h4>
+			<ul>
+				<li><code>update()</code> → this</li>
+			</ul>
+			<p>
+				Updates the button visibilities for a buttons div.
+				This needs to be called after updating the contents of the div, like adding/removing buttons.
+				It is called automatically after the window has been resized.
+			</p>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Page documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Page module</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			Frontfire UI provides a set of basic page layout styles that support many web design scenarios with ease.
+			This part of the documentation describes the general page document structure.
+		</p>
+		<p>
+			This module is available in the Minimal and Complete bundles.
+		</p>
+
+		<h2 id="normalize-css">normalize.css</h2>
+		<p>
+			While it is not technically a part of the Frontfire UI <em>Page plugin</em>, this is nevertheless a good place to mention it.
+			Frontfire UI includes a CSS normalisation “that provides consistent, cross-browser default styling of HTML elements.”
+			The copy that is used here is <strong>normalize.css</strong> from Jonathan Neal and Nicolas Gallagher.
+			More information about it can be found in their <a href="https://github.com/csstools/normalize.css">GitHub repository</a>.
+			Frontfire 1 included an earlier version of it and a variant from a different repository.
+		</p>
+
+		<h2 id="document-structure">Document structure</h2>
+		<p>
+			The general principle is that all block elements are as wide as the window, or viewport.
+			Since that usually isn’t desired for text content, CSS classes exist to limit that width or at least keep a padding on the left and right side.
+			Additionally, you can have header and footer elements that also fill the window width.
+			Their content can be width-limited in exactly the same ways.
+			This allows you to fill header and footer elements with a different background colour and it avoids using hacky negative margins for boxes to reach out of their content width to the window edges.
+		</p>
+		<div style="max-width: 500px; border: solid 2px darkgray; padding: 2px;">
+			Window
+			<div style="border: solid 2px rgb(230, 149, 0, 0.6); background: rgb(230, 149, 0, 0.2); padding: 2px;">
+				Header
+				<div style="width: 350px; max-width: calc(100% - 20px); margin: 0 10px; border: solid 1px rgb(230, 149, 0); padding: 2px;">
+					Logo, navigation etc.
+				</div>
+			</div>
+			<div style="margin-top: 2px; border: solid 2px rgb(0, 127, 255, 0.6); padding: 2px;">
+				Main
+				<div style="width: 350px; max-width: calc(100% - 20px); margin: 0 10px; border: solid 1px rgb(0, 127, 255); padding: 2px;">
+					Page title
+				</div>
+				<div style="width: 350px; max-width: calc(100% - 20px); margin: 10px 10px 0; border: solid 1px rgb(0, 127, 255); padding: 2px;">
+					Paragraph content etc.
+				</div>
+			</div>
+			<div style="margin-top: 2px; border: solid 2px rgb(50, 205, 50, 0.6); background: rgb(50, 205, 50, 0.25); padding: 2px;">
+				Footer
+				<div style="width: 350px; max-width: calc(100% - 20px); margin: 0 10px; border: solid 1px rgb(50, 205, 50); padding: 2px;">
+					Info, contact etc.
+				</div>
+			</div>
+		</div>
+		TODO: Make demo box horizontally resizable
+		<p>
+			The simplest HTML document structure for use with Frontfire is this:
+		</p>
+<div class="code" data-lang="html">&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+	&lt;title&gt;Page title&lt;/title&gt;
+	&lt;link rel="stylesheet" href="frontfire-ui-complete.min.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;!-- spans to the left and right window edge --&gt;
+	&lt;header&gt;
+		&lt;div class="page-width"&gt;
+			&lt;!-- limited width, responsive layout --&gt;
+			Header content
+		&lt;/div&gt;
+	&lt;/header&gt;
+	&lt;main class="page-width"&gt;
+		&lt;!-- limited width, responsive layout --&gt;
+		&lt;h1 class="no-top-margin"&gt;Page title&lt;/h1&gt;
+		&lt;p&gt;
+			Sample content
+		&lt;/p&gt;
+	&lt;/main&gt;
+	&lt;script src="frontfire-ui-complete-singlefile.min.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</div>
+
+		<h2 id="page-width">Limited page width</h2>
+		<p>
+			The <code class="css-class">page-width</code> CSS class restricts content to the default page width and scales down with smaller screens.
+			That width is set by the <code class="css-var">--page-width</code> CSS variable.
+			In any case, it also keeps a minimum horizontal padding to the window edge which is set by the <code class="css-var">--page-width-padding</code> CSS variable.
+			This class should be applied to the <code data-lang="html">&lt;body&gt;</code> element, or better, a top-level block element that contains the page content, like <code data-lang="html">&lt;main&gt;</code> in the above example.
+			The page comes with no horizontal padding on its own, which allows extending the content to the full width of the page if you want.
+			This class gives the content a limited width and a padding at the left and right side, and shrinks with smaller screens.
+		</p>
+		<p>
+			All of these limits and paddings are removed when printing.
+			So the page will always use the full (already smaller) paper page width, no matter what it looked like on the (usually wider) screen.
+			This is done automatically through a media query.
+		</p>
+		<p>
+			Using this technique also allows mixing different content widths on the same page.
+			You can, for example, have text content at the limited width, and image or map content at the full width (with or without any horizontal padding to the viewport).
+			Using block elements at the full viewport width, you can also change the page background colour midpage or for certain sections.
+			Just mix the background elements and page-wide content like so:
+		</p>
+<div class="code" data-lang="html">&lt;body&gt;
+&lt;main class="page-width"&gt;
+	&lt;p&gt;Sample content&lt;/p&gt;
+	&lt;p&gt;Sample content&lt;/p&gt;
+&lt;/main&gt;
+&lt;div class="dark"&gt;
+	&lt;main class="page-width"&gt;
+		&lt;p&gt;Content with dark theme&lt;/p&gt;
+	&lt;/main&gt;
+&lt;/div&gt;
+&lt;main class="page-width"&gt;
+	&lt;p&gt;Normal background again&lt;/p&gt;
+&lt;/main&gt;
+&lt;/body&gt;
+</div>
+
+		<h2 id="center">Centered alignment</h2>
+		<p>
+			By default, the limited-width elements are aligned at the left edge.
+			To change that to a more pleasing centre alignment, add the <code class="css-class">center</code> CSS class to the <code data-lang="html">&lt;html&gt;</code> element once.
+			It will affect all elements with the <code>page-width</code> class.
+			Adding this class to the document also forces a vertical scrollbar to be shown, no matter if the content is longer than a window height or not.
+			This is to ensure that horizontally centered content does not jump to the side when navigating between pages with and without a scrollbar (which takes some of the available width in most desktop browsers) because of their length.
+		</p>
+		<div style="max-width: 500px; border: solid 2px darkgray; padding: 2px;">
+			Window
+			<div style="margin-top: 2px; border: solid 2px rgb(0, 127, 255, 0.6); padding: 2px;">
+				Main
+				<div style="width: 350px; max-width: calc(100% - 20px); margin: 0 auto; border: solid 1px rgb(0, 127, 255); padding: 2px;">
+					Content
+				</div>
+			</div>
+		</div>
+		TODO: Make demo box horizontally resizable
+
+		<h2 id="full-page-width">Full page width</h2>
+		<p>
+			If you would like to use the full window width for your web layout, use the <code class="css-class">full-page-width</code> CSS class instead.
+			It maintains the same horizontal padding but will otherwise not limit the width.
+			This is a great choice for applications that deal with larger amounts of data, presented in tables, or other graphical content like a photo gallery.
+			This is also what this documentation page uses.
+		</p>
+
+		<h2 id="box-sizing">CSS box sizing</h2>
+		<p>
+			Frontfire always uses the more manageable CSS <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing">box-sizing</a> of <code>border-box</code>.
+			It means that the width and height of an element are not measured by their content box (without padding and border) but by their border box (including the padding, excluding margins).
+			So the width and height is never increased by the padding and border of an element but always matches all visible parts of the element.
+			In turn, the width available for the content of an element is the specified width, minus border and padding.
+		</p>
+		<p>
+			This box model setting is made in the least intrusive way, by setting it for the document root only and inheriting it everywhere else.
+			If you need to change the box model for one of your elements or foreign code, just set it at that element and it will be inherited as you wish further down the tree.
+		</p>
+
+		<h2 id="no-transitions">Disable transitions</h2>
+		<p>
+			Many Frontfire styles use CSS transitions to smoothly change their appearance.
+			This is most visible when hovering interactive elements like hyperlinks (depending on the colours) or buttons.
+			It aims to look more pleasing and not as abrupt.
+			Transitions from immediate interactions are usually asymmetric: the change is instant when an interaction begins (hover in) and smooth when the attention moved somewhere else (hover out).
+			Other transitions like the switch from or to the dark theme are symmetric (try out the theme toggle at the top of the page or change your system setting).
+		</p>
+		<p>
+			To disable all transitions completely, add the <code class="css-class">no-transitions</code> CSS class to the desired element.
+			It can be used everywhere and affects the element itself an all descendant elements.
+			This class is used in this documentation to set up the dark theme at page load without the transitions and is then removed after a short moment.
+			It could also be used by user preference to avoid animations or on devices with reduced performance.
+		</p>
+		<p>
+			Additionally, all animations and transitions are disabled when the user has requested reduced motion at a system level.
+			This may be the case in Windows Remote Desktop sessions.
+		</p>
+
+		<h2 id="print-visibility">Print visibility</h2>
+		<p>
+			Content works differently on paper than on screen.
+			Some parts just don’t make any sense when printed, and other information might be relevant instead.
+			To optimise a page for printing, you can specify the print visibility of elements with the CSS classes <code class="css-class">print-only</code> and <code class="css-class">not-print</code> which will make an element only visible for printing or hide it for printing, respectively.
+		</p>
+
+		<h2 id="dimmer">Background dimmer</h2>
+		<p>
+			Some plugins like the <a href="frontfire-ui-modal.html">modal</a> want to lead the user attention on a smaller element on the page.
+			For this reason, the remaining page can be dimmed so that it stands back from the overlay element.
+			This dimmed background can be activated with the static <a href="frontfire-core.html#dimBackground"><code>Frontfire.dimBackground()</code></a> method and deactivated again with <a href="frontfire-core.html#undimBackground"><code>Frontfire.undimBackground()</code></a>.
+			For each activation, the <code>undimBackground()</code> must be called again.
+			Multiple activation will not result in a change of the visual effect, but it will only disappear after the last level was closed.
+			The page background blur effect can be disabled with the <code class="css-class">simple-dimmer</code> CSS class.
+		</p>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

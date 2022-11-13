@@ -1,0 +1,175 @@
+/* ========== Font definition ========== */
+
+@font-face
+{
+	font-family: "Material Symbols One";
+	src: url(material-symbols-one.woff2) format("woff2");
+}
+
+/* ========== Icon class ========== */
+
+i:where(.material)
+{
+	display: inline-block;
+	direction: ltr;
+	font-family: "Material Symbols One";
+	font-weight: normal;
+	font-style: normal;
+	font-size: 1em;
+	line-height: 1;
+	vertical-align: -0.1em;
+	text-transform: none;
+	letter-spacing: normal;
+	word-wrap: normal;
+	white-space: nowrap;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	-moz-osx-font-smoothing: grayscale;
+	font-feature-settings: "liga";
+}
+
+/* ========== Icon sizes ========== */
+
+/* Relative sizes */
+i.material.m-0x5 { font-size: 0.5em; }
+i.material.m-0x6 { font-size: 0.6em; }
+i.material.m-0x7 { font-size: 0.7em; }
+i.material.m-0x8 { font-size: 0.8em; }
+i.material.m-0x9 { font-size: 0.9em; }
+i.material.m-1x1 { font-size: 1.1em; }
+i.material.m-1x2 { font-size: 1.2em; }
+i.material.m-1x3 { font-size: 1.3em; }
+i.material.m-1x4 { font-size: 1.4em; }
+i.material.m-1x5 { font-size: 1.5em; }
+i.material.m-2x { font-size: 2em; }
+i.material.m-3x { font-size: 3em; }
+i.material.m-4x { font-size: 4em; }
+i.material.m-5x { font-size: 5em; }
+
+/* Absolute sizes */
+i.material.m-12px { font-size: 12px; }
+i.material.m-16px { font-size: 16px; }
+i.material.m-20px { font-size: 20px; }
+i.material.m-24px { font-size: 24px; }
+i.material.m-28px { font-size: 28px; }
+i.material.m-32px { font-size: 32px; }
+i.material.m-40px { font-size: 40px; }
+i.material.m-48px { font-size: 48px; }
+i.material.m-64px { font-size: 64px; }
+
+/* ========== List icons ========== */
+
+/* Apply to the list container */
+ul:where(.material)
+{
+	padding-left: 0;
+	margin-left: 1.25em;
+	list-style-type: none;
+}
+ul:where(.material) > li
+{
+	position: relative;
+}
+/* Insert normal icon as first list-item child */
+ul:where(.material) > li > i.material:first-child
+{
+	position: absolute;
+	left: -1.25em;
+	width: 1em;
+	top: 0.2em;
+}
+
+/* ========== Icon rotation ========== */
+
+i.material.m-90 { transform: rotate(90deg); }
+i.material.m-180 { transform: rotate(180deg); }
+i.material.m-270 { transform: rotate(270deg); }
+i.material.m-fliph { transform: scale(-1, 1); }
+i.material.m-flipv { transform: scale(1, -1); }
+
+/* ========== Stacking ========== */
+
+/* Container for all stacked icons */
+.material-stack
+{
+	position: relative;
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	line-height: 1em;
+	vertical-align: middle;
+	background: #eee;
+}
+/* Insert normal icons as children to the stack, they are centered by default */
+.material-stack > i.material
+{
+	position: absolute;
+	left: 0;
+	width: 100%;
+	line-height: inherit;
+	text-align: center;
+}
+/* Align icon at any side, combinations of different axes allowed */
+/* NOTE: Additional offset can be applied to icon with style="transform: translate(2px, -4px)" */
+.material-stack > i.material.m-top { line-height: 1em; }
+.material-stack > i.material.m-bottom { line-height: 1em; bottom: 0; }
+.material-stack > i.material.m-left { text-align: left; }
+.material-stack > i.material.m-right { text-align: right; }
+
+/* ========== Stack sizes ========== */
+
+/* Relative sizes */
+/* NOTE: Stack size should be the maximum of the contained icons sizes, or bigger */
+.material-stack.m-0x5 { width: 0.5em; height: 0.5em; line-height: 0.5em; }
+.material-stack.m-0x6 { width: 0.6em; height: 0.6em; line-height: 0.6em; }
+.material-stack.m-0x7 { width: 0.7em; height: 0.7em; line-height: 0.7em; }
+.material-stack.m-0x8 { width: 0.8em; height: 0.8em; line-height: 0.8em; }
+.material-stack.m-0x9 { width: 0.9em; height: 0.9em; line-height: 0.9em; }
+.material-stack.m-1x1 { width: 1.1em; height: 1.1em; line-height: 1.1em; }
+.material-stack.m-1x2 { width: 1.2em; height: 1.2em; line-height: 1.2em; }
+.material-stack.m-1x3 { width: 1.3em; height: 1.3em; line-height: 1.3em; }
+.material-stack.m-1x4 { width: 1.4em; height: 1.4em; line-height: 1.4em; }
+.material-stack.m-1x5 { width: 1.5em; height: 1.5em; line-height: 1.5em; }
+.material-stack.m-2x { width: 2em; height: 2em; line-height: 2em; }
+.material-stack.m-3x { width: 3em; height: 3em; line-height: 3em; }
+.material-stack.m-4x { width: 4em; height: 4em; line-height: 4em; }
+.material-stack.m-5x { width: 5em; height: 5em; line-height: 5em; }
+
+/* Absolute sizes */
+/* NOTE: Absolute-sized stack should only contain absolute-sized icons */
+.material-stack.m-12px { width: 12px; height: 12px; line-height: 12px; }
+.material-stack.m-16px { width: 16px; height: 16px; line-height: 16px; }
+.material-stack.m-20px { width: 20px; height: 20px; line-height: 20px; }
+.material-stack.m-24px { width: 24px; height: 24px; line-height: 24px; }
+.material-stack.m-28px { width: 28px; height: 28px; line-height: 28px; }
+.material-stack.m-32px { width: 32px; height: 32px; line-height: 32px; }
+.material-stack.m-40px { width: 40px; height: 40px; line-height: 40px; }
+.material-stack.m-48px { width: 48px; height: 48px; line-height: 48px; }
+.material-stack.m-64px { width: 64px; height: 64px; line-height: 64px; }
+
+/* ========== Scaling animation ========== */
+
+/* Continuously zoom the icon in and out */
+i.bounce
+{
+	animation: 0.5s ease-in-out infinite alternate icon-bounce;
+}
+@keyframes icon-bounce {
+	from { transform: scale(1); }
+	to { transform: scale(1.333); }
+}
+
+/* Regularly rotate the icon twice in both directions */
+i.shake
+{
+	animation: 2s linear infinite icon-shake;
+}
+@keyframes icon-shake {
+	0% { transform: rotate(0deg); }
+	4% { transform: rotate(-7deg); }
+	8% { transform: rotate(7deg); }
+	12% { transform: rotate(-7deg); }
+	16% { transform: rotate(7deg); }
+	20% { transform: rotate(0deg); }
+	100% { transform: rotate(0deg); }
+}

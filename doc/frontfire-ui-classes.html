@@ -1,0 +1,2801 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI CSS classes documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside with-search">
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<div id="search-box">
+		<input id="search-text" type="text" placeholder="Type anywhere to search">
+	</div>
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Frontfire UI CSS classes</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p id="results-count"></p>
+		<p id="no-results">
+			No search results
+		</p>
+
+		<section class="intro">
+			<h2>Introduction</h2>
+			<p>
+				Most styles offered by Frontfire are selected by assigning a CSS class to an element.
+				This can be a general theme, a layout aspect or a tiny detail of the visual appearance.
+				There are also many convenience classes available that save the page author from inlining short individual styles.
+			</p>
+			<p>
+				Some UI plugins define and use their own CSS classes with the “ff-” prefix.
+				These classes are considered an implementation detail and are not for public use.
+				Changes to their names or style rules will not be documented.
+			</p>
+			<h3>Documentation</h3>
+			<p>
+				Sometimes it can be confusing where a CSS class comes from or what its purpose is.
+				This reference serves as a global directory of all classes provided by Frontfire.
+				The description explains the resulting style for the indicated elements and the plugin they are defined in.
+			</p>
+			<h3>Search</h3>
+			<p>
+				The classes can be searched (just type ahead).
+				The search also uses aliases for many entries.
+				Start the search text with an equals sign (=) to ignore aliases.
+				Start the search text with the ^ sign to also only find names starting with the search term.
+				Start the search text with the at sign (@) to search by source plugins.
+				Press Escape to reset the search.
+			</p>
+		</section>
+
+		<!------------------------------ BEGIN OF REFERENCE CONTENT ------------------------------>
+
+		<section>
+			<h2>Class names</h2>
+
+			<div class="member">
+				<h3 id="active">active</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;li&gt;</code> (within <code>&lt;ul class="menu"&gt;</code>)
+					<span class="source">(from <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					Shows a menu item as active.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu">menu</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div&gt;</code> (within <code>&lt;* class="tabs"&gt;</code>)
+					<span class="source">(from <a href="frontfire-ui-tabs.html">Tabs</a>)</span>
+				</p>
+				<p>
+					Sets the tab page as initially active.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#tabs">tabs</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="aside-left">aside-left</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="sticky-aside-container"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#sticky-aside">Typography</a>)</span>
+				</p>
+				<p>
+					Moves the sticky aside column to the left side.
+					By default, it is on the right side.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#sticky-aside-container">sticky-aside-container</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="auto-height">auto-height</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;textarea&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#auto-height">Form</a>)</span>
+				</p>
+				<p>
+					Makes each selected textarea element automatically adjust its height to its content.
+					See the plugin page for examples.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="auto-select">auto-select</h3>
+				<p>
+					<span class="elements">Elements:</span> text input fields
+					<span class="source">(from <a href="frontfire-ui-form.html#auto-select">Form</a>)</span>
+				</p>
+				<p>
+					Selects the content of an input field when it is focused or clicked.
+					See the plugin page for examples.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="progressbar size">
+				<h3 id="big">big</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="progressbar"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-progressbar.html#sizes">Progressbar</a>)</span>
+				</p>
+				<p>
+					Changes the size of the progress bar to big.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progressbar">progressbar</a>, <a href="#tiny">tiny</a>, <a href="#small">small</a>, <a href="#large">large</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="table">
+				<h3 id="big-links">big-links</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html#large-big-links">Table</a>)</span>
+				</p>
+				<p>
+					Expands all links (<code data-lang="html">&lt;a&gt;</code>) that are a direct child of a table cell (<code data-lang="html">&lt;td&gt;</code>) to the entire table cell.
+					This is increases the clickable or touch area of a link.
+				</p>
+				<p>
+					Equivalent style: <code>display: block;</code>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="bordered">bordered</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="dropdown"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-dropdown.html">Dropdown</a>)</span>
+				</p>
+				<p>
+					Adds a border to the dropdown element.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#dropdown">dropdown</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="both">both</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;ul class="menu"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					Allows aligning menu items at the left and right end.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu">menu</a>, <a href="#right">right</a>, <a href="#stretch">stretch</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="align table">
+				<h3 id="bottom">bottom</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>, <code>&lt;td&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;tr&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html">Table</a>)</span>
+				</p>
+				<p>
+					Vertically aligns the content of a table cell at the bottom.
+				</p>
+				<p>
+					Equivalent style: <code>vertical-align: bottom;</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#top">top</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> all (within <code>&lt;a|div class="image-overlay-text"&gt;</code>)
+					<span class="source">(from <a href="frontfire-ui-image.html#overlay-text">Image</a>)</span>
+				</p>
+				<p>
+					Places the image overlay text at the bottom.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#image-overlay-text">image-overlay-text</a>, <a href="#center">center</a>, <a href="#right">right</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="button">button</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;a&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					Changes the appearance of the hyperlink (<code data-lang="html">&lt;a&gt;</code>) to a button.
+					This allows adding regular links in a row with buttons and give them the same look.
+					However, they are not quite the same because their text selection and drag behaviour remains unchanged and differs from that of real button elements.
+					See the <a href="frontfire-ui-form.html#buttons">plugin page</a>.
+				</p>
+				<p class="see-also">
+					See also: <a href="frontfire-ui-variables.html#button-background">--button-background</a>, <a href="frontfire-ui-variables.html#button-color">--button-color</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="progressbar"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-progressbar.html#sizes-button">Progressbar</a>)</span>
+				</p>
+				<p>
+					Changes the height of the progress bar to match a button or text field.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progressbar">progressbar</a>, <a href="#inline">inline</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="form">
+				<h3 id="buttons">buttons</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					Holds the buttons that are placed in a row of a form.
+					It should be used for form buttons to give them proper spacing.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#label">label</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="button">
+				<h3 id="caution">caution</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;button&gt;</code>, <code>&lt;a class="button"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					Changes the appearance of the button to give it a colour that implies danger.
+					This can be used for actions that have dangerous results if used accidentally, like deleting data.
+					You should always request a separate confirmation from the user before actually executing the dangerous action, or alternatively provide a quick and easy method to undo it.
+					By default they use a red colour instead of grey, and have an inverted text colour.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button">button</a>, <a href="#default">default</a>, <a href="#transparent">transparent</a>, <a href="frontfire-ui-variables.html#button-caution-background">--button-caution-background</a>, <a href="frontfire-ui-variables.html#button-caution-color">--button-caution-color</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="align">
+				<h3 id="center">center</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;html&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-page.html#center">Page</a>)</span>
+				</p>
+				<p>
+					Horizontally centers the content of elements with the <code class="css-class">page-width</code> class on the page.
+					Adding this class to the document also forces a vertical scrollbar to be shown, no matter if the content is longer than a window height or not.
+					This is to ensure that horizontally centered content does not jump to the side when navigating between pages with and without a scrollbar (which takes some of the available width in most desktop browsers) because of their length.
+				</p>
+				<p class="see-also">
+					See also: <a href="#page-width">page-width</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;p&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#paragraphs-alignment">Typography</a>)</span>
+				</p>
+				<p>
+					Horizontally centers the content of a paragraph.
+				</p>
+				<p>
+					Equivalent style: <code>text-align: center;</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#justify">justify</a>, <a href="#left">left</a>, <a href="#right">right</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>, <code>&lt;td&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;tr&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html">Table</a>)</span>
+				</p>
+				<p>
+					Horizontally centers the content of all cells of a table.
+					This can be used to override a table with the <code class="css-class">left</code> or <code class="css-class">right</code> class.
+				</p>
+				<p>
+					Equivalent style: <code>text-align: center;</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#left">left</a>, <a href="#right">right</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#block-center">Image</a>)</span>
+				</p>
+				<p>
+					Horizontally centers the image and sets it to a block layout.
+					Limits the image to the full available width and the window height.
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> all (within <code>&lt;a|div class="image-overlay-text"&gt;</code>)
+					<span class="source">(from <a href="frontfire-ui-image.html#overlay-text">Image</a>)</span>
+				</p>
+				<p>
+					Horizontally centres the image overlay text.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#image-overlay-text">image-overlay-text</a>, <a href="#bottom">bottom</a>, <a href="#right">right</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="image">
+				<h3 id="circle">circle</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#decorations-circle">Image</a>)</span>
+				</p>
+				<p>
+					Clips the square image to a circle.
+					Non-square images will generate an ellipse shape.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="float">
+				<h3 id="clearfix">clearfix</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-typography.html#floating">Typography</a>)</span>
+				</p>
+				<p>
+					Adds a <code>float</code> break before and after the element.
+				</p>
+				<p>
+					Equivalent style: similar to <code>clear: both;</code>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="message">
+				<h3 id="closable">closable</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div class="message"&gt;</code>, <code>&lt;p class="message"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-message.html#closable">Message</a>)</span>
+				</p>
+				<p>
+					Make a message box closable and adds a small close button at the right side.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#message">message</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="fixed font">
+				<h3 id="code">code</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#code">Typography</a>)</span>
+				</p>
+				<p>
+					Defines a source code block.
+					Sets a monospace, or fixed-width font and a padding for the element and changes its colour and wrapping to match the <code data-lang="html">&lt;code&gt;</code> element.
+				</p>
+				<p class="see-also">
+					See also: <a href="#monospace">monospace</a>, <a href="frontfire-ui-variables.html#code-background">--code-background</a>, <a href="frontfire-ui-variables.html#code-padding">--code-padding</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="overflow">
+				<h3 id="collapsible-column">collapsible-column</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;th&gt;</code> (within <code>&lt;table class="overflow-columns"&gt;</code>)
+					<span class="source">(from <a href="frontfire-ui-table.html#overflow-columns">Table</a>)</span>
+				</p>
+				<p>
+					Marks a table column that can be collapsed when the table width exceeds the available space, i.e. overflows.
+					This class is only set for the header cell, not for all body cells.
+					The collapse order of the columns is described on the plugin page.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#overflow-columns">overflow-columns</a>, <a href="#overflow-column">overflow-column</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="padding spacing table">
+				<h3 id="compact">compact</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html#compact">Table</a>)</span>
+				</p>
+				<p>
+					Reduces the cell padding of a table and removes the inner horizontal and vertical grid lines.
+					The default for tables is to have inner horizontal and vertical grid lines between the cells.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="message">
+				<h3 id="critical">critical</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div class="message"&gt;</code>, <code>&lt;p class="message"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					Shows a critical message box.
+				</p>
+				<p class="see-also">
+					See also: <a href="#message">message</a>, <a href="frontfire-ui-variables.html#critical-background">--critical-background</a>, <a href="frontfire-ui-variables.html#critical-color">--critical-color</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="inverse theme">
+				<h3 id="dark">dark</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+				</p>
+				<p>
+					Changes the element to the dark colour theme.
+					It uses a dark grey background (not black to be easier on the eyes) and a bright text colour (again, not quite white).
+					Most elements and UI widgets that are descendants of an element with the <code class="css-class">dark</code> class should adapt to the dark theme and change their appearance accordingly.
+					Setting the <code class="css-class">dark</code> class on an element only affects its descendants, not the element itself (except for the text colour and background).
+					To put the entire page into the dark theme, apply this class to the <code data-lang="html">&lt;body&gt;</code> element.
+				</p>
+				<p class="see-also">
+					See also: <a href="frontfire-ui-variables.html#default-background">--default-background</a>, <a href="frontfire-ui-variables.html#default-text-color">--default-text-color</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="image">
+				<h3 id="dark-invert">dark-invert</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#decorations-dark-invert">Image</a>)</span>
+				</p>
+				<p>
+					Inverts the image in the dark theme.
+					This is most useful for icons or logos with a black colour on a white or transparent background.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="button">
+				<h3 id="default">default</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;button&gt;</code>, <code>&lt;a class="button"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					Changes the appearance of the button to make it pop out and draw attention on it.
+					This can be used for the default action of a form that is invoked when pressing the <kbd>Enter</kbd> key, usually submitting the form with the first action like saving the input.
+					It can also be used for Call-to-Action (CTA) buttons that are designed to prompt an immediate response.
+					By default they use a blue colour instead of grey, and have an inverted text colour.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button">button</a>, <a href="#caution">caution</a>, <a href="#transparent">transparent</a>, <a href="frontfire-ui-variables.html#button-default-background">--button-default-background</a>, <a href="frontfire-ui-variables.html#button-default-color">--button-default-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="double-gap">double-gap</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#grid">Image</a>)</span>
+				</p>
+				<p>
+					Doubles the grid gap in an image grid to 2rem.
+				</p>
+				<p class="see-also">
+					See also: <a href="#image-x2">image-x2</a>, <a href="#image-x3">image-x3</a>, <a href="#image-x4">image-x4</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="margin spacing">
+				<h3 id="double-margin">double-margin</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div class="p"&gt;</code>, <code>&lt;hr&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;table class="p"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#paragraphs-margin">Typography</a>)</span>
+				</p>
+				<p>
+					Doubles the element’s top and bottom margin.
+					Sometimes certain elements just need a little more space.
+				</p>
+				<p>
+					Equivalent style: <code>margin-top: 2em; margin-bottom: 2em;</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#p">p</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="dropdown">dropdown</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-dropdown.html">Dropdown</a>)</span>
+				</p>
+				<p>
+					Defines a dropdown and makes the element initially invisible.
+					The element will be shown when the dropdown is opened with the <a href="frontfire-core.html#dropdown"><code>dropdown()</code></a> plugin method.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#bordered">bordered</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="message">
+				<h3 id="error">error</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div class="message"&gt;</code>, <code>&lt;p class="message"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					Shows an error message box.
+				</p>
+				<p class="see-also">
+					See also: <a href="#message">message</a>, <a href="frontfire-ui-variables.html#error-background">--error-background</a>, <a href="frontfire-ui-variables.html#error-color">--error-color</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="progressbar"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-progressbar.html#styles-colors">Progressbar</a>)</span>
+				</p>
+				<p>
+					Changes the bar colour of the progress bar to an error colour.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progressbar">progressbar</a>, <a href="#warning">warning</a>, <a href="#success">success</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="loading speed">
+				<h3 id="fast">fast</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;i class="loading"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#loading">Typography</a>)</span>
+				</p>
+				<p>
+					Changes the animation speed of the rotating loading indicator to fast.
+				</p>
+				<p class="see-also">
+					See also: <a href="#loading">loading</a>, <a href="#slow">slow</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="form">
+				<h3 id="field-validation-error">field-validation-error</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-form.html#single-field-validation-errors">Form</a>)</span>
+				</p>
+				<p>
+					Marks the element that contains the validation error message for a specific input field.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#input-validation-error">input-validation-error</a>, <a href="frontfire-ui-variables.html#validation-error-text">--validation-error-text</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="border table spacing">
+				<h3 id="first-column">first-column</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;td&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html#filter">Table</a>)</span>
+				</p>
+				<p>
+					Specifies that the table cell is in the first visible table column.
+					The default selector for the first column fails if there are hidden columns further left.
+					In this case, use this class to correct the table style.
+					It is not used for <code data-lang="html">&lt;th&gt;</code> elements because they normally have a background colour where the padding is still needed.
+				</p>
+				<p>
+					This class is set automatically with the <a href="frontfire-core.html#updateFirstLastColumn"><code>F.updateFirstLastColumn()</code></a> method.
+					Call it on the <code data-lang="html">&lt;table&gt;</code> element after changing the visibility of table columns.
+				</p>
+				<p class="see-also">
+					See also: <a href="#last-column">last-column</a>, <a href="#first-row">first-row</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="border table spacing">
+				<h3 id="first-row">first-row</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;tr&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html#filter">Table</a>)</span>
+				</p>
+				<p>
+					Specifies that the table row is in the first visible table row.
+					The default selector for the first row fails if there are hidden rows further up.
+					In this case, use this class to correct the table style.
+				</p>
+				<p>
+					This class is set automatically with the <a href="frontfire-core.html#updateFirstLastRow"><code>F.updateFirstLastRow()</code></a> method.
+					Call it on the <code data-lang="html">&lt;tbody&gt;</code> element after changing the visibility of table rows.
+				</p>
+				<p class="see-also">
+					See also: <a href="#last-row">last-row</a>, <a href="#first-column">first-column</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="flex">flex</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="tabs"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-tabs.html#flex">Tabs</a>)</span>
+				</p>
+				<p>
+					Sets the <code data-lang="style">display: flex</code> style for the tabs container and allows stretching it and scrolling in a tab page.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#tabs">tabs</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="form-trap">form-trap</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-form.html">Form</a>)</span>
+				</p>
+				<p>
+					Hides a form field that no user should fill out and bots love.
+					The input element that this class is applied to should stand alone with no supplementary labels and not in the standard form row layout because those would not be hidden.
+					The server-side script can check if something was entered into this hidden field and then reject the form data as spam.
+					Because a user could not fill out the hidden field, the form must have been submitted by a bot.
+				</p>
+<div class="code" data-lang="html">&lt;input type="url" name="website" class="form-trap"&gt;
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="form-row">form-row</h3>
+				<p>
+					<span class="elements">Elements:</span> block
+					<span class="source">(from <a href="frontfire-ui-form.html#single-field">Form</a>)</span>
+				</p>
+				<p>
+					All fields in a standard form layout are placed in an element with this class.
+					This class generates normal 3-line form rows with labels and (optional) validation messages.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#form-single-row">form-single-row</a>, <a href="#no-validation">no-validation</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="form-single-row">form-single-row</h3>
+				<p>
+					<span class="elements">Elements:</span> block
+					<span class="source">(from <a href="frontfire-ui-form.html#single-field">Form</a>)</span>
+				</p>
+				<p>
+					All fields in a standard form layout are placed in an element with this class.
+					This class generates a layout without labels or validation messages, just input fields.
+					It also allows custom responsive layouts.
+					See the plugin page for examples.
+					The field gap can be removed with the additional <code class="css-class">narrow</code> class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#form-row">form-row</a>, <a href="#narrow">narrow</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="full-page-width">full-page-width</h3>
+				<p>
+					<span class="elements">Elements:</span> block
+					<span class="source">(from <a href="frontfire-ui-page.html#full-page-width">Page</a>)</span>
+				</p>
+				<p>
+					Keeps content to the full page width and adds a horizontal padding on the left and right side.
+					See the plugin page for a comprehensive description of this class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#page-width">page-width</a>, <a href="frontfire-ui-variables.html#page-width-padding">--page-width-padding</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="table image">
+				<h3 id="full-width">full-width</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html#simple-tables-full-width">Table</a>)</span>
+				</p>
+				<p>
+					Expands the table to the full available width.
+					Normally, a table will only use the width it needs for its content.
+				</p>
+				<p>
+					Equivalent style: <code>width: 100%;</code>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#block-full-width">Image</a>)</span>
+				</p>
+				<p>
+					Expands the image to the full available width, limited to the window height.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="buttons">
+				<h3 id="group">group</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div class="buttons"&gt;</code>, <code>&lt;span class="buttons"&gt;</code>, <code>&lt;span&gt;</code> (within <code>&lt;div class="buttons"&gt;</code> or <code>segmented-input</code> class)
+					<span class="source">(from <a href="frontfire-ui-form.html#buttons-group">Form</a>)</span>
+				</p>
+				<p>
+					Places multiple buttons in a form buttons row or a segmented input together without a gap between them.
+					Instead, a separator line is displayed between the buttons.
+					This indicates that a group of buttons belong together.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#buttons">buttons</a>, <a href="#segmented-input">segmented-input</a>, <a href="frontfire-ui-variables.html#button-group-separator-color">--button-group-separator-color</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="message">
+				<h3 id="icon">icon</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div class="message"&gt;</code>, <code>&lt;p class="message"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-message.html#icon">Message</a>)</span>
+				</p>
+				<p>
+					Aligns an icon at the left side of a message box and indents the text so that it remains aligned.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#message">message</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="icon-label">icon-label</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#loading">Typography</a>)</span>
+				</p>
+				<p>
+					Displays an icon or loading indicator (as <code>&lt;i&gt;</code> element) with a text label below, horizontally centered.
+					Use it in a structure like this:
+				</p>
+<div class="code" data-lang="html">&lt;div class="icon-label"&gt;
+	&lt;i class="loading"&gt;&lt;/i&gt;
+	Loading, please wait…
+&lt;/div&gt;
+</div>
+			</div>
+
+			<div class="member">
+				<h3 id="icon-left">icon-left</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="segmented-input"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#segmented-input">Form</a>)</span>
+				</p>
+				<p>
+					Places an icon at the left end of the text field in the segmented input.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#segmented-input">segmented-input</a>, <a href="#icon-right">icon-right</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="icon-only">icon-only</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;button&gt;</code>, <code>&lt;a class="button"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					Removes the icon spacing for the icon in a button.
+					This should be added to the button when it only contains an <code data-lang="html">&lt;i&gt;</code> icon and no text to avoid centering issues with the icon.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#icon-right">icon-right</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="icon-right">icon-right</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="segmented-input"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#segmented-input">Form</a>)</span>
+				</p>
+				<p>
+					Places an icon at the right end of the text field in the segmented input.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#segmented-input">segmented-input</a>, <a href="#icon-left">icon-left</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;button&gt;</code>, <code>&lt;a class="button"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					Sets up the icon spacing for a placement of the icon at the right side of the button.
+					The <code data-lang="html">&lt;i&gt;</code> icon still needs to be after the button text, it will not be moved there with this class.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#icon-only">icon-only</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="image-center">image-center</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#caption">Image</a>)</span>
+				</p>
+				<p>
+					Horizontally centers the child image.
+					Limits the image to the full available width and the window height.
+					Used with image captions.
+					See the plugin page for examples.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="image-full-width">image-full-width</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#caption">Image</a>)</span>
+				</p>
+				<p>
+					Expands the child image to the full available width, limited to the window height.
+					Used with image captions.
+					See the plugin page for examples.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="image-left">image-left</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#caption">Image</a>)</span>
+				</p>
+				<p>
+					Places the child image at the left side floating besides the text.
+					Used with image captions.
+					See the plugin page for examples.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="image-overlay-text">image-overlay-text</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;a&gt;</code>, <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#overlay-text">Image</a>)</span>
+				</p>
+				<p>
+					Defines a container for an image with a text overlay.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#bottom">bottom</a>, <a href="#center">center</a>, <a href="#right">right</a>, <a href="#invert">invert</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="image-right">image-right</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#caption">Image</a>)</span>
+				</p>
+				<p>
+					Places the child image at the right side floating besides the text.
+					Used with image captions.
+					See the plugin page for examples.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="image-x2">image-x2</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#grid">Image</a>)</span>
+				</p>
+				<p>
+					Defines an image grid with 2 columns.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#image-x3">image-x3</a>, <a href="#image-x4">image-x4</a>, <a href="#double-gap">double-gap</a>, <a href="#narrow-left">narrow-left</a>, <a href="#narrow-center">narrow-center</a>, <a href="#narrow-right">narrow-right</a>, <a href="#narrow-x2">narrow-x2</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="image-x3">image-x3</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#grid">Image</a>)</span>
+				</p>
+				<p>
+					Defines an image grid with 3 columns.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#image-x2">image-x2</a>, <a href="#image-x4">image-x4</a>, <a href="#double-gap">double-gap</a>, <a href="#narrow-left">narrow-left</a>, <a href="#narrow-center">narrow-center</a>, <a href="#narrow-right">narrow-right</a>, <a href="#narrow-x2">narrow-x2</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="image-x4">image-x4</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#grid">Image</a>)</span>
+				</p>
+				<p>
+					Defines an image grid with 4 columns.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#image-x2">image-x2</a>, <a href="#image-x3">image-x3</a>, <a href="#double-gap">double-gap</a>, <a href="#narrow-left">narrow-left</a>, <a href="#narrow-center">narrow-center</a>, <a href="#narrow-right">narrow-right</a>, <a href="#narrow-x2">narrow-x2</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="indent-checkbox">indent-checkbox</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;label&gt;</code>, all that contain a checkbox
+					<span class="source">(from <a href="frontfire-ui-form.html#single-field-checkbox">Form</a>)</span>
+				</p>
+				<p>
+					Indents the label text for a checkbox so that it is aligned with the beginning of the first line, next to the checkbox.
+					This changes the style of the target element to <code data-lang="style">display: block</code>.
+					See the plugin page for examples.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="message">
+				<h3 id="information">information</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div class="message"&gt;</code>, <code>&lt;p class="message"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					Shows an information message box.
+				</p>
+				<p class="see-also">
+					See also: <a href="#message">message</a>, <a href="frontfire-ui-variables.html#information-background">--information-background</a>, <a href="frontfire-ui-variables.html#information-color">--information-color</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="progressbar">
+				<h3 id="inline">inline</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="progressbar"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-progressbar.html#sizes-button">Progressbar</a>)</span>
+				</p>
+				<p>
+					Places the progress bar in a line with other content.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progressbar">progressbar</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="form">
+				<h3 id="input-validation-error">input-validation-error</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#single-field-validation-errors">Form</a>)</span>
+				</p>
+				<p>
+					Indicates that there is a validation error in this input field.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#field-validation-error">field-validation-error</a>, <a href="frontfire-ui-variables.html#validation-error-background">--validation-error-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="invert">invert</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;span&gt;</code> (within <code>&lt;a|div class="image-overlay-text"&gt;</code>)
+					<span class="source">(from <a href="frontfire-ui-image.html#overlay-text">Image</a>)</span>
+				</p>
+				<p>
+					Inverts the colours of the image overlay text.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#image-overlay-text">image-overlay-text</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="align">
+				<h3 id="justify">justify</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;p&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#paragraphs-alignment">Typography</a>)</span>
+				</p>
+				<p>
+					Justifies the content of a paragraph to be aligned at the left and right edge, except for the last line.
+				</p>
+				<p>
+					Equivalent style: <code>text-align: justify;</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#center">center</a>, <a href="#left">left</a>, <a href="#right">right</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="form">
+				<h3 id="label">label</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-form.html#single-field">Form</a>)</span>
+				</p>
+				<p>
+					In a parent element with the <code class="css-class">form-row</code> class, it marks the element that displays the label of a form input field.
+					See the plugin page for examples.
+				</p>
+				<p>
+					In a parent element with the <code class="css-class">segmented-input</code> class, it marks an element that contains static text that is placed besides the input field.
+					If combined with the <code>no-background</code> class in this context, the border and background of the label are removed.
+				</p>
+				<p class="see-also">
+					See also: <a href="#form-row">form-row</a>, <a href="#segmented-input">segmented-input</a>, <a href="frontfire-ui-variables.html#input-label-background">--input-label-background</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> all (within <code>&lt;div|span class="buttons"&gt;</code>)
+					<span class="source">(from <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					Vertically centers a text label in a buttons row.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#buttons">buttons</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="loading progressbar size">
+				<h3 id="large">large</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;i class="loading"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#loading">Typography</a>)</span>
+				</p>
+				<p>
+					Changes the size of the rotating loading indicator to large.
+				</p>
+				<p class="see-also">
+					See also: <a href="#loading">loading</a>, <a href="#medium">medium</a>, <a href="#small">small</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="progressbar"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-progressbar.html#sizes">Progressbar</a>)</span>
+				</p>
+				<p>
+					Changes the size of the progress bar to large.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progressbar">progressbar</a>, <a href="#tiny">tiny</a>, <a href="#small">small</a>, <a href="#big">big</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="font size">
+				<h3 id="larger">larger</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-typography.html#paragraphs-font-size">Typography</a>)</span>
+				</p>
+				<p>
+					Increases the font size of the element a bit.
+				</p>
+				<p class="see-also">
+					See also: <a href="#smaller">smaller</a>, <a href="frontfire-ui-variables.html#larger-font-size">--larger-font-size</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;button&gt;</code>, <code>&lt;a class="button"&gt;</code>, all
+					<span class="source">(from <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					Increases the font size and additionally the padding, and thereby the size of the button a bit.
+				</p>
+				<p>
+					When added to other elements, all buttons that are a descendant of it have the same effect.
+					This allows adding the <code>larger</code> class once for a parent element instead of multiple times for each button.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="border table spacing">
+				<h3 id="last-column">last-column</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;td&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html#filter">Table</a>)</span>
+				</p>
+				<p>
+					Specifies that the table cell is in the last visible table column.
+					The default selector for the last column fails if there are hidden columns further right.
+					In this case, use this class to correct the table style.
+					It is not used for <code data-lang="html">&lt;th&gt;</code> elements because they normally have a background colour where the padding is still needed.
+				</p>
+				<p>
+					This class is set automatically with the <a href="frontfire-core.html#updateFirstLastColumn"><code>F.updateFirstLastColumn()</code></a> method.
+					Call it on the <code data-lang="html">&lt;table&gt;</code> element after changing the visibility of table columns.
+				</p>
+				<p class="see-also">
+					See also: <a href="#first-column">first-column</a>, <a href="#last-row">last-row</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="border table spacing">
+				<h3 id="last-row">last-row</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;tr&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html#filter">Table</a>)</span>
+				</p>
+				<p>
+					Specifies that the table row is in the last visible table row.
+					The default selector for the last row fails if there are hidden rows further down.
+					In this case, use this class to correct the table style.
+				</p>
+				<p>
+					This class is set automatically with the <a href="frontfire-core.html#updateFirstLastRow"><code>F.updateFirstLastRow()</code></a> method.
+					Call it on the <code data-lang="html">&lt;tbody&gt;</code> element after changing the visibility of table rows.
+				</p>
+				<p class="see-also">
+					See also: <a href="#first-row">first-row</a>, <a href="#last-column">last-column</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="align">
+				<h3 id="left">left</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;p&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#paragraphs-alignment">Typography</a>)</span>
+				</p>
+				<p>
+					Aligns the content of a paragraph on the left side.
+				</p>
+				<p>
+					Equivalent style: <code>text-align: left;</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#center">center</a>, <a href="#justify">justify</a>, <a href="#right">right</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>, <code>&lt;td&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;tr&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html">Table</a>)</span>
+				</p>
+				<p>
+					Aligns the content of a table cell on the left side.
+					This can be used to override a table with the <code class="css-class">center</code> or <code class="css-class">right</code> class.
+				</p>
+				<p>
+					Equivalent style: <code>text-align: left;</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#center">center</a>, <a href="#right">right</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#float-left-right">Image</a>)</span>
+				</p>
+				<p>
+					Places the image at the left side floating besides the text.
+				</p>
+				<p class="see-also">
+					See also: <a href="#right">right</a>, <a href="#narrow-left">narrow-left</a>, <a href="#narrow-right">narrow-right</a>, <a href="#narrow-center">narrow-center</a>, <a href="#narrow-full-width">narrow-full-width</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="button">
+				<h3 id="link">link</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;button&gt;</code>, <code>&lt;input&gt;</code> (buttons)
+					<span class="source">(from <a href="frontfire-ui-form.html#buttons-link">Form</a>)</span>
+				</p>
+				<p>
+					Changes the appearance of the button to let it look like a regular hyperlink (<code data-lang="html">&lt;a&gt;</code>).
+					However, they are not quite the same because their text selection and drag behaviour remains unchanged and differs from that of real hyperlink elements.
+					See the <a href="frontfire-ui-form.html#buttons">plugin page</a>.
+				</p>
+				<p class="see-also">
+					See also: <a href="frontfire-ui-variables.html#link-color">--link-color</a>, <a href="frontfire-ui-variables.html#link-text-decoration">--link-text-decoration</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="loading">loading</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;i&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#loading">Typography</a>)</span>
+				</p>
+				<p>
+					Displays a rotating loading indicator in the element.
+					The size can be changed with the <code class="css-class">small</code>, <code class="css-class">medium</code> and <code class="css-class">large</code> classes.
+				</p>
+				<p class="see-also">
+					See also: <a href="frontfire-ui-variables.html#loading-color">--loading-color</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="loading size">
+				<h3 id="medium">medium</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;i class="loading"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#loading">Typography</a>)</span>
+				</p>
+				<p>
+					Changes the size of the rotating loading indicator to medium, which is a bit smaller than the default.
+				</p>
+				<p class="see-also">
+					See also: <a href="#large">large</a>, <a href="#loading">loading</a>, <a href="#small">small</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="menu">menu</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;ul&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					Defines a menu.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#vertical">vertical</a>, <a href="#right">right</a>, <a href="#both">both</a>, <a href="#text">text</a>, <a href="#submenu-arrow">submenu-arrow</a>, <a href="#submenu-dots">submenu-dots</a>, <a href="#active">active</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="message">message</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					The base class for message boxes.
+					Should be combined with one of the severity level classes.
+				</p>
+				<p class="see-also">
+					See also: <a href="#critical">critical</a>, <a href="#error">error</a>, <a href="#warning">warning</a>, <a href="#information">information</a>, <a href="#success">success</a>, <a href="#transparent">transparent</a>, <a href="#icon">icon</a>, <a href="#closable">closable</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="modal">modal</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-modal.html">Modal</a>)</span>
+				</p>
+				<p>
+					Defines the content of a modal.
+					The element will be hidden.
+					It only becomes visible when opening the modal with the <a href="frontfire-core.html#modal"><code>modal()</code></a> plugin function.
+					See the plugin page for examples.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="fixed font">
+				<h3 id="monospace">monospace</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-typography.html#code">Typography</a>)</span>
+				</p>
+				<p>
+					Sets a monospace, or fixed-width font for the element.
+				</p>
+				<p class="see-also">
+					See also: <a href="#code">code</a>, <a href="frontfire-ui-variables.html#monospace-font-family">--monospace-font-family</a>, <a href="frontfire-ui-variables.html#monospace-font-size">--monospace-font-size</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="narrow">narrow</h3>
+				<p>
+					<span class="elements">Elements:</span> block
+					<span class="source">(from <a href="frontfire-ui-form.html">Form</a>)</span>
+				</p>
+				<p>
+					Removes the field gap in a single-line form layout row.
+				</p>
+				<p class="see-also">
+					See also: <a href="#form-single-row">form-single-row</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;button&gt;</code>, <code>&lt;a class="button"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					Unsets the minimum width that is usually set for buttons using the Frontfire style.
+					Usually a button has a minimum width of 75 pixels to ensure it has a good touch surface even for very short labels.
+					With this class, the button can shrink to a square size (as wide as it’s tall).
+					This can be used for buttons that only contain an icon with no text.
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="selectable"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					Unsets the minimum width that is usually set for selectables.
+					See the button section above.
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable">selectable</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="image">
+				<h3 id="narrow-center">narrow-center</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>, <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#float-responsive">Image</a>)</span>
+				</p>
+				<p>
+					Aligns the image in its own row horizontally centred, below the minimum screen width specified with a <code>require-*</code> class.
+					The image must be normally floating, using the <code class="css-class">left</code> or <code class="css-class">right</code> class.
+					For <code data-lang="html">&lt;div&gt;</code> elements, used with <a href="frontfire-ui-image.html#caption">image captions</a> or <a href="frontfire-ui-image.html#grid">image grids</a>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#narrow-left">narrow-left</a>, <a href="#narrow-right">narrow-right</a>, <a href="#narrow-full-width">narrow-full-width</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="image">
+				<h3 id="narrow-full-width">narrow-full-width</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>, <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#float-responsive">Image</a>)</span>
+				</p>
+				<p>
+					Aligns the image in its own row horizontally expanded, below the minimum screen width specified with a <code>require-*</code> class.
+					The image must be normally floating, using the <code class="css-class">left</code> or <code class="css-class">right</code> class.
+					For <code data-lang="html">&lt;div&gt;</code> elements, used with <a href="frontfire-ui-image.html#caption">image captions</a>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#narrow-left">narrow-left</a>, <a href="#narrow-right">narrow-right</a>, <a href="#narrow-center">narrow-center</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="image">
+				<h3 id="narrow-left">narrow-left</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>, <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#float-responsive">Image</a>)</span>
+				</p>
+				<p>
+					Aligns the image in its own row at the left side, below the minimum screen width specified with a <code>require-*</code> class.
+					The image must be normally floating, using the <code class="css-class">left</code> or <code class="css-class">right</code> class.
+					For <code data-lang="html">&lt;div&gt;</code> elements, used with <a href="frontfire-ui-image.html#caption">image captions</a> or <a href="frontfire-ui-image.html#grid">image grids</a>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#narrow-right">narrow-right</a>, <a href="#narrow-center">narrow-center</a>, <a href="#narrow-full-width">narrow-full-width</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="narrow-only">narrow-only</h3>
+				<p>
+					<span class="elements">Elements:</span> all (within button within <code>&lt;div|span class="buttons overflow-buttons"&gt;</code>)
+					<span class="source">(from <a href="frontfire-ui-form.html#overflow-buttons">Form</a>)</span>
+				</p>
+				<p>
+					Shows a button icon only when the button text was hidden due to width overflow.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#overflow-buttons">overflow-buttons</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="image">
+				<h3 id="narrow-right">narrow-right</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>, <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#float-responsive">Image</a>)</span>
+				</p>
+				<p>
+					Aligns the image in its own row at the right side, below the minimum screen width specified with a <code>require-*</code> class.
+					The image must be normally floating, using the <code class="css-class">left</code> or <code class="css-class">right</code> class.
+					For <code data-lang="html">&lt;div&gt;</code> elements, used with <a href="frontfire-ui-image.html#caption">image captions</a> or <a href="frontfire-ui-image.html#grid">image grids</a>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#narrow-left">narrow-left</a>, <a href="#narrow-center">narrow-center</a>, <a href="#narrow-full-width">narrow-full-width</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="narrow-x2">narrow-x2</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#grid">Image</a>)</span>
+				</p>
+				<p>
+					Reduces the number of columns in an image grid to 2, below the minimum screen width specified with a <code>require-*</code> class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#image-x3">image-x3</a>, <a href="#image-x4">image-x4</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="no-background">no-background</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-form.html">Form</a>)</span>
+				</p>
+				<p>
+					Removes the border and background of a static label in a segmented input.
+				</p>
+				<p class="see-also">
+					See also: <a href="#label">label</a>, <a href="#segmented-input">segmented-input</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="table">
+				<h3 id="no-border">no-border</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html#no-border">Table</a>)</span>
+				</p>
+				<p>
+					Removes the outer border of a table.
+					The default for tables is to have a border.
+				</p>
+				<p class="see-also">
+					See also: <a href="#no-grid">no-grid</a>, <a href="#no-outer-padding">no-outer-padding</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;input&gt;</code> (text fields), <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;* class="selectable"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html">Form</a>, <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					Removes the border of an input element.
+				</p>
+				<p class="see-also">
+					See also: <a href="#underline">underline</a>, <a href="#transparent">transparent</a>, <a href="#selectable">selectable</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="progressbar"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-progressbar.html#styles-no-border">Progressbar</a>)</span>
+				</p>
+				<p>
+					Removes the border of a progress bar element.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progressbar">progressbar</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="tabs"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-tabs.html#no-border">Tabs</a>)</span>
+				</p>
+				<p>
+					Removes the border of a tab container.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#tabs">tabs</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="spacing">
+				<h3 id="no-bottom-margin">no-bottom-margin</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-typography.html#headers-no-margin">Typography</a>)</span>
+				</p>
+				<p>
+					Removes the default bottom margin of an element.
+					This allows using paragraphs <code data-lang="html">&lt;p&gt;</code> as last element within a box, like a modal or tab.
+				</p>
+				<p>
+					Equivalent style: <code>margin-bottom: 0;</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#no-top-margin">no-top-margin</a>, <a href="#no-vertical-margin">no-vertical-margin</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="autostart">
+				<h3 id="no-frontfire">no-frontfire</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-autostart.html">Autostart</a>)</span>
+				</p>
+				<p>
+					Disables all Frontfire styles on HTML elements without a CSS class and also disables the automatic application of Frontfire plugins at page load time.
+					See the plugin page for a more detailed explanation.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="border table">
+				<h3 id="no-grid">no-grid</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html#no-border">Table</a>)</span>
+				</p>
+				<p>
+					Removes the inner horizontal and vertical grid lines of a table.
+					The default for tables is to have inner horizontal and vertical grid lines between the cells.
+					This is a combination of the <code class="css-class">no-hgrid</code> and <code class="css-class">no-vgrid</code> classes.
+				</p>
+				<p class="see-also">
+					See also: <a href="#no-border">no-border</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="border table">
+				<h3 id="no-hgrid">no-hgrid</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html#no-border">Table</a>)</span>
+				</p>
+				<p>
+					Removes the inner horizontal grid lines of a table.
+					The default for tables is to have inner horizontal and vertical grid lines between the cells.
+				</p>
+				<p class="see-also">
+					See also: <a href="#no-grid">no-grid</a>, <a href="#no-vgrid">no-vgrid</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="spacing table">
+				<h3 id="no-outer-padding">no-outer-padding</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html#no-border">Table</a>)</span>
+				</p>
+				<p>
+					Removes the outer cell padding towards the border of the table, but leaves the inner cell padding between cells intact.
+					This is most useful in combination with <code class="css-class">no-border</code> and without any cell background colours.
+					It aligns the table content horizontally exactly with the surrounding text.
+				</p>
+				<p class="see-also">
+					See also: <a href="#no-padding">no-padding</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="spacing table">
+				<h3 id="no-padding">no-padding</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html#compact">Table</a>)</span>
+				</p>
+				<p>
+					Removes all cell paddings of the table.
+					It aligns the table content horizontally exactly with the surrounding text.
+				</p>
+				<p class="see-also">
+					See also: <a href="#no-outer-padding">no-outer-padding</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;input&gt;</code> (text fields), <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html">Form</a>)</span>
+				</p>
+				<p>
+					Removes the left and right padding of an input element with the <code class="css-class">underline</code> class.
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="segmented-input"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html">Form</a>)</span>
+				</p>
+				<p>
+					If the input field within a segmented input has the <code>no-padding</code> class, it must also be set for the parent segmented input element.
+				</p>
+				<p class="see-also">
+					See also: <a href="#segmented-input">segmented-input</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="spacing">
+				<h3 id="no-top-margin">no-top-margin</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-typography.html#headers-no-margin">Typography</a>)</span>
+				</p>
+				<p>
+					Removes the default top margin of an element.
+					This allows using the headers like <code data-lang="html">&lt;h2&gt;</code> or paragraphs <code data-lang="html">&lt;p&gt;</code> as first element within a box, like a modal or tab.
+				</p>
+				<p>
+					Equivalent style: <code>margin-top: 0;</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#no-bottom-margin">no-bottom-margin</a>, <a href="#no-vertical-margin">no-vertical-margin</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="animations">
+				<h3 id="no-transitions">no-transitions</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-page.html#no-transitions">Page</a>)</span>
+				</p>
+				<p>
+					Disables all transitions of elements with this class and all of their descendants (children, recursively).
+				</p>
+			</div>
+
+			<div class="member" data-aliases="form">
+				<h3 id="no-validation">no-validation</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="form-row"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#multi-field-no-validation">Form</a>)</span>
+				</p>
+				<p>
+					Changes a form layout row so that no elements for the field validation message need to be inserted.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#form-row">form-row</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="spacing">
+				<h3 id="no-vertical-margin">no-vertical-margin</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-typography.html#headers-no-margin">Typography</a>)</span>
+				</p>
+				<p>
+					Removes the default top and bottom margin of an element.
+					This is a combination of the <code class="css-class">no-top-margin</code> and <code class="css-class">no-bottom-margin</code> classes.
+				</p>
+				<p>
+					Equivalent style: <code>margin-top: 0; margin-bottom: 0;</code>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="border table">
+				<h3 id="no-vgrid">no-vgrid</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html#no-border">Table</a>)</span>
+				</p>
+				<p>
+					Removes the inner vertical grid lines of a table.
+					The default for tables is to have inner horizontal and vertical grid lines between the cells.
+				</p>
+				<p class="see-also">
+					See also: <a href="#no-grid">no-grid</a>, <a href="#no-hgrid">no-hgrid</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="not-print">not-print</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-page.html#print-visibility">Page</a>)</span>
+				</p>
+				<p>
+					Hides elements for printing.
+				</p>
+				<p class="see-also">
+					See also: <a href="#print-only">print-only</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="white-space">
+				<h3 id="nowrap">nowrap</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-typography.html">Typography</a>)</span>
+				</p>
+				<p>
+					Prevents all white-space collapsing or line wrapping in the element.
+				</p>
+				<p>
+					Equivalent style: similar to <code>white-space: nowrap;</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#pre-wrap">pre-wrap</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="overflow-button">overflow-button</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;button&gt;</code> (within <code>&lt;td class="overflow-column"&gt;</code>)
+					<span class="source">(from <a href="frontfire-ui-table.html#overflow-columns">Table</a>)</span>
+				</p>
+				<p>
+					Marks a button that opens the modal that contains the content of the collapsed columns.
+					This button should also have the <code class="css-class">narrow</code> and <code class="css-class">icon-only</code> classes and contain a single <code data-lang="html">&lt;i&gt;</code> icon.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#overflow-columns">overflow-columns</a>, <a href="#overflow-column">overflow-column</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="overflow-buttons">overflow-buttons</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div|span class="buttons"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#overflow-buttons">Form</a>)</span>
+				</p>
+				<p>
+					Enables the overflow shrinking of a buttons row.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#narrow-only">narrow-only</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="overflow-column">overflow-column</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;th&gt;</code>, <code>&lt;td&gt;</code> (both within <code>&lt;table class="overflow-columns"&gt;</code>)
+					<span class="source">(from <a href="frontfire-ui-table.html#overflow-columns">Table</a>)</span>
+				</p>
+				<p>
+					Marks a table column that contains the overflow button.
+					Only a single column in a table must have this class, and all cells of the same column must have this class.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#overflow-columns">overflow-columns</a>, <a href="#collapsible-column">collapsible-column</a>, <a href="#overflow-button">overflow-button</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="overflow-columns">overflow-columns</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html#overflow-columns">Table</a>)</span>
+				</p>
+				<p>
+					Enables the overflow columns of a table.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#collapsible-column">collapsible-column</a>, <a href="#overflow-column">overflow-column</a>, <a href="#overflow-button">overflow-button</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="margin spacing">
+				<h3 id="p">p</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div&gt;</code>, <code>&lt;table&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#paragraphs-margin">Typography</a>)</span>
+				</p>
+				<p>
+					Adds a paragraph’s default top and bottom margin to the element that would otherwise have none.
+					These elements cannot be used within a <code data-lang="html">&lt;p&gt;</code> element to use their vertical margin.
+					Instead, add this class to the element.
+				</p>
+				<p>
+					Equivalent style: <code>margin-top: 1em; margin-bottom: 1em;</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#double-margin">double-margin</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="page-width">page-width</h3>
+				<p>
+					<span class="elements">Elements:</span> block
+					<span class="source">(from <a href="frontfire-ui-page.html#page-width">Page</a>)</span>
+				</p>
+				<p>
+					Restricts content to the default page width and adds a horizontal padding on the left and right side.
+					See the plugin page for a comprehensive description of this class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#full-page-width">full-page-width</a>, <a href="#center">center</a> (for <code data-lang="html">&lt;html&gt;</code>), <a href="frontfire-ui-variables.html#page-width">--page-width</a>, <a href="frontfire-ui-variables.html#page-width-padding">--page-width-padding</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="white-space">
+				<h3 id="pre-wrap">pre-wrap</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-typography.html#code">Typography</a>)</span>
+				</p>
+				<p>
+					Prevents all white-space collapsing and preserves line breaks in the element.
+				</p>
+				<p>
+					Equivalent style: similar to <code>white-space: pre-wrap;</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#nowrap">nowrap</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="print-only">print-only</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-page.html#print-visibility">Page</a>)</span>
+				</p>
+				<p>
+					Displays elements only for printing.
+				</p>
+				<p class="see-also">
+					See also: <a href="#not-print">not-print</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="progressbar">progressbar</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-progressbar.html">Progressbar</a>)</span>
+				</p>
+				<p>
+					Defines a progress bar.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#error">error</a>, <a href="#warning">warning</a>, <a href="#success">success</a>, <a href="#no-border">no-border</a>, <a href="#tiny">tiny</a>, <a href="#small">small</a>, <a href="#large">large</a>, <a href="#big">big</a>, <a href="#button">button</a>, <a href="#inline">inline</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="repeat-button">repeat-button</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;button&gt;</code>, <code>&lt;input type="button"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#repeat-button">Form</a>)</span>
+				</p>
+				<p>
+					Makes each selected button trigger repeated click events while being pressed.
+					See the plugin page for examples.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="responsive">
+				<h3 id="require-desktop">require-desktop</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="nowrap"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html">Typography</a>)</span>
+				</p>
+				<p>
+					Resets the <code>white-space: nowrap;</code> style of the element when the screen size is below the width of a desktop or laptop monitor.
+				</p>
+				<p>
+					The standard width limits of these responsive layout classes are:
+				</p>
+				<table class="no-border no-outer-padding no-vgrid">
+					<tr>
+						<th>Device class</th>
+						<th>Screen width range</th>
+					</tr>
+					<tr>
+						<td>Smartphones</td>
+						<td>0–540 pixels</td>
+					</tr>
+					<tr>
+						<td>Small tablets (7–8")</td>
+						<td>541–760 pixels</td>
+					</tr>
+					<tr>
+						<td>Tablets</td>
+						<td>761–900 pixels</td>
+					</tr>
+					<tr>
+						<td>Desktop/laptop monitors</td>
+						<td>901–1200 pixels</td>
+					</tr>
+					<tr>
+						<td>Wide monitors</td>
+						<td>1201 pixels up</td>
+					</tr>
+				</table>
+				<p>
+					These values are also made available in the <a href="frontfire-ui-variables.html">CSS variables</a> that start with “--breakpoint-”.
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="sticky-aside-container"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#sticky-aside">Typography</a>)</span>
+				</p>
+				<p>
+					Unfloats the side element and frees the side column when the screen size is below the width of a desktop or laptop monitor.
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="form-row"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#responsive-layout">Form</a>)</span>
+				</p>
+				<p>
+					Places all fields of the form row on a separate line, i.e. below each other, when the screen size is below the width of a desktop or laptop monitor.
+				</p>
+				<p class="see-also">
+					See also: <a href="#form-row">form-row</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>, <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#float-responsive">Image</a>)</span>
+				</p>
+				<p>
+					Un-floats the floating image, optionally with a caption, when the screen size is below the width of a desktop or laptop monitor.
+					For <a href="frontfire-ui-image.html#grid">image grids</a>, the number of grid columns is reduced.
+				</p>
+				<p class="see-also">
+					See also: <a href="#narrow-center">narrow-center</a>, <a href="#narrow-left">narrow-left</a>, <a href="#narrow-right">narrow-right</a>, <a href="#narrow-full-width">narrow-full-width</a>
+				</p>
+				<hr>
+				<p class="see-also">
+					See also for all: <a href="#require-minitab">require-minitab</a>, <a href="#require-tablet">require-tablet</a>, <a href="#require-wide">require-wide</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="responsive">
+				<h3 id="require-minitab">require-minitab</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="nowrap"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html">Typography</a>)</span>
+				</p>
+				<p>
+					Resets the <code>white-space: nowrap;</code> style of the element when the screen size is below the width of a small tablet.
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="sticky-aside-container"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#sticky-aside">Typography</a>)</span>
+				</p>
+				<p>
+					Unfloats the side element and frees the side column when the screen size is below the width of a small tablet.
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="form-row"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#responsive-layout">Form</a>)</span>
+				</p>
+				<p>
+					Places all fields of the form row on a separate line, i.e. below each other, when the screen size is below the width of a small tablet.
+				</p>
+				<p class="see-also">
+					See also: <a href="#form-row">form-row</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>, <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#float-responsive">Image</a>)</span>
+				</p>
+				<p>
+					Un-floats the floating image, optionally with a caption, when the screen size is below the width of a small tablet.
+					For <a href="frontfire-ui-image.html#grid">image grids</a>, the number of grid columns is reduced.
+				</p>
+				<p class="see-also">
+					See also: <a href="#narrow-center">narrow-center</a>, <a href="#narrow-left">narrow-left</a>, <a href="#narrow-right">narrow-right</a>, <a href="#narrow-full-width">narrow-full-width</a>
+				</p>
+				<hr>
+				<p class="see-also">
+					See also for all: <a href="#require-tablet">require-tablet</a>, <a href="#require-desktop">require-desktop</a>, <a href="#require-wide">require-wide</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="responsive">
+				<h3 id="require-tablet">require-tablet</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="nowrap"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html">Typography</a>)</span>
+				</p>
+				<p>
+					Resets the <code>white-space: nowrap;</code> style of the element when the screen size is below the width of a regular tablet.
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="sticky-aside-container"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#sticky-aside">Typography</a>)</span>
+				</p>
+				<p>
+					Unfloats the side element and frees the side column when the screen size is below the width of a regular tablet.
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="form-row"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#responsive-layout">Form</a>)</span>
+				</p>
+				<p>
+					Places all fields of the form row on a separate line, i.e. below each other, when the screen size is below the width of a regular tablet.
+				</p>
+				<p class="see-also">
+					See also: <a href="#form-row">form-row</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>, <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#float-responsive">Image</a>)</span>
+				</p>
+				<p>
+					Un-floats the floating image, optionally with a caption, when the screen size is below the width of a regular tablet.
+					For <a href="frontfire-ui-image.html#grid">image grids</a>, the number of grid columns is reduced.
+				</p>
+				<p class="see-also">
+					See also: <a href="#narrow-center">narrow-center</a>, <a href="#narrow-left">narrow-left</a>, <a href="#narrow-right">narrow-right</a>, <a href="#narrow-full-width">narrow-full-width</a>
+				</p>
+				<hr>
+				<p class="see-also">
+					See also for all: <a href="#require-minitab">require-minitab</a>, <a href="#require-desktop">require-desktop</a>, <a href="#require-wide">require-wide</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="responsive">
+				<h3 id="require-wide">require-wide</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="nowrap"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html">Typography</a>)</span>
+				</p>
+				<p>
+					Resets the <code>white-space: nowrap;</code> style of the element when the screen size is below the width of a wide desktop monitor.
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="sticky-aside-container"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#sticky-aside">Typography</a>)</span>
+				</p>
+				<p>
+					Unfloats the side element and frees the side column when the screen size is below the width of a wide desktop monitor.
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="form-row"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#responsive-layout">Form</a>)</span>
+				</p>
+				<p>
+					Places all fields of the form row on a separate line, i.e. below each other, when the screen size is below the width of a wide desktop monitor.
+				</p>
+				<p class="see-also">
+					See also: <a href="#form-row">form-row</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>, <code>&lt;div&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#float-responsive">Image</a>)</span>
+				</p>
+				<p>
+					Un-floats the floating image, optionally with a caption, when the screen size is below the width of a wide desktop monitor.
+					For <a href="frontfire-ui-image.html#grid">image grids</a>, the number of grid columns is reduced.
+				</p>
+				<p class="see-also">
+					See also: <a href="#narrow-center">narrow-center</a>, <a href="#narrow-left">narrow-left</a>, <a href="#narrow-right">narrow-right</a>, <a href="#narrow-full-width">narrow-full-width</a>
+				</p>
+				<hr>
+				<p class="see-also">
+					See also for all: <a href="#require-minitab">require-minitab</a>, <a href="#require-tablet">require-tablet</a>, <a href="#require-desktop">require-desktop</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="loading">
+				<h3 id="reverse">reverse</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;i class="loading"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#loading">Typography</a>)</span>
+				</p>
+				<p>
+					Reverses the animation direction of the rotating loading indicator.
+				</p>
+				<p class="see-also">
+					See also: <a href="#loading">loading</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="align">
+				<h3 id="right">right</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;p&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#paragraphs-alignment">Typography</a>)</span>
+				</p>
+				<p>
+					Aligns the content of a paragraph on the right side.
+				</p>
+				<p>
+					Equivalent style: <code>text-align: right;</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#center">center</a>, <a href="#justify">justify</a>, <a href="#left">left</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>, <code>&lt;td&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;tr&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html">Table</a>)</span>
+				</p>
+				<p>
+					Aligns the content of a table cell on the right side.
+					This can be used to override a table with the <code class="css-class">left</code> or <code class="css-class">center</code> class.
+				</p>
+				<p>
+					Equivalent style: <code>text-align: right;</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#center">center</a>, <a href="#left">left</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#float-left-right">Image</a>)</span>
+				</p>
+				<p>
+					Places the image at the right side floating besides the text.
+				</p>
+				<p class="see-also">
+					See also: <a href="#left">left</a>, <a href="#narrow-left">narrow-left</a>, <a href="#narrow-right">narrow-right</a>, <a href="#narrow-center">narrow-center</a>, <a href="#narrow-full-width">narrow-full-width</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> all (within <code>&lt;a|div class="image-overlay-text"&gt;</code>)
+					<span class="source">(from <a href="frontfire-ui-image.html#overlay-text">Image</a>)</span>
+				</p>
+				<p>
+					Places the image overlay text at the right side.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#image-overlay-text">image-overlay-text</a>, <a href="#bottom">bottom</a>, <a href="#center">center</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;ul class="menu"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					Moves all menu items to the right end.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu">menu</a>, <a href="#both">both</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="same-height">same-height</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-tabs.html#same-height">Tabs</a>)</span>
+				</p>
+				<p>
+					Extends the tab container to the height of the tallest tab page so that the container will not resize when switching tab pages.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#tabs">tabs</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="form">
+				<h3 id="segmented-input">segmented-input</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-form.html#segmented-input">Form</a>)</span>
+				</p>
+				<p>
+					Wraps an input element with a label that is placed before or after the input field, or with an icon that is placed at the left or right end within the input field.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#label">label</a>, <a href="#icon-left">icon-left</a>, <a href="#icon-right">icon-right</a>, <a href="#group">group</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selectable">selectable</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					Makes the child elements in each selected element selectable.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#no-border">no-border</a>, <a href="#transparent">transparent</a>, <a href="#narrow">narrow</a>, <a href="#selected">selected</a>, <a href="#wrap">wrap</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selectable-search-match">selectable-search-match</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					Highlights the matching text of a selectable item during text search.
+					This class is used by the selectable plugin and should only be redefined to change the highlighting appearance.
+					It should not be used on elements directly.
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable">selectable</a>, <a href="#selectable-search-no-match">selectable-search-no-match</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selectable-search-no-match">selectable-search-no-match</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					Highlights the longest matching text of a selectable item during text search, if there is no full match.
+					This class is used by the selectable plugin and should only be redefined to change the highlighting appearance.
+					It should not be used on elements directly.
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable">selectable</a>, <a href="#selectable-search-match">selectable-search-match</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="selected">selected</h3>
+				<p>
+					<span class="elements">Elements:</span> all (within <code>&lt;* class="selectable"&gt;</code>)
+					<span class="source">(from <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					Marks a selection child item as selected.
+					This must only be used for selectables that are not bound to an HTML <code data-lang="html">&lt;select&gt;</code> element.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable">selectable</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="image">
+				<h3 id="shadow">shadow</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>, <code>&lt;* class="image-overlay-text"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#decorations-shadow">Image</a>)</span>
+				</p>
+				<p>
+					Adds a slight drop shadow to the image to make it pop out a little.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="background performance">
+				<h3 id="simple-dimmer">simple-dimmer</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;html&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-page.html#dimmer">Page</a>)</span>
+				</p>
+				<p>
+					Disables the background blur filter of the background dimmer for devices with reduced rendering power.
+				</p>
+				<p class="see-also">
+					See also: <a href="frontfire-core.html#dimBackground">Frontfire.dimBackground()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="slider">slider</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-slider.html">Slider</a>)</span>
+				</p>
+				<p>
+					Creates a slider control for the element.
+					See the plugin page for examples.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="loading speed">
+				<h3 id="slow">slow</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;i class="loading"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#loading">Typography</a>)</span>
+				</p>
+				<p>
+					Changes the animation speed of the rotating loading indicator to slow.
+				</p>
+				<p class="see-also">
+					See also: <a href="#fast">fast</a>, <a href="#loading">loading</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="loading progressbar size">
+				<h3 id="small">small</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;i class="loading"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#loading">Typography</a>)</span>
+				</p>
+				<p>
+					Changes the size of the rotating loading indicator to small.
+				</p>
+				<p class="see-also">
+					See also: <a href="#large">large</a>, <a href="#loading">loading</a>, <a href="#medium">medium</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="progressbar"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-progressbar.html#sizes">Progressbar</a>)</span>
+				</p>
+				<p>
+					Changes the size of the progress bar to small.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progressbar">progressbar</a>, <a href="#tiny">tiny</a>, <a href="#large">large</a>, <a href="#big">big</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="font size">
+				<h3 id="smaller">smaller</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-typography.html#paragraphs-font-size">Typography</a>)</span>
+				</p>
+				<p>
+					Decreases the font size of the element a bit.
+				</p>
+				<p class="see-also">
+					See also: <a href="#larger">larger</a>, <a href="frontfire-ui-variables.html#smaller-font-size">--smaller-font-size</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="sortable">sortable</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-sortable.html">Sortable</a>)</span>
+				</p>
+				<p>
+					Makes child elements sortable.
+					See the plugin page for examples.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="stay-open">stay-open</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;a&gt;</code> (within <code>&lt;ul class="menu"&gt;</code>)
+					<span class="source">(from <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					A link with this class will not close the submenu it is contained in.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu">menu</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="float">
+				<h3 id="sticky-aside">sticky-aside</h3>
+				<p>
+					<span class="elements">Elements:</span> all (within <code>&lt;* class="sticky-aside-container"&gt;</code>)
+					<span class="source">(from <a href="frontfire-ui-typography.html#sticky-aside">Typography</a>)</span>
+				</p>
+				<p>
+					Defines the element to place at the side with a sticky position.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#sticky-aside-container">sticky-aside-container</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="float">
+				<h3 id="sticky-aside-container">sticky-aside-container</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-typography.html#sticky-aside">Typography</a>)</span>
+				</p>
+				<p>
+					Defines the position scope of a sticky aside element.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#sticky-aside">sticky-aside</a>, <a href="#aside-left">aside-left</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="scrolling table">
+				<h3 id="sticky-header">sticky-header</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html#sticky-header">Table</a>)</span>
+				</p>
+				<p>
+					Keeps the table header of a table visible at the top of the viewport while scrolling down.
+					The sticky position is applied to <code data-lang="html">&lt;th&gt;</code> elements in a <code data-lang="html">&lt;thead&gt;</code> element, so use these properly.
+					The vertical offset is defined in the CSS variable <code class="css-var">--sticky-header-top</code> and can be changed to keep the sticky header below a fixed page header.
+				</p>
+				<p>
+					Equivalent style: <code>position: sticky;</code>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="stretch">stretch</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;li&gt;</code> (within <code>&lt;ul class="menu both"&gt;</code>)
+					<span class="source">(from <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					Expands an empty menu item to fill the gap between left-aligned and right-aligned items.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu">menu</a>, <a href="#both">both</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="submenu-arrow">submenu-arrow</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;ul&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					Adds submenu indicator icons in the form of an arrow.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu">menu</a>, <a href="#submenu-dots">submenu-dots</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="submenu-dots">submenu-dots</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;ul&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					Adds submenu indicator icons in the form of dots.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu">menu</a>, <a href="#submenu-arrow">submenu-arrow</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="message">
+				<h3 id="success">success</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div class="message"&gt;</code>, <code>&lt;p class="message"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					Shows a success message box.
+				</p>
+				<p class="see-also">
+					See also: <a href="#message">message</a>, <a href="frontfire-ui-variables.html#success-background">--success-background</a>, <a href="frontfire-ui-variables.html#success-color">--success-color</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="progressbar"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-progressbar.html#styles-colors">Progressbar</a>)</span>
+				</p>
+				<p>
+					Changes the bar colour of the progress bar to a success colour.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progressbar">progressbar</a>, <a href="#error">error</a>, <a href="#warning">warning</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="tabs">tabs</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-tabs.html">Tabs</a>)</span>
+				</p>
+				<p>
+					Defines a tab container.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#active">active</a>, <a href="#same-height">same-height</a>, <a href="#no-border">no-border</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="size table">
+				<h3 id="tall-rows">tall-rows</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html#large-tall-rows">Table</a>)</span>
+				</p>
+				<p>
+					Expands all table cells to a minimum height that is the same as if there was a <code data-lang="html">&lt;button&gt;</code> element in the cell.
+					This is increases the clickable or touch area of a link.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="text">text</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;li&gt;</code> (within <code>&lt;ul class="menu"&gt;</code>)
+					<span class="source">(from <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					Defines a menu item that has no <code data-lang="html">&lt;a&gt;</code> element.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu">menu</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="loading">
+				<h3 id="thick">thick</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;i class="loading"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#loading">Typography</a>)</span>
+				</p>
+				<p>
+					Changes the width of the rotating loading indicator to thick.
+				</p>
+				<p class="see-also">
+					See also: <a href="#loading">loading</a>, <a href="#thick">thin</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="loading">
+				<h3 id="thin">thin</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;i class="loading"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html#loading">Typography</a>)</span>
+				</p>
+				<p>
+					Changes the width of the rotating loading indicator to thin.
+				</p>
+				<p class="see-also">
+					See also: <a href="#loading">loading</a>, <a href="#thick">thick</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="thin-scrollbar">thin-scrollbar</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-page.html">Page</a>)</span>
+				</p>
+				<p>
+					Uses a thin scrollbar for the element.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="progressbar size">
+				<h3 id="tiny">tiny</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="progressbar"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-progressbar.html#sizes">Progressbar</a>)</span>
+				</p>
+				<p>
+					Changes the size of the progress bar to tiny.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progressbar">progressbar</a>, <a href="#small">small</a>, <a href="#large">large</a>, <a href="#big">big</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="toggle-button">toggle-button</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;input type="checkbox"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#toggle-button">Form</a>)</span>
+				</p>
+				<p>
+					Indicates that the checkbox shall be replaced by a toggle button that switches between an active and inactive state with each click.
+					This class has no visible style but is only used in the autostart selector to call the <code>toggleButton()</code> plugin methon on the element.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="frontfire-ui-variables.html#button-active-background">--button-active-background</a>, <a href="frontfire-ui-variables.html#button-active-color">--button-active-color</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="align table">
+				<h3 id="top">top</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;table&gt;</code>, <code>&lt;td&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;tr&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-table.html">Table</a>)</span>
+				</p>
+				<p>
+					Vertically aligns the content of a table cell at the top.
+				</p>
+				<p>
+					Equivalent style: <code>vertical-align: top;</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#bottom">bottom</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="button message">
+				<h3 id="transparent">transparent</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;input&gt;</code> (text fields), <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;* class="selectable"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html">Form</a>, <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					Makes the background of an input element transparent so that a parent background image shows through.
+				</p>
+				<p class="see-also">
+					See also: <a href="#no-border">no-border</a>, <a href="#underline">underline</a>, <a href="#selectable">selectable</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;button&gt;</code>, <code>&lt;a class="button"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
+				</p>
+				<p>
+					Makes the background of a button transparent.
+					This makes the button very unobtrusive so it can be used for back-out actions like a cancel button that leaves the form without saving changes.
+				</p>
+				<p class="see-also">
+					See also: <a href="#button">button</a>, <a href="#default">default</a>, <a href="#caution">caution</a>, <a href="frontfire-ui-variables.html#button-transparent-background">--button-transparent-background</a>, <a href="frontfire-ui-variables.html#button-transparent-color">--button-transparent-color</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div class="message"&gt;</code>, <code>&lt;p class="message"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					Shows a transparent message box.
+					Only useful for text indenting in combination with an icon, or when closable.
+				</p>
+				<p class="see-also">
+					See also: <a href="#message">message</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="underline">underline</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;input&gt;</code> (text fields), <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html">Form</a>)</span>
+				</p>
+				<p>
+					Removes the border of an input element on all sides but the bottom.
+					This creates the simplified style of a paper form that only provides a single line whereon to write.
+					The remaining left and right padding can be removed with the additional <code class="css-class">no-padding</code> class.
+				</p>
+				<p class="see-also">
+					See also: <a href="#no-padding">no-padding</a>, <a href="#no-border">no-border</a>, <a href="#transparent">transparent</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="segmented-input"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html">Form</a>)</span>
+				</p>
+				<p>
+					If the input field within a segmented input has the <code>underline</code> class, it must also be set for the parent segmented input element.
+				</p>
+				<p class="see-also">
+					See also: <a href="#segmented-input">segmented-input</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="vertical">vertical</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;span&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-typography.html">Typography</a>)</span>
+				</p>
+				<p>
+					Rotates the text to be vertical from the bottom upwards.
+					This is especially useful for table headers with narrow columns (<a href="frontfire-ui-table.html#vertical">example</a>).
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;ul class="menu"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-menu.html">Menu</a>)</span>
+				</p>
+				<p>
+					Sets the menu orientation to vertical.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#menu">menu</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="message">
+				<h3 id="warning">warning</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div class="message"&gt;</code>, <code>&lt;p class="message"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-message.html#message">Message</a>)</span>
+				</p>
+				<p>
+					Shows a warning message box.
+				</p>
+				<p class="see-also">
+					See also: <a href="#message">message</a>, <a href="frontfire-ui-variables.html#warning-background">--warning-background</a>, <a href="frontfire-ui-variables.html#warning-color">--warning-color</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="progressbar"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-progressbar.html#styles-colors">Progressbar</a>)</span>
+				</p>
+				<p>
+					Changes the bar colour of the progress bar to a warning colour.
+				</p>
+				<p class="see-also">
+					See also: <a href="#progressbar">progressbar</a>, <a href="#error">error</a>, <a href="#success">success</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="image">
+				<h3 id="white-border">white-border</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-image.html#decorations-white-border">Image</a>)</span>
+				</p>
+				<p>
+					Adds a white border around the image.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="modal size">
+				<h3 id="wide">wide</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="modal"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-modal.html#wide">Modal</a>)</span>
+				</p>
+				<p>
+					Expands the width of the modal container to the full window.
+				</p>
+				<p class="see-also">
+					See also: <a href="#modal">modal</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="wrap">wrap</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="selectable"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
+				</p>
+				<p>
+					Allows the content of a selectable item or its dropdown button to wrap if the text does not fit in the horizontal space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#selectable">selectable</a>
+				</p>
+			</div>
+		</section>
+
+		<!------------------------------ END OF REFERENCE CONTENT ------------------------------>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+	<script src="res/doc.js"></script>
+</body>
+</html>

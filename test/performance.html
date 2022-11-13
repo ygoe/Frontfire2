@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+<script>
+
+const arr = [...Array(50000000).keys()];
+
+function test() {
+	let counter;
+	
+	counter = 0;
+	console.time("for");
+	for (let i = 0; i < arr.length; i++) {
+		counter++;
+	}
+	console.timeEnd("for");
+
+	counter = 0;
+	console.time("for2");
+	for (let i = 0, n = arr.length; i < n; i++) {
+		counter++;
+	}
+	console.timeEnd("for2");
+
+	counter = 0;
+	console.time("forEach");
+	arr.forEach(() => { counter++; });
+	console.timeEnd("forEach");
+
+	counter = 0;
+	console.time("for-of");
+	for (let x of arr) {
+		counter++;
+	}
+	console.timeEnd("for-of");
+}
+
+test();
+console.clear();
+setTimeout(test, 1000);
+
+</script>
+</body>
+</html>

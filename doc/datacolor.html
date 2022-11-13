@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>DataColor documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+
+	<style>
+		table.preview th
+		{
+			background: none;
+			text-align: right;
+			font-weight: normal;
+			padding-right: 10px;
+			white-space: nowrap;
+		}
+		table.preview tr.names th:not(:first-child)
+		{
+			width: 0px;
+			height: 60px;
+			max-width: 20px;
+			text-align: left;
+			transform: rotate(-90deg);
+		}
+		table.preview tr.names th:last-child::before { content: "("; }
+		table.preview tr.names th:last-child::after { content: ")"; }
+		table.preview tr.names th.primary
+		{
+			font-weight: 600;
+		}
+		table.preview th[colspan]
+		{
+			text-align: center;
+			padding-top: 8px;
+			padding-right: 0;
+			border-bottom: solid 1px rgb(160, 160, 160, 0.5);
+		}
+
+		table.preview td
+		{
+			text-align: center;
+			padding: 4px 0;
+		}
+		table.preview span
+		{
+			display: inline-block;
+			width: 25px;
+			height: 25px;
+			transition: background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+		}
+		table.preview tr.text td
+		{
+			text-align: center;
+		}
+		table.preview tr.text span
+		{
+			display: inline;
+			width: unset;
+			height: unset;
+		}
+		table.preview tr.text span::after
+		{
+			display: inline-block;
+			font-weight: 600;
+			content: "Abc";
+		}
+		table.preview tr.line span
+		{
+			width: 40px;
+			height: 1.25px;
+			vertical-align: middle;
+			transform: rotate(-15deg);
+		}
+		table.preview tr.background span
+		{
+			cursor: crosshair;
+			width: 40px;
+			height: 100px;
+		}
+	</style>
+</head>
+<body class="with-aside with-search">
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<div id="search-box">
+		<input id="search-text" type="text" placeholder="Type anywhere to search">
+	</div>
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">DataColor</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p id="results-count"></p>
+		<p id="no-results">
+			No search results
+		</p>
+
+		<section class="intro">
+			<p>
+				<em>Produce well readable data presentations!</em>
+			</p>
+			<h3>What?</h3>
+			<p>
+				The DataColor class provides a <strong>colour palette for data visualisation</strong>.
+				It contains 10 evenly distributed colour hues that allow a clear distinction in charts and tables.
+				Each hue is available in 3 shades for foreground and 2 shades for background use.
+				All colours are individually tuned for the light and dark theme, so when the user toggles dark theme, your charts remain readable and meaningful.
+				(Try this page’s dark theme toggle with the preview below.)
+			</p>
+			<p>
+				By the way, please excuse the wild spelling of the word “colour”.
+				While source code is generally expected to use US English spelling for consistency with existing APIs, this documentation uses British/int’l English spelling which becomes especially apparent on this page.
+			</p>
+			<h3>Where?</h3>
+			<p>
+				As a modern JavaScript library, this code is compatible with the following environments:
+			</p>
+			<ul>
+				<li>Firefox 62 and later (released 2018-09)</li>
+				<li>Chrome 70 and later (released 2018-10, and browsers derived thereof)</li>
+				<li>Safari 12 and later (released 2018-09; by spec; little tested due to the lack of Apple hardware)</li>
+				<li>Node.js 12 and later (released 2019-04)</li>
+			</ul>
+			<p>
+				Earlier versions may work for a limited feature set.
+				The vastly outdated Internet Explorer is explicitly incompatible with this code.
+				Should you be stuck in the past for whatever reason, a transpiler like Babel and a few polyfills might help you out.
+			</p>
+			<p>
+				This library is released under the terms of the <strong>MIT licence</strong>.
+				See the complete licence text in the code repository for details.
+			</p>
+			<h3>Preview</h3>
+			<table class="p no-border no-grid no-padding preview">
+				<tr class="names">
+					<th></th>
+				</tr>
+				<tr>
+					<th></th>
+					<th colspan="11">Foreground</th>
+				</tr>
+				<tr class="text">
+					<th>Text</th>
+				</tr>
+				<tr class="line">
+					<th>Line</th>
+				</tr>
+				<tr class="gradient">
+					<th>Gradient</th>
+				</tr>
+				<tr class="f0">
+					<th>Normal</th>
+				</tr>
+				<tr class="f1">
+					<th>Light</th>
+				</tr>
+				<tr class="f2">
+					<th>Lighter</th>
+				</tr>
+				<tr>
+					<th></th>
+					<th colspan="11">Background</th>
+				</tr>
+				<tr class="b0 background">
+					<th>Light</th>
+				</tr>
+				<tr class="b1 background">
+					<th>Intense</th>
+				</tr>
+			</table>
+			<p>
+				Hint: Hover a background swatch to apply the colour to the page background and see it in a larger area.
+			</p>
+			<h3>Documentation</h3>
+			<p>
+				This documentation lists all public members of the DataColor class.
+				The available parameters are listed for each method, describing which of them are optional or alternative in which combination.
+				The description explains the behaviour and parameter requirements.
+				The return value is shown after the arrow.
+			</p>
+			<p>
+				A few examples further describe the usage and effect of a method.
+			</p>
+			<h3>Search</h3>
+			<p>
+				The members are categorised and can be searched (just type ahead).
+				The search also uses aliases for many entries.
+				Start the search text with an equals sign (=) to ignore aliases.
+				Start the search text with the ^ sign to also only find names starting with the search term.
+				Start the search text with the at sign (@) to search by source plugins.
+				Press Escape to reset the search.
+			</p>
+		</section>
+
+		<!------------------------------ BEGIN OF REFERENCE CONTENT ------------------------------>
+
+		<section>
+			<h2 id="constructor">Constructor</h2>
+
+			<div class="member">
+				<h3 id="DataColor">DataColor</h3>
+				<ul>
+					<li><code>new DataColor()</code> → DataColor</li>
+				</ul>
+				<p>
+					Creates a new DataColor instance.
+					The constructor does nothing and the class has no state or instance methods.
+					So don’t call the DataColor constructor.
+				</p>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="static-methods">Static methods</h2>
+
+			<div class="member">
+				<h3 id="getColor">getColor</h3>
+				<ul>
+					<li><code>DataColor.getColor(colorId, type, darkTheme)</code> → String</li>
+				</ul>
+				<p>
+					Gets the colour specified by its ID, type and theme.
+					The return value has the CSS hsl() format.
+				</p>
+				<p>
+					The type specifies the point in the colour palette table:
+				</p>
+				<ul>
+					<li><code>f0</code>: main foreground</li>
+					<li><code>f1</code>: light foreground</li>
+					<li><code>f2</code>: lighter foreground</li>
+					<li><code>b0</code>: light background</li>
+					<li><code>b1</code>: strong background</li>
+				</ul>
+			</div>
+
+			<div class="member">
+				<h3 id="getColorIds">getColorIds</h3>
+				<ul>
+					<li><code>DataColor.getColorIds()</code> → Array (of String)</li>
+				</ul>
+				<p>
+					Gets the IDs of the colour palette.
+					The IDs in bold font are the primary series and should be used exclusively if the number of primary entries is sufficient for the data to display.
+					The primary colours are easier to distinguish from each other.
+				</p>
+				<ul>
+					<li><strong>red</strong></li>
+					<li>orange</li>
+					<li><strong>yellow</strong></li>
+					<li>olive</li>
+					<li><strong>green</strong></li>
+					<li>cyan</li>
+					<li><strong>blue</strong></li>
+					<li>darkblue</li>
+					<li><strong>purple</strong></li>
+					<li>pink</li>
+				</ul>
+				<p class="see-also">
+					See also: <a href="#isPrimary">DataColor.isPrimary()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="getFreeColor">getFreeColor</h3>
+				<ul>
+					<li><code>DataColor.getFreeColor(hue, type, darkTheme)</code> → String</li>
+				</ul>
+				<p>
+					Gets a custom colour specified by its hue, type and theme.
+					The hue can be used from the <code>getFreeHue()</code> function.
+					This function can be used to generate a smooth gradient of the entire colour palette.
+					The return value has the CSS hsl() format.
+				</p>
+				<p>
+					The type specifies the point in the colour palette table:
+				</p>
+				<ul>
+					<li><code>f0</code>: main foreground</li>
+					<li><code>f1</code>: light foreground</li>
+					<li><code>f2</code>: lighter foreground</li>
+					<li><code>b0</code>: light background</li>
+					<li><code>b1</code>: strong background</li>
+				</ul>
+				<p class="see-also">
+					See also: <a href="#getFreeHue">DataColor.getFreeHue()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="getFreeHue">getFreeHue</h3>
+				<ul>
+					<li><code>DataColor.getFreeHue(x)</code> → Number</li>
+				</ul>
+				<p>
+					Gets the hue of an interpolated colour from a range between 0 and 1.
+					The return value can be used with the <code>getFreeColor()</code> function.
+				</p>
+				<p class="see-also">
+					See also: <a href="#getFreeColor">DataColor.getFreeColor()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="getName">getName</h3>
+				<ul>
+					<li><code>DataColor.getName(colorId)</code> → String</li>
+					<li><code>DataColor.getName(colorId, languageOverride)</code> → String</li>
+				</ul>
+				<p>
+					Gets the localized name of a colour.
+				</p>
+				<p>
+					If no language override is specified, the language is determined by the <code>lang</code> attribute of the document root element (<code data-lang="html">&lt;html&gt;</code>).
+					Currently, the following languages are supported.
+					Specifying a different language will return English names.
+				</p>
+				<ul>
+					<li><code>de</code>: German</li>
+					<li><code>en</code>: English (USA)</li>
+				</ul>
+			</div>
+
+			<div class="member">
+				<h3 id="isPrimary">isPrimary</h3>
+				<ul>
+					<li><code>DataColor.isPrimary(colorId)</code> → Boolean</li>
+				</ul>
+				<p>
+					Determines whether a colour is a primary colour.
+				</p>
+			</div>
+		</section>
+
+		<!------------------------------ END OF REFERENCE CONTENT ------------------------------>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2021–2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+	<script src="res/doc.js"></script>
+
+	<script>
+		let namesRow = F("table.preview tr.names").first;
+		let textRow = F("table.preview tr.text").first;
+		let lineRow = F("table.preview tr.line").first;
+		let gradientRow = F("table.preview tr.gradient").first;
+		let f0Row = F("table.preview tr.f0").first;
+		let f1Row = F("table.preview tr.f1").first;
+		let f2Row = F("table.preview tr.f2").first;
+		let b0Row = F("table.preview tr.b0").first;
+		let b1Row = F("table.preview tr.b1").first;
+
+		let colorIds = DataColor.getColorIds();
+		colorIds.push(colorIds[0]);
+
+		function fillPreviewTable() {
+			colorIds.forEach(colorId => {
+				let add = (target, type, styleKey = "background") => {
+					target.F.append(
+						F("<td>")
+							.append(
+								F("<span>")
+									.dataset({
+										colorId,
+										type,
+										styleKey,
+									})));
+				};
+
+				namesRow.F.append(
+					F("<th>")
+						.text(DataColor.getName(colorId))
+						.toggleClass("primary", DataColor.isPrimary(colorId)));
+				add(textRow, "f0", "color");
+				add(lineRow, "f0");
+				add(f0Row, "f0");
+				add(f1Row, "f1");
+				add(f2Row, "f2");
+				add(b0Row, "b0");
+				add(b1Row, "b1");
+			});
+
+			let gradientCanvas = F('<canvas width="400" height="20">').first;
+			gradientRow.F.append(F("<td>").attr("colspan", colorIds.length).append(gradientCanvas));
+
+			F("table.preview tr.background span").forEach(el => {
+				el.F.on("mouseover", () => F("body").style.background = el.style.background);
+				el.F.on("mouseout", () => F("body").style.background = "");
+			});
+		}
+
+		function updatePreviewTable() {
+			let darkTheme = F("html").classList.contains("dark");
+			F("table.preview span[data-color-id]").forEach(span => {
+				let colorId = span.dataset.colorId;
+				let type = span.dataset.type;
+				let styleKey = span.dataset.styleKey;
+				span.style[styleKey] = DataColor.getColor(colorId, type, darkTheme);
+			});
+
+			let gradientCanvas = F("table.preview canvas").first;
+			drawGradient(gradientCanvas, "f0", darkTheme);
+		}
+
+		fillPreviewTable();
+		updatePreviewTable();
+
+		F("html").on("darkthemechange", updatePreviewTable);
+
+		function drawGradient(canvas, type, darkTheme) {
+			const ctx = canvas.getContext("2d");
+			ctx.lineWidth = 1;
+			let width = canvas.F.width;
+			let height = canvas.F.height;
+			for (let x = 0; x < width; x++) {
+				const hue = DataColor.getFreeHue(x / width);
+				ctx.strokeStyle = DataColor.getFreeColor(hue, type, darkTheme);
+				ctx.beginPath();
+				ctx.moveTo(x + 0.5, 0.5);
+				ctx.lineTo(x + 0.5, height + 0.5);
+				ctx.closePath();
+				ctx.stroke();
+			}
+		}
+	</script>
+</body>
+</html>

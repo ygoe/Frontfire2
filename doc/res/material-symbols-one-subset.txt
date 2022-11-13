@@ -1,0 +1,95 @@
+Material Symbols font
+=====================
+This is a subset of the full symbols collection.
+Multiple styles and weights are combined in one font file.
+
+HTML usage
+----------
+<i class="material">NAME</i>
+
+Suffixes in NAME
+----------------
+(none) = line style, weight 400 (regular)
+.7 = line style, weight 700 (bold)
+.fill = filled style, weight 400 (regular)
+
+All values for NAME
+-------------------
+ac_unit
+ac_unit.7
+add
+add.7
+arrow_back
+arrow_back.7
+arrow_downward
+arrow_downward.7
+arrow_forward
+arrow_forward.7
+arrow_upward
+arrow_upward.7
+attach_file
+attach_file.7
+call
+call.7
+call.fill
+check
+check.7
+close
+close.7
+delete
+delete.7
+delete.fill
+directions_bike
+directions_bike.7
+directions_walk
+directions_walk.7
+download
+download.7
+download_done
+download_done.7
+edit
+edit.7
+edit.fill
+favorite
+favorite.7
+favorite.fill
+help
+help.7
+help.fill
+info
+info.7
+info.fill
+language
+language.7
+menu
+menu.7
+podcasts
+podcasts.7
+restaurant
+restaurant.7
+search
+search.7
+sensors
+sensors.7
+settings
+settings.7
+settings.fill
+share
+share.7
+share.fill
+toggle_off
+toggle_off.7
+toggle_off.fill
+toggle_on
+toggle_on.7
+toggle_on.fill
+verified_user
+verified_user.7
+verified_user.fill
+warning
+warning.7
+warning.fill
+zoom_in
+zoom_in.7
+zoom_out
+zoom_out.7

@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+	<div id="placeholder"></div>
+	
+	<div id="div1"></div>
+
+	<script src="../src/js/arraylist.js"></script>
+	<script src="../src/js/frontfire-core.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script>
+		function addDivsTo(target, level) {
+			for (let i = 0; i < 100; i++) {
+				let div = document.createElement("div");
+				if (level < 2)
+					addDivsTo(div, level + 1);
+				target.append(div);
+			}
+		}
+	
+		let ph = document.getElementById("placeholder");
+		addDivsTo(ph, 0);
+	
+		let count = 1000000;
+
+		function getByIdLoop() {
+			let t0 = console.time("getElementById");
+			for (let i = 0; i < count; i++) {
+				const query = document.getElementById("div1");
+			}
+			let t1 = console.timeEnd("getElementById");
+		}
+
+		function querySelectorLoop() {
+			let t0 = console.time("querySelector");
+			for (let i = 0; i < count; i++) {
+				const query = document.querySelector("#div1");
+			}
+			let t1 = console.timeEnd("querySelector");
+		}
+
+		function querySelectorAllLoop() {
+			let t0 = console.time("querySelectorAll");
+			for (let i = 0; i < count; i++) {
+				const query = document.querySelectorAll("#div1");
+			}
+			let t1 = console.timeEnd("querySelectorAll");
+		}
+
+		function fIdLoop() {
+			let t0 = console.time("F.id");
+			for (let i = 0; i < count; i++) {
+				const query = F.id("div1");
+			}
+			let t1 = console.timeEnd("F.id");
+		}
+
+		function fSingleLoop() {
+			let t0 = console.time("F.single");
+			for (let i = 0; i < count; i++) {
+				const query = F.single("#div1");
+			}
+			let t1 = console.timeEnd("F.single");
+		}
+
+		function fSingle2Loop() {
+			let t0 = console.time("F.single2");
+			for (let i = 0; i < count; i++) {
+				const query = F.single("div#div1");
+			}
+			let t1 = console.timeEnd("F.single2");
+		}
+
+		function fLoop() {
+			let t0 = console.time("F");
+			for (let i = 0; i < count; i++) {
+				const query = F("#div1");
+			}
+			let t1 = console.timeEnd("F");
+		}
+
+		function jQueryIdLoop() {
+			let t0 = console.time("jQuery(id)");
+			for (let i = 0; i < count; i++) {
+				const query = $("#div1");
+			}
+			let t1 = console.timeEnd("jQuery(id)");
+		}
+
+		function jQueryLoop() {
+			let t0 = console.time("jQuery");
+			for (let i = 0; i < count; i++) {
+				const query = $("div#div1");
+			}
+			let t1 = console.timeEnd("jQuery");
+		}
+
+		//getByIdLoop();
+		//querySelectorLoop();
+		//querySelectorAllLoop();
+		jQueryIdLoop();
+		jQueryLoop();
+		fIdLoop();
+		fSingleLoop();
+		//fSingle2Loop();
+		fLoop();
+	</script>
+</body>
+</html>

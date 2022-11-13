@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Menu documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Menu plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			Frontfire UI provides a menu layout that can serve as website navigation or for web apps.
+		</p>
+		<p>
+			A menu consists of a menu bar that contains menu items.
+			The menu bar can be arranged horizontally or vertically.
+			Each menu item can be clicked and either invoke an action like navigating to a page, or open a submenu.
+			Currently only a single level of submenus is supported.
+			Menu items in a submenu can be separated by separator lines.
+		</p>
+		<p>
+			This plugin is available in the Minimal and Complete bundles.
+		</p>
+
+		<h2 id="horizontal">Simple horizontal menu</h2>
+		<p>
+			A menu is defined with an <code data-lang="html">&lt;ul&gt;</code> element and the <code class="css-class">menu</code> CSS class.
+			Each menu item is defined with a <code data-lang="html">&lt;li&gt;</code> element.
+		</p>
+		<p>
+			The menu colours can be customised with the <a href="frontfire-ui-variables.html?s=@menu">CSS variables</a> that start with “--menu-” and “--submenu-”.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&lt;)ul|menu|(?<=&lt;)li">
+			<ul class="menu">
+				<li><a href="#">Page 1</a></li>
+				<li><a href="#">Page 2</a></li>
+				<li><a href="#">Nowhere</a></li>
+				<li><a href="#">Somewhere else</a></li>
+			</ul>
+		</div>
+
+		<h2 id="active-item">Active menu item</h2>
+		<p>
+			An item can be highlighted by adding the <code class="css-class">active</code> CSS class to it.
+			This can be used to indicate the current page in a website navigation menu.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="active">
+			<ul class="menu">
+				<li><a href="#">Page 1</a></li>
+				<li class="active"><a href="#">Page 2</a></li>
+				<li><a href="#">Nowhere</a></li>
+				<li><a href="#">Somewhere else</a></li>
+			</ul>
+		</div>
+
+		<h2 id="right-align">Right-aligned menu</h2>
+		<p>
+			The entire menu can also be aligned to the right end by adding the <code class="css-class">right</code> CSS class to the menu element.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="right">
+			<ul class="menu right">
+				<li><a href="#">Page 1</a></li>
+				<li><a href="#">Page 2</a></li>
+				<li><a href="#">Nowhere</a></li>
+				<li><a href="#">Somewhere else</a></li>
+			</ul>
+		</div>
+
+		<h2 id="left-right-align">Left- and right-aligned items</h2>
+		<p>
+			When adding the <code class="css-class">both</code> CSS class to the menu element, you can align some items to the left and others to the right end.
+			The space in between is declared with a pseudo menu item with the <code class="css-class">stretch</code> class. 
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="both|stretch">
+			<ul class="menu both">
+				<li><a href="#">Page 1</a></li>
+				<li><a href="#">Page 2</a></li>
+				<li><a href="#">Nowhere</a></li>
+				<li class="stretch"></li>
+				<li><a href="#">My account</a></li>
+			</ul>
+		</div>
+
+		<h2 id="text-items">Non-link items</h2>
+		<p>
+			Menu items can also be non-interactive and only show static text.
+			Add the <code class="css-class">text</code> CSS class to such menu items.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="text">
+			<ul class="menu both">
+				<li><a href="#">Page 1</a></li>
+				<li><a href="#">Page 2</a></li>
+				<li class="stretch"></li>
+				<li class="text">Hello, user!</li>
+				<li><a href="#">My account</a></li>
+			</ul>
+		</div>
+		<p>
+			This example shows a text on the left side, as placeholder for an image or other content, while all interactive menu items are at the right end.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="text">
+			<ul class="menu both">
+				<li class="text">[Logo]</li>
+				<li class="stretch"></li>
+				<li><a href="#">Page 1</a></li>
+				<li><a href="#">Page 2</a></li>
+				<li><a href="#">Page 3</a></li>
+			</ul>
+		</div>
+
+		<div class="sticky-aside-container">
+			<h2 id="submenu">Dropdown submenus</h2>
+			<div class="sticky-aside aside-options">
+				<div><label class="indent-checkbox"><input id="disable-checkbox" type="checkbox"> Disable “Even more” menu</label></div>
+			</div>
+			<p>
+				Menus can also have submenus.
+				(For now, only one submenu level is supported.)
+				They open as a dropdown when the menu item is clicked.
+				Items with a submenu can have an indicator, either with the <code class="css-class">submenu-arrow</code> or <code class="css-class">submenu-dots</code> CSS class added to the menu element.
+			</p>
+			<p>
+				Menu items can be disabled by adding the <code>disabled</code> HTML attribute (not a CSS class) to the <code data-lang="html">&lt;a&gt;</code> child element.
+			</p>
+			<p>
+				Separator items are added as simple menu items with no CSS class and a single dash (<code>-</code>) as content.
+			</p>
+			<p>
+				If the menu should not start a page navigation, its <code data-lang="html">&lt;a href&gt;</code> attribute can be set to <code>#</code>.
+				That will be replaced with a true no-op with minimal status bar cluttering while hovering the link.
+			</p>
+			<p>
+				Clicked items on a submenu will close the submenu, unless the link element has the <code class="css-class">stay-open</code> CSS class.
+			</p>
+			<div class="example p no-frontfire" data-source-highlight="submenu-arrow|disabled|(?<=&gt;)-(?=&lt;)|stay-open">
+				<ul class="menu both submenu-arrow">
+					<li><a href="#">Page 1</a></li>
+					<li><a href="#">Page 2</a></li>
+					<li>-</li>
+					<li>
+						<a href="#">More</a>
+						<ul>
+							<li><a href="#">Subitem 1</a></li>
+							<li><a href="#">Subitem 2</a></li>
+							<li><a href="#" disabled>Subitem 3</a></li>
+							<li>-</li>
+							<li><a href="#">Subitem 4</a></li>
+						</ul>
+					</li>
+					<li class="even-more-menu">
+						<a href="#">Even more</a>
+						<ul>
+							<li><a href="/">Subitem 1</a></li>
+							<li><a href="/">Subitem 2</a></li>
+						</ul>
+					</li>
+					<li class="stretch"></li>
+					<li>
+						<a href="#">Account</a>
+						<ul>
+							<li><a href="#">Edit profile</a></li>
+							<li><a href="#">Review privacy settings</a></li>
+							<li>-</li>
+							<li><a class="stay-open" href="#">Log out</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="example p no-frontfire" data-source-highlight="submenu-dots">
+				<ul class="menu submenu-dots">
+					<li><a href="#">Page 1</a></li>
+					<li>
+						<a href="#">More</a>
+						<ul>
+							<li><a href="#">Subitem 1</a></li>
+							<li><a href="#">Subitem 2</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+
+			<h2 id="vertical">Vertical menu</h2>
+			<p>
+				A vertical menu can be created by adding the <code class="css-class">vertical</code> CSS class to the menu element.
+				The width must be restricted if there is no bounding container, otherwise the vertical menu will span the entire available paragraph width.
+			</p>
+			<div class="example p no-frontfire" data-source-highlight="vertical">
+				<ul class="menu vertical submenu-arrow" style="width: 150px;">
+					<li><a href="#">Page 1</a></li>
+					<li><a href="#">Page 2</a></li>
+					<li>-</li>
+					<li>
+						<a href="#">More</a>
+						<ul>
+							<li><a href="#">Subitem 1</a></li>
+							<li><a href="#">Subitem 2</a></li>
+							<li><a href="#" disabled>Subitem 3</a></li>
+							<li>-</li>
+							<li><a href="#">Subitem 4</a></li>
+						</ul>
+					</li>
+					<li class="even-more-menu">
+						<a href="#">Even more</a>
+						<ul>
+							<li><a href="/">Subitem 1</a></li>
+							<li><a href="/">Subitem 2</a></li>
+						</ul>
+					</li>
+					<li class="active"><a href="#">Nowhere</a></li>
+					<li><a href="#">Somewhere else</a></li>
+				</ul>
+			</div>
+			<div class="example p no-frontfire" data-source-highlight="submenu-dots">
+				<ul class="menu vertical submenu-dots" style="width: 150px;">
+					<li><a href="#">Page 1</a></li>
+					<li>
+						<a href="#">More</a>
+						<ul>
+							<li><a href="#">Subitem 1</a></li>
+							<li><a href="#">Subitem 2</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script>
+			F("#disable-checkbox").on("click!", event => {
+				F(".even-more-menu a").disabled = event.currentTarget.checked;
+			});
+		</script>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+.ff-selectable,
+.ff-selectable-button
+{
+	-webkit-user-select: none;   // for Safari
+	user-select: none;
+	overflow: auto;
+	cursor: default;
+	border: 1px solid var(--textbox-border);
+	border-radius: 0;
+	background-color: var(--textbox-background);
+	color: var(--textbox-color);
+	padding: 1px;
+	box-shadow: rgb(0, 0, 0, 0.05) 0 1px 2px inset;
+	transition: border var(--animation-duration) var(--animation-function), background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+	.dark &
+	{
+		box-shadow: rgb(0, 0, 0, 0.4) 0 1px 2px inset;
+	}
+
+	&:hover:not([disabled])
+	{
+		border-color: var(--textbox-hover-border);
+		&.input-validation-error
+		{
+			border-color: var(--validation-error-text);
+		}
+	}
+	&[disabled]
+	{
+		border-color: var(--textbox-disabled-border);
+		color: var(--textbox-disabled-color);
+	}
+
+	&.input-validation-error
+	{
+		border-color: var(--validation-error-text);
+		background-color: var(--validation-error-background);
+	}
+
+	&.dropdown
+	{
+		border-color: var(--textbox-hover-border);
+	}
+
+	// Remove all borders around the select box
+	&.no-border
+	{
+		border: none;
+		box-shadow: none;
+		padding: 0px;
+	}
+	// Clear the background from the select box
+	&.transparent
+	{
+		background-color: transparent;
+	}
+}
+
+.ff-selectable:focus
+{
+	outline: var(--focus-outline);
+	outline-offset: var(--focus-outline-offset);
+	z-index: 2;   // Bring it above neighbouring elements to see the full outline
+}
+
+// Separate class for Firefox, see https://bugzilla.mozilla.org/show_bug.cgi?id=1775199
+.ff-selectable:is(:focus-visible, .ff-focus-visible)
+{
+	outline: var(--focus-keyboard-outline);
+	outline-offset: var(--focus-keyboard-outline-offset);
+	z-index: 2;   // Bring it above neighbouring elements to see the full outline
+	> .focused
+	{
+		outline: solid 1px var(
+			--selectable-focused-border,
+			hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-focused-a)));
+		outline-offset: -1px;
+	}
+}
+
+.ff-selectable-button:focus
+{
+	outline: var(--focus-outline);
+	outline-offset: var(--focus-outline-offset);
+	z-index: 2;   // Bring it above neighbouring elements to see the full outline
+}
+
+// Separate class needed because the button will be focused instead of the selectable element
+.ff-selectable-button:is(:focus-visible, .ff-focus-visible)
+{
+	outline: var(--focus-keyboard-outline);
+	outline-offset: var(--focus-keyboard-outline-offset);
+	z-index: 2;   // Bring it above neighbouring elements to see the full outline
+}
+
+.ff-selectable > *
+{
+	&:not(:first-child)
+	{
+		margin-top: 1px;
+	}
+	padding: 3px 7px;
+	transition: background-color var(--animation-duration) var(--animation-function);
+	&:hover:not([disabled])
+	{
+		background-color: var(
+			--selectable-hover-background,
+			hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-hover-a)));
+		color: var(--selectable-hover-color, var(--textbox-color));   // TODO: Fallback value unnecessary? https://github.com/mdn/content/issues/17511
+		transition: background-color 0s;
+		&.selected
+		{
+			background-color: var(
+				--selectable-selected-hover-background,
+				hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-selected-hover-a)));
+			color: var(--selectable-selected-color, var(--textbox-color));   // TODO: Fallback value unnecessary? https://github.com/mdn/content/issues/17511
+		}
+	}
+	&.selected
+	{
+		transition: background-color 0s;
+		&:not([disabled])
+		{
+			background-color: var(
+				--selectable-selected-background,
+				hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-selected-a)));
+			color: var(--selectable-selected-color, var(--textbox-color));   // TODO: Fallback value unnecessary? https://github.com/mdn/content/issues/17511
+		}
+		&[disabled]
+		{
+			background-color: var(--selectable-selected-disabled-background);
+		}
+	}
+	&.ff-sortable-placeholder.selected
+	{
+		background-color: transparent;
+	}
+	&[disabled]
+	{
+		color: var(--textbox-disabled-color);
+	}
+}
+.ff-selectable[disabled] > :hover
+{
+	background-color: transparent;
+	color: var(--textbox-disabled-color);
+}
+.ff-selectable[disabled] > :is(.selected, .selected:hover)
+{
+	background-color: var(--selectable-selected-disabled-background);
+	color: var(--textbox-disabled-color);
+}
+
+.ff-selectable-button
+{
+	display: inline-flex;
+	align-items: center;
+	overflow: hidden;
+	min-width: 100px;
+	padding: 4px 4px 4px 8px;
+	&.narrow
+	{
+		min-width: 40px;
+	}
+
+	// Content element
+	> :first-child
+	{
+		flex-grow: 1;
+
+		> .placeholder
+		{
+			font-style: italic;
+			opacity: 0.33;
+		}
+	}
+
+	// Dropdown icon
+	> :last-child
+	{
+		width: 1rem;
+		margin-left: 6px;
+		flex-shrink: 0;
+
+		> svg
+		{
+			stroke: var(--textbox-color);
+			stroke-width: 1.1;
+			transition: stroke var(--animation-duration) var(--animation-function);
+		}
+	}
+
+	&[disabled] > :last-child > svg
+	{
+		stroke: var(--textbox-disabled-color);
+	}
+}
+
+.ff-selectable:not(.wrap)
+{
+	> *
+	{
+		overflow-x: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+}
+.ff-selectable-button:not(.wrap)
+{
+	> :first-child
+	{
+		overflow-x: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+}
+
+.selectable-search-match
+{
+	text-decoration: underline;
+}
+.selectable-search-no-match
+{
+	text-decoration: underline;
+	text-decoration-color: red;
+}

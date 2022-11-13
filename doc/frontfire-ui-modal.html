@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Modal documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Modal plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			Frontfire UI provides a modal panel that overlays the page and can be used to display important messages that must be confirmed before proceding with anything else on the page, or to display details about something on-demand without using page layout space.
+		</p>
+		<p>
+			This plugin is available in the Minimal and Complete bundles.
+		</p>
+
+		<h2 id="description">Description</h2>
+		<p>
+			A modal is an element that overlays the page, shows a message or other content and provides buttons to let the user make a decision.
+			A dialog box would be another name for it.
+			The modal panel cannot be moved on the page, it always stays in the centre.
+			The modal content can be freely defined in an HTML element with the <code class="css-class">modal</code> CSS class which applies basic modal styles and makes the element invisible at first.
+		</p>
+		<p>
+			To open a modal element, call the <a href="frontfire-core.html#modal"><code>modal()</code></a> plugin function on the element to show as modal.
+			The function takes the options as its single object argument.
+			The options are optional and can alternatively be specified as data-opt HTML attributes with the modal HTML element.
+		</p>
+		<p>
+			There is also a static <a href="frontfire-core.html#modal-static"><code>Frontfire.modal()</code></a> method that creates and opens a modal without an existing element in the document.
+			It is <a href="#static">described below</a>.
+		</p>
+
+		<h2 id="example">Example</h2>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;)modal(?=&quot;)|modal(?=\(\))|modal\.close|cancelable|dimBackground|F\.modal">
+			<div id="modal1" class="modal">
+				<h2 class="no-top-margin">Modal title</h2>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non vestibulum odio, nec rhoncus metus. Suspendisse consectetur erat id dui ultricies vulputate. Ut commodo sem eget dapibus malesuada. Praesent ligula ligula, egestas sit amet arcu interdum, pharetra dapibus nibh. Sed posuere dapibus nulla.
+				</p>
+				<div class="buttons">
+					<button id="modal1-accept" class="default">Accept</button>
+					<button id="modal1-deny">Deny</button>
+					<button id="modal1-details">Details</button>
+				</div>
+			</div>
+			<div class="buttons p">
+				<button id="open-modal1">Open modal</button>
+				<button id="open-modal1-nocancel">Open modal (not cancellable)</button>
+				<button id="open-modal1-nodim">Open modal (not dimmed)</button>
+			</div>
+			<p>
+				Result: <span id="modal1-result">Not yet opened</span>
+			</p>
+			<script>
+				F("#open-modal1").on("click", () => {
+					F("#modal1").modal();
+				});
+				F("#open-modal1-nocancel").on("click", () => {
+					F("#modal1").modal({ cancelable: false });
+				});
+				F("#open-modal1-nodim").on("click", () => {
+					F("#modal1").modal({ dimBackground: false });
+				});
+
+				F("#modal1").on("close", () => {
+					F("#modal1-result").textContent = "Cancelled";
+				});
+				F("#modal1-accept").on("click", () => {
+					F("#modal1").modal.close();
+					F("#modal1-result").textContent = "Accepted";
+				});
+				F("#modal1-deny").on("click", () => {
+					F("#modal1").modal.close();
+					F("#modal1-result").textContent = "Denied";
+				});
+				F("#modal1-details").on("click", () => {
+					F.modal("Here you can learn that modals can be nested, i.e. stacked one upon another.\nThe last-opened modal must be closed first.");
+				});
+			</script>
+		</div>
+
+		<h2 id="wide">Wide modals</h2>
+		<p>
+			The modal container element is limited to 80% of the page width by default, except on small screens.
+			To use the full window width, also add the <code class="css-class">wide</code> CSS class to the modal element.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;)modal|wide(?=&quot;)">
+			<div id="wide-modal" class="modal wide">
+				<h2 class="no-top-margin">Modal title</h2>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin commodo et ante sed placerat. Phasellus ipsum neque, ultricies eu mattis ut, euismod in sapien. Sed ultricies a leo vitae fermentum. Fusce nulla lectus, suscipit sit amet eleifend a, pulvinar ac ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque magna urna, vestibulum id dui ac, suscipit euismod turpis. Etiam eget pretium nisl. Sed a hendrerit erat, at sagittis nisi. Nullam ornare dapibus velit, ut lobortis lectus porta viverra. Cras et risus ex.
+				</p>
+				<div class="buttons">
+					<button id="wide-modal-close">Close</button>
+				</div>
+			</div>
+			<div class="buttons p">
+				<button id="open-wide-modal">Open wide modal</button>
+			</div>
+			<script>
+				F("#open-wide-modal").on("click", () => {
+					F("#wide-modal").modal();
+				});
+				F("#wide-modal-close").on("click", () => {
+					F("#wide-modal").modal.close();
+				});
+			</script>
+		</div>
+
+		<h2 id="options">Options</h2>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>cancelable</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the modal is closed when clicking anywhere outside of it or pressing Esc. This also shows a close button in the modal overlay.</td>
+					<td>true</td>
+				</tr>
+				<tr>
+					<td><code>closeTooltip</code></td>
+					<td>String</td>
+					<td>The tooltip text for the close button.</td>
+					<td>""</td>
+				</tr>
+				<tr>
+					<td><code>defaultAction</code></td>
+					<td>Function</td>
+					<td>The action to execute when the Enter key was pressed.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>dimBackground</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the page background is dimmed while the modal is open.</td>
+					<td>true</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="properties">Plugin properties</h2>
+		<p>
+			This plugin provides properties to access the modal state.
+		</p>
+
+		<div class="member">
+			<h3 id="isOpen">isOpen</h3>
+			<ul>
+				<li><code>isOpen</code> → Boolean</li>
+			</ul>
+			<p>
+				Determines whether the modal is currently open.
+				This property cannot be written.
+			</p>
+<div class="code">if (F("#modal").modal.isOpen) {
+	// ...
+}
+</div>
+		</div>
+
+		<h2 id="methods">Plugin methods</h2>
+		<p>
+			This plugin provides methods to control the open modal.
+		</p>
+
+		<div class="member">
+			<h3 id="close">close</h3>
+			<ul>
+				<li><code>close()</code> → this</li>
+			</ul>
+			<p>
+				Closes the selected modal.
+			</p>
+<div class="code">F("#modal").modal.close();
+</div>
+		</div>
+
+		<h2 id="events">Plugin events</h2>
+		<p>
+			This plugin triggers events for the modal.
+		</p>
+
+		<div class="member">
+			<h3 id="closing">closing</h3>
+			<p>
+				Triggered when the modal is about to close.
+				This event can be cancelled by calling <code>event.preventDefault()</code> to keep the modal open.
+			</p>
+		</div>
+
+		<div class="member">
+			<h3 id="close-event">close</h3>
+			<p>
+				Triggered when the modal is closed.
+			</p>
+		</div>
+
+		<h2 id="static">Static modal function</h2>
+		<p>
+			Besides opening a modal from a selected (existing) HTML element, there is another method to open a modal without any preparations.
+			The static <a href="frontfire-core.html#modal-static"><code>Frontfire.modal()</code></a> plugin function creates and opens a modal from the data that was passed to it.
+			This method accepts the options as described above as a single object argument.
+			Additional options (see below) are used to define the content of the generated modal element.
+		</p>
+		<p>
+			If a string is passed as first argument, it is displayed as text with an “OK” button.
+		</p>
+		<p>
+			The method returns a Promise that resolves with the clicked button’s result, or undefined if the modal was closed otherwise.
+			The Promise has an additional <code>cancel()</code> method to close the modal before a user interaction.
+		</p>
+
+		<div class="example no-frontfire" data-source-highlight="F\.modal|(?<=\.)cancel(?=\()|await">
+			<div class="buttons p">
+				<button id="open-modal-static1">Open modal</button>
+				<button id="open-modal-static2">Open modal with default buttons</button>
+			</div>
+			<p>
+				Result: <span id="modal-static-result">Not yet opened</span>
+			</p>
+			<script>
+				F("#open-modal-static1").on("click", async () => {
+					// Save Promise to variable to access its cancel() method
+					let promise = F.modal({
+						text: "Do you want to answer this question? This operation cannot be undone.",
+						buttons: [
+							{ text: "Hell, yes!", icon: "material", iconText: "check.7", className: "default", result: "Yes" },
+							{ text: "Oh no.", icon: "material", iconText: "close", result: "No" }
+						]
+					});
+					// Cancel the Promise (close the modal) when pressing the 1 digit key
+					F("html").on("keydown.cancel", event => {
+						if (event.key === "1")
+							promise.cancel();
+					});
+					// Now wait for the modal result
+					let result = await promise;
+					F("html").off("keydown.cancel");
+					if (result === undefined)
+						result = "Cancelled";
+					F("#modal-static-result").textContent = result;
+				});
+
+				F("#open-modal-static2").on("click", async () => {
+					let result = await F.modal({
+						text: "Do you want to answer this question? This operation cannot be undone.",
+						buttons: "yes NO"
+					});
+					if (result === undefined)
+						result = "Cancelled";
+					F("#modal-static-result").textContent = result;
+				});
+			</script>
+		</div>
+
+		<h3 id="static-options">Additional options</h3>
+		<p>
+			In addition to the modal options listed above, these options are available for the static method:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>content</code></td>
+					<td>Node</td>
+					<td>The element to display as modal content.</td>
+					<td>undefined</td>
+				</tr>
+				<tr>
+					<td><code>html</code></td>
+					<td>String</td>
+					<td>The message HTML content to display.</td>
+					<td>undefined</td>
+				</tr>
+				<tr>
+					<td><code>text</code></td>
+					<td>String</td>
+					<td>The message text to display.</td>
+					<td>undefined</td>
+				</tr>
+				<tr>
+					<td><code>buttons</code></td>
+					<td>Array</td>
+					<td>The buttons to display in the modal.</td>
+					<td>undefined</td>
+				</tr>
+				<tr>
+					<td><code>buttons[].text</code></td>
+					<td>String</td>
+					<td>The button text.</td>
+					<td>undefined</td>
+				</tr>
+				<tr>
+					<td><code>buttons[].icon</code></td>
+					<td>String</td>
+					<td>The CSS class of an <code data-lang="html">&lt;i&gt;</code> element displayed before the text.</td>
+					<td>undefined</td>
+				</tr>
+				<tr>
+					<td><code>buttons[].iconText</code></td>
+					<td>String</td>
+					<td>The text content of an <code data-lang="html">&lt;i&gt;</code> element displayed before the text.</td>
+					<td>undefined</td>
+				</tr>
+				<tr>
+					<td><code>buttons[].className</code></td>
+					<td>String</td>
+					<td>Additional CSS classes for the button.</td>
+					<td>undefined</td>
+				</tr>
+				<tr>
+					<td><code>buttons[].result</code></td>
+					<td>any</td>
+					<td>The result value of the button.</td>
+					<td>undefined</td>
+				</tr>
+				<tr>
+					<td><code>className</code></td>
+					<td>String</td>
+					<td>Additional CSS class names for the modal element.</td>
+					<td>undefined</td>
+				</tr>
+				<tr>
+					<td><code>languageOverride</code></td>
+					<td>String</td>
+					<td>The language to use for default buttons (see below).</td>
+					<td>undefined</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<p>
+			The first button with the <code class="css-class">default</code> CSS class is focused initially.
+			Pressing the <kbd>Enter</kbd> key will click that button.
+		</p>
+		<p>
+			Instead of explicitly defining all buttons and their properties, a set of quick predefined buttons is available.
+			Specify one of the following strings as the <code>buttons</code> option to use them.
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Value</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>OK</code></td>
+					<td>OK default button (result: true)</td>
+				</tr>
+				<tr>
+					<td><code>OK cancel</code></td>
+					<td>OK default button (result: true)<br>Cancel transparent button (result: false)</td>
+				</tr>
+				<tr>
+					<td><code>YES no</code></td>
+					<td>Yes default button (result: true)<br>No button (result: false)</td>
+				</tr>
+				<tr>
+					<td><code>yes NO</code></td>
+					<td>Yes button (result: true)<br>No default button (result: false)</td>
+				</tr>
+				<tr>
+					<td>Any other value</td>
+					<td>Button with the value as text (result: true)</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>
+			If no language override is specified, the language is determined by the <code>lang</code> attribute of the document root element (<code data-lang="html">&lt;html&gt;</code>).
+			Currently, the following languages are supported.
+			Specifying a different language will return English names.
+		</p>
+		<ul>
+			<li><code>de</code>: German</li>
+			<li><code>en</code>: English (USA)</li>
+		</ul>
+
+		<h2 id="confirm">Confirmation modals</h2>
+		<p>
+			Some buttons better ask for a confirmation when clicked.
+			This is to avoid a dangerous action if it was accidentally clicked, like deleting some data or shutting down a service.
+		</p>
+		<p>
+			To ask for confirmation when clicked, call the <a href="frontfire-core.html#confirm"><code>confirm()</code></a> plugin function on the element that will be clicked.
+			The function takes the options as its single object argument.
+			The options are optional and can alternatively be specified as data-opt HTML attributes with the source HTML elements.
+		</p>
+
+		<div class="example no-frontfire" data-source-highlight="confirm(?=\()|data-opt-[^=]+" data-find=" (?=data-opt-)" data-replace="\n\t\t">
+			<div class="buttons p">
+				<button class="confirm"
+					data-opt-question="Do you want to delete the file?"
+					data-opt-confirm-text="Delete"
+					data-opt-confirm-icon="material"
+					data-opt-confirm-icon-text="delete.fill"
+					data-opt-cancel-text="Keep the file">Delete file</button>
+				<button class="confirm">Generic texts</button>
+			</div>
+			<p>
+				Clicked button: <span id="confirm-result">None yet</span>
+			</p>
+			<script>
+				F("button.confirm")
+					.confirm()
+					.on("click", event => {
+						F("#confirm-result").textContent = event.currentTarget.textContent;
+					});
+			</script>
+		</div>
+
+		<h3 id="confirm-example">Example</h3>
+		<p>
+			The confirmation feature is not applied automatically with a standard CSS class because it is expected that you will set custom or localised texts in your script.
+			You can use different CSS classes to assign different standard texts in a central place.
+			As an example, for all delete buttons in your application, you could use the <code>confirm-delete</code> CSS class to set a standard text and icon for the confirm button and only provide a specific message in the delete button’s <code>data-opt-question</code> attribute.
+			A single JavaScript call will then apply an appropriate confirmation to all delete buttons:
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="\.?confirm-delete|confirm(?=\()|data-opt-[^=]+">
+			<!-- All buttons on the pages: -->
+			<button class="caution confirm-delete" data-opt-question="Do you want to delete the file?">Delete file</button>
+
+			<!-- Once in a script file: -->
+			<script>
+				F(".confirm-delete").confirm({
+					confirmText: "Delete",
+					confirmIcon: "material",
+					confirmIconText: "delete.fill",
+					cancelText: "Cancel"   // may need localisation, too
+				});
+			</script>
+		</div>
+
+		<h3 id="confirm-options">Options</h3>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>question</code></td>
+					<td>String</td>
+					<td>The confirmation question to present in the modal.</td>
+					<td>"Please confirm the action."</td>
+				</tr>
+				<tr>
+					<td><code>confirmText</code></td>
+					<td>String</td>
+					<td>The text of the confirm button.</td>
+					<td>"Confirm"</td>
+				</tr>
+				<tr>
+					<td><code>confirmIcon</code></td>
+					<td>String</td>
+					<td>The CSS class of an <code data-lang="html">&lt;i&gt;</code> element displayed before the text of the confirm button.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>confirmIconText</code></td>
+					<td>String</td>
+					<td>The text content of an <code data-lang="html">&lt;i&gt;</code> element displayed before the text of the confirm button.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>confirmClassName</code></td>
+					<td>String</td>
+					<td>Additional CSS classes for the confirm button.</td>
+					<td>"caution"</td>
+				</tr>
+				<tr>
+					<td><code>cancelText</code></td>
+					<td>String</td>
+					<td>The text of the cancel button.</td>
+					<td>"Cancel"</td>
+				</tr>
+				<tr>
+					<td><code>cancelIcon</code></td>
+					<td>String</td>
+					<td>The CSS class of an <code data-lang="html">&lt;i&gt;</code> element displayed before the text of the cancel button.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>cancelIconText</code></td>
+					<td>String</td>
+					<td>The text content of an <code data-lang="html">&lt;i&gt;</code> element displayed before the text of the cancel button.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>cancelClassName</code></td>
+					<td>String</td>
+					<td>Additional CSS classes for the cancel button.</td>
+					<td>"transparent"</td>
+				</tr>
+				<tr>
+					<td><code>callback</code></td>
+					<td>Function</td>
+					<td>
+						A function that is called when the user has clicked on the confirmation button of the modal.
+						It is called with the clicked element as single argument.
+						If the function returns a value, it overrides the boolean confirmation status.
+					</td>
+					<td>None</td>
+				</tr>
+			</tbody>
+		</table>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

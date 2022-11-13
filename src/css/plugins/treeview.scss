@@ -1,0 +1,143 @@
+.ff-tree-view
+{
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	-webkit-user-select: none;   // for Safari
+	user-select: none;
+	border: 1px solid var(--textbox-border);
+	padding: 1px;
+	transition: border-color var(--animation-duration) var(--animation-function), background-color var(--animation-duration) var(--animation-function);
+	&:hover:not([disabled])
+	{
+		border-color: var(--textbox-hover-border);
+	}
+	&[disabled]
+	{
+		border-color: var(--textbox-disabled-border);
+	}
+	&.no-border
+	{
+		border: none;
+		padding: 0px;
+	}
+
+	> .tree-item:first-child
+	{
+		margin-top: 0;
+	}
+	.tree-item
+	{
+		margin-top: 1px;
+		.main-part
+		{
+			padding: 0;
+			display: flex;
+			align-items: center;
+			.expander
+			{
+				width: 16px;
+				flex-shrink: 0;
+				cursor: pointer;
+				visibility: hidden;
+				padding-top: 6px;
+				padding-bottom: 8px;
+				padding-left: 5px;
+				.expander-icon
+				{
+					width: 6px;
+					height: 6px;
+					border-right: 1px solid var(--treeview-expander-color, var(--textbox-color));
+					border-bottom: 1px solid var(--treeview-expander-color, var(--textbox-color));
+					transform: rotate(-45deg);
+					transform-origin: 4px 4px;
+					transition: transform var(--animation-duration) var(--animation-function), border-color var(--animation-duration) var(--animation-function);
+					&.expanded
+					{
+						transform: rotate(45deg);
+					}
+				}
+			}
+			.content
+			{
+				flex-grow: 1;
+				padding: 3px 3px;
+				display: flex;
+				overflow: hidden;
+				transition: background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+				&:is(:hover, .hover)
+				{
+					background-color: var(
+						--selectable-hover-background,
+						hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-hover-a)));
+					color: var(--selectable-hover-color, var(--textbox-color));   // TODO: Fallback value unnecessary? https://github.com/mdn/content/issues/17511
+					transition: background-color 0s, color 0s;
+				}
+				&.selected
+				{
+					background-color: var(
+						--selectable-selected-background,
+						hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-selected-a)));
+					color: var(--selectable-selected-color, var(--textbox-color));   // TODO: Fallback value unnecessary? https://github.com/mdn/content/issues/17511
+					transition: background-color 0s;
+					&:is(:hover, .hover)
+					{
+						background-color: var(
+							--selectable-selected-hover-background,
+							hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-selected-hover-a)));
+					}
+				}
+				.icon
+				{
+					width: 22px;
+					flex-shrink: 0;
+				}
+				.label
+				{
+					flex-grow: 1;
+					white-space: pre;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+		}
+		&.focused
+		{
+		}
+		&:not(.single-root) .children
+		{
+			margin-left: 8px;
+			border-left: 1px dotted var(--treeview-guideline-color);
+			padding-left: 5px;
+			transition: border-color var(--animation-duration) var(--animation-function);
+		}
+	}
+}
+
+.ff-tree-view:focus
+{
+	outline: var(--focus-outline);
+	outline-offset: var(--focus-outline-offset);
+}
+
+// Separate class for Firefox, see https://bugzilla.mozilla.org/show_bug.cgi?id=1775199
+.ff-tree-view:is(:focus-visible, .ff-focus-visible)
+{
+	outline: var(--focus-keyboard-outline);
+	outline-offset: var(--focus-keyboard-outline-offset);
+	.tree-item.focused > .main-part > .content
+	{
+		outline: solid 1px var(
+			--selectable-focused-border,
+			hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-focused-a)));
+		outline-offset: -1px;
+	}
+}
+div.tree-view-drag-indicator
+{
+	background-color: var(--default-text-color);
+	opacity: 0.5;
+	&.replace
+	{
+		opacity: 0.2;
+	}
+}

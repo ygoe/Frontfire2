@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Message documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Message plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			Frontfire UI provides a set of message bar styles that can be used to inform the user about success or error messages at different levels.
+		</p>
+		<p>
+			Messages, or message boxes, can be used to highlight important or informative notifications to the user.
+			They are often used at the top of a form to inform the user about the issues that occurred while processing the form data provided.
+			There are several message levels, ordered by severity.
+			The described CSS classes can be added to <code data-lang="html">&lt;div&gt;</code> or <code data-lang="html">&lt;p&gt;</code> elements.
+		</p>
+		<p>
+			This plugin is available in the Minimal and Complete bundles.
+		</p>
+
+		<h2 id="message">Message styles</h2>
+		<p>
+			These are the default message styles.
+			All messages must have the <code class="css-class">message</code> CSS class.
+			Depending on the level, you should also add one of the <code class="css-class">critical</code>, <code class="css-class">error</code>, <code class="css-class">warning</code>, <code class="css-class">information</code> or <code class="css-class">success</code> classes.
+			The <code class="css-class">transparent</code> class is used for messages without any background or padding.
+			It is most useful with an icon.
+		</p>
+		<p>
+			The message box colours can be customised with the CSS variables
+			<code class="css-var">--critical-background</code>, <code class="css-var">--critical-color</code>,
+			<code class="css-var">--error-background</code>, <code class="css-var">--error-color</code>,
+			<code class="css-var">--warning-background</code>, <code class="css-var">--warning-color</code>,
+			<code class="css-var">--information-background</code>, <code class="css-var">--information-color</code>,
+			<code class="css-var">--success-background</code> and <code class="css-var">--success-color</code>.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="message critical|message error|message warning|message information|message success|message transparent">
+			<p class="message critical">
+				Something terrible happened that prevents the program from functioning or causes data loss. <a href="#">Read the details.</a> This is a critical message.
+			</p>
+			<p class="message error">
+				Something didn’t work as expected but we landed safely. <a href="#">Learn how to avoid that.</a> This is an error message.
+			</p>
+			<p class="message warning">
+				Something doesn’t look as expected, it would likely go wrong if we tried that, but maybe not. <a href="#">Here’s the manual.</a> This is a warning message.
+			</p>
+			<p class="message information">
+				We’d like to inform you about a noticeable event. <a href="#">The details wait for you in the log.</a> This is an information message.
+			</p>
+			<p class="message success">
+				Yay! The operation is completed. <a href="#">Look how we did that.</a> This is a success message.
+			</p>
+			<p class="message transparent">
+				Nothing too spectacular to report. <a href="#">Here’s a link.</a> This is a transparent regular message.
+			</p>
+		</div>
+		<p>
+			These message type CSS classes are nothing fancy, you can also create your own and use them in the same way if you like.
+		</p>
+
+		<h2 id="icon">Messages with an icon</h2>
+		<p>
+			The icon needs to be included in the markup manually, so you have total freedom about whether or not and which icon from which source (graphics, font) to use.
+			When using an icon, the additional <code class="css-class">icon</code> CSS class must be applied to provide some space at the left side.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="icon(?=&quot;)">
+			<p class="message warning icon">
+				<i class="material">warning.fill</i>
+				Icons make messages more visually recognisable. This is a warning message with an icon.<br>
+				This is the second line to show the indentation.
+			</p>
+			<p class="message success icon">
+				<i class="material" style="color: limegreen;">check.7</i>
+				Here’s another one to confirm your operation. This is a success message with an icon.<br>
+				You could individually style the icon if you wish, as shown here. But pay attention to the dark theme or better use a CSS class for the icon style (not shown here).
+			</p>
+			<p class="message transparent icon">
+				<i class="material">verified_user</i>
+				These unobtrusive messages become more useful with a little artwork. This is a transparent regular message with an icon.<br>
+				Again a second line to show the indentation.
+			</p>
+		</div>
+
+		<h2 id="closable">Closable messages</h2>
+		<p>
+			A message can be discarded by the user by clicking on a close button, if you add the <code class="css-class">closable</code> CSS class to the message element or call the <a href="frontfire-core.html#closableMessage"><code>closableMessage()</code></a> plugin method on it.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="closable">
+			<p class="message error closable">
+				This is a simple error. You can discard it after reading it or correcting the cause.
+			</p>
+			<p class="message information icon closable">
+				<i class="material">favorite</i>
+				Your action was processed and everything is fine. You can now close this message.<br>
+				This is the second line to show the indentation.
+			</p>
+			<p class="message transparent icon closable">
+				<i class="material">verified_user</i>
+				Transparent messages have another use with the close button.
+			</p>
+			<div class="no-transitions">
+				<p class="message warning closable">
+					A warning message that won’t fade out but disappear instantly when closed.
+				</p>
+			</div>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

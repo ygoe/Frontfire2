@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Image documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Image module</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			Frontfire UI provides a set of image styles that can align and size images beautifully and provide decorations and overlay styles.
+		</p>
+		<p>
+			This module is available in the Minimal and Complete bundles.
+		</p>
+
+		<h2 id="block">Block alignment</h2>
+
+		<h3 id="block-center">Centre alignment</h3>
+		<p>
+			To centre an image horizontally, add the <code class="css-class">center</code> class to it.
+			It should be inserted between other block elements like paragraphs or tables.
+		</p>
+		<p>
+			The image size should be specified if it’s not the image’s intrinsic size.
+			An absolute image size is fine, the CSS classes will take care about the necessary scaling down on smaller screens.
+			It is important that <strong>only the width</strong> of the image is specified to maintain its aspect ratio, not the height; otherwise, the image will be distorted on smaller screens.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(center)">
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vehicula nisl et orci luctus laoreet. Maecenas vitae rhoncus dui, eu eleifend leo. Proin facilisis dignissim tristique. Nullam metus sapien, pulvinar vel urna in, faucibus pretium metus. In tincidunt sed sapien sed pharetra. Aenean vitae ex in tortor egestas fringilla eget ac massa.
+			</p>
+			<img src="res/zeelandbrug.webp" class="center" style="width: 400px;">
+			<p>
+				Sed justo est, pulvinar at interdum at, malesuada eget mi. Nam non erat et enim scelerisque congue. Nullam quis pellentesque magna. Fusce elementum, elit vel ultricies blandit, lacus massa vehicula odio, at malesuada nisi elit in metus.
+			</p>
+		</div>
+
+		<h3 id="block-full-width">Full-width placement</h3>
+		<p>
+			Images can be expanded to always fill the entire row with the <code class="css-class">full-width</code> class.
+			Be aware that these images may become very tall on wide windows.
+			So images with a wide aspect ratio are most suitable for this placement.
+			You might also restrict the content width for the page.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(full-width)">
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam convallis mollis odio, id eleifend metus elementum at. Fusce tristique odio non ligula commodo mattis et vitae purus. Cras fermentum tellus eleifend odio pharetra, non accumsan quam luctus. Morbi sodales tortor elit, id aliquam metus efficitur semper. Nunc accumsan imperdiet laoreet. Sed ut egestas felis.
+			</p>
+			<img src="res/loch-coruisk.webp" class="full-width">
+			<p>
+				Nullam risus nisl, tincidunt in luctus non, luctus sed eros. Integer sodales lectus eget neque tincidunt convallis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce nec nisi non eros tempus porttitor ac quis orci. Curabitur auctor viverra ligula, sed condimentum magna sollicitudin non. Phasellus egestas eleifend sodales.
+			</p>
+		</div>
+
+		<h3 id="block-page-wide">Page-wide placement</h3>
+		<p>
+			To make images even bigger, they can be placed outside of a <code class="css-class">page-width</code> element to fill the entire window width.
+			The <code class="css-class">page-width</code> container must be closed before and reopened after the image element.
+			Since there must only be a single <code data-lang="html">&lt;main&gt;</code> element on a page, if you want to break it up to allow <code class="css-class">full-width</code> images, you have to introduce another level between <code data-lang="html">&lt;main&gt;</code> and the content that applies the <code class="css-class">page-width</code> class for restricted width.
+			A simple <code data-lang="html">&lt;div class="page-width"&gt;</code> will do.
+			The following example simulates a reduced <code class="css-var">--page-width</code> and the <code class="css-class">center</code> class on the <code data-lang="html">&lt;html&gt;</code> element.
+		</p>
+		<div class="example resizable page-wide no-frontfire" data-source-highlight="(?<=&quot;| )(page-width|full-width)">
+			<div class="page-width">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam convallis mollis odio, id eleifend metus elementum at. Fusce tristique odio non ligula commodo mattis et vitae purus. Cras fermentum tellus eleifend odio pharetra, non accumsan quam luctus. Morbi sodales tortor elit, id aliquam metus efficitur semper. Nunc accumsan imperdiet laoreet. Sed ut egestas felis.
+				</p>
+			</div>
+			<img src="res/loch-coruisk.webp" class="full-width">
+			<div class="page-width">
+				<p>
+					Nullam risus nisl, tincidunt in luctus non, luctus sed eros. Integer sodales lectus eget neque tincidunt convallis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce nec nisi non eros tempus porttitor ac quis orci. Curabitur auctor viverra ligula, sed condimentum magna sollicitudin non. Phasellus egestas eleifend sodales.
+				</p>
+			</div>
+		</div>
+
+		<h2 id="float">Floating alignment</h2>
+		<h3 id="float-left-right">Left or right alignment</h3>
+		<p>
+			Images are placed at the left or right side floating besides the text by simply adding the <code class="css-class">left</code> or <code class="css-class">right</code> CSS class.
+		</p>
+		<p>
+			The image size should be specified if it’s not the image’s intrinsic size.
+			An absolute image size is fine, the CSS classes will take care about the necessary scaling down on smaller screens.
+			It is important that <strong>only the width</strong> of the image is specified to maintain its aspect ratio, not the height; otherwise, the image will be distorted on smaller screens.
+			Images on the left or right side are limited to half the window width.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(left|right)">
+			<p>
+				<img src="res/strandkorb-evening.webp" class="left" style="width: 280px;">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut arcu ante, gravida nec lectus vel, egestas ullamcorper leo. Duis euismod libero at tellus fermentum, vel ornare ex viverra. Aliquam dui ligula, blandit vel tortor nec, gravida tristique ipsum. Curabitur ullamcorper, enim non rhoncus pulvinar, purus tortor condimentum ante, placerat viverra eros dolor in justo.
+			</p>
+			<p>
+				<img src="res/zeeland-dune.webp" class="right" style="width: 280px;">
+				In hac habitasse platea dictumst. Sed rutrum leo sem, sed congue augue rhoncus eget. Donec in venenatis nunc. Morbi a venenatis diam, ut convallis mauris. Duis vitae tempor mi, consequat laoreet nulla. Praesent accumsan dictum justo sed fermentum. Suspendisse eget sollicitudin turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam ligula nisl, condimentum ac pharetra vel, aliquet at elit.
+			</p>
+			<p>
+				Integer vulputate magna ut arcu viverra, id ultricies libero ornare. Sed tempus imperdiet augue, ac hendrerit nisl imperdiet dapibus. Aenean id velit in nisl lacinia scelerisque. Integer ut nibh sit amet magna rutrum vulputate eget convallis urna. Aliquam faucibus egestas eleifend. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis maximus sem a diam iaculis, ut tristique augue fringilla. Vestibulum dignissim vulputate mi eget accumsan. Sed tincidunt ullamcorper arcu. Sed sem metus, laoreet vitae placerat vel, dapibus eget elit.
+			</p>
+		</div>
+
+		<h3 id="float-responsive">Responsive layout</h3>
+		<p>
+			If an image should stop floating below a minimum screen width, one of the classes <code class="css-class">require-minitab</code>, <code class="css-class">require-tablet</code>, <code class="css-class">require-desktop</code> and <code class="css-class">require-wide</code> can be added.
+			The image will then turn to a block image if the viewport gets narrower than the specified type.
+			The image remains aligned at the side where it would have floated.
+			This can be overridden with the classes <code class="css-class">narrow-left</code>, <code class="css-class">narrow-right</code>, <code class="css-class">narrow-center</code> and <code class="css-class">narrow-full-width</code>.
+			Reduce the browser window width to see the effects in the following example.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(left|right|require-minitab|narrow-center)">
+			<p>
+				<img src="res/strandkorb-evening.webp" class="left require-minitab" style="width: 280px;">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut arcu ante, gravida nec lectus vel, egestas ullamcorper leo. Duis euismod libero at tellus fermentum, vel ornare ex viverra. Aliquam dui ligula, blandit vel tortor nec, gravida tristique ipsum. Curabitur ullamcorper, enim non rhoncus pulvinar, purus tortor condimentum ante, placerat viverra eros dolor in justo.
+			</p>
+			<p>
+				<img src="res/zeeland-dune.webp" class="right require-minitab narrow-center" style="width: 280px;">
+				In hac habitasse platea dictumst. Sed rutrum leo sem, sed congue augue rhoncus eget. Donec in venenatis nunc. Morbi a venenatis diam, ut convallis mauris. Duis vitae tempor mi, consequat laoreet nulla. Praesent accumsan dictum justo sed fermentum. Suspendisse eget sollicitudin turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam ligula nisl, condimentum ac pharetra vel, aliquet at elit.
+			</p>
+			<p>
+				Integer vulputate magna ut arcu viverra, id ultricies libero ornare. Sed tempus imperdiet augue, ac hendrerit nisl imperdiet dapibus. Aenean id velit in nisl lacinia scelerisque. Integer ut nibh sit amet magna rutrum vulputate eget convallis urna. Aliquam faucibus egestas eleifend. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis maximus sem a diam iaculis, ut tristique augue fringilla. Vestibulum dignissim vulputate mi eget accumsan. Sed tincidunt ullamcorper arcu. Sed sem metus, laoreet vitae placerat vel, dapibus eget elit.
+			</p>
+		</div>
+
+		<h2 id="links">Image as links</h2>
+		<p>
+			Images can be placed in a hyperlink as well.
+			The image then becomes part of the link and can be clicked.
+			There is no visual indication of the link such as a border, you can bring your own if you like.
+		</p>
+		<div class="example p no-frontfire">
+			<a href="#">
+				<img src="res/plouha-sunrise.webp" style="width: 200px;">
+			</a>
+		</div>
+
+		<h2 id="decorations">Image decorations</h2>
+		<p>
+			There are several CSS classes for quick image decorations or styles.
+		</p>
+
+		<h3 id="decorations-shadow">Drop shadow</h3>
+		<p>
+			Add a slight drop shadow to the image to make it pop out a little with the <code class="css-class">shadow</code> class.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(shadow)">
+			<img src="res/zeeland-dune.webp" class="center shadow" style="width: 360px;">
+		</div>
+
+		<h3 id="decorations-white-border">White border</h3>
+		<p>
+			Add a white border around the image with the <code class="css-class">white-border</code> class.
+		</p>
+		<div class="example p no-frontfire" style="background: rgb(180, 180, 180, 0.3);" data-source-highlight="(?<=&quot;| )(white-border)">
+			<img src="res/neist-point.webp" class="center white-border" style="width: 360px;">
+		</div>
+
+		<p>
+			On a white page background, the white border also works well when combined with a drop shadow.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(white-border|shadow)">
+			<img src="res/neist-point.webp" class="center white-border shadow" style="width: 240px;">
+		</div>
+
+		<h3 id="decorations-circle">Clip to circle</h3>
+		<p>
+			Clip the square image to a circle with the <code class="css-class">shadow</code> class.
+			Non-square images will generate an ellipse shape.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(circle)">
+			<img src="res/westerhever-sheep.webp" class="center circle" style="width: 240px;">
+		</div>
+
+		<h3 id="decorations-dark-invert">Invert in dark theme</h3>
+		<p>
+			Invert the image in the dark theme with the <code class="css-class">dark-invert</code> class.
+			Use the dark theme toggle switch in the page header to see the effect.
+			This is most useful for icons or logos with a black colour on a white or transparent background.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(dark-invert)">
+			<img src="res/illustration.webp" class="center dark-invert" style="width: 200px;">
+		</div>
+		<p class="smaller">
+			Illustration: <a href="https://unsplash.com/photos/woC7_1c_kZQ">Abin Varghese / Unsplash</a>
+		</p>
+
+		<h2 id="caption">Image captions</h2>
+		<p>
+			To combine an image with a caption text below it, use a <code data-lang="html">&lt;div&gt;</code> element that contains the image and then the caption content.
+			For block images, the <code data-lang="html">&lt;div&gt;</code> element has the <code class="css-class">image-center</code> or <code class="css-class">image-full-width</code> class.
+			For floating images, the <code data-lang="html">&lt;div&gt;</code> element has the <code class="css-class">image-left</code> or <code class="css-class">image-right</code> class.
+			The width of a centred image can be set normally for the image itself.
+			The width of a left or right floating image should be set for the parent <code data-lang="html">&lt;div&gt;</code> container instead, so that the caption text is also limited to that width.
+			The same additional classes as for <a href="#float-responsive">responsive layout</a> can be applied on the container element.
+			The example also shows an image in a link.
+		</p>
+		<p>
+			The text colour of the caption text can be set with the <code class="css-var">--image-caption-color</code> CSS variable.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(image-center|image-right|width)">
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla urna quam, aliquet sit amet elit sed, facilisis vestibulum erat. Sed odio mauris, tincidunt sed ligula nec, malesuada dictum massa. Aliquam accumsan in nunc nec maximus. Mauris tristique nibh fermentum nibh aliquet, sit amet sodales massa dignissim. Nulla cursus magna massa, et congue mauris vulputate nec. Maecenas vehicula leo ac consectetur iaculis.
+			</p>
+			<div class="p double-margin image-center">
+				<img src="res/zeelandbrug.webp" style="width: 240px;">
+				Zeeland Bridge, the longest bridge in the Netherlands
+			</div>
+			<p>
+				Fusce malesuada neque diam, in pellentesque elit malesuada sed. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam ut odio nulla. Aenean fringilla eros quam. Proin sit amet faucibus quam.
+			</p>
+			<div class="image-right" style="width: 180px;">
+				<a href="#">
+					<img src="res/zeeland-dune.webp">
+				</a>
+				A little sand dune with beach grass at the North Sea beach
+			</div>
+			<p>
+				Praesent aliquet massa eget nulla interdum, vitae ultrices odio ornare. Etiam non elementum odio. Pellentesque eget vestibulum orci. Duis eget libero euismod, fringilla eros vel, mollis leo. Praesent dignissim, quam feugiat auctor auctor, libero tellus mattis neque, ac ornare nulla tortor vitae velit.
+			</p>
+			<p>
+				Nullam tempus quis dolor vitae tincidunt. Sed turpis nunc, sagittis at iaculis eget, mollis sed sapien. Mauris ornare vitae nisi ultricies sagittis.
+			</p>
+			<p>
+				Nam consectetur tincidunt pharetra. Morbi sit amet iaculis sapien, non aliquet tellus. Nam pharetra augue magna. Donec sit amet faucibus magna, a rhoncus tortor.
+			</p>
+			<p>
+				Praesent eleifend libero non blandit maximus. Aenean dictum metus rhoncus elit pharetra auctor ac ut ligula.
+			</p>
+		</div>
+
+		<h2 id="overlay-text">Image with text overlay</h2>
+		<p>
+			Text can be placed over an image and aligned in a corner with an HTML structure that begins with the <code class="css-class">image-overlay-text</code> CSS class.
+			Each such <code data-lang="html">&lt;div&gt;</code> (without link) or <code data-lang="html">&lt;a&gt;</code> (with link) element has two children.
+			First, the image without additional classes or size styles.
+			Second, two nested <code data-lang="html">&lt;span&gt;</code> elements with the text in the inner one.
+			The outer element is for text positioning, the inner one for the background colour.
+		</p>
+		<p>
+			If a hyperlink (<code data-lang="html">&lt;a&gt;</code>) is used as the root element, the entire image area will be clickable for the link.
+			Also, text overlays over links will have the usual hyperlink colours; otherwise, a neutral black/white colour is used.
+			When hovering the link, the image is zoomed in a bit, as visual feedback.
+		</p>
+		<p>
+			The overlay text is normally positioned in the top-left corner of the image.
+			To move it to the right or bottom side, add the CSS class <code class="css-class">right</code> or <code class="css-class">bottom</code> to the <strong>outer</strong> <code data-lang="html">&lt;span&gt;</code> element, respectively, or both for the bottom-right corner.
+			To horizontally center the text, use the <code class="css-class">center</code> class.
+		</p>
+		<p>
+			On a light image (or in a light corner of the image), inverse colours of the overlay text are better recognisable.
+			Add the <code class="css-class">invert</code> CSS class to the <strong>inner</strong> <code data-lang="html">&lt;span&gt;</code> element.
+			It will swap the foreground and background colours of the text overlay.
+			The inverted link hover background colour is automatically set a bit darker than the default link colour.
+			The CSS variables <code class="css-var">--link-invert-hover-lf</code> or <code class="css-var">--link-invert-hover-color</code> should be adjusted when setting the <code class="css-var">--link-color-l</code> or <code class="css-var">--link-color</code> variables.
+		</p>
+		<p>
+			These text overlays are best used with smaller images, so the example uses the image grid that is described in the next section.
+		</p>
+		<style>
+			.example .image-overlay-text > span
+			{
+				font-weight: 600;
+			}
+		</style>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(image-overlay-text|bottom|center|right|invert)">
+			<div class="image-x3 require-minitab narrow-x2">
+				<a href="#" class="image-overlay-text shadow">
+					<img src="res/zeelandbrug.webp">
+					<span class="bottom"><span>Netherlands</span></span>
+				</a>
+				<a href="#" class="image-overlay-text shadow">
+					<img src="res/neist-point.webp">
+					<span class="right"><span class="invert">Scotland</span></span>
+				</a>
+				<div class="image-overlay-text shadow">
+					<img src="res/aurora.webp">
+					<span class="bottom right"><span>Iceland</span></span>
+				</div>
+			</div>
+		</div>
+
+		<h2 id="grid">Image grid</h2>
+		<p class="message warning icon">
+			<i class="material">warning.fill</i>
+			The image grid layout is an experimental feature!
+			It may not fully work as expected and there may be breaking changes in the future.
+		</p>
+		<p>
+			The image grid arranges images in a uniform grid of 2, 3 or 4 images per row.
+			Add one of the CSS classes <code class="css-class">image-x2</code>, <code class="css-class">image-x3</code> or <code class="css-class">image-x4</code> to a <code data-lang="html">&lt;div&gt;</code> element.
+			The images can occur as direct children or in an intermediate container.
+			The grid gap is 1rem and can be doubled with the additional <code class="css-class">double-gap</code> class.
+		</p>
+		<p>
+			On smaller screens, the number of grid columns can be reduced.
+			Add one of the <code>require-*</code> CSS classes described in the section <a href="#float-responsive">Responsive layout</a> to reduce the grid to a single column below the selected minimum width.
+			Alternatively, the narrow screen layout can use left, centre and right alignment with the <code class="css-class">narrow-left</code>, <code class="css-class">narrow-center</code> and <code class="css-class">narrow-right</code> classes or reduce to 2 grid columns with the <code class="css-class">narrow-x2</code> class.
+			The <code>narrow-*</code> alignment classes only work correctly with explicitly sized image items or smaller images.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(image-x4|require-tablet|narrow-x2)">
+			<div class="image-x4 require-tablet narrow-x2">
+				<img src="res/zeelandbrug.webp">
+				<img src="res/neist-point.webp">
+				<img src="res/plouha-sunrise.webp">
+				<img src="res/zeeland-dune.webp">
+				<img src="res/strandkorb-evening.webp">
+				<img src="res/aurora.webp">
+				<img src="res/zeelandbrug.webp">
+				<img src="res/neist-point.webp">
+				<img src="res/plouha-sunrise.webp">
+				<img src="res/zeeland-dune.webp">
+				<img src="res/strandkorb-evening.webp">
+			</div>
+		</div>
+
+		<p>
+			The grid items are normally vertically centred and can be aligned at the top or bottom with the <code class="css-class">top</code> or <code class="css-class">bottom</code> CSS classes, respecively, added to the container element.
+			(This is currently not functional, all items are aligned at the top and fill the entire grid cell height.)
+		</p>
+		<p>
+			The following example uses images with <a href="#caption">captions</a> in the grid.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(image-x3|top|double-gap)">
+			<div class="image-x3 top double-gap">
+				<div class="image-full-width">
+					<img src="res/zeelandbrug.webp" class="shadow">
+					Zeeland Bridge, with over 5 km the longest bridge in the Netherlands and at the time of its completion in 1965, the longest bridge in Europe
+				</div>
+				<div class="image-full-width">
+					<img src="res/neist-point.webp" class="shadow">
+					Neist Point Lighthouse on the most westerly point of the Isle of Skye
+				</div>
+				<div class="image-full-width">
+					<img src="res/plouha-sunrise.webp" class="shadow">
+					Before sunrise at the small harbour of Gwin Zégal
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<script>
+		// Don't go anywhere with the example links
+		F(".example a").on("click", event => {
+			event.preventDefault();
+			F.modal("You clicked on the link in the example.");
+		});
+	</script>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

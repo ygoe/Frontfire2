@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Frontfire Core tests</title>
+	<script src="../src/js/arraylist.js"></script>
+	<script src="../src/js/frontfire-core.js"></script>
+</head>
+
+<body>
+</body>
+
+<script>
+try {
+	// Test each method with all supported kinds of arguments (except thisArg)
+
+	// TODO:
+	// test case results:
+	// - string
+	// - number
+	// - bool
+	// - Node
+	// - Nodes
+	// - this
+	// - browser-specific info (no evaluation, just display)
+	// document changes:
+	// - added/removed/moved/cloned Nodes
+	// - changed styles
+	// - changed classes
+	// - changed attributes
+	// - events
+
+	// Constructor
+
+	// Properties
+
+
+
+	// Void methods
+
+	// Iterator
+
+	document.body.textContent = "All tests passed.";
+}
+catch (error) {
+	console.error(error);
+	document.body.textContent = error;
+}
+
+function assert(treeId, fn, result, newArray, message) {
+	// newArray parameter is optional
+	if (typeof newArray === "string") {
+		message = newArray;
+		newArray = undefined;
+	}
+	
+	createTree(treeId);
+
+	const ret = fn(array);
+	if (Array.isArray(result)) {
+		if (Array.isArray(ret)) {
+			throw new Error(message + " Return type was Array, should probably be ArrayList instead.");
+			//if (JSON.stringify(ret) !== JSON.stringify(result))
+			//	throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
+		}
+		else if (ret instanceof ArrayList) {
+			if (JSON.stringify(ret.array) !== JSON.stringify(result))
+				throw new Error(message + " Return value was " + JSON.stringify(ret.array) + ", expected " + JSON.stringify(result) + ".");
+		}
+		else {
+			throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
+		}
+	}
+	else if (Number.isNaN(result)) {
+		if (!Number.isNaN(ret))
+			throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
+	}
+	else if (result === "this") {
+		// Should actually test for the same ArrayList instance but that is only created in fn()
+		// so we don't have it here. We just compare its internal array instead, it must be the
+		// same, too.
+		if (ret.array !== array)
+			throw new Error(message + " Return value was not the same array.");
+	}
+	else {
+		if (ret !== result)
+			throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
+	}
+	
+	if (newArray) {
+		if (JSON.stringify(array) !== JSON.stringify(newArray))
+			throw new Error(message + " Array was " + JSON.stringify(array) + ", expected " + JSON.stringify(newArray) + ".");
+	}
+	else {
+		if (JSON.stringify(array) !== originalArray)
+			throw new Error(message + " Array was manipulated from " + originalArray + " to " + JSON.stringify(array) + ".");
+		if (Array.isArray(ret) && ret === array)
+			throw new Error(message + " Original array was returned instead of new array.");
+	}
+}
+
+// Creates a source test tree that will be worked with.
+function createTree(id) {
+	let html = "";
+	switch (id) {
+		case 1:
+			html = "<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>";
+			break;
+	}
+	document.body.innerHTML = html;
+}
+</script>
+</html>

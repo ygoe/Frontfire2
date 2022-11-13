@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+	<header class="no-h1copy">
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Frontfire Web Frontend Toolkit</h1>
+		<img src="../logo/frontfire.svg" style="width: 150px; margin-top: -18px;"><!-- square image top padding -->
+		<div id="versiondiv">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			The <em>Frontfire Web Frontend Toolkit</em> offers essential styles and effects combined with a consistent set of interactive widgets and layout utilities.
+			It is suitable for web pages and web applications that need a modern and consistent look and feel and use responsive design to work on all devices and screen sizes.
+			All interactions are fully touch-aware and work with any type of pointing device.
+			The default style equally supports light and dark theme and can be customised with CSS variables.
+		</p>
+		<p>
+			Frontfire is released under the terms of the <strong>MIT licence</strong>.
+			See the complete licence text in the code repository for details.
+		</p>
+		<p>
+			<svg width="16" height="16" viewBox="0 0 16 16" style="vertical-align: -2px; margin-right: 6px; fill: #00c000;">
+				<path d="M0,12L2,12L2,14L14,14L14,12L16,12L16,16L0,16L0,12ZM7,1L9,1L9,8.5L12,5.5L12,8L8,12L4,8L4,5.5L7,8.5L7,1Z"/>
+			</svg>
+			<strong><a href="https://github.com/ygoe/Frontfire2">Source code repository and downloads</a></strong>
+		</p>
+		<p>
+			See the <a href="changes.html">change log</a> for all differences between release versions.
+		</p>
+		<p>
+			While Frontfire version 1 (which as a work in progress never actually used version numbers) was made as a jQuery plugin, version 2 comes in two parts.
+			The API documentation describes all class methods and properties in detail and includes some examples.
+		</p>
+
+		<h2>Frontfire Core</h2>
+		<p>
+			This part largely replaces those parts of jQuery that are not already covered by modern JavaScript.
+			It can be used independently of the UI part.
+			The ArrayList and Color classes can also be used independently of Frontfire, but are maintained and documented with it.
+		</p>
+		<div class="doc-parts p">
+			<a href="arraylist.html">
+				<span class="title">ArrayList</span>
+				<span class="type">API reference</span>
+				<span class="description">A comfortable and comprehensive array collection</span>
+			</a>
+			<a href="frontfire-core.html">
+				<span class="title">Frontfire Core</span>
+				<span class="type">API reference</span>
+				<span class="description">Easy DOM access on a low level, based on ArrayList</span>
+			</a>
+			<a href="color.html">
+				<span class="title">Color</span>
+				<span class="type">API reference</span>
+				<span class="description">Colour conversion and computation functions</span>
+			</a>
+			<a href="datacolor.html">
+				<span class="title">DataColor</span>
+				<span class="type">API reference</span>
+				<span class="description">Distinguishable colour palette for data visualisation</span>
+			</a>
+		</div>
+
+		<h2>Frontfire UI</h2>
+		<p>
+			This part builds with styles and plugins upon Core and provides UI widgets and interaction primitives.
+			The Complete bundle contains all of the plugins, the Minimal bundle only the most essential ones.
+			A good first read are the chapters about the <a href="frontfire-ui-page.html">Page</a> and <a href="frontfire-ui-typography.html">Typography</a> modules.
+		</p>
+		<p>
+			<label><input type="checkbox" id="show-complete-modules" checked> Show modules only available in the Complete bundle</label>
+		</p>
+		<div class="doc-parts p">
+			<a href="frontfire-ui-draggable.html">
+				<span class="title">Draggable</span>
+				<span class="type">Plugin demo</span>
+				<span class="bundles"><span class="minimal"></span><span class="complete"></span></span>
+				<span class="description">Making elements draggable on the page</span>
+			</a>
+			<a href="frontfire-ui-dropdown.html">
+				<span class="title">Dropdown</span>
+				<span class="type">Plugin demo</span>
+				<span class="bundles"><span class="minimal"></span><span class="complete"></span></span>
+				<span class="description">Dropdown panel that opens besides an element</span>
+			</a>
+			<a href="frontfire-ui-form.html">
+				<span class="title">Form</span>
+				<span class="type">Styles/plugins demo</span>
+				<span class="bundles"><span class="minimal"></span><span class="complete"></span></span>
+				<span class="description">Responsive form layout system with text fields and buttons</span>
+			</a>
+			<a href="frontfire-ui-image.html">
+				<span class="title">Image</span>
+				<span class="type">Styles demo</span>
+				<span class="bundles"><span class="minimal"></span><span class="complete"></span></span>
+				<span class="description">Responsive image alignment, sizing and decorations</span>
+			</a>
+			<a href="frontfire-ui-menu.html">
+				<span class="title">Menu</span>
+				<span class="type">Plugin demo</span>
+				<span class="bundles"><span class="minimal"></span><span class="complete"></span></span>
+				<span class="description">Menu bars with dropdown submenus</span>
+			</a>
+			<a href="frontfire-ui-message.html">
+				<span class="title">Message</span>
+				<span class="type">Plugin demo</span>
+				<span class="bundles"><span class="minimal"></span><span class="complete"></span></span>
+				<span class="description">Message bar styles for different levels</span>
+			</a>
+			<a href="frontfire-ui-modal.html">
+				<span class="title">Modal</span>
+				<span class="type">Plugin demo</span>
+				<span class="bundles"><span class="minimal"></span><span class="complete"></span></span>
+				<span class="description">Modal panel that overlays the page</span>
+			</a>
+			<a href="frontfire-ui-notification.html">
+				<span class="title">Notification</span>
+				<span class="type">Plugin demo</span>
+				<span class="bundles"><span class="minimal"></span><span class="complete"></span></span>
+				<span class="description">Quick status message that disappears after a timeout</span>
+			</a>
+			<a href="frontfire-ui-page.html">
+				<span class="title">Page</span>
+				<span class="type">Styles demo</span>
+				<span class="bundles"><span class="minimal"></span><span class="complete"></span></span>
+				<span class="description">Basic page layout styles and document structure</span>
+			</a>
+			<a href="frontfire-ui-progressbar.html">
+				<span class="title">Progressbar</span>
+				<span class="type">Plugin demo</span>
+				<span class="bundles"><span class="complete"></span></span>
+				<span class="description">Progress bar with value display</span>
+			</a>
+			<a href="frontfire-ui-selectable.html">
+				<span class="title">Selectable</span>
+				<span class="type">Plugin demo</span>
+				<span class="bundles"><span class="minimal"></span><span class="complete"></span></span>
+				<span class="description">List item selection, with dropdown</span>
+			</a>
+			<a href="frontfire-ui-slider.html">
+				<span class="title">Slider</span>
+				<span class="type">Plugin demo</span>
+				<span class="bundles"><span class="complete"></span></span>
+				<span class="description">Range value selection</span>
+			</a>
+			<a href="frontfire-ui-sortable.html">
+				<span class="title">Sortable</span>
+				<span class="type">Plugin demo</span>
+				<span class="bundles"><span class="minimal"></span><span class="complete"></span></span>
+				<span class="description">Sort child elements</span>
+			</a>
+			<a href="frontfire-ui-table.html">
+				<span class="title">Table</span>
+				<span class="type">Styles/plugins demo</span>
+				<span class="bundles"><span class="minimal"></span><span class="complete"></span></span>
+				<span class="description">Table styles and layouts</span>
+			</a>
+			<a href="frontfire-ui-tabs.html">
+				<span class="title">Tabs</span>
+				<span class="type">Plugin demo</span>
+				<span class="bundles"><span class="complete"></span></span>
+				<span class="description">Switchable pages with tab headers</span>
+			</a>
+			<a href="frontfire-ui-typography.html">
+				<span class="title">Typography</span>
+				<span class="type">Styles demo</span>
+				<span class="bundles"><span class="minimal"></span><span class="complete"></span></span>
+				<span class="description">Elementary typography styles that encourage design best practices</span>
+			</a>
+		</div>
+		<p>
+			The following pages describe general topics or contain full reference lists.
+		</p>
+		<div class="doc-parts p">
+			<a href="frontfire-ui-autostart.html">
+				<span class="title">Autostart</span>
+				<span class="type">Guide</span>
+				<span class="description">Default styles and class-based activation of plugins</span>
+			</a>
+			<a href="frontfire-ui-options.html">
+				<span class="title">Plugin options</span>
+				<span class="type">Guide</span>
+				<span class="description">Methods to set options when using plugins</span>
+			</a>
+			<a href="frontfire-ui-classes.html">
+				<span class="title">CSS classes</span>
+				<span class="type">API reference</span>
+				<span class="description">Complete class list of all styles and plugins</span>
+			</a>
+			<a href="frontfire-ui-variables.html">
+				<span class="title">CSS variables</span>
+				<span class="type">API reference</span>
+				<span class="description">Complete variables list of all plugins for configuration</span>
+			</a>
+		</div>
+	</main>
+
+	<footer class="full-page-width">
+		Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+		All rights reserved. See the licence notes.
+	</footer>
+
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+	<script src="res/doc.js"></script>
+	<script>
+		F("#show-complete-modules").on("click!", event => {
+			F(".doc-parts a")
+				.having(".bundles")
+				.where(a => !a.F.querySelector(".bundles .minimal"))
+				.visible = event.currentTarget.checked;
+		});
+	</script>
+</body>
+</html>

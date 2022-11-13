@@ -1,0 +1,300 @@
+.menu
+{
+	// Calculate lightness values from light factor (lf):
+	// - start with the base lightness
+	// - add the factor towards 100% (only if the factor is > 0)
+	// - subtract the negative factor towards 0% (only if the factor is < 0)
+	--menu-hover-background-l: calc(var(--menu-background-l)
+		+ max(0%, (100% - var(--menu-background-l)) * var(--menu-hover-lf))
+		- max(0%, var(--menu-background-l) * (0 - (var(--menu-hover-lf)))));
+	--menu-active-background-l: calc(var(--menu-background-l)
+		+ max(0%, (100% - var(--menu-background-l)) * var(--menu-active-lf))
+		- max(0%, var(--menu-background-l) * (0 - (var(--menu-active-lf)))));
+
+	-webkit-user-select: none;   // for Safari
+	user-select: none;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	background-color: var(
+		--menu-background,
+		hsl(var(--menu-background-h), var(--menu-background-s), var(--menu-background-l)));
+	color: var(--menu-color);
+	transition: background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+
+	&:not(.right):not(.both)::after
+	{
+		content: '';
+		flex-grow: 1;
+	}
+	&.right::before
+	{
+		content: '';
+		flex-grow: 1;
+	}
+	&.vertical
+	{
+		flex-direction: column;
+		width: unset;
+	}
+	&.inline
+	{
+		width: unset;
+	}
+
+	li
+	{
+		&.open a
+		{
+			background-color: var(
+				--menu-hover-background,
+				hsl(var(--menu-background-h), var(--menu-background-s), var(--menu-hover-background-l)));
+			color: var(--menu-hover-color, var(--menu-color));
+			transition: background-color 0s, color 0s;
+		}
+		a
+		{
+			display: block;
+			position: relative;
+			height: 100%;
+			padding: 6px 10px;
+			text-decoration: none;
+			color: inherit;
+			transition: background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function), opacity var(--animation-duration) var(--animation-function);
+			&:not([disabled]):focus-visible
+			{
+				outline: var(--focus-keyboard-outline);
+				outline-offset: var(--focus-keyboard-outline-full-offset);
+				z-index: 10;   // Bring it above neighbouring elements to see the full outline
+			}
+			&:not([disabled]):hover
+			{
+				background-color: var(
+					--menu-hover-background,
+					hsl(var(--menu-background-h), var(--menu-background-s), var(--menu-hover-background-l)));
+				color: var(--menu-hover-color, var(--menu-color));
+				transition: background-color 0s, color 0s;
+			}
+			&[disabled]
+			{
+				opacity: 0.4;
+				pointer-events: none;
+			}
+
+			> .ff-submenu-indicator
+			{
+				display: block;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				pointer-events: none;
+				line-height: 5px;
+				color: inherit;
+				text-align: center;
+
+				svg
+				{
+					fill: var(--menu-color);
+					opacity: 0.5;
+					transition: fill var(--animation-duration) var(--animation-function);
+				}
+			}
+		}
+		a:active,
+		&.active a,
+		&.active a:hover
+		{
+			background-color: var(
+				--menu-active-background,
+				hsl(var(--menu-background-h), var(--menu-background-s), var(--menu-active-background-l)));
+			color: var(--menu-active-color, var(--menu-color));
+			transition: background-color 0s, color 0s;
+		}
+		&.text
+		{
+			padding: 6px 10px;
+		}
+		&.separator
+		{
+			margin: 6px 6px;
+			border-left: 1px solid var(
+				--menu-active-background,
+				hsl(var(--menu-background-h), var(--menu-background-s), var(--menu-active-background-l)));
+		}
+		&.stretch
+		{
+			flex-grow: 1;
+		}
+
+		ul
+		{
+			display: none;
+		}
+	}
+}
+
+.menu.vertical li a > .ff-submenu-indicator
+{
+	right: 1px;
+	left: auto;
+	top: 40%;
+}
+.menu.vertical > li.separator
+{
+	margin: 3px 10px;
+	border-left: none;
+	border-top: 1px solid var(
+		--menu-active-background,
+		hsl(var(--menu-background-h), var(--menu-background-s), var(--menu-active-background-l)));
+}
+
+.ff-submenu
+{
+	// Calculate lightness values from light factor (lf):
+	// - start with the base lightness
+	// - add the factor towards 100% (only if the factor is > 0)
+	// - subtract the negative factor towards 0% (only if the factor is < 0)
+	--submenu-hover-background-l: calc(var(--submenu-background-l)
+		+ max(0%, (100% - var(--submenu-background-l)) * var(--submenu-hover-lf))
+		- max(0%, var(--submenu-background-l) * (0 - (var(--submenu-hover-lf)))));
+	--submenu-active-background-l: calc(var(--submenu-background-l)
+		+ max(0%, (100% - var(--submenu-background-l)) * var(--submenu-active-lf))
+		- max(0%, var(--submenu-background-l) * (0 - (var(--submenu-active-lf)))));
+
+	-webkit-user-select: none;   // for Safari
+	user-select: none;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	background-color: var(
+		--submenu-background,
+		hsl(var(--submenu-background-h), var(--submenu-background-s), var(--submenu-background-l)));
+	color: var(--submenu-color);
+	transition: background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+
+	li
+	{
+		text-align: left;
+
+		a
+		{
+			display: block;
+			padding: 6px 10px;
+			text-decoration: none;
+			color: inherit;
+			transition: background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function), opacity var(--animation-duration) var(--animation-function);
+			&:not([disabled]):focus-visible
+			{
+				outline: var(--focus-keyboard-outline);
+				outline-offset: var(--focus-keyboard-outline-full-offset);
+			}
+			&:not([disabled]):hover
+			{
+				background-color: var(
+					--submenu-hover-background,
+					hsl(var(--submenu-background-h), var(--submenu-background-s), var(--submenu-hover-background-l)));
+				color: var(--submenu-hover-color, var(--menu-color));
+				transition: background-color 0s, color 0s;
+			}
+			&[disabled]
+			{
+				opacity: 0.4;
+				pointer-events: none;
+			}
+		}
+		a:active,
+		&.active a,
+		&.active a:hover
+		{
+			background-color: var(
+				--submenu-active-background,
+				hsl(var(--submenu-background-h), var(--submenu-background-s), var(--submenu-active-background-l)));
+			color: var(--submenu-active-color, var(--menu-color));
+			transition: background-color 0s, color 0s;
+		}
+		&.text
+		{
+			padding: 6px 10px;
+		}
+		&.separator
+		{
+			margin: 3px 10px;
+			border-top: 1px solid var(
+				--submenu-active-background,
+				hsl(var(--submenu-background-h), var(--submenu-background-s), var(--submenu-active-background-l)));
+		}
+	}
+}
+
+nav .menu
+{
+	background: var(--nav-menu-background);
+	color: var(--nav-menu-color);
+
+	li
+	{
+		&.open a
+		{
+			background: var(--nav-menu-hover-background);
+			color: var(--nav-menu-hover-color);
+		}
+		a
+		{
+			&:is(:hover, &:focus)
+			{
+				background: var(--nav-menu-hover-background);
+				color: var(--nav-menu-hover-color);
+			}
+		}
+		a:active,
+		&.active a,
+		&.active a:hover
+		{
+			background: var(--nav-menu-active-background);
+			color: var(--nav-menu-active-color);
+		}
+		&[disabled] :is(a, a:hover, a:focus, a:active)
+		{
+			background: var(--nav-menu-background);
+		}
+	}
+}
+
+.ff-submenu.nav
+{
+	background: var(--nav-submenu-background);
+	color: var(--nav-submenu-color);
+
+	li
+	{
+		a
+		{
+			&:is(:hover, :focus)
+			{
+				background: var(--nav-submenu-hover-background);
+				color: var(--nav-submenu-hover-color);
+			}
+		}
+		a:active,
+		&.active a,
+		&.active a:hover
+		{
+			background: var(--nav-submenu-active-background);
+			color: var(--nav-submenu-active-color);
+		}
+		&.separator
+		{
+			border-top: 1px solid var(
+				--nav-submenu-active-background,
+				hsl(var(--nav-submenu-background-h), var(--nav-submenu-background-s), var(--nav-submenu-active-background-l)));
+		}
+		&[disabled] :is(a, a:hover, a:focus, a:active)
+		{
+			background: var(--nav-submenu-background);
+		}
+	}
+}

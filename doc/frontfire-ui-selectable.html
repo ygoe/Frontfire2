@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Selectable documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Selectable plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			Frontfire UI allows making the children of any element selectable.
+			This looks like a regular select box and also allows multiple selection.
+			It is by default used as a nicer replacement of native <code data-lang="html">&lt;select&gt;</code> elements where it can use a dropdown select box.
+		</p>
+		<p>
+			This plugin is available in the Minimal and Complete bundles.
+		</p>
+
+		<h2 id="select-box">Select box</h2>
+		<p>
+			The children of any element can be made selectable by clicking on them.
+			The selected items are highlighted.
+			The select box is focusable and the selection can be changed with the arrow keys when it has the focus.
+		</p>
+		<p>
+			Add the <code class="css-class">selectable</code> CSS class to an element, or call the <a href="frontfire-core.html#selectable"><code>selectable()</code></a> plugin method on it, to add the selection behaviour.
+		</p>
+		<p>
+			The colours of hovered and selected items can be customised with the <a href="frontfire-ui-variables.html?s=@selectable">CSS variables</a> that start with “--selectable-”.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="selectable">
+			Select a single item:
+			<div class="selectable">
+				<div><strong>First</strong> item</div>
+				<div>Second item</div>
+				<div>Third item</div>
+				<div>Fourth item <i class="material">sensors</i></div>
+				<div>Fifth item</div>
+			</div>
+		</div>
+
+		<h2 id="search">Search text</h2>
+		<p>
+			When typing printable characters, the first item whose text starts with the typed search text will be selected.
+			The search text is reset when opening or closing the dropdown, pressing another navigation key or the Escape key, or 3 seconds after the last input.
+		</p>
+		<p>
+			The matching search text will also be underlined in the selected item.
+			This is based on the item’s plain-text content so it removes any HTML formatting while the underlining is active.
+			If an item matched the search but more text was typed for which there is no match, the underline changes its colour.
+		</p>
+		<p>
+			The underline style can be changed by redefining the <code class="css-class">selectable-search-match</code> CSS class.
+			The non-matching style can be changed by redefining the <code class="css-class">selectable-search-no-match</code> CSS class.
+			The underline feature can be disabled by the <a href="#options">showSearchMatch</a> option.
+		</p>
+
+		<h2 id="multiple">Multiple selection</h2>
+		<p>
+			Multiple items may be selected at the same time with the <code>multiple</code> option.
+			It handles clicking an item with the <kbd>Ctrl</kbd> or <kbd>Shift</kbd> key pressed.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=-)multiple">
+			Select multiple items with the Ctrl or Shift key:
+			<div class="selectable" data-opt-multiple="true">
+				<div>First item</div>
+				<div>Second item</div>
+				<div>Third item</div>
+				<div>Fourth item</div>
+				<div>Fifth item</div>
+			</div>
+		</div>
+
+		<h2 id="toggle">Toggle selection</h2>
+		<p>
+			Items can be selected or deselected individually by a single click instead of pressing the <kbd>Ctrl</kbd> key, by setting the <code>toggle</code> option.
+			This implies multiple selection.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="toggle">
+			Click any item to toggle selection:
+			<div class="selectable" data-opt-toggle="true">
+				<div>First item</div>
+				<div>Second item</div>
+				<div>Third item</div>
+				<div>Fourth item</div>
+				<div>Fifth item</div>
+			</div>
+		</div>
+
+		<h2 id="select-element">HTML &lt;select&gt; element</h2>
+		<div class="sticky-aside-container require-desktop">
+			<div class="sticky-aside aside-options">
+				<div><label class="indent-checkbox"><input type="checkbox" id="disable-html-selects"> Disable HTML select elements</label></div>
+				<div><label class="indent-checkbox"><input type="checkbox" id="hide-html-selects"> Hide HTML select elements</label></div>
+			</div>
+
+			<p>
+				A regular HTML <code data-lang="html">&lt;select&gt;</code> element can be used for the selectable list.
+				All such elements are transformed automatically.
+				It is then replaced by an extended version of the HTML form element that either displays the list or uses a dropdown.
+				The dropdown is displayed when the <code>size</code> attribute is not set on the <code data-lang="html">&lt;select&gt;</code> element, or when it has the value "0".
+				The dropdown version has full support for multi-selection where its native HTML equivalent does not.
+			</p>
+			<p>
+				For list boxes (not dropdowns), the height is determined by the <code>size</code> attribute.
+				To override the height of the list box, explicitly set the <code>height</code> style of the <code data-lang="html">&lt;select&gt;</code> element to a length value or to <code>auto</code> to fit the list box size to the items.
+			</p>
+			<div class="example p no-frontfire html-select-example" data-source-highlight="(?<=&lt;)select">
+				<select size="4" multiple>
+					<option>First item</option>
+					<option>Second item</option>
+					<option>Third item</option>
+					<option>Fourth item</option>
+					<option>Fifth item</option>
+					<option>Item 6</option>
+					<option>Item 7</option>
+					<option>Item 8</option>
+					<option>Item 9</option>
+					<option>Item 10</option>
+					<option>Item 11</option>
+					<option>Item 12</option>
+					<option>Item 13</option>
+					<option>Item 14</option>
+					<option>Item 15</option>
+				</select>
+			</div>
+			<div class="example p no-frontfire html-select-example">
+				<select>
+					<option>First item</option>
+					<option>Second item</option>
+					<option>Third item</option>
+					<option>Fourth item</option>
+					<option>Fifth item</option>
+					<option>Item 6</option>
+					<option>Item 7</option>
+					<option>Item 8</option>
+					<option>Item 9</option>
+					<option>Item 10</option>
+					<option>Item 11</option>
+					<option>Item 12</option>
+					<option>Item 13</option>
+					<option>Item 14</option>
+					<option>Item 15</option>
+				</select>
+			</div>
+			<div class="example p no-frontfire html-select-example" data-source-highlight="multiple|required|selected">
+				<select multiple required data-opt-separator=" + ">
+					<option>First item</option>
+					<option selected>Second item</option>
+					<option>Third item</option>
+					<option>Fourth item</option>
+					<option>Fifth item</option>
+				</select>
+			</div>
+			<p>
+				The dropdown has a minimum height if there are no options to select.
+			</p>
+			<div class="example p no-frontfire html-select-example">
+				<select>
+				</select>
+			</div>
+		</div>
+
+		<p>
+			The select box can be enabled and disabled by setting the <code>disabled</code> property of the HTML <code data-lang="html">&lt;select&gt;</code> element by any means (through Frontfire or the native DOM API).
+			Since it was visibly replaced by the new element, that element will follow the disabled state automatically.
+		</p>
+		<p>
+			The select box can be shown and hidden by setting the <code>Frontfire.visible</code> property of the HTML <code data-lang="html">&lt;select&gt;</code> element.
+			Alternatively, the Frontfire methods <a href="frontfire-core.html#show"><code>show()</code></a>, <a href="frontfire-core.html#hide"><code>hide()</code></a> and <a href="frontfire-core.html#toggle"><code>toggle()</code></a> can be called.
+			Other ways like manipulating the <code>style.display</code> property directly will not work.
+			Since it was visibly replaced by the new element, that element will be shown or hidden instead of the select element.
+		</p>
+		<script>
+			let disableHtmlSelectsCheckbox = F("#disable-html-selects").first;
+			disableHtmlSelectsCheckbox.F.on("click!", () => {
+				F(".html-select-example select").disabled = disableHtmlSelectsCheckbox.checked;
+			});
+			let hideHtmlSelectsCheckbox = F("#hide-html-selects").first;
+			hideHtmlSelectsCheckbox.F.on("click!", () => {
+				F(".html-select-example select").visible = !hideHtmlSelectsCheckbox.checked;
+			});
+		</script>
+
+		<p>
+			When a dropdown is used and multiple or toggle selection is allowed, the dropdown does not close when clicking on an item.
+			It remains open so that more items can be selected.
+			To close the dropdown, click either on the button that opened the dropdown, anywhere else outside the dropdown, or (not for toggle selection) double-click on an item to select only that one.
+		</p>
+
+		<h2 id="selection">Selection control</h2>
+		<h3 id="selection-custom">Custom selectables</h3>
+		<p>
+			The selected items of non-HTML selectables can be controlled with plugin methods.
+			The <code>getSelection()</code> method returns all selected elements.
+			The <code>selectItem()</code> method selects a single element, deselecting all others.
+			The <code>selectNone()</code> and <code>selectAll()</code> methods deselect or select all list items.
+		</p>
+		<p>
+			When the selection changes (from user interaction or by calling any of these methods), the <code>change</code> event is triggered on the selectable element.
+		</p>
+		<p>
+			To prevent the user to select certain element, they can be disabled by adding the <code>disabled</code> attribute to the child element.
+			Disabled items can still be selected by code.
+		</p>
+		<div class="example p-bottom no-frontfire" data-source-highlight="getSelection|selectAll|selectNone|selectItem|disabled">
+			<div class="buttons p">
+				<button id="select-none">Select none</button>
+				<button id="select-all">Select all</button>
+				<button id="select-second">Select second</button>
+			</div>
+			<p>
+				Selection: <span id="current-selection2"></span>
+			</p>
+			<div id="select-demo" class="selectable" data-opt-multiple="true">
+				<div>First item</div>
+				<div>Second item</div>
+				<div>Third item</div>
+				<div disabled>Fourth item</div>
+				<div>Fifth item</div>
+			</div>
+			<script>
+				F("#select-demo").on("change!", () => {
+					// We get all child elements here, show their text
+					F("#current-selection2").textContent = F("#select-demo").selectable.getSelection()
+						.select(i => i.textContent).array;
+				});
+				F("#select-none").on("click", () => {
+					F("#select-demo").selectable.selectNone();
+				});
+				F("#select-all").on("click", () => {
+					F("#select-demo").selectable.selectAll();
+				});
+				F("#select-second").on("click", () => {
+					F("#select-demo").selectable.selectItem(F("#select-demo").children.get(1));
+				});
+			</script>
+		</div>
+
+		<h3 id="selection-html">HTML select</h3>
+		<p>
+			With HTML <code data-lang="html">&lt;select&gt;</code> elements, the same as above applies.
+			The <code>selectItem()</code> method needs the <code data-lang="html">&lt;option&gt;</code> element as argument then.
+			The generated UI elements generally do not appear in the API here.
+		</p>
+		<p>
+			Additionally, the <code data-lang="html">&lt;option&gt;</code> elements’ <code>selected</code> property can be changed directly.
+			In this case, a <code>change</code> event must be triggered on the select element so that the UI can be updated accordingly because there is no way to automatically detect such a property change.
+		</p>
+		<p>
+			When the selection changes (from user interaction or by calling any of these methods), the <code>change</code> event is triggered on the HTML <code data-lang="html">&lt;select&gt;</code> element (not its UI representation).
+			You generally only interact with the <code data-lang="html">&lt;select&gt;</code> element and its children here and don’t care about its presentation elements.
+		</p>
+		<div class="example p-bottom no-frontfire" data-source-highlight="getSelection|selectAll|selectNone|selectItem|(?<=\.)selected(?= =)|(?<=&quot;)change(?=&quot;)|disabled">
+			<div class="buttons p">
+				<button id="select-none-html">Select none</button>
+				<button id="select-all-html">Select all</button>
+				<button id="select-second-html">Select second</button>
+				<button id="select-third-html">Select third DOM</button>
+			</div>
+			<p>
+				Selection: <span id="current-selection2-html"></span>
+			</p>
+			<select id="select-html-demo" multiple size="5">
+				<option value="1">First item</option>
+				<option value="2">Second item</option>
+				<option value="3">Third item</option>
+				<option value="4" disabled>Fourth item</option>
+				<option value="5">Fifth item</option>
+			</select>
+			<script>
+				F("#select-html-demo").on("change!", () => {
+					// We get all option elements here, show their value
+					F("#current-selection2-html").textContent = F("#select-html-demo").selectable.getSelection()
+						.select(i => i.value).array;
+				});
+				F("#select-none-html").on("click", () => {
+					F("#select-html-demo").selectable.selectNone();
+				});
+				F("#select-all-html").on("click", () => {
+					F("#select-html-demo").selectable.selectAll();
+				});
+				F("#select-second-html").on("click", () => {
+					F("#select-html-demo").selectable.selectItem(F("#select-html-demo").children.get(1));
+				});
+				F("#select-third-html").on("click", () => {
+					// Set the option.selected property directly and trigger a change event.
+					// Other options are not deselected by this!
+					// (Simulates modification through external Frontfire-unaware code.)
+					let thirdChild = F("#select-html-demo").children.get(2);
+					if (thirdChild) {
+						thirdChild.selected = true;
+						F("#select-html-demo").trigger("change");
+					}
+				});
+			</script>
+		</div>
+
+		<p>
+			The same applies to <code data-lang="html">&lt;select&gt;</code> elements that are displayed as dropdown (without the <code>size</code> attribute).
+		</p>
+
+		<h2 id="child-updating">Child updating</h2>
+		<h3 id="child-updating-custom">Custom selectables</h3>
+		<p>
+			To add or remove items to the selectable, it is sufficient to add or remove child elements from the container element.
+			The new and removed children are automatically detected and prepared.
+		</p>
+		<p>
+			If a selected child was removed and not added back in the same microtask (i.e. before <code>await</code> or <code>setTimeout</code>), a <code>change</code> event is asynchronously triggered on the selectable element and, if the <code>required</code> option is set, another child will be selected if possible.
+		</p>
+		<div class="example p-bottom no-frontfire" data-source-highlight="append|remove(?=\()">
+			<div class="buttons p">
+				<button id="add-child">Add child</button>
+				<button id="remove-child">Remove selected</button>
+			</div>
+			<p>
+				Selection: <span id="current-selection"></span>
+			</p>
+			<div id="update-demo" class="selectable">
+				<div>First item</div>
+				<div>Second item</div>
+				<div>Third item</div>
+				<div>Fourth item</div>
+				<div>Fifth item</div>
+			</div>
+			<script>
+				let counter = 6;
+				// Show current selection
+				F("#update-demo").on("change!", () => {
+					F("#current-selection").textContent = F("#update-demo").selectable.getSelection().first?.textContent;
+				});
+				// Add new list item
+				F("#add-child").on("click", () => {
+					F("#update-demo").append("<div>New item " + (counter++) + "</div>");
+				});
+				// Remove selected item
+				F("#remove-child").on("click", () => {
+					F("#update-demo").selectable.getSelection().remove();
+				});
+			</script>
+		</div>
+
+		<h3 id="child-updating-html">HTML select</h3>
+		<p>
+			To add or remove items to the HTML <code data-lang="html">&lt;select&gt;</code> element, it is sufficient to add or remove child <code data-lang="html">&lt;option&gt;</code> elements from the select element.
+			The new and removed options are automatically detected and displayed.
+		</p>
+		<p>
+			If a selected option was removed and not added back in the same microtask (i.e. before <code>await</code> or <code>setTimeout</code>), a <code>change</code> event is asynchronously triggered on the <code data-lang="html">&lt;select&gt;</code> element and, if the <code>required</code> attribute is set, another option will be selected if possible.
+		</p>
+		<div class="example p-bottom no-frontfire" data-source-highlight="append|remove(?=\()">
+			<div class="buttons p">
+				<button id="add-child-html">Add child</button>
+				<button id="remove-child-html">Remove selected</button>
+			</div>
+			<p>
+				Selection: <span id="current-selection-html"></span>
+			</p>
+			<select id="update-html-demo" multiple size="2" style="height: auto;">
+				<option value="1">First item</option>
+				<option value="2">Second item</option>
+				<option value="3">Third item</option>
+				<option value="4">Fourth item</option>
+				<option value="5">Fifth item</option>
+			</select>
+			<script>
+				let counterHtml = 6;
+				// Show current selection
+				F("#update-html-demo").on("change!", () => {
+					F("#current-selection-html").textContent = F("#update-html-demo").selectable.getSelection().first?.value;
+				});
+				// Add new option
+				F("#add-child-html").on("click", () => {
+					F("#update-html-demo").append('<option value="' + counterHtml + '">New item ' + (counterHtml++) + '</div>');
+				});
+				// Remove selected option
+				F("#remove-child-html").on("click", () => {
+					F("#update-html-demo").selectable.getSelection().remove();
+				});
+			</script>
+		</div>
+
+		<h2 id="html-summary">HTML content and summaries</h2>
+		<p>
+			Another advantage of the selectable over a native <code data-lang="html">&lt;select&gt;</code> element is that it can display HTML content in the options.
+			This can be used to include icons or formatting of the option texts.
+			The HTML content is specified in the <code>data-html</code> attribute of each <code data-lang="html">&lt;option&gt;</code>.
+		</p>
+		<p>
+			The plain text content of the <code data-lang="html">&lt;option&gt;</code> element should still be set as it is used for the search function and may be picked up by assistive or automation technologies.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="data-html">
+			<select>
+				<option data-html="<strong>First</strong> item">First item</option>
+				<option data-html="<i class='material'>favorite.fill</i> Second item">Second item</option>
+				<option data-html="<i class='material'>ac_unit</i> Third item">Third item</option>
+				<option data-html="<i class='material'>podcasts</i> Fourth item">Fourth item</option>
+				<option>Fifth item</option>
+			</select>
+		</div>
+
+		<p>
+			The HTML content will also be displayed in the dropdown button.
+			To reduce the complexity of it and reduce the complaxity of the currently selected value, a summary can be defined for each option.
+			That summary will be displayed in the button instead of the full content.
+			Using summaries is independent from using HTML content.
+			The summary can also be specified with HTML code.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="data-summary(-html)?">
+			<select>
+				<option data-html="<strong>First</strong> item" data-summary="First">First item</option>
+				<option data-html="<i class='material'>favorite.fill</i> Second item" data-summary="Second">Second item</option>
+				<option data-html="<i class='material'>ac_unit</i> Third item" data-summary="Third">Third item</option>
+				<option data-html="<i class='material'>podcasts</i> Fourth item">Fourth item</option>
+				<option data-summary-html="<i class='material' style='color: limegreen;'>directions_bike</i>">Fifth item</option>
+			</select>
+		</div>
+
+		<p>
+			BTW, yes, in HTML attributes, only the delimiter quote character (<code>'</code>/<code>"</code>) and the escape character itself (<code>&amp;</code>) need to be escaped.
+			This is clearly defined in the <a href="https://www.w3.org/TR/2021/SPSD-html52-20210128/syntax.html#attribute-value-double-quoted-state">HTML 5.2 standard</a>.
+			So there’s no need to painfully escape left and right angle brackets (<code>&lt;</code>/<code>&gt;</code>) for these attributes when hand-typing HTML code.
+			The code shown in the examples is browser-generated and so serves as a good example.
+		</p>
+
+		<h2 id="placeholder">Placeholder</h2>
+		<p>
+			If a dropdown is used for the selection and no item is selected, the content of the dropdown button is empty.
+			In this case, a placeholder text can be displayed with the <code>placeholder</code> option.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="placeholder">
+			<select multiple data-opt-placeholder="No selection">
+				<option>First item</option>
+				<option>Second item</option>
+				<option>Third item</option>
+			</select>
+		</div>
+
+		<h2 id="width-wrap">Width and wrapping</h2>
+		<p>
+			By default, the selectable and its dropdown button will have a width that fits the content.
+			This can be avoided by setting the width of the original element to a fixed value.
+			Here is an example with a dropdown button:
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="width">
+			<select multiple style="width: 300px;">
+				<option>First item</option>
+				<option>Second item</option>
+				<option>Third item</option>
+				<option>Fourth item</option>
+				<option>Fifth item</option>
+			</select>
+		</div>
+
+		<p>
+			The dropdown button has a minimum width just like buttons.
+			To reduce the width for very small buttons if there’s little space, add the <code class="css-class">narrow</code> CSS class.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="narrow">
+			<select class="narrow">
+				<option selected>1</option>
+				<option>2</option>
+				<option>3</option>
+			</select>
+		</div>
+
+		<p>
+			If the content of the selected item(s) does not fit in the dropdown button, it will be cropped.
+			But it can also be set to wrap the content by adding the <code class="css-class">wrap</code> CSS class.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="wrap">
+			<select class="wrap" multiple style="width: 300px;">
+				<option selected>First item</option>
+				<option selected>Second item</option>
+				<option selected>Third item</option>
+				<option selected>Fourth item</option>
+				<option selected>Fifth item</option>
+			</select>
+		</div>
+
+		<h2 id="sortable">Sortable selectable</h2>
+		<p>
+			Selectable and sortable lists can be combined.
+			It is advisable to restrict the sortable movements to the list flow direction and within the list container.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="selectable|sortable|axis: y|containment: parent">
+			<div class="selectable sortable" data-opt="axis: y; containment: parent;">
+				<div>First item</div>
+				<div>Second item</div>
+				<div>Third item</div>
+				<div>Fourth item</div>
+				<div>Fifth item</div>
+			</div>
+		</div>
+
+		<h2 id="events">Events</h2>
+		<p>
+			When an HTML <code data-lang="html">&lt;select&gt;</code> element is replaced, the visible element is not the original element that was in the document.
+			To make it easier to use certain events with the UI element, they are forwarded to the original <code data-lang="html">&lt;select&gt;</code> element using the <a href="frontfire-core.html#forwardUIEvents"><code data-lang="js">Frontfire.forwardUIEvents()</code></a> method.
+		</p>
+		<p>
+			The change event is already managed by other actions and considered in both directions.
+		</p>
+		<div class="example p-top no-frontfire">
+			<select id="select1">
+				<option>First item</option>
+				<option>Second item</option>
+				<option>Third item</option>
+				<option>Fourth item</option>
+				<option>Fifth item</option>
+			</select>
+			<p id="event-log">
+				Events:
+			</p>
+			<script>
+				// pointermove, pointerout, pointerover not shown because of their frequency
+				F("#select1").on(
+					"blur click contextmenu dblclick focus focusin focusout input keydown keyup pointercancel pointerdown pointerenter pointerleave pointerup wheel",
+					event => {
+						// Log to console for further inspection
+						console.log(event);
+						F("#event-log").textContent += " " + event.type;
+					});
+			</script>
+		</div>
+
+		<p>
+			The original element’s <code>focus()</code> method is overwritten to focus the visible element instead.
+		</p>
+		<div class="example p-top no-frontfire">
+			<select id="select2">
+				<option>First item</option>
+				<option>Second item</option>
+			</select>
+			<p>
+				<button id="focus-select2">Focus selectable</button>
+			</p>
+			<script>
+				F("#focus-select2").on("click", () => {
+					F("#select2").first.focus();
+				});
+			</script>
+		</div>
+
+		<h2 id="options">Options</h2>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>multiple</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether multiple items can be selected.</td>
+					<td>false</td>
+				</tr>
+				<tr>
+					<td><code>placeholder</code></td>
+					<td>String</td>
+					<td>The placeholder text for the empty selection in the dropdown button.</td>
+					<td>""</td>
+				</tr>
+				<tr>
+					<td><code>required</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether a selection is required, i.e. cannot be cleared.</td>
+					<td>false</td>
+				</tr>
+				<tr>
+					<td><code>separator</code></td>
+					<td>String</td>
+					<td>The separator between selected values for multi-select dropdown lists.</td>
+					<td>", "</td>
+				</tr>
+				<tr>
+					<td><code>showSearchMatch</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the entered search text is shown in the matching item. This can be disabled if it interferes with HTML content in the selectable items.</td>
+					<td>true</td>
+				</tr>
+				<tr>
+					<td><code>toggle</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether a single click toggles the selection of an item. This implies multiple selection.</td>
+					<td>false</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="methods">Plugin methods</h2>
+		<p>
+			This plugin provides methods to control the selectable state.
+		</p>
+
+		<div class="member">
+			<h3 id="getSelection">getSelection</h3>
+			<ul>
+				<li><code>getSelection()</code> → Frontfire</li>
+			</ul>
+			<p>
+				Returns the currently selected elements.
+				These are the children of the element that this plugin has been applied on.
+				For HTML <code data-lang="html">&lt;select&gt;</code> elements, this method returns the <code data-lang="html">&lt;option&gt;</code> elements.
+			</p>
+<div class="code">F("#selectbox").selectable.getSelection();
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="selectAll">selectAll</h3>
+			<ul>
+				<li><code>selectAll()</code> → void</li>
+			</ul>
+			<p>
+				Selects all items, including disabled items.
+				If neither the <code>multiple</code> nor the <code>toggle</code> option is true, this method does nothing.
+			</p>
+<div class="code">F("#selectbox").selectable.selectAll();
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="selectItem">selectItem</h3>
+			<ul>
+				<li><code>selectItem(item)</code> → void</li>
+			</ul>
+			<p>
+				Selects a single item, including disabled items, deselecting all others.
+			</p>
+<div class="code">F("#selectbox").selectable.selectItem(aListItem);
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="selectNone">selectNone</h3>
+			<ul>
+				<li><code>selectNone()</code> → void</li>
+			</ul>
+			<p>
+				Deselects all items.
+				If the <code>required</code> option is true, this method does nothing.
+			</p>
+<div class="code">F("#selectbox").selectable.selectNone();
+</div>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

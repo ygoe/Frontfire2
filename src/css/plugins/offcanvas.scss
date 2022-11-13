@@ -1,0 +1,23 @@
+.off-canvas
+{
+	visibility: hidden;
+	position: fixed;
+	z-index: 1500;
+	top: 0;
+	height: 100%;
+	padding: 10px;
+	background: #f4f4f4;
+	color: black;
+	touch-action: pan-y;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	max-width: 85vw;
+	// Debug feature to see if the panel is completely visible,
+	// see https://bugs.chromium.org/p/chromium/issues/detail?id=801621
+	//outline: dashed 1px red;
+	//outline-offset: -1px;
+	&.ff-off-canvas
+	{
+		visibility: visible;
+	}
+}

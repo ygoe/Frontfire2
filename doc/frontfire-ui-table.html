@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Table documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Table module</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p>
+			Tables allow the presentation of tabular data.
+			They really should not be used for layouting page content as it was popular in the 1990s before the rise of CSS.
+			You can define tables with the <code data-lang="html">&lt;table&gt;</code>, <code data-lang="html">&lt;tr&gt;</code>, <code data-lang="html">&lt;th&gt;</code> and <code data-lang="html">&lt;td&gt;</code> elements as usual.
+			CSS classes can be applied to the <code data-lang="html">&lt;table&gt;</code> element to configure the appearance.
+		</p>
+		<p>
+			<strong>Note:</strong><br>
+			There are many CSS classes available for table styling.
+			Search for “table” in the <a href="frontfire-ui-classes.html">CSS classes reference</a> to get a full list.
+			This page tries to show how each of them looks.
+		</p>
+		<p>
+			This module and all of its plugins is available in the Minimal and Complete bundles.
+		</p>
+
+		<h2 id="simple-tables">Simple tables</h2>
+		<p>
+			This is a plain table with no additional styling.
+			The use of <code data-lang="html">&lt;thead&gt;</code> and <code data-lang="html">&lt;tbody&gt;</code> is normally optional but shown here because the browser would insert it in ugly places in this example.
+		</p>
+		<p>
+			The table border and grid line colour can be customised with the <code class="css-var">--table-grid-color</code> CSS class, the table header background with <code class="css-var">--table-header-background</code>.
+		</p>
+		<div class="example p no-frontfire">
+			<table>
+				<thead>
+					<tr>
+						<th>Column 1</th>
+						<th>Column 2</th>
+						<th>Column 3</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td>Data 3</td>
+					</tr>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td>Data 3</td>
+					</tr>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td>More data 3</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<h3 id="simple-tables-full-width">Full width</h3>
+		<p>
+			To expand the table to the full available width, use the <code class="css-class">full-width</code> CSS class.
+			Normally, a table will only use the width it needs for its content.
+			But for consistency with multiple tables on the same page, or when displaying a long list of data, it could look nicer to always let the table use the full page width.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(full-width)">
+			<table class="full-width">
+				<thead>
+					<tr>
+						<th>Column 1</th>
+						<th>Column 2</th>
+						<th>Column 3</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td>Data 3</td>
+					</tr>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td>More data in column 3</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<h2 id="no-border">Tables without borders</h2>
+		<p>
+			This table has the <code class="css-class">no-border</code>, <code class="css-class">no-vgrid</code> and <code class="css-class">center</code> classes to eliminate the outer table border and the inner vertical grid lines, and align all cell content centered, respectively.
+			The alternative to <code class="css-class">no-vgrid</code> is <code class="css-class">no-hgrid</code> to remove the horizontal grid lines instead.
+			Both are combined in the <code class="css-class">no-grid</code> class that removes all inner grid lines.
+		</p>
+		<p>
+			All table content can be centered with the <code class="css-class">center</code> class applied to the table.
+			Individual cells can be aligned differently by applying the <code class="css-class">left</code>, <code class="css-class">center</code> and <code class="css-class">right</code> classes to each <code data-lang="html">&lt;th&gt;</code> or <code data-lang="html">&lt;td&gt;</code> element (shown in the last row).
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(no-border|no-vgrid|center|left|right)">
+			<table class="no-border no-vgrid center">
+				<thead>
+					<tr>
+						<th>Column 1</th>
+						<th>Column 2</th>
+						<th>Column 3</th>
+						<th>Column 4</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td>Data 3</td>
+						<td>Data 4</td>
+					</tr>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td>Data 3</td>
+						<td>Data 4</td>
+					</tr>
+					<tr>
+						<td class="left">Left</td>
+						<td>Data 2<br>Second line</td>
+						<td>Data 3</td>
+						<td class="right">Right</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<p>
+			The <code class="css-class">no-outer-padding</code> class removes the outer cell padding towards the border of the table, but leaves the inner cell padding between adjacent cells intact.
+			This is most useful in combination with <code class="css-class">no-border</code> (as shown here) and without any cell background colours.
+			It aligns the table content exactly with the surrounding text.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(no-outer-padding|no-border)">
+			<table class="no-outer-padding no-border">
+				<tbody>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td>Data 3</td>
+					</tr>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td>Data 3</td>
+					</tr>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td>Data 3</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<h2 id="compact">Compact tables</h2>
+		<p>
+			Tables can be made more compact with the <code class="css-class">compact</code> CSS class.
+			This reduces the cell padding and removes the inner grid lines.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)(compact)">
+			<table class="compact">
+				<thead>
+					<tr>
+						<th>Column 1</th>
+						<th>Column 2</th>
+						<th>Column 3</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td>Data 3</td>
+					</tr>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td>Data 3</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<p>
+			To remove all padding completely and have table cells touch each other directly, use the combination of the <code class="css-class">no-border</code>, <code class="css-class">no-grid</code> and <code class="css-class">no-padding</code> CSS classes.
+			It is probably advisable not to use a table header (<code data-lang="html">&lt;th&gt;</code>) with this.
+			You could still place elements with their own custom padding in each table cell.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(no-border|no-grid|no-padding)">
+			<table class="no-border no-grid no-padding">
+				<thead>
+					<tr>
+						<th>Column 1</th>
+						<th>Col 2</th>
+						<th>Column 3</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td>Data 3</td>
+					</tr>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td>Data 3</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<h2 id="large">Larger cells</h2>
+		<h3 id="large-big-links">Big links</h3>
+		<p>
+			Hyperlinks in a table cell that only have the size of the text content can be a bit small to click or touch, and it might seem unintuitive to have a smaller touch area than the visual box of the table cell.
+			For this reason, links in a table can be enlarged to fill their entire cell, by adding the <code class="css-class">big-links</code> CSS class to the table.
+		</p>
+		<div id="big-links-example" class="example p no-frontfire" data-source-highlight="(?<=&quot;)(big-links)">
+			<table class="big-links">
+				<thead>
+					<tr>
+						<th>Column 1</th>
+						<th>Column 2</th>
+						<th>Column 3</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a href="#">12</a></td>
+						<td>Data 2</td>
+						<td>Data 3</td>
+					</tr>
+					<tr>
+						<td><a href="#">345</a></td>
+						<td>Data 2</td>
+						<td>Data 3</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<script>
+			F("#big-links-example a").on("click", event => {
+				event.preventDefault();
+			});
+		</script>
+
+		<h3 id="large-tall-rows">Tall rows</h3>
+		<p>
+			Table rows that may have buttons to perform certain actions.
+			These buttons have a larger height than regular text content because of their additional padding.
+			If some of the rows contain a button and others do not, the row heights are not regular.
+			To avoid this, and to further increase the touch area of links in a table, add the <code class="css-class">tall-rows</code> CSS class to the table.
+		</p>
+		<div id="tall-rows-example" class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(tall-rows)">
+			<table class="no-border no-vgrid no-outer-padding tall-rows">
+				<thead>
+					<tr>
+						<th>Column 1</th>
+						<th>Column 2</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td><button class="narrow">Delete</button></td>
+					</tr>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+						<td><button class="narrow">Delete</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<script>
+			F("#tall-rows-example a").on("click", event => {
+				event.preventDefault();
+			});
+		</script>
+
+		<p>
+			Here is another example with <code class="css-class">tall-rows</code> and <code class="css-class">big-links</code> together.
+		</p>
+		<div id="tall-rows-big-links-example" class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(big-links|tall-rows)">
+			<table class="no-border no-vgrid no-outer-padding big-links tall-rows">
+				<thead>
+					<tr>
+						<th>Column 1</th>
+						<th>Column 2</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a href="#">12</a></td>
+						<td>Data 2</td>
+						<td><button class="narrow">Delete</button></td>
+					</tr>
+					<tr>
+						<td><a href="#">345</a></td>
+						<td>Data 2</td>
+						<td><button class="narrow">Delete</button></td>
+					</tr>
+					<tr>
+						<td><a href="#">6</a></td>
+						<td>Data 2</td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<script>
+			F("#tall-rows-big-links-example a").on("click", event => {
+				event.preventDefault();
+			});
+		</script>
+
+		<h2 id="demo">Interactive table styles demonstration</h2>
+		<div class="sticky-aside-container require-desktop">
+			<div class="sticky-aside aside-options">
+				<div class="header">Size</div>
+				<div><label class="indent-checkbox table-class-checkbox"><input type="checkbox"> full-width</label></div>
+				<div class="header">Borders</div>
+				<div><label class="indent-checkbox table-class-checkbox"><input type="checkbox"> no-border</label></div>
+				<div><label class="indent-checkbox table-class-checkbox"><input type="checkbox"> no-grid</label></div>
+				<div><label class="indent-checkbox table-class-checkbox"><input type="checkbox"> no-vgrid</label></div>
+				<div><label class="indent-checkbox table-class-checkbox"><input type="checkbox"> no-hgrid</label></div>
+				<div class="header">Padding</div>
+				<div><label class="indent-checkbox table-class-checkbox"><input type="checkbox"> no-outer-padding</label></div>
+				<div><label class="indent-checkbox table-class-checkbox"><input type="checkbox"> no-padding</label></div>
+				<div><label class="indent-checkbox table-class-checkbox"><input type="checkbox"> compact</label></div>
+				<div><label class="indent-checkbox table-class-checkbox"><input type="checkbox"> big-links</label></div>
+				<div><label class="indent-checkbox table-class-checkbox"><input type="checkbox"> tall-rows</label></div>
+				<div class="header">Alignment</div>
+				<div><label class="indent-checkbox table-class-checkbox"><input type="checkbox"> left</label></div>
+				<div><label class="indent-checkbox table-class-checkbox"><input type="checkbox"> center</label></div>
+				<div><label class="indent-checkbox table-class-checkbox"><input type="checkbox"> right</label></div>
+				<div><label class="indent-checkbox table-class-checkbox"><input type="checkbox"> top</label></div>
+				<div><label class="indent-checkbox table-class-checkbox"><input type="checkbox"> bottom</label></div>
+			</div>
+
+			<p>
+				The following example can be used to interactively set the individual table-level CSS classes and see their effect.
+			</p>
+			<div id="table-class-example" class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(full-width|no-border|no-[vh]?grid|no-(outer-)?padding|compact|big-links|tall-rows|left|center|right|top|bottom)">
+				<table class="">
+					<thead>
+						<tr>
+							<th>Column 1</th>
+							<th>Col 2</th>
+							<th>Column 3</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><a href="#">Link 1</a></td>
+							<td>Data 2</td>
+							<td>Data 3</td>
+						</tr>
+						<tr>
+							<td>Data 1</td>
+							<td>Data 2<br>Next line</td>
+							<td>Data 3</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script>
+			// addExampleCode will be defined at end of page
+			F.onReady(() => {
+				F(".table-class-checkbox input[type=checkbox]").on("click!", event => {
+					let checked = event.currentTarget.checked;
+					let className = event.currentTarget.parentElement.textContent.trim();
+					F("#table-class-example table").classList.toggle(className, checked);
+					addExampleCode(F("#table-class-example"));
+				});
+			});
+		</script>
+
+		<h2 id="sticky-header">Sticky header</h2>
+		<p>
+			Long tables can be hard to read when the header row has already been scrolled out of view.
+			The <code class="css-class">sticky-header</code> class keeps the table header of a table visible at the top of the viewport while scrolling down.
+			The sticky position is applied to <code data-lang="html">&lt;th&gt;</code> elements in a <code data-lang="html">&lt;thead&gt;</code> element, so use these properly.
+			The vertical offset is defined in the CSS variable <code class="css-var">--sticky-header-top</code> and can be changed to keep the sticky header below a fixed page header.
+			If unset, the offset defaults to 0 (top edge of the viewport with no fixed elements).
+			In this example, the CSS variable <code>--fixed-header-height</code> is set by the site CSS and adjusted so that it updates when the page header is no longer fixed on less tall viewports.
+		</p>
+		<p>
+			Because of the way that collapsed table borders work, they cannot be used together with sticky headers.
+			So to avoid missing or inconsistent table borders, only use this feature with all borders in the table header disabled.
+			The set of classes shown in the example demonstrate this.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)sticky-header|--sticky-header-top|&lt;/?thead&gt;">
+			<table class="sticky-header no-border no-vgrid no-outer-padding" style="--sticky-header-top: var(--fixed-header-height);">
+				<thead>
+					<tr>
+						<th>Scroll down and</th>
+						<th>I’ll stay visible</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+					</tr>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+					</tr>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+					</tr>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+					</tr>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+					</tr>
+					<tr>
+						<td>Data 1</td>
+						<td>Data 2</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<h2 id="vertical">Vertical text</h2>
+		<p>
+			Text can also be rotated to be vertical by placing it in a <code data-lang="html">&lt;span&gt;</code> element with the <code class="css-class">vertical</code> class.
+			This is especially useful for table headers with narrow columns.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(vertical)">
+			<table>
+				<thead>
+					<tr>
+						<th><span class="vertical">Column 1</span></th>
+						<th><span class="vertical">Column 2</span></th>
+						<th><span class="vertical">Column 3</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>A</td>
+						<td>B</td>
+						<td>C</td>
+					</tr>
+					<tr>
+						<td>A</td>
+						<td>B</td>
+						<td>more</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<h2 id="filter">Filtered table data</h2>
+		<p>
+			In some situations, tables have a different style for the first and last row and column.
+			When a view filter is used to hide certain rows or columns of the table, the special first/last style is still applied to the now hidden rows or columns.
+			A JavaScript function is needed to apply extra classes that override the default CSS selectors and apply these special styles to the right spots again.
+			This is provided with the two following methods.
+		</p>
+		<p>
+			The <a href="frontfire-core.html#updateFirstLastRow"><code>updateFirstLastRow()</code></a> updates the rows of each selected table.
+			Call this method on the <code data-lang="html">&lt;tbody&gt;</code> element after changing the visibility of rows in the table.
+		</p>
+		<p>
+			The <a href="frontfire-core.html#updateFirstLastColumn"><code>updateFirstLastColumn()</code></a> updates the columns of each selected table.
+			Call this method on the <code data-lang="html">&lt;table&gt;</code> element after changing the visibility of columns in the table.
+		</p>
+		<p>
+			The following example shows a table with relevant styles.
+			It has horizontal grid lines between the rows, but none above the first or below the last row.
+			It also has no horizontal outer padding and no outer border in the first and last column.
+			With the four outer checkboxes, you can hide the corresponding row or column.
+			With the central checkbox, the invocation of the update methods is enabled or disabled after each visibility change.
+			Use it to observe the style flaws that would appear without them and compare it to how the table style remains consistent with them.
+		</p>
+		<table class="p no-border no-grid center">
+			<tr>
+				<td></td>
+				<td><label><input type="checkbox" id="show-first-row" checked> First row</label></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><label><input type="checkbox" id="show-first-column" checked> First column</label></td>
+				<td><label><input type="checkbox" id="update-table"> Update table</label></td>
+				<td><label><input type="checkbox" id="show-last-column" checked> Last column</label></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><label><input type="checkbox" id="show-last-row" checked> Last row</label></td>
+				<td></td>
+			</tr>
+		</table>
+		<p>
+			The example source code already includes the modifications by these methods and adds the highlighted classes.
+			The style <code data-lang="style-value">display: none;</code> (not highlighted) is set by the checkbox event handlers of the example.
+		</p>
+		<div class="example p no-frontfire" id="dynamic-table-example" data-source-highlight="(?<=&quot;)((first|last|hidden)-(column|row))">
+			<table class="no-border no-outer-padding">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Age</th>
+						<th>Location</th>
+						<th>Profession</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Mary</td>
+						<td>26</td>
+						<td>Chicago</td>
+						<td>Scientist</td>
+					</tr>
+					<tr>
+						<td>James</td>
+						<td>21</td>
+						<td>Seattle</td>
+						<td>Physician Assistant</td>
+					</tr>
+					<tr>
+						<td>Patricia</td>
+						<td>54</td>
+						<td>Telluride</td>
+						<td>Lawyer</td>
+					</tr>
+					<tr>
+						<td>Robert</td>
+						<td>62</td>
+						<td>Salt Lake City</td>
+						<td>Designer</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<script>
+			// addExampleCode will be defined at end of page
+			F.onReady(() => {
+				let table = F("#dynamic-table-example table").first;
+				let tbody = F("#dynamic-table-example table tbody").first;
+				F("#show-first-row").on("click!", event => {
+					tbody.F.querySelectorAll("tr").first.F.visible = event.currentTarget.checked;
+					if (F("#update-table").checked)
+						tbody.F.updateFirstLastRow();
+					updateExample();
+				});
+				F("#show-last-row").on("click!", event => {
+					tbody.F.querySelectorAll("tr").last.F.visible = event.currentTarget.checked;
+					if (F("#update-table").checked)
+						tbody.F.updateFirstLastRow();
+					updateExample();
+				});
+				F("#show-first-column").on("click!", event => {
+					table.querySelectorAll("tr").forEach(row => row.F.querySelectorAll("th, td").first.F.visible = event.currentTarget.checked);
+					if (F("#update-table").checked)
+						table.F.updateFirstLastColumn();
+					updateExample();
+				});
+				F("#show-last-column").on("click!", event => {
+					table.querySelectorAll("tr").forEach(row => row.F.querySelectorAll("th, td").last.F.visible = event.currentTarget.checked);
+					if (F("#update-table").checked)
+						table.F.updateFirstLastColumn();
+					updateExample();
+				});
+
+				function updateExample() {
+					// Clean up: remove unneeded attributes to make the example better readable
+					F("#dynamic-table-example *").forEach(e => {
+						if (e.getAttribute("style") === "")
+							e.removeAttribute("style");
+						if (e.getAttribute("class") === "")
+							e.removeAttribute("class");
+					});
+					addExampleCode(F("#dynamic-table-example"));
+				}
+			});
+		</script>
+
+		<h2 id="overflow-columns">Overflow columns</h2>
+		<p>
+			Tables can also be used for data entry forms where the same (or similar) properties are provided for a number of records (see <a href="#template-rows">template rows</a> below).
+			Such data tables can easily grow to a width that does not fit the screen anymore.
+			In these situations, the overflowing columns can be hidden away and displayed in a separate modal upon clicking a button.
+			To use this feature, the following requirements must be met:
+		</p>
+		<ul>
+			<li>The table element must have the <code class="css-class">overflow-columns</code> CSS class.</li>
+			<li>All table header cells must be in a separate <code data-lang="html">&lt;thead&gt;</code> element.</li>
+			<li>All columns that can be collapsed (hidden on overflow) must have the <code class="css-class">collapsible-column</code> CSS class in their header cell.</li>
+			<li>A table column for the overflow modal button must be added with the <code class="css-class">overflow-column</code> CSS class for all cells.</li>
+			<li>The <code>overflow-column</code> cells (excluding the header) must contain a single <code data-lang="html">&lt;button&gt;</code> element with the <code class="css-class">overflow-button</code> CSS class as shown in the example.</li>
+		</ul>
+		<p>
+			All columns are collapsed from right to left, as long as the table width exceeds the content width of its parent element.
+			Optionally, the header cells can have a <code>data-collapse-priority</code> HTML attribute that is set to a number value.
+			These columns are collapsed first, in the order of their values, lowest first.
+			Columns with the same priority value are still collapsed from right to left.
+			All other columns are collapsed last.
+		</p>
+		<p>
+			As soon as a column is collapsed, the overflow buttons become visible in all rows.
+			Clicking that button opens a modal that contains the column headers and cell content of each hidden column in a vertical form layout.
+			The cell content is moved from the original locations in the table into the modal form when the modal is opened, and moved back when the modal is closed.
+			So the input elements in the modal are the actual input elements from the table, not clones.
+			Changes to these input elements are immediately persisted and change events are triggered, there is no Cancel button for the modal.
+		</p>
+		<p>
+			As the width of the cell content can change on user interaction, the overflow columns need to be updated at appropriate times.
+			This can be triggered with the update() plugin method.
+			The layout is already updated when a “change” or “input” event bubbles through the table.
+			See the descriptions of the plugin methods below.
+		</p>
+		<div class="example resizable p no-frontfire" data-source-highlight="(?<=[&quot; ])(overflow-columns|collapsible-column|overflow-column|overflow-button)|data-collapse-priority">
+			<table id="overflow-table" class="overflow-columns full-width no-border no-grid no-outer-padding">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th class="collapsible-column">Options</th>
+						<th class="collapsible-column" data-collapse-priority="1">Checkbox</th>
+						<th class="collapsible-column" data-collapse-priority="2">Number</th>
+						<th class="collapsible-column">Description</th>
+						<th class="overflow-column"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="text" size="1" value="First row" style="width: 100%; min-width: 150px;"></td>
+						<td>
+							<select style="width: 100%; min-width: 100px;">
+								<option selected>Option 1</option>
+								<option>Very long option 2</option>
+							</select>
+						</td>
+						<td><label><input type="checkbox"> Checkbox</label></td>
+						<td><input type="number" value="1" style="width: 100%; min-width: 70px;"></td>
+						<td>Just text</td>
+						<td class="overflow-column">
+							<button type="button" class="narrow icon-only overflow-button"><i class="material">menu</i></button>
+						</td>
+					</tr>
+					<tr>
+						<td><input type="text" size="1" value="Second row" style="width: 100%; min-width: 150px;"></td>
+						<td>
+							<select style="width: 100%; min-width: 100px;">
+								<option selected>Option 1</option>
+								<option>Even much longer option 2</option>
+							</select>
+						</td>
+						<td><label><input type="checkbox"> Checkbox</label></td>
+						<td><input type="number" value="2" style="width: 100%; min-width: 70px;"></td>
+						<td>Another text</td>
+						<td class="overflow-column">
+							<button type="button" class="narrow icon-only overflow-button"><i class="material">menu</i></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<h3 id="overflow-columns-methods">Plugin methods</h3>
+		<p>
+			This plugin provides methods to control the layout.
+		</p>
+
+		<div class="member">
+			<h4 id="overflow-columns-update">update</h4>
+			<ul>
+				<li><code>update()</code> → this</li>
+			</ul>
+			<p>
+				Updates the overflow column visibilities for a table.
+				This needs to be called after updating the contents of the table, like adding/removing rows, changing data or showing additional columns.
+				It is called automatically after the window has been resized.
+			</p>
+		</div>
+
+		<h2 id="template-rows">Template rows</h2>
+		<p>
+			Tables can also be used for data entry forms where the same (or similar) properties are provided for a number of records.
+			Such data tables are best populated from record data provided in a JSON object or fetched directly from a server or database.
+			You can define a row template that contains the form fields for each table column and that will be used for each loaded record.
+			Each field element needs the <code>data-name</code> HTML attribute to bind it to a record field.
+			To prepare a table for template rows, call the <a href="frontfire-core.html#templateRows">templateRows()</a> plugin method on a table element.
+			The data rows can be added or read with the <a href="#template-rows-methods">plugin methods</a> described below.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="<template.*?>|template(?=:)|<tbody>|templateRows|addRows?|loadJSON|getRecords|saveJSON">
+			<div class="buttons p">
+				<button id="clear-table">Clear</button>
+				<hr>
+				<button id="add-row">Add</button>
+				<button id="load-records">Load</button>
+				<button id="load-json">Load JSON</button>
+				<hr>
+				<button id="get-record">Get first record</button>
+				<button id="get-records">Get records</button>
+				<button id="save-json">Save JSON</button>
+			</div>
+
+			<table id="data-table1" data-opt="template: #data-template1;" class="p overflow-columns full-width no-border no-grid no-outer-padding">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th class="collapsible-column">Location</th>
+						<th class="collapsible-column">Age</th>
+						<th class="collapsible-column center">Verified</th>
+						<th class="overflow-column"></th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<template id="data-template1">
+				<tr>
+					<td>
+						<input type="text" data-name="name" size="1" style="width: 100%; min-width: 80px;">
+					</td>
+					<td>
+						<select data-name="location" style="width: 100%; min-width: 100px;">
+							<option>Africa</option>
+							<option>America</option>
+							<option>Asia</option>
+							<option>Australia</option>
+							<option>Europe</option>
+						</select>
+					</td>
+					<td>
+						<input type="number" data-name="age" size="1" style="width: 100%; min-width: 60px;" min="0">
+					</td>
+					<td class="center">
+						<input type="checkbox" data-name="verified">
+					</td>
+					<td class="overflow-column">
+						<button type="button" class="narrow icon-only overflow-button"><i class="material">menu</i></button>
+					</td>
+				</tr>
+			</template>
+
+			<!-- The hidden form field that provides stored data and submits back changed data. -->
+			<input type="hidden" name="recordsJson" value="">
+
+			<script>
+				// Demo data dafinition
+				let records = [
+					{ name: "Alice", location: "Africa", age: 39, verified: true },
+					{ name: "Bob", location: "Asia", age: 24, verified: false },
+					{ name: "Chris", location: "Europe", age: 72, verified: true }
+				];
+
+				let dataTable;
+				function init() {
+					// This would normally be done immediately, but it would also destroy this
+					// example source code view, so it's deferred to the first button click.
+					if (!dataTable)
+						dataTable = F("#data-table1").templateRows();
+					// The JSON value would normally be set directly in HTML, but the source code
+					// requires view can only use double quotes as attribute value delimiter and
+					// that the JSON quotes to be escaped as &quot;, making the JSON unreadable.
+					// So we set it here.
+					F("input[name=recordsJson]").value('[{ "name": "Daniel", "location": "America", "age": 8, "verified": true }, { "name": "Ellen", "location": "Australia", "age": 34, "verified": false }]');
+				}
+
+				// Sample button event handlers
+				F("#clear-table").on("click", () => {
+					F("#data-table1 tbody tr").remove();
+				});
+				F("#add-row").on("click", () => {
+					init();
+					dataTable.addRow();
+				});
+				F("#load-records").on("click", () => {
+					init();
+					dataTable.addRows(records);
+				});
+				F("#load-json").on("click", () => {
+					init();
+					// Set the JSON field here so that it’s not loaded automatically in this example
+					dataTable.loadJSON("input[name=recordsJson]");
+					F("#save-json").enable();
+				});
+				F("#get-record").on("click", () => {
+					init();
+					let record = dataTable.getRecord(F("#data-table1 tbody tr").first);
+					// Display the returned record
+					F.modal(JSON.stringify(record, null, "  "));
+				});
+				F("#get-records").on("click", () => {
+					init();
+					let records = dataTable.getRecords();
+					// Display the returned records
+					F.modal(JSON.stringify(records, null, "  "));
+				});
+				F("#save-json").on("click", () => {
+					init();
+					// Requires JSON field set up, by “Load JSON” or normally by setting the option
+					dataTable.saveJSON();
+					// Display the JSON field value
+					F.modal(F("input[name=recordsJson]").value());
+				});
+			</script>
+		</div>
+		<script>
+			// Clear field that is auto-restored when reloading the page
+			F("input[name=recordsJson]").value("");
+			// Browser remembers this state when reloading! Must be initially disabled (not in the source view)
+			F.onReady(() => {
+				F("#save-json").disable();
+			});
+		</script>
+
+		<h3 id="template-rows-options">Options</h3>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>init</code></td>
+					<td>Function</td>
+					<td>
+						A function that is called for each added row after it has been added to the table.
+						It gets the following arguments:
+						<ol>
+							<li>The <code data-lang="html">&lt;tr&gt;</code> element</li>
+							<li>The record object</li>
+							<li>The original table element as specified for the plugin (<code data-lang="html">&lt;table&gt;</code> or <code data-lang="html">&lt;tbody&gt;</code>)</li>
+						</ol>
+						If undefined, the standard Frontfire autostart is applied.
+						If null, nothing happens.
+					</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>jsonField</code></td>
+					<td>String, Node</td>
+					<td>
+						The form field that contains all records as JSON string.
+						If set, the table rows are created at load time.
+						The template must also be set in the options then.
+						This option can be set later with the <a href="#template-rows-loadJSON">loadJSON()</a> method.
+						It will be reused for saving the table data to a JSON field for form submit.
+					</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>template</code></td>
+					<td>String, Node</td>
+					<td>The template element that contains a table row to use for all records. Specified as CSS selector or Node.</td>
+					<td>None</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3 id="template-rows-methods">Plugin methods</h3>
+		<p>
+			This plugin provides methods to set and read the table data.
+		</p>
+
+		<div class="member">
+			<h4 id="template-rows-addRow">addRow</h4>
+			<ul>
+				<li><code>addRow()</code> → HTMLTableRowElement</li>
+				<li><code>addRow(record)</code> → HTMLTableRowElement</li>
+			</ul>
+			<p>
+				Appends a new table row with the specified record data.
+				If no record is specified, the new row will not be altered.
+			</p>
+		</div>
+
+		<div class="member">
+			<h4 id="template-rows-addRows">addRows</h4>
+			<ul>
+				<li><code>addRows(records)</code> → Array(HTMLTableRowElement)</li>
+			</ul>
+			<p>
+				Appends new table rows with the specified record data.
+			</p>
+		</div>
+
+		<div class="member">
+			<h4 id="template-rows-getRecord">getRecord</h4>
+			<ul>
+				<li><code>getRecord(row)</code> → Object</li>
+			</ul>
+			<p>
+				Returns the object with the data from the specified table row fields.
+				If a row was created without a record, a new object will be assigned so that subsequent calls return the same record instance.
+			</p>
+		</div>
+
+		<div class="member">
+			<h4 id="template-rows-getRecords">getRecords</h4>
+			<ul>
+				<li><code>getRecords()</code> → Array</li>
+			</ul>
+			<p>
+				Returns an Array of objects with the data from the table row fields.
+				If a row was created without a record, a new object will be assigned so that subsequent calls return the same record instance.
+			</p>
+		</div>
+
+		<div class="member">
+			<h4 id="template-rows-loadJSON">loadJSON</h4>
+			<ul>
+				<li><code>loadJSON()</code> → Array(HTMLTableRowElement)</li>
+				<li><code>loadJSON(jsonField)</code> → Array(HTMLTableRowElement)</li>
+			</ul>
+			<p>
+				Appends new table rows with the data from the specified JSON form field, and remembers the field for later updating.
+				If the field is not specified, it must be set in the plugin options.
+				Returns the added table row elements.
+			</p>
+		</div>
+
+		<div class="member">
+			<h4 id="template-rows-saveJSON">saveJSON</h4>
+			<ul>
+				<li><code>saveJSON()</code> → void</li>
+				<li><code>saveJSON(jsonField)</code> → void</li>
+			</ul>
+			<p>
+				Saves the data from the table row fields as JSON to a form field.
+				If the field is not specified, it must be set in the plugin options or in a previous loadJSON() call.
+			</p>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

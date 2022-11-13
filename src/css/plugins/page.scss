@@ -1,0 +1,138 @@
+// Restricts content to the default page width and scales down with smaller screens.
+.page-width
+{
+	margin-left: var(--page-width-padding);
+	max-width: min(var(--page-width), calc(100% - 2 * var(--page-width-padding)));
+}
+// Adds a horizontal padding to otherwise full-screen wide content.
+.full-page-width
+{
+	margin-left: var(--page-width-padding);
+	max-width: calc(100% - 2 * var(--page-width-padding));
+}
+
+// Centers the content in elements with the page-width class.
+html.center
+{
+	// Force scrollbar to maintain consistent centering on short and long pages
+	overflow-y: scroll;
+
+	.page-width
+	{
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+// Remove width limitation and horizontal padding for print. There is still the print margin.
+@media print
+{
+	.page-width,
+	.full-page-width
+	{
+		margin-left: 0;
+		max-width: 100%;
+	}
+}
+
+// Sources:
+// https://www.paulirish.com/2012/box-sizing-border-box-ftw/
+// https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+html
+{
+	box-sizing: border-box;
+}
+*, *::before, *::after
+{
+	box-sizing: inherit;
+}
+
+// Body margin is moved to the page-width and full-page-width classes.
+body
+{
+	margin: 0;
+}
+
+// Disables all transitions of and within elements with this class.
+*.no-transitions,
+.no-transitions *
+{
+	transition: none !important;
+}
+
+// Restrict motion when the user has requested this at a system level.
+// Source: https://github.com/csstools/sanitize.css/blob/main/reduce-motion.css
+@media (prefers-reduced-motion: reduce)
+{
+	*,
+	::before,
+	::after
+	{
+		animation-delay: -1ms !important;
+		animation-duration: 1ms !important;
+		animation-iteration-count: 1 !important;
+		background-attachment: initial !important;
+		scroll-behavior: auto !important;
+		transition-delay: 0s !important;
+		transition-duration: 0s !important;
+	}
+}
+
+// Displays elements only for printing.
+.print-only
+{
+	@media not print
+	{
+		display: none;
+	}
+}
+// Hides elements for printing.
+.not-print
+{
+	@media print
+	{
+		display: none;
+	}
+}
+
+// simple-dimmer disables the background blur filter for devices with reduced rendering power.
+html:not(.simple-dimmer)
+{
+	& > body.ff-dimming > *:not(.ff-background-dimmer):not(.ff-modal-container):not(.ff-off-canvas):not(.no-dim)
+	{
+		transition: filter 0.25s ease-in-out;
+	}
+	& > body.ff-dimming.ff-dimmed > *:not(.ff-background-dimmer):not(.ff-modal-container):not(.ff-off-canvas):not(.no-dim)
+	{
+		filter: blur(4px) grayscale(0.5);
+	}
+}
+
+// The background dimmer panel that overlays the entire page at z-index 1000.
+// Other elements that should appear in front of the dimmed background must have a greater z-index.
+.ff-background-dimmer
+{
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgb(64, 64, 64, 0.25);
+	-webkit-tap-highlight-color: transparent;
+	opacity: 0;
+	transition: opacity 0.4s ease-in-out;
+	pointer-events: none;
+	&.noinput
+	{
+		pointer-events: auto;
+	}
+}
+
+// Uses a thin scrollbar
+.thin-scrollbar
+{
+	scrollbar-width: thin;
+	&::-webkit-scrollbar { width: 8px; }
+	&::-webkit-scrollbar-thumb { background-color: var(--thin-scrollbar-thumb); }
+}

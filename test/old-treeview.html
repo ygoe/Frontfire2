@@ -1,0 +1,174 @@
+<!doctype html>
+<html class="center">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Frontfire UI Tree view test</title>
+	<link rel="stylesheet" href="../../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+	<style>
+		/* Fix folder-open alignment with folder */
+		.fa-folder-open.fa-fw::before
+		{
+			margin-left: 1.5px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="page-width">
+		<h1>Frontfire UI Tree view test</h1>
+
+		<div class="treeview" style="width: 300px; height: 300px;"></div>
+		
+		<div class="buttons">
+			<button id="add" type="button"><i class="fas fa-plus"></i> Add</button>
+			<button id="delete" type="button" class="caution"><i class="fas fa-trash"></i> Delete</button>
+			<button id="toggle-dark" type="button"><i class="fas fa-moon"></i> Dark</button>
+		</div>
+	</div>
+
+	<script src="../../src/js/build/frontfire-ui-complete-singlefile.bundle.js"></script>
+	
+	<script>
+		let items = [
+			{
+				icon: "folder",
+				text: "Folder 1",
+				items: [
+					{
+						icon: "file-image",
+						text: "Image 1"
+					},
+					{
+						icon: "file-image",
+						text: "Image 2"
+					},
+					{
+						icon: "file-video",
+						text: "Video 3"
+					}
+				]
+			},
+			{
+				icon: "folder",
+				text: "Folder 2",
+				items: [
+					{
+						icon: "folder",
+						text: "Folder 3",
+						items: [
+							{
+								icon: "file-image",
+								text: "Image 4"
+							},
+							{
+								icon: "file-image",
+								text: "Image 5"
+							},
+							{
+								icon: "file-video",
+								text: "Video 6"
+							}
+						]
+					},
+					{
+						icon: "folder",
+						text: "Folder 4",
+						items: [
+							{
+								icon: "file-image",
+								text: "Image 7"
+							},
+							{
+								icon: "file-image",
+								text: "Image 8"
+							},
+							{
+								icon: "file-video",
+								text: "Video 9"
+							}
+						]
+					},
+					{
+						icon: "file-word",
+						text: "Document 10"
+					},
+					{
+						icon: "file-word",
+						text: "Document 11"
+					},
+					{
+						icon: "file-pdf",
+						text: "Document 12 (drop replace target)",
+						isDropTarget: true
+					}
+				]
+			}
+		];
+		let treeView;
+		let treeViewOptions = {
+			items: items,
+			singleRoot: false,
+			iconGetter: item => {
+				return "<i class='fas fa-" + (item.icon || "square") + " fa-fw' style='vertical-align: 0px; pointer-events: none;'></i>";
+			},
+			labelGetter: item => {
+				return item.text;
+			},
+			styleGetter: item => {
+				return "";
+			},
+			childrenKey: "items",
+			itemHover: (item, entered) => {
+			},
+			itemSelected: (item, selected) => {
+			},
+			itemExpanded: (item, expanded) => {
+				if (item.icon === "folder" && expanded) {
+					item.icon = "folder-open";
+					treeView.updateItem(item);
+				}
+				else if (item.icon === "folder-open" && !expanded) {
+					item.icon = "folder";
+					treeView.updateItem(item);
+				}
+			},
+			multiSelect: true,
+			dragdrop: true,
+			isDropTarget: item => item.isDropTarget,
+			dragHandler: (draggedItems, dropTarget) => {
+				if (draggedItems.some(i => i.isDropTarget))
+					return false;
+				return true;
+			},
+			dropHandler: (draggedItems, dropTargetItem, dropPosition) => {
+				draggedItems.forEach(i => {
+				});
+			},
+			keyHandler: e => {
+				if (e.key === "Delete") {
+					e.preventDefault();
+					F.id("delete").trigger("click");
+				}
+			}
+		};
+	
+		treeView = F(".treeview").treeView(treeViewOptions);
+		
+		F.id("toggle-dark").on("click", event => {
+			let classList = F("#toggle-dark > i").classList;
+			if (classList.contains("fa-sun")) {
+				classList.remove("fa-sun");
+				classList.add("fa-moon")
+				document.documentElement.classList.remove("dark");
+			}
+			else {
+				classList.remove("fa-moon");
+				classList.add("fa-sun")
+				document.documentElement.classList.add("dark");
+			}
+		});
+	</script>
+</body>
+</html>

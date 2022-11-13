@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Color documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside with-search">
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<div id="search-box">
+		<input id="search-text" type="text" placeholder="Type anywhere to search">
+	</div>
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Color</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.1</span>
+		</div>
+		<p id="results-count"></p>
+		<p id="no-results">
+			No search results
+		</p>
+
+		<section class="intro">
+			<p>
+				<em>Bring colour to your life, precisely!</em>
+			</p>
+			<h3>What?</h3>
+			<p>
+				The Color class provides <strong>colour conversion and computation functions</strong>.
+				That includes conversions between different formats (HTML, CSS) and also colour spaces (RGB, HSL).
+				And it has general tools like colour blending, inversion, lightness adjustment, greyscale conversion, descriptions and more.
+			</p>
+			<p>
+				As a result, Color is <strong>compact</strong> and <strong>easy to use</strong>, increasing the developer’s productivity and happiness.
+				The minified and gzipped code is under <strong>3 KiB</strong>.
+				TODO: It is also fully covered by unit tests. (in work)
+			</p>
+			<p>
+				By the way, please excuse the wild spelling of the word “colour”.
+				While source code is generally expected to use US English spelling for consistency with existing APIs, this documentation uses British/int’l English spelling which becomes especially apparent on this page.
+			</p>
+			<h3>How?</h3>
+			<p>
+				Here are a few examples to show its usage and the results.
+			</p>
+<div class="code">// Start with a Color
+let c = new Color("#ff0000"); /**#ff0000**/
+// Convert to CSS
+c.toCSS()
+→ "rgb(255, 0, 0)"
+c.toCSSHSL()
+→ "hsl(0, 100%, 50%)"
+// Blend with other colour
+c = c.blendWith("blue", 0.75)
+→ Color { r: 128, g: 0, b: 255 } ("purple") /**#8000ff**/
+c.description()
+→ "purple"
+c.description("de")
+→ "lila"
+// Find a contrast foreground colour
+c.isDark()
+→ true
+c.text()
+→ Color { r: 255, g: 255, b: 255 } ("white") /**#ffffff**/
+// Lighten up a bit
+c = c.lighten(0.5)
+→ Color { r: 192, g: 128, b: 255 } ("light purple") /**#c080ff**/
+// Convert to grey
+c.gray()
+→ Color { r: 192, g: 192, b: 192 } ("silver") /**#c0c0c0**/
+</div>
+			<h3>Where?</h3>
+			<p>
+				As a modern JavaScript library, this code is compatible with the following environments:
+			</p>
+			<ul>
+				<li>Firefox 62 and later (released 2018-09)</li>
+				<li>Chrome 70 and later (released 2018-10, and browsers derived thereof)</li>
+				<li>Safari 12 and later (released 2018-09; by spec; little tested due to the lack of Apple hardware)</li>
+				<li>Node.js 12 and later (released 2019-04)</li>
+			</ul>
+			<p>
+				Earlier versions may work for a limited feature set.
+				The vastly outdated Internet Explorer is explicitly incompatible with this code.
+				Should you be stuck in the past for whatever reason, a transpiler like Babel and a few polyfills might help you out.
+			</p>
+			<p>
+				This library is released under the terms of the <strong>MIT licence</strong>.
+				See the complete licence text in the code repository for details.
+			</p>
+			<h3>Documentation</h3>
+			<p>
+				This documentation lists all public members of the Color class.
+				The available parameters are listed for each method, describing which of them are optional or alternative in which combination.
+				The description explains the behaviour and parameter requirements.
+				The return value is shown after the arrow.
+			</p>
+			<p>
+				A few examples further describe the usage and effect of a method.
+				More comprehensive input and output of a method can be found in the separate test cases included in the source code.
+			</p>
+			<h3>Search</h3>
+			<p>
+				The members are categorised and can be searched (just type ahead).
+				The search also uses aliases for many entries.
+				Start the search text with an equals sign (=) to ignore aliases.
+				Start the search text with the ^ sign to also only find names starting with the search term.
+				Start the search text with the at sign (@) to search by source plugins.
+				Press Escape to reset the search.
+			</p>
+		</section>
+
+		<!------------------------------ BEGIN OF REFERENCE CONTENT ------------------------------>
+
+		<section>
+			<h2 id="constructor">Constructor</h2>
+
+			<div class="member">
+				<h3 id="Color">Color</h3>
+				<ul>
+					<li><code>new Color(value)</code> → Color</li>
+					<li><code>Color(…)</code> → Color</li>
+				</ul>
+				<p>
+					Creates a new Color instance that represents the specified colour.
+					The use of the <code>new</code> keyword is optional.
+					The original format of the specified colour is preserved so it can be formatted back in the same format.
+				</p>
+				<p>
+					The following value formats are accepted:
+				</p>
+				<ul>
+					<li>Empty string (transparent)</li>
+					<li><code data-lang="">"<em>hex</em>"</code> (3/4/6/8 hex digits)</li>
+					<li>Any format supported by the browser:
+						<ul>
+							<li><code data-lang="">"#<em>rgb</em>"</code> (3 hex digits)</li>
+							<li><code data-lang="">"#<em>rgba</em>"</code> (4 hex digits)</li>
+							<li><code data-lang="">"#<em>rrggbb</em>"</code> (6 hex digits)</li>
+							<li><code data-lang="">"#<em>rrggbbaa</em>"</code> (8 hex digits)</li>
+							<li><code data-lang="">"rgb(<em>r</em>, <em>g</em>, <em>b</em>)"</code></li>
+							<li><code data-lang="">"rgb(<em>r</em>, <em>g</em>, <em>b</em>, <em>a</em>)"</code></li>
+							<li><code data-lang="">"rgba(<em>r</em>, <em>g</em>, <em>b</em>)"</code></li>
+							<li><code data-lang="">"rgba(<em>r</em>, <em>g</em>, <em>b</em>, <em>a</em>)"</code></li>
+							<li><code data-lang="">"hsl(<em>h</em>, <em>s</em>, <em>l</em>)"</code></li>
+							<li><code data-lang="">"hsl(<em>h</em>, <em>s</em>, <em>l</em>, <em>a</em>)"</code></li>
+							<li><code data-lang="">"hsla(<em>h</em>, <em>s</em>, <em>l</em>)"</code></li>
+							<li><code data-lang="">"hsla(<em>h</em>, <em>s</em>, <em>l</em>, <em>a</em>)"</code></li>
+							<li><code data-lang="">"<em>name</em>"</code> (web colour names as supported by the browser)</li>
+						</ul>
+					</li>
+					<li>Number: <code data-lang="">0x<em>rrggbb</em></code></li>
+					<li>Number: <code data-lang="">0x<em>aarrggbb</em></code></li>
+					<li>Array: <code data-lang="">[<em>r</em>, <em>g</em>, <em>b</em>, <em>a</em>]</code></li>
+					<li>Object: <code data-lang="">{ r, g, b, a }</code></li>
+				</ul>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="instance-properties">Instance properties</h2>
+
+			<div class="member" data-aliases="alpha opacity transparency">
+				<h3 id="a">a</h3>
+				<ul>
+					<li><code>a</code> → Number</li>
+				</ul>
+				<p>
+					Gets or sets the alpha value.
+					It must be in the range of 0 to 1.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="component rgb blue">
+				<h3 id="b">b</h3>
+				<ul>
+					<li><code>b</code> → Number</li>
+				</ul>
+				<p>
+					Gets or sets the blue component value.
+					It must be in the range of 0 to 255.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="component rgb green">
+				<h3 id="g">g</h3>
+				<ul>
+					<li><code>g</code> → Number</li>
+				</ul>
+				<p>
+					Gets or sets the green component value.
+					It must be in the range of 0 to 255.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="hsl hue">
+				<h3 id="h">h</h3>
+				<ul>
+					<li><code>h</code> → Number</li>
+				</ul>
+				<p>
+					Gets or sets the hue value.
+					It must be in the range of 0 to 360.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="hsl lightness brightness">
+				<h3 id="l">l</h3>
+				<ul>
+					<li><code>l</code> → Number</li>
+				</ul>
+				<p>
+					Gets or sets the lightness value.
+					It must be in the range of 0 to 1.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="component rgb red">
+				<h3 id="r">r</h3>
+				<ul>
+					<li><code>r</code> → Number</li>
+				</ul>
+				<p>
+					Gets or sets the red component value.
+					It must be in the range of 0 to 255.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="hsl saturation">
+				<h3 id="s">s</h3>
+				<ul>
+					<li><code>s</code> → Number</li>
+				</ul>
+				<p>
+					Gets or sets the saturation value.
+					It must be in the range of 0 to 1.
+				</p>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="update-methods">Update methods</h2>
+
+			<p>
+				These instance methods update colour component values after changes to the properties.
+			</p>
+
+			<div class="member">
+				<h3 id="updateHSL">updateHSL</h3>
+				<ul>
+					<li><code>updateHSL()</code> → this</li>
+				</ul>
+				<p>
+					Calculates the HSL components (<a href="#h"><code>h</code></a>, <a href="#s"><code>s</code></a>, <a href="#l"><code>l</code></a>) from the RGB components (<a href="#r"><code>r</code></a>, <a href="#g"><code>g</code></a>, <a href="#b"><code>b</code></a>) in the color object.
+					After changing any of the HSL properties, the RGB properties are not updated automatically.
+					Then this method needs to be called to update the RGB properties to match the HSL colour.
+				</p>
+				<p>
+					<strong>Note:</strong><br>
+					Most colour processing methods work primarily on the RGB components.
+					They update the HSL components internally when necessary, but only if the <a href="#h"><code>h</code></a> property is unset.
+					As soon as the Color object contains HSL data, it is the caller’s responsibility to keep them updated.
+					This means that you should always call <code>updateHSL()</code> after changing the RGB properties directly if the Color object also contains HSL data.
+				</p>
+				<p class="see-also">
+					See also: <a href="#updateRGB">Color.updateRGB()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="updateRGB">updateRGB</h3>
+				<ul>
+					<li><code>updateRGB()</code> → this</li>
+				</ul>
+				<p>
+					Calculates the RGB components (<a href="#r"><code>r</code></a>, <a href="#g"><code>g</code></a>, <a href="#b"><code>b</code></a>) from the HSL components (<a href="#h"><code>h</code></a>, <a href="#s"><code>s</code></a>, <a href="#l"><code>l</code></a>) in the color object.
+					After changing any of the RGB properties, the HSL properties are not updated automatically.
+					Then this method needs to be called to update the HSL properties to match the RGB colour.
+				</p>
+				<p>
+					<strong>Note:</strong><br>
+					Most colour processing methods work primarily on the RGB components.
+					They update the HSL components internally when necessary.
+					This means that you should always call <code>updateRGB()</code> after changing the HSL properties directly.
+				</p>
+				<p class="see-also">
+					See also: <a href="#updateHSL">Color.updateHSL()</a>
+				</p>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="formatting-methods">Formatting methods</h2>
+
+			<p>
+				These instance methods return the colour value in a desired format.
+			</p>
+
+			<div class="member">
+				<h3 id="toArray">toArray</h3>
+				<ul>
+					<li><code>toArray()</code> → Array</li>
+				</ul>
+				<p>
+					Converts a color object into an array with [r, g, b, a].
+				</p>
+<div class="code">new Color("#ff0000").toArray()
+→ [255, 0, 0]
+new Color("hsl(120, 100%, 50%, 0.5)").toArray()
+→ [0, 255, 0, 128]
+</div>
+				<p class="see-also">
+					See also: <a href="#toString">Color.toString()</a>, <a href="#toCSS">Color.toCSS()</a>, <a href="#toCSSHSL">Color.toCSSHSL()</a>, <a href="#toHTML">Color.toHTML()</a>, <a href="#toIntARGB">Color.toIntARGB()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="format rgba">
+				<h3 id="toCSS">toCSS</h3>
+				<ul>
+					<li><code>toCSS()</code> → String</li>
+				</ul>
+				<p>
+					Formats a color object into a CSS rgb() string.
+				</p>
+<div class="code">new Color("#ff0000").toCSS()
+→ "rgb(255, 0, 0)"
+new Color("hsl(120, 100%, 50%, 0.5)").toCSS()
+→ "rgb(0, 255, 0, 0.5)"
+</div>
+				<p class="see-also">
+					See also: <a href="#toString">Color.toString()</a>, <a href="#toCSSHSL">Color.toCSSHSL()</a>, <a href="#toHTML">Color.toHTML()</a>, <a href="#toIntARGB">Color.toIntARGB()</a>, <a href="#toArray">Color.toArray()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="format hsla">
+				<h3 id="toCSSHSL">toCSSHSL</h3>
+				<ul>
+					<li><code>toCSSHSL()</code> → String</li>
+				</ul>
+				<p>
+					Formats a color object into a CSS hsl() string.
+				</p>
+<div class="code">new Color("#ff0000").toCSSHSL()
+→ "hsl(0, 100%, 50%)"
+new Color("hsl(120, 100%, 50%, 0.5)").toCSSHSL()
+→ "hsl(120, 100%, 50%, 0.5)"
+</div>
+				<p class="see-also">
+					See also: <a href="#toString">Color.toString()</a>, <a href="#toCSS">Color.toCSS()</a>, <a href="#toHTML">Color.toHTML()</a>, <a href="#toIntARGB">Color.toIntARGB()</a>, <a href="#toArray">Color.toArray()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="format hex">
+				<h3 id="toHTML">toHTML</h3>
+				<ul>
+					<li><code>toHTML()</code> → String</li>
+				</ul>
+				<p>
+					Formats a color object into an HTML hexadecimal string.
+				</p>
+<div class="code">new Color("#ff0000").toHTML()
+→ "#ff0000"
+new Color("hsl(120, 100%, 50%, 0.5)").toHTML()
+→ "#00ff0080"
+</div>
+				<p class="see-also">
+					See also: <a href="#toString">Color.toString()</a>, <a href="#toCSS">Color.toCSS()</a>, <a href="#toCSSHSL">Color.toCSSHSL()</a>, <a href="#toIntARGB">Color.toIntARGB()</a>, <a href="#toArray">Color.toArray()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="integer number">
+				<h3 id="toIntARGB">toIntARGB</h3>
+				<ul>
+					<li><code>toIntARGB()</code> → Number</li>
+				</ul>
+				<p>
+					Converts a color object into an integer number like 0xAARRGGBB.
+				</p>
+<div class="code">new Color("#ff0000").toIntARGB()
+→ 0xff0000
+new Color("hsl(120, 100%, 50%, 0.5)").toIntARGB()
+→ 0x8000ff00
+</div>
+				<p class="see-also">
+					See also: <a href="#toString">Color.toString()</a>, <a href="#toCSS">Color.toCSS()</a>, <a href="#toCSSHSL">Color.toCSSHSL()</a>, <a href="#toHTML">Color.toHTML()</a>, <a href="#toArray">Color.toArray()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="format">
+				<h3 id="toString">toString</h3>
+				<ul>
+					<li><code>toString()</code> → String</li>
+				</ul>
+				<p>
+					Formats the color in the format it was originally parsed from.
+				</p>
+<div class="code">new Color("#ff0000").toString()
+→ "#ff0000"
+new Color("hsl(120, 100%, 50%, 0.5)").toString()
+→ "hsl(120, 100%, 50%, 0.5)"
+</div>
+				<p class="see-also">
+					See also: <a href="#toCSS">Color.toCSS()</a>, <a href="#toCSSHSL">Color.toCSSHSL()</a>, <a href="#toHTML">Color.toHTML()</a>, <a href="#toIntARGB">Color.toIntARGB()</a>, <a href="#toArray">Color.toArray()</a>
+				</p>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="processing-methods">Processing methods</h2>
+
+			<p>
+				These instance methods perform colour computations and return the result.
+				The current object instance is not modified by any of these methods.
+			</p>
+
+			<div class="member" data-aliases="transparent transparency opacity">
+				<h3 id="alpha">alpha</h3>
+				<ul>
+					<li><code>alpha(value)</code> → Color</li>
+				</ul>
+				<p>
+					Returns a color with a changed alpha value between 0 (transparent) and 1 (opaque).
+					The component values are returned unchanged.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="mix">
+				<h3 id="blendByHueWith">blendByHueWith</h3>
+				<ul>
+					<li><code>blendByHueWith(…)</code> → Color</li>
+				</ul>
+				<p>
+					An alias of <a href="#blendWithHSL">blendWithHSL()</a>.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="mix">
+				<h3 id="blendWith">blendWith</h3>
+				<ul>
+					<li><code>blendWith(other, ratio)</code> → Color</li>
+					<li><code>blendWith(other, ratio, includeAlpha)</code> → Color</li>
+				</ul>
+				<p>
+					Returns a blended color with the specified ratio from 0 (no change) to 1 (only other color).
+					The <a href="#r"><code>r</code></a>, <a href="#g"><code>g</code></a>, <a href="#b"><code>b</code></a> and <a href="#a"><code>a</code></a> values are blended separately.
+				</p>
+				<p>
+					If the includeAlpha parameter is unset or false, the <a href="#a"><code>a</code></a> property of the returned object is unset.
+					If it is true, the alpha value is blended like the other components.
+					The alpha values are never used to affect the blend ratio itself.
+				</p>
+				<p>
+					The returned Color instance will have RGB components set.
+					The HSL components are only updated if the were set before.
+				</p>
+				<p class="see-also">
+					See also: <a href="#blendWithHSL">Color.blendWithHSL()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="mix">
+				<h3 id="blendWithHSL">blendWithHSL</h3>
+				<ul>
+					<li><code>blendWithHSL(other, ratio)</code> → Color</li>
+					<li><code>blendWithHSL(other, ratio, includeAlpha)</code> → Color</li>
+					<li><code>blendWithHSL(other, ratio, includeAlpha, largeArc)</code> → Color</li>
+				</ul>
+				<p>
+					Returns a blended color with the specified ratio from 0 (no change) to 1 (only other color).
+					The <a href="#h"><code>h</code></a> value is blended on the short or long path around the circle.
+					The <a href="#s"><code>s</code></a>, <a href="#l"><code>l</code></a> and <a href="#a"><code>a</code></a> values are blended normally.
+				</p>
+				<p>
+					If the includeAlpha parameter is unset or false, the <a href="#a"><code>a</code></a> property of the returned object is unset.
+					If it is true, the alpha value is blended like the other components.
+					The alpha values are never used to affect the blend ratio itself.
+				</p>
+				<p>
+					By default, the hue is blended on the shortest path around the colour hue circle.
+					This may also wrap at 360 degrees.
+					When using for colour gradients, this will produce a shorter gradient.
+					If the largeArc parameter is set to true, the hue is blended on the longer path.
+					When using for colour gradients, this will produce a longer gradient with more intermediate hues.
+				</p>
+				<p>
+					The returned Color instance will have RGB and HSL components set.
+				</p>
+				<p class="see-also">
+					See also: <a href="#blendWith">Color.blendWith()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="complement">complement</h3>
+				<ul>
+					<li><code>complement()</code> → Color</li>
+				</ul>
+				<p>
+					Returns the complementary color.
+					The alpha value is returned unchanged.
+				</p>
+				<p>
+					The returned Color instance will have RGB and HSL components set.
+				</p>
+				<p class="see-also">
+					See also: <a href="#invert">Color.invert()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="darken">darken</h3>
+				<ul>
+					<li><code>darken(factor)</code> → Color</li>
+				</ul>
+				<p>
+					Returns a color that is darker by the factor between 0 (unchanged) and 1 (black).
+					The alpha value is returned unchanged.
+				</p>
+				<p>
+					The returned Color instance will have RGB and HSL components set.
+				</p>
+				<p class="see-also">
+					See also: <a href="#lighten">Color.lighten()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="describe name">
+				<h3 id="description">description</h3>
+				<ul>
+					<li><code>description()</code> → String</li>
+					<li><code>description(languageOverride)</code> → String</li>
+				</ul>
+				<p>
+					Returns a simple description of the color.
+					The colour does not need to match exactly one specification.
+					The description is rather inaccurate and works with fixed ranges of hue, saturation, lightness and alpha.
+				</p>
+				<p>
+					If no language override is specified, the language is determined by the <code>lang</code> attribute of the document root element (<code data-lang="html">&lt;html&gt;</code>).
+					Currently, the following languages are supported.
+					Specifying a different language will return English names.
+				</p>
+				<ul>
+					<li><code>de</code>: German</li>
+					<li><code>en</code>: English (USA)</li>
+				</ul>
+				<p>
+					Example colour descriptions (in English) are:
+				</p>
+				<ul>
+					<li>black</li>
+					<li>red</li>
+					<li>dark purple</li>
+					<li>light green</li>
+					<li>pale light blue</li>
+					<li>brown</li>
+					<li>light gray</li>
+					<li>transparent</li>
+				</ul>
+			</div>
+
+			<div class="member" data-aliases="grey">
+				<h3 id="gray">gray</h3>
+				<ul>
+					<li><code>gray()</code> → Color</li>
+				</ul>
+				<p>
+					Returns the grayscale color by perceived brightness.
+					The alpha value is returned unchanged.
+				</p>
+				<p>
+					The returned Color instance will have RGB components set.
+					The HSL components are only updated if the were set before.
+				</p>
+				<p class="see-also">
+					See also: <a href="#isDark">Color.isDark()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="inverse negative">
+				<h3 id="invert">invert</h3>
+				<ul>
+					<li><code>invert()</code> → Color</li>
+				</ul>
+				<p>
+					Returns the inverted (negative) color.
+					The alpha value is returned unchanged.
+				</p>
+				<p>
+					The returned Color instance will have RGB components set.
+					The HSL components are only updated if the were set before.
+				</p>
+				<p class="see-also">
+					See also: <a href="#complement">Color.complement()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="isDark">isDark</h3>
+				<ul>
+					<li><code>isDark()</code> → Boolean</li>
+				</ul>
+				<p>
+					Returns a value indicating whether the specified color is dark.
+				</p>
+				<p class="see-also">
+					See also: <a href="#text">Color.text()</a>, <a href="#gray">Color.gray()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="brighten">
+				<h3 id="lighten">lighten</h3>
+				<ul>
+					<li><code>lighten(factor)</code> → Color</li>
+				</ul>
+				<p>
+					Returns a color that is lighter by the factor between 0 (unchanged) and 1 (white).
+					The alpha value is returned unchanged.
+				</p>
+				<p>
+					The returned Color instance will have RGB and HSL components set.
+				</p>
+				<p class="see-also">
+					See also: <a href="#darken">Color.darken()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="text">text</h3>
+				<ul>
+					<li><code>text()</code> → Color</li>
+				</ul>
+				<p>
+					Returns white or black as suitable for the text color over the background color.
+					The alpha value is set to 1.
+				</p>
+				<p>
+					The returned Color instance will have RGB components set.
+					The HSL components are only updated if the were set before.
+				</p>
+				<p class="see-also">
+					See also: <a href="#isDark">Color.isDark()</a>
+				</p>
+			</div>
+		</section>
+
+		<!------------------------------ END OF REFERENCE CONTENT ------------------------------>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2021–2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+	<script src="res/doc.js"></script>
+</body>
+</html>

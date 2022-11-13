@@ -1,0 +1,530 @@
+@use "../variables";
+
+// ==================== Image alignment ====================
+
+:is(img, svg).full-width
+{
+	display: block;
+	width: 100%;
+	max-height: 100vh;
+}
+
+:is(img, svg).center
+{
+	display: block;
+	margin: 0 auto;
+	max-width: 100%;
+	max-height: 100vh;
+}
+
+@mixin img-left-right
+{
+	max-width: calc(50% - 1.5em);
+	max-height: 100vh;
+	margin: 0.4em 0 1em 0;
+}
+@mixin too-narrow
+{
+	float: none;
+	display: block;
+	max-width: 100%;
+	&.narrow-left
+	{
+		margin-left: 0;
+	}
+	&.narrow-right
+	{
+		margin-left: auto;
+	}
+	&.narrow-center
+	{
+		margin-left: auto;
+		margin-right: auto;
+	}
+	&.narrow-full-width
+	{
+		margin-left: 0;
+		margin-right: 0;
+		width: 100%;
+		max-height: 100vh;
+	}
+}
+@mixin too-narrow-left
+{
+	@include too-narrow;
+	margin-right: 0;
+}
+@mixin too-narrow-right
+{
+	@include too-narrow;
+	margin-left: 0;
+}
+
+:is(img, svg).left
+{
+	@include img-left-right;
+	clear: left;
+	float: left;
+	margin-right: 1.5em;
+
+	@media (max-width: variables.$viewportWidthPhone)
+	{
+		&.require-minitab { @include too-narrow-left; }
+	}
+	@media (max-width: variables.$viewportWidthMinitab)
+	{
+		&.require-tablet { @include too-narrow-left; }
+	}
+	@media (max-width: variables.$viewportWidthTablet)
+	{
+		&.require-desktop { @include too-narrow-left; }
+	}
+	@media (max-width: variables.$viewportWidthDesktop)
+	{
+		&.require-wide { @include too-narrow-left; }
+	}
+}
+
+:is(img, svg).right
+{
+	@include img-left-right;
+	clear: right;
+	float: right;
+	margin-left: 1.5em;
+
+	@media (max-width: variables.$viewportWidthPhone)
+	{
+		&.require-minitab { @include too-narrow-right; }
+	}
+	@media (max-width: variables.$viewportWidthMinitab)
+	{
+		&.require-tablet { @include too-narrow-right; }
+	}
+	@media (max-width: variables.$viewportWidthTablet)
+	{
+		&.require-desktop { @include too-narrow-right; }
+	}
+	@media (max-width: variables.$viewportWidthDesktop)
+	{
+		&.require-wide { @include too-narrow-right; }
+	}
+}
+
+div.image-full-width
+{
+	clear: both;
+	font-size: 0.85em;
+	line-height: 130%;
+	text-align: center;
+	padding: 0 2em;
+	color: var(--image-caption-color);
+
+	:is(img, svg)
+	{
+		display: block;
+		margin: 0 -2em 0.5em;
+		width: calc(100% + 4em) !important;
+		max-height: 100vh;
+	}
+}
+
+div.image-center
+{
+	clear: both;
+	font-size: 0.85em;
+	line-height: 130%;
+	text-align: center;
+	padding: 0 2em;
+	color: var(--image-caption-color);
+
+	:is(img, svg)
+	{
+		display: block;
+		margin: 0 auto 0.5em;
+		max-width: 100%;
+		max-height: 100vh;
+	}
+}
+
+@mixin div-img-left-right
+{
+	margin: 0.4em 0 1em 0;
+	max-width: calc(50% - 1.5em);
+	font-size: 0.85em;
+	line-height: 130%;
+	color: var(--image-caption-color);
+
+	:is(img, svg)
+	{
+		display: block;
+		width: 100%;
+		max-width: 100%;
+		max-height: 100vh;
+		margin-bottom: 0.5em;
+	}
+}
+@mixin div-too-narrow
+{
+	float: none;
+	max-width: 100%;
+	:is(img, svg)
+	{
+		width: inherit;
+	}
+	&.narrow-left
+	{
+		text-align: left;
+		:is(img, svg)
+		{
+			margin-left: 0;
+		}
+	}
+	&.narrow-right
+	{
+		text-align: right;
+		:is(img, svg)
+		{
+			margin-left: auto;
+		}
+	}
+	&.narrow-center
+	{
+		text-align: center;
+		:is(img, svg)
+		{
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+	&.narrow-full-width
+	{
+		:is(img, svg)
+		{
+			margin-left: 0;
+			margin-right: 0;
+			width: 100%;
+			max-height: 100vh;
+		}
+	}
+}
+@mixin div-too-narrow-left
+{
+	@include div-too-narrow;
+	margin-right: 0;
+}
+@mixin div-too-narrow-right
+{
+	@include div-too-narrow;
+	margin-left: 0;
+	:is(img, svg)
+	{
+		margin-left: auto;
+	}
+}
+
+div.image-left
+{
+	@include div-img-left-right;
+	clear: left;
+	float: left;
+	margin-right: 1.5em;
+	text-align: left;
+
+	@media (max-width: variables.$viewportWidthPhone)
+	{
+		&.require-minitab { @include div-too-narrow-left; }
+	}
+	@media (max-width: variables.$viewportWidthMinitab)
+	{
+		&.require-tablet { @include div-too-narrow-left; }
+	}
+	@media (max-width: variables.$viewportWidthTablet)
+	{
+		&.require-desktop { @include div-too-narrow-left; }
+	}
+	@media (max-width: variables.$viewportWidthDesktop)
+	{
+		&.require-wide { @include div-too-narrow-left; }
+	}
+}
+
+div.image-right
+{
+	@include div-img-left-right;
+	clear: right;
+	float: right;
+	margin-left: 1.5em;
+	text-align: right;
+
+	@media (max-width: variables.$viewportWidthPhone)
+	{
+		&.require-minitab { @include div-too-narrow-right; }
+	}
+	@media (max-width: variables.$viewportWidthMinitab)
+	{
+		&.require-tablet { @include div-too-narrow-right; }
+	}
+	@media (max-width: variables.$viewportWidthTablet)
+	{
+		&.require-desktop { @include div-too-narrow-right; }
+	}
+	@media (max-width: variables.$viewportWidthDesktop)
+	{
+		&.require-wide { @include div-too-narrow-right; }
+	}
+}
+
+
+// ==================== Image decorations ====================
+
+:is(img, svg).shadow,
+.image-overlay-text.shadow
+{
+	box-shadow: 0 1px 4px rgb(0, 0, 0, 0.3);
+}
+
+:is(img, svg).white-border
+{
+	background-color: white;
+	padding: 10px;
+}
+
+:is(img, svg).circle
+{
+	border-radius: 100%;
+}
+
+:is(img, svg).dark-invert
+{
+	transition: filter var(--animation-duration) var(--animation-function);
+	.dark &
+	{
+		filter: invert(1);
+	}
+}
+
+
+// ==================== Text overlay ====================
+
+:is(a, div).image-overlay-text
+{
+	position: relative;
+	display: block;
+	font-size: 1.4em;
+	text-align: left;
+	color: inherit;
+
+	// Place any child element over the image
+	> *
+	{
+		position: absolute;
+		top: 8%;
+		left: 8%;
+		right: 8%;
+		&.bottom
+		{
+			top: unset;
+			bottom: 8%;
+		}
+		&.center
+		{
+			text-align: center;
+		}
+		&.right
+		{
+			text-align: right;
+		}
+
+		> span
+		{
+			// This is a compromise style. It uses an opaque background to prevent increased opacity
+			// in the areas where the lines overlap slightly. This is replaced with an overall
+			// opacity value for the entire element with JavaScript. This also affects the text!
+			// Since the transparency is only little, it doesn't hurt much.
+			padding: 2px 7px;
+			background-color: #ffffff;
+			color: #000000;
+			opacity: 0.8;
+			hyphens: auto;
+			-webkit-box-decoration-break: clone;
+			box-decoration-break: clone;
+			transition: opacity var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function), background-color var(--animation-duration) var(--animation-function);
+			&.invert
+			{
+				background-color: #000000;
+				color: #ffffff;
+			}
+		}
+
+		// The above compromise is improved through a little piece of JavaScript that duplicates
+		// these spans and uses one for the background (with the opaque background and overall
+		// transparency) and another one for the text (with no transparency). The other element is
+		// set to transparent then.
+		&.ff-background-only
+		{
+			> span
+			{
+				color: transparent !important;
+			}
+		}
+		&.ff-foreground-only
+		{
+			> span
+			{
+				opacity: 1;
+				background-color: transparent !important;
+			}
+		}
+	}
+
+	// Restore position for the image itself
+	> img
+	{
+		position: unset;
+		display: block;
+		transition: transform var(--animation-duration) cubic-bezier(0, 0, 0, 1);
+	}
+}
+a.image-overlay-text
+{
+	overflow: hidden;
+
+	> * > span
+	{
+		color: var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l)));
+		&.invert
+		{
+			background-color: var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l)));
+		}
+	}
+	&:is(:hover, :focus)
+	{
+		// Intensify text background a little on hovering the image
+		> :not(.ff-foreground-only)
+		{
+			> span
+			{
+				opacity: 0.9;
+			}
+			> span.invert
+			{
+				// Calculate lightness values from light factor (lf):
+				// - start with the base lightness
+				// - add the factor towards 100% (only if the factor is > 0)
+				// - subtract the negative factor towards 0% (only if the factor is < 0)
+				--link-invert-hover-color-l: calc(var(--link-color-l)
+					+ max(0%, (100% - var(--link-color-l)) * var(--link-invert-hover-lf, -0.15))
+					- max(0%, var(--link-color-l) * (0 - (var(--link-invert-hover-lf, -0.15)))));
+
+				background-color: var(
+					--link-invert-hover-color,
+					hsl(var(--link-color-h), var(--link-color-s), var(--link-invert-hover-color-l)));
+			}
+		}
+		// Additional image outline (does not extend the bounding box or resize the image)
+		> img
+		{
+			//border: 3px solid $linkColor;
+			//outline: 3px solid rgb($linkColor, 0.8);
+			//outline-offset: -3px;
+			transform: scale(1.07);
+		}
+	}
+}
+
+
+// ==================== Image grid ====================
+
+@mixin x-too-narrow
+{
+	grid-template-columns: 1fr !important;
+	&.narrow-left
+	{
+		justify-items: start;
+		> *
+		{
+			width: unset;
+		}
+	}
+	&.narrow-right
+	{
+		justify-items: end;
+		> *
+		{
+			width: unset;
+		}
+	}
+	&.narrow-center
+	{
+		> *
+		{
+			width: unset;
+		}
+	}
+	&.narrow-x2
+	{
+		grid-template-columns: repeat(2, 1fr) !important;
+	}
+}
+
+div:is(.image-x2, .image-x3, .image-x4)
+{
+	display: grid;
+	grid-gap: 1rem;
+	justify-items: center;
+	align-items: center;
+	grid-auto-flow: row;
+	&.double-gap
+	{
+		grid-gap: 2rem;
+	}
+	&.top
+	{
+		align-items: start;
+	}
+	&.bottom
+	{
+		align-items: end;
+	}
+	> *
+	{
+		width: 100%;
+		height: 100%;
+		min-height: 50px;   // Layout protection if no image loads
+	}
+	> * > img
+	{
+		width: 100%;
+		//height: 100%;   // Keep all images in a row at the same height
+		min-height: 50px;   // Layout protection if no image loads
+	}
+
+	@media (max-width: variables.$viewportWidthPhone)
+	{
+		&.require-minitab { @include x-too-narrow; }
+	}
+	@media (max-width: variables.$viewportWidthMinitab)
+	{
+		&.require-tablet { @include x-too-narrow; }
+	}
+	@media (max-width: variables.$viewportWidthTablet)
+	{
+		&.require-desktop { @include x-too-narrow; }
+	}
+	@media (max-width: variables.$viewportWidthDesktop)
+	{
+		&.require-wide { @include x-too-narrow; }
+	}
+}
+div.image-x2
+{
+	grid-template-columns: repeat(2, 1fr);
+}
+div.image-x3
+{
+	grid-template-columns: repeat(3, 1fr);
+}
+div.image-x4
+{
+	grid-template-columns: repeat(4, 1fr);
+}
