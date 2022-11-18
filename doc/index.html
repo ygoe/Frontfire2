@@ -44,6 +44,14 @@
 			While Frontfire version 1 (which as a work in progress never actually used version numbers) was made as a jQuery plugin, version 2 comes in two parts.
 			The API documentation describes all class methods and properties in detail and includes some examples.
 		</p>
+		<p id="apple-ios-warning" class="message warning icon" style="display: none;">
+			<i class="material">warning.fill</i>
+			<strong>Compatibility warning:</strong><br>
+			Unfortunately, the Apple Safari browser does not support <a href="https://caniuse.com/js-regexp-lookbehind">a common feature of regular expressions</a> which probably breaks largs parts of this documentation website.
+			Due to restrictions imposed by Apple on the iOS platform, this affects all browsers on Apple mobile devices.
+			Please use another browser to browse the Frontfire documentation.
+			Frontfire itself does not currently make use of this feature so it should not be affected.
+		</p>
 
 		<h2>Frontfire Core</h2>
 		<p>
@@ -216,6 +224,7 @@
 	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
 	<script src="res/doc.js"></script>
 	<script>
+		F("#apple-ios-warning").visible = F.isSafari();
 		F("#show-complete-modules").on("click!", event => {
 			F(".doc-parts a")
 				.having(".bundles")

@@ -36,7 +36,7 @@ F("#dark-theme-switch").on("change", () => {
 });
 
 // Listen to system dark theme changes
-darkSchemeMql.addListener(onDarkSchemeChanged);
+darkSchemeMql.addEventListener("change", onDarkSchemeChanged);
 function onDarkSchemeChanged(e) {
 	applyTheme(e.matches);
 	// Always clear user selection after live system change
