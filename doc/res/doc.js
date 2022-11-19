@@ -140,6 +140,8 @@ if (aside) {
 		document.querySelectorAll("h2, h3, h4").forEach(h => {
 			if (h.closest(".example"))
 				return;   // Ignore example code
+			if (h.classList.contains("no-toc"))
+				return;
 
 			let link = document.createElement("div");
 			link.classList.add("link");

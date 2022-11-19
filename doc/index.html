@@ -31,12 +31,20 @@
 			Frontfire is released under the terms of the <strong>MIT licence</strong>.
 			See the complete licence text in the code repository for details.
 		</p>
-		<p>
-			<svg width="16" height="16" viewBox="0 0 16 16" style="vertical-align: -2px; margin-right: 6px; fill: #00c000;">
-				<path d="M0,12L2,12L2,14L14,14L14,12L16,12L16,16L0,16L0,12ZM7,1L9,1L9,8.5L12,5.5L12,8L8,12L4,8L4,5.5L7,8.5L7,1Z"/>
-			</svg>
-			<strong><a href="https://github.com/ygoe/Frontfire2">Source code repository and downloads</a></strong>
-		</p>
+		<div class="buttons p double-margin">
+			<a href="https://github.com/ygoe/Frontfire2/releases" class="button default">
+				<svg class="icon" width="16" height="16" viewBox="0 0 16 16" style="vertical-align: -2px;">
+					<path d="M0,12L2,12L2,14L14,14L14,12L16,12L16,16L0,16L0,12ZM7,1L9,1L9,8.5L12,5.5L12,8L8,12L4,8L4,5.5L7,8.5L7,1Z"/>
+				</svg>
+				<strong>Get Frontfire</strong>
+			</a>
+			<a href="https://github.com/ygoe/Frontfire2" class="button">
+				<svg class="icon" width="16" height="16" viewBox="0 0 16 16" style="vertical-align: -2px;">
+					<path d="M6.65,14.26L10.65,4.26L9.35,3.74L5.35,13.74L6.65,14.26ZM3.505,5.505L0.01,9L3.505,12.495L4.495,11.505L1.99,9C1.99,9 4.495,6.495 4.495,6.495L3.505,5.505ZM11.505,6.495L14.01,9C14.01,9 11.505,11.505 11.505,11.505L12.495,12.495L15.99,9L12.495,5.505L11.505,6.495Z"/>
+				</svg>
+				Browse source code
+			</a>
+		</div>
 		<p>
 			See the <a href="changes.html">change log</a> for all differences between release versions.
 		</p>
@@ -87,6 +95,11 @@
 			This part builds with styles and plugins upon Core and provides UI widgets and interaction primitives.
 			The Complete bundle contains all of the plugins, the Minimal bundle only the most essential ones.
 			A good first read are the chapters about the <a href="frontfire-ui-page.html">Page</a> and <a href="frontfire-ui-typography.html">Typography</a> modules.
+		</p>
+		<p>
+			Note that Frontfire UI is not an add-in for any existing web page.
+			It relies on CSS reset styles and alters the basic appearance of many standard HTML elements to give them a consistent style without drowning the document in CSS classes.
+			Read the <a href="frontfire-ui-autostart.html">Autostart documentation</a> to learn more about this and how to selectively opt out.
 		</p>
 		<p>
 			<label><input type="checkbox" id="show-complete-modules" checked> Show modules only available in the Complete bundle</label>

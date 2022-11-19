@@ -383,7 +383,13 @@
 			As already shown above, an icon can be used in a button to visually assist the button text.
 			Just add a regular <code data-lang="html">&lt;i&gt;</code> element before the text as you would normally.
 			There should be a white-space between the icon and the text, similar to checkboxes and their label text.
-			The spacing is optimised for that white-space because it’s more often easier to add it than to avoid it.
+			The spacing is optimised for that white-space because it’s more often easier to add it than to avoid it, e.g. when writing the icon and text on separate code lines.
+		</p>
+		<p>
+			The icon can also be defined as an <code data-lang="html">&lt;svg&gt;</code> element with an embedded vector graphic.
+			This is often easier for simple graphics that are not used much elsewhere.
+			Be sure to give it the <code class="css-class">icon</code> CSS class to apply the same spacing to it.
+			This class also sets the graphic’s <code>fill</code> style to the same as the text colour so that it adapts to different styles and the dark theme seamlessly.
 		</p>
 		<p>
 			The icon can also be placed at the right side of the button, after the text.
@@ -399,11 +405,18 @@
 			To avoid that and keep the icon perfectly centred, add the <code class="css-class">icon-only</code> CSS class to the button.
 			(The first icon-only button in the following example lacks this class to demonstrate the issue.)
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(icon-right|icon-only)">
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)(icon-right|loading)|icon(?=&quot;)| icon-only|(?<=<)(i|svg)">
 			<div class="buttons no-top-margin">
 				<button><i class="material">language</i> Language</button>
+				<button>
+					<svg class="icon" width="16" height="16" viewBox="0 0 16 16" style="vertical-align: -2px;">
+						<path d="M0,12L2,12L2,14L14,14L14,12L16,12L16,16L0,16L0,12ZM7,1L9,1L9,8.5L12,5.5L12,8L8,12L4,8L4,5.5L7,8.5L7,1Z"/>
+					</svg>
+					Get Frontfire
+				</button>
 				<button class="icon-right">Continue <i class="material">arrow_forward</i></button>
 				<button class="icon-right">Publish <i class="loading small"></i></button>
+				<!-- The following button demonstrates the effect of a lacking "icon-only" class -->
 				<button class="narrow"><i class="material">help</i></button>
 				<button class="narrow icon-only"><i class="material">help</i></button>
 			</div>

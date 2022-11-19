@@ -482,6 +482,11 @@
 	{
 		padding: 7px 12px;
 	}
+	svg.icon
+	{
+		fill: var(--button-color);
+		transition: fill var(--animation-duration) var(--animation-function);
+	}
 
 	&:where(:not(:disabled):not([disabled]):focus-visible)
 	{
@@ -508,6 +513,10 @@
 		{
 			color: var(--button-pressed-color, var(--button-color));
 		}
+		svg.icon
+		{
+			fill: var(--button-pressed-color, var(--button-color));
+		}
 	}
 	&:where(:disabled, [disabled])
 	{
@@ -520,6 +529,10 @@
 		&:where(:link, :visited):where(:hover)
 		{
 			color: var(--button-disabled-color);
+		}
+		svg.icon
+		{
+			fill: var(--button-disabled-color);
 		}
 	}
 
@@ -537,6 +550,10 @@
 		&:is(:link, :visited):hover
 		{
 			color: var(--button-default-color);
+		}
+		svg.icon
+		{
+			fill: var(--button-default-color);
 		}
 
 		&:hover
@@ -558,6 +575,10 @@
 			{
 				color: var(--button-default-pressed-color, var(--button-default-color));
 			}
+			svg.icon
+			{
+				fill: var(--button-default-pressed-color, var(--button-default-color));
+			}
 		}
 	}
 
@@ -571,6 +592,10 @@
 		&:is(:link, :visited):hover
 		{
 			color: var(--button-caution-color);
+		}
+		svg.icon
+		{
+			fill: var(--button-caution-color);
 		}
 
 		&:hover
@@ -592,6 +617,10 @@
 			{
 				color: var(--button-caution-pressed-color, var(--button-caution-color));
 			}
+			svg.icon
+			{
+				fill: var(--button-caution-pressed-color, var(--button-caution-color));
+			}
 		}
 	}
 
@@ -611,6 +640,10 @@
 		{
 			color: var(--button-transparent-color, var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l))));
 		}
+		svg.icon
+		{
+			fill: var(--button-transparent-color, var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l))));
+		}
 
 		&:hover
 		{
@@ -620,6 +653,10 @@
 			&:is(:link, :visited)
 			{
 				color: var(--button-transparent-hover-color, var(--link-hover-color, var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-hover-color-l)))));
+			}
+			svg.icon
+			{
+				fill: var(--button-transparent-hover-color, var(--link-hover-color, var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-hover-color-l)))));
 			}
 		}
 		&:is(:active, .ff-active)
@@ -634,6 +671,10 @@
 			{
 				color: var(--button-transparent-pressed-color, var(--button-pressed-color, var(--button-color)));
 			}
+			svg.icon
+			{
+				fill: var(--button-transparent-pressed-color, var(--button-pressed-color, var(--button-color)));
+			}
 		}
 	}
 	&.transparent:is(:disabled, [disabled])
@@ -644,6 +685,10 @@
 		&:is(:link, :visited):hover
 		{
 			color: var(--button-disabled-color);
+		}
+		svg.icon
+		{
+			fill: var(--button-disabled-color);
 		}
 	}
 
@@ -669,14 +714,14 @@
 	// Gap between icon and text as default when using an <i> icon in a button.
 	// To prevent that, add the 'icon-only' class to the button.
 	// Icon on the left side
-	&:where(:not(.icon-only):not(.icon-right)) :where(i)
+	&:where(:not(.icon-only):not(.icon-right)) :where(i, svg.icon)
 	{
 		margin-right: 3px;
 
 		:where(.no-frontfire) &, &:where(.no-frontfire) { all: revert; }
 	}
 	// Icon on the right side
-	&:not(.icon-only).icon-right i
+	&:not(.icon-only).icon-right :is(i, svg.icon)
 	{
 		margin-left: 3px;
 	}

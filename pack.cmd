@@ -2,6 +2,12 @@
 @echo off & setlocal & set __args=%* & %SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -Command Invoke-Expression ('. { ' + (Get-Content -LiteralPath ""%~f0"" -Raw) + ' }' + $env:__args) & exit /b %ERRORLEVEL%
 #> Add-Type @'
 // ========== BEGIN C# CODE ==========
+
+// This script performs the following tasks:
+// - update version and year in all source and documentation files (if changed)
+// - create the distribution archives
+// - update file sizes in readme file
+
 using System;
 using System.Diagnostics;
 using System.Globalization;
