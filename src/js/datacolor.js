@@ -1,4 +1,4 @@
-/*! datacolor.js v2.0.0-beta.1 | @license MIT | ygoe.de */
+/*! datacolor.js v2.0.0-beta.2 | @license MIT | ygoe.de */
 /* build-dir(build) */
 
 // Copyright (c) 2022, Yves Goergen, https://ygoe.de

@@ -1,4 +1,4 @@
-/*! frontfire-ui-complete-singlefile.js v2.0.0-beta.1 | @license MIT | ygoe.de */
+/*! frontfire-ui-complete-singlefile.js v2.0.0-beta.2 | @license MIT | ygoe.de */
 /* no-iife */
 /* build-dir(build) */
 
