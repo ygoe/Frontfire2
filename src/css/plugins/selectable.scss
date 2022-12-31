@@ -12,9 +12,15 @@
 	padding: 1px;
 	box-shadow: rgb(0, 0, 0, 0.05) 0 1px 2px inset;
 	transition: border var(--animation-duration) var(--animation-function), background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+	&.dark,
 	.dark &
 	{
 		box-shadow: rgb(0, 0, 0, 0.4) 0 1px 2px inset;
+	}
+	&.not-dark,
+	.not-dark &
+	{
+		box-shadow: rgb(0, 0, 0, 0.05) 0 1px 2px inset;
 	}
 
 	&:hover:not([disabled])

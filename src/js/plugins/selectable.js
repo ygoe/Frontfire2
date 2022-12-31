@@ -1,4 +1,4 @@
-﻿// ==================== Selectable plugin ====================
+// ==================== Selectable plugin ====================
 
 const selectableClass = "ff-selectable";
 const selectableSearchMatchClass = "selectable-search-match";
@@ -194,7 +194,7 @@ function selectable(options) {
 
 			let replacement = useDropdown ? button : newSelect;
 			// Show or hide the new element instead whenever the <select> element should be shown or hidden
-			Frontfire.internalData.set(htmlSelect, "visible.replacement", replacement);
+			F.internalData.set(htmlSelect, "visible.replacement", replacement);
 			// Enable or disable the new element when the <select> element is enabled or disabled
 			disabledObservers = htmlSelect.F.observeDisabled(disabled => {
 				replacement.F.disabled = disabled;
@@ -219,7 +219,7 @@ function selectable(options) {
 			}
 
 			// Copy some CSS classes to the replacement element (new list or button)
-			["wrap", "input-validation-error"].forEach(clsName => {
+			["wrap", "input-validation-error", "dark", "not-dark"].forEach(clsName => {
 				if (htmlSelect.classList.contains(clsName))
 					replacement.classList.add(clsName);
 			});
@@ -312,7 +312,6 @@ function selectable(options) {
 						else if (child === searchUnderlineItem) {
 							revertSearchUnderline();
 						}
-						console.log("uiChild:", uiChild);
 						if (uiChild?.classList.contains("selected")) {
 							removedSelectedItems.push(child);
 							if (removedSelectedItems.length === 1)
@@ -988,7 +987,7 @@ function selectable(options) {
 				if (useDropdown) {
 					button.remove();
 				}
-				Frontfire.internalData.delete(htmlSelect, "visible.replacement");
+				F.internalData.delete(htmlSelect, "visible.replacement");
 				disabledObservers.undo();
 				forwardedEvents.undo();
 				htmlSelect.focus = originalHtmlSelectFocus;

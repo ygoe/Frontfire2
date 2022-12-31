@@ -454,12 +454,11 @@
 				<p>
 					Changes the element to the dark colour theme.
 					It uses a dark grey background (not black to be easier on the eyes) and a bright text colour (again, not quite white).
-					Most elements and UI widgets that are descendants of an element with the <code class="css-class">dark</code> class should adapt to the dark theme and change their appearance accordingly.
-					Setting the <code class="css-class">dark</code> class on an element only affects its descendants, not the element itself (except for the text colour and background).
-					To put the entire page into the dark theme, apply this class to the <code data-lang="html">&lt;body&gt;</code> element.
+					Most elements and UI widgets that have this class or are descendants of an element with this class should adapt to the dark theme and change their appearance accordingly.
+					To put the entire page into the dark theme, apply this class to the <code data-lang="html">&lt;html&gt;</code> element.
 				</p>
 				<p class="see-also">
-					See also: <a href="frontfire-ui-variables.html#default-background">--default-background</a>, <a href="frontfire-ui-variables.html#default-text-color">--default-text-color</a>
+					See also: <a href="frontfire-ui-variables.html#default-background">--default-background</a>, <a href="frontfire-ui-variables.html#default-text-color">--default-text-color</a>, <a href="#not-dark">not-dark</a>
 				</p>
 			</div>
 
@@ -1702,6 +1701,21 @@
 				</p>
 				<p class="see-also">
 					See also: <a href="#no-grid">no-grid</a>, <a href="#no-hgrid">no-hgrid</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="light theme">
+				<h3 id="not-dark">not-dark</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+				</p>
+				<p>
+					Reverts the element from the dark colour theme back to the light theme.
+					This class is primarily meant to switch a small part of a mainly dark-themed element back to the light theme, for example a light content panel in a dark sidebar on a light page.
+					Changing to the dark theme within an element with this <code class="css-class">not-dark</code> class is unsupported but might work sometimes.
+				</p>
+				<p class="see-also">
+					See also: <a href="#dark">dark</a>
 				</p>
 			</div>
 

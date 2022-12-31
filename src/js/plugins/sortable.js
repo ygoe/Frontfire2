@@ -1,4 +1,4 @@
-﻿// ==================== Sortable plugin ====================
+// ==================== Sortable plugin ====================
 
 const sortableClass = "ff-sortable";
 const sortableEventClass = ".ff-sortable";

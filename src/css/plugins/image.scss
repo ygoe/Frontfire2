@@ -301,6 +301,10 @@ div.image-right
 	{
 		filter: invert(1);
 	}
+	.not-dark &
+	{
+		filter: unset;
+	}
 }
 
 

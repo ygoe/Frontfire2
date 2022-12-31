@@ -1,4 +1,4 @@
-﻿// ==================== Slider plugin ====================
+// ==================== Slider plugin ====================
 
 const sliderClass = "ff-slider";
 const backgroundClass = "ff-background";

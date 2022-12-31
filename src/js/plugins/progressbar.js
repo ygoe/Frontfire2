@@ -1,4 +1,4 @@
-﻿// ==================== Progressbar plugin ====================
+// ==================== Progressbar plugin ====================
 
 const progressbarClass = "ff-progressbar";
 

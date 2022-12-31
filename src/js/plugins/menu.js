@@ -1,4 +1,4 @@
-﻿// ==================== Menu plugin ====================
+// ==================== Menu plugin ====================
 
 const submenuClass = "ff-submenu";
 const submenuIndicatorClass = "ff-submenu-indicator";

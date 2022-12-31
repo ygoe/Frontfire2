@@ -1,6 +1,7 @@
 @use "../variables";
 
-.dark
+.dark,
+.not-dark
 {
 	background-color: var(--default-background);
 	color: var(--default-text-color);
@@ -295,11 +296,19 @@ kbd
 	line-height: 1.2;
 	vertical-align: 0.1em;
 	transition: border-color var(--animation-duration) var(--animation-function), background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+	&.dark,
 	.dark &
 	{
 		border-color: #aaa #888 #777 #999;
 		background-color: #404040;
 		color: white;
+	}
+	&.not-dark,
+	.not-dark &
+	{
+		border-color: #ddd #bbb #aaa #ccc;
+		background-color: #f6f6f6;
+		color: unset;
 	}
 }
 

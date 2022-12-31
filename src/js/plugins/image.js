@@ -13,7 +13,7 @@ function imageOverlayText() {
 			let clone = el.cloneNode(true);
 			clone.classList.add("ff-foreground-only");
 			el.after(clone);
-	
+
 			// The first (original) will show only the background and have a
 			// fully opaque background, but the entire element's opacity is reduced.
 			// Also exclude it from screen reading, one is enough.

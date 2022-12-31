@@ -35,11 +35,11 @@ The following is the content of the archive. All files in readable and minified 
 | ▾ Bundle ╲ Variant ▸  | Separate files | Single file (includes all above) |
 |-----------------------|----------------|-------------|
 | ArrayList             | arraylist.js<br>arraylist.min.js (3.1 KiB) | – |
-| Frontfire Core        | frontfire-core.js<br>frontfire-core.min.js (10.0 KiB) | frontfire-core-singlefile.bundle.js<br>frontfire-core-singlefile.min.js (13 KiB) |
+| Frontfire Core        | frontfire-core.js<br>frontfire-core.min.js (10 KiB) | frontfire-core-singlefile.bundle.js<br>frontfire-core-singlefile.min.js (13 KiB) |
 | Frontfire UI Minimal  | frontfire-ui-minimal.bundle.js<br>frontfire-ui-minimal.min.js (16 KiB) | frontfire-ui-minimal-singlefile.bundle.js<br>frontfire-ui-minimal-singlefile.min.js (28 KiB) |
 | Color                 | color.js<br>color.min.js (2.6 KiB) | – |
 | DataColor             | datacolor.js<br>datacolor.min.js (1.2 KiB) | – |
-| Frontfire UI Complete | frontfire-ui-complete.bundle.js<br>frontfire-ui-complete.min.js (25 KiB) | frontfire-ui-complete-singlefile.bundle.js<br>frontfire-ui-complete-singlefile.min.js (40 KiB) |
+| Frontfire UI Complete | frontfire-ui-complete.bundle.js<br>frontfire-ui-complete.min.js (34 KiB) | frontfire-ui-complete-singlefile.bundle.js<br>frontfire-ui-complete-singlefile.min.js (49 KiB) |
 
 
 ### CSS files
@@ -48,7 +48,7 @@ The following is the content of the archive. All files in readable and minified 
 |-----------------------|-------------|
 | Frontfire Core        | –           |
 | Frontfire UI Minimal  | frontfire-ui-minimal.css<br>frontfire-ui-minimal.min.css (13 KiB) |
-| Frontfire UI Complete | frontfire-ui-complete.css<br>frontfire-ui-complete.min.css (15 KiB) |
+| Frontfire UI Complete | frontfire-ui-complete.css<br>frontfire-ui-complete.min.css (16 KiB) |
 
 
 ### Bundles
@@ -134,7 +134,7 @@ Features
 | Accordion | Shows one out of several panels, selectable through accordion headers | | | 🚧 |
 | Carousel | Shows one out of several panels that slide and animate horizontally | | | 🚧 |
 | Slider | A range value picker with stops and multiple handles | | | ✔️ |
-| TimePicker | A formatted date and time picker with calendar and clock | | | 🚧 |
+| TimePicker | A formatted date and time picker with calendar and clock | | | ✔️ |
 | Gallery | Scales multiple images to fill each row | | | 🚧 |
 | Wheel-scrolling | Custom mouse wheel scrolling | | | 📕 |
 

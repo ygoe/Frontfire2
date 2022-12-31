@@ -1,4 +1,4 @@
-﻿// ==================== Tabs plugin ====================
+// ==================== Tabs plugin ====================
 
 const tabHeadersClass = "ff-tab-headers";
 const tabPagesClass = "ff-tab-pages";

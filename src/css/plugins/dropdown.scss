@@ -8,8 +8,8 @@
 	position: absolute;
 	z-index: 3000;   // above modal
 	box-shadow: 0 3px 10px rgb(0, 0, 0, 0.3);
-	background: white;
-	color: black;
+	background: var(--default-background);
+	color: var(--default-text-color);
 	overflow-y: auto;
 
 	.dropdown

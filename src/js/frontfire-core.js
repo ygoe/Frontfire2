@@ -2853,29 +2853,34 @@
 					return new Date(str);
 				}
 				// Setter
-				let num = (val, len) => (val + "").padStart(len, "0");
-				let year = num(newValue.getFullYear(), 4);
-				let month = num(newValue.getMonth() + 1, 2);
-				let day = num(newValue.getDate(), 2);
-				let hour = num(newValue.getHours(), 2);
-				let min = num(newValue.getMinutes(), 2);
-				let sec = num(newValue.getSeconds(), 2);
-				let time = newValue.getSeconds() !== 0 ? `${hour}:${min}:${sec}` : `${hour}:${min}`;
 				let newStr;
-				if (!newValue) {
-					newStr = "";
+				if (newValue instanceof Date) {
+					let num = (val, len) => (val + "").padStart(len, "0");
+					let year = num(newValue.getFullYear(), 4);
+					let month = num(newValue.getMonth() + 1, 2);
+					let day = num(newValue.getDate(), 2);
+					let hour = num(newValue.getHours(), 2);
+					let min = num(newValue.getMinutes(), 2);
+					let sec = num(newValue.getSeconds(), 2);
+					let time = newValue.getSeconds() !== 0 ? `${hour}:${min}:${sec}` : `${hour}:${min}`;
+					if (!newValue) {
+						newStr = "";
+					}
+					else if (type === "month") {
+						newStr = `${year}-${month}`;
+					}
+					else if (type === "date") {
+						newStr = `${year}-${month}-${day}`;
+					}
+					else if (type === "time") {
+						newStr = time;
+					}
+					else if (type === "datetime-local") {
+						newStr = `${year}-${month}-${day}T${time}`;
+					}
 				}
-				else if (type === "month") {
-					newStr = `${year}-${month}`;
-				}
-				else if (type === "date") {
-					newStr = `${year}-${month}-${day}`;
-				}
-				else if (type === "time") {
-					newStr = time;
-				}
-				else if (type === "datetime-local") {
-					newStr = `${year}-${month}-${day}T${time}`;
+				else {
+					newStr = newValue;
 				}
 				changed = newStr !== node.value;
 				node.value = newStr;

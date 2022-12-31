@@ -922,13 +922,16 @@ function syntaxHighlightCSS(code, inlineData, startState) {
 				if (code.substring(pos, pos + 1) === "]") {
 					newState = "";
 				}
-				else if (code.substring(pos, pos + 1) === "=" ||
-					code.substring(pos, pos + 2) === "~=" ||
+				else if (code.substring(pos, pos + 1) === "=") {
+					newState = "attribute-selector-value-start";
+				}
+				else if (code.substring(pos, pos + 2) === "~=" ||
 					code.substring(pos, pos + 2) === "|=" ||
 					code.substring(pos, pos + 2) === "^=" ||
 					code.substring(pos, pos + 2) === "$=" ||
 					code.substring(pos, pos + 2) === "*=") {
 					newState = "attribute-selector-value-start";
+					skip = 2;
 				}
 				break;
 			case "attribute-selector-value-start":
@@ -989,7 +992,7 @@ function syntaxHighlightCSS(code, inlineData, startState) {
 				else if (code.substring(pos, pos + 1) === ";") {
 					newState = "declaration";
 				}
-				else if (code.substring(pos, pos + 1) === "\"") {
+				else if (code.substring(pos, pos + 1) === '"') {
 					newState = "dq-string";
 				}
 				else if (code.substring(pos, pos + 1) === "'") {
@@ -1009,7 +1012,7 @@ function syntaxHighlightCSS(code, inlineData, startState) {
 				}
 				break;
 			case "dq-string":
-				if (code.substring(pos, pos + 1) === "\"" && code.substring(pos - 1, pos) !== "\\") {
+				if (code.substring(pos, pos + 1) === '"' && code.substring(pos - 1, pos) !== "\\") {
 					newState = "style-end";
 				}
 				break;
@@ -1144,7 +1147,7 @@ function syntaxHighlightHTML(code) {
 				}
 				break;
 			case "attribute-value":
-				if (code.substring(pos, pos + 1) === "\"") {
+				if (code.substring(pos, pos + 1) === '"') {
 					newState = "dq-string";
 					if (attrName === "style")
 						inlineParser = "style-attr";
@@ -1160,7 +1163,7 @@ function syntaxHighlightHTML(code) {
 				skip = 0;
 				break;
 			case "dq-string":
-				if (code.substring(pos, pos + 1) === "\"") {
+				if (code.substring(pos, pos + 1) === '"') {
 					newState = "string-end";
 				}
 				break;
@@ -1228,7 +1231,7 @@ function syntaxHighlightHTML(code) {
 		}
 		if (inlineParser === "style-attr") {
 			let inlineData = {
-				end: state === "sq-string" ? "'" : "\"",
+				end: state === "sq-string" ? "'" : '"',
 				endStatePattern: ".*",
 				skip: 0
 			};
@@ -1281,7 +1284,7 @@ function syntaxHighlightJavaScript(code, inlineData) {
 					newState = "comment";
 					skip = 2;
 				}
-				else if (code.substring(pos, pos + 1) === "\"") {
+				else if (code.substring(pos, pos + 1) === '"') {
 					newState = "dq-string";
 				}
 				else if (code.substring(pos, pos + 1) === "'") {
@@ -1333,7 +1336,7 @@ function syntaxHighlightJavaScript(code, inlineData) {
 				skip = 0;
 				break;
 			case "dq-string":
-				if (code.substring(pos, pos + 1) === "\"" && code.substring(pos - 1, pos) !== "\\") {
+				if (code.substring(pos, pos + 1) === '"' && code.substring(pos - 1, pos) !== "\\") {
 					newState = "string-end";
 				}
 				break;

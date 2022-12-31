@@ -2731,7 +2731,7 @@
 				<p>
 					<span class="type">Type:</span> number
 					<span class="range">Range:</span> 0 ≤ value ≤ 1
-					<span class="default">Default:</span> 0.4
+					<span class="default">Default:</span> 0.35
 					<span class="default">Dark default:</span> 0.7
 					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
 				</p>
@@ -2764,7 +2764,7 @@
 				<p>
 					<span class="type">Type:</span> number
 					<span class="range">Range:</span> 0 ≤ value ≤ 1
-					<span class="default">Default:</span> 0.08
+					<span class="default">Default:</span> 0.06
 					<span class="default">Dark default:</span> 0.15
 					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
 				</p>
@@ -2814,7 +2814,7 @@
 				<p>
 					<span class="type">Type:</span> number
 					<span class="range">Range:</span> 0 ≤ value ≤ 1
-					<span class="default">Default:</span> 0.3
+					<span class="default">Default:</span> 0.2
 					<span class="default">Dark default:</span> 0.6
 					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
 				</p>
@@ -2831,7 +2831,7 @@
 				<p>
 					<span class="type">Type:</span> number
 					<span class="range">Range:</span> 0 ≤ value ≤ 1
-					<span class="default">Default:</span> 0.35
+					<span class="default">Default:</span> 0.24
 					<span class="default">Dark default:</span> 0.67
 					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
 				</p>
@@ -3743,6 +3743,280 @@
 				<p>
 					The colour of the thumb of a thin scrollbar.
 					Used for elements with the <code class="css-class">thin-scrollbar</code> CSS class.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-clock-background">--timepicker-clock-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> rgb(180, 180, 180, 0.1)
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The background colour of the clock in a time picker dropdown.
+				</p>
+				<p class="see-also">
+					See also: <a href="#timepicker-clock-border-color">--timepicker-clock-border-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-clock-border-color">--timepicker-clock-border-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> rgb(180, 180, 180, 0.3)
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The border colour of the clock in a time picker dropdown.
+				</p>
+				<p class="see-also">
+					See also: <a href="#timepicker-clock-background">--timepicker-clock-background</a>, <a href="#timepicker-clock-border-width">--timepicker-clock-border-width</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-clock-border-width">--timepicker-clock-border-width</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="range">Range:</span> 0px ≤ value
+					<span class="default">Default:</span> 1px <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The border width of the clock in a time picker dropdown.
+				</p>
+				<p class="see-also">
+					See also: <a href="#timepicker-clock-border-color">--timepicker-clock-border-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-clock-line-color">--timepicker-clock-line-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The colour of the clockhand line in a time picker dropdown.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the item background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--selection-h), var(--selection-s), var(--selection-l))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#timepicker-clock-secondary-line-color">--timepicker-clock-secondary-line-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-clock-secondary-line-color">--timepicker-clock-secondary-line-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The colour of the secondary clockhand line in a time picker dropdown.
+					This indicates the hour during the selection of the minute.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the item background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--timepicker-clock-secondary-line-a, 0.4))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#timepicker-clock-line-color">--timepicker-clock-line-color</a>, <a href="#timepicker-clock-secondary-line-a">--timepicker-clock-secondary-line-a</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-clock-secondary-line-a">--timepicker-clock-secondary-line-a</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value ≤ 1
+					<span class="default">Default:</span> 0.4 <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The alpha value (opacity) of the secondary clockhand line colour in a time picker dropdown.
+				</p>
+				<p class="see-also">
+					See also: <a href="#timepicker-clock-secondary-line-color">--timepicker-clock-secondary-line-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-clock-selected-a">--timepicker-clock-selected-a</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value ≤ 1
+					<span class="default">Default:</span> 0.3
+					<span class="default">Dark default:</span> 0.7
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The alpha value (opacity) of the background colour of selected items in a time picker dropdown.
+				</p>
+				<p class="see-also">
+					See also: <a href="#timepicker-clock-selected-background">--timepicker-clock-selected-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-clock-selected-background">--timepicker-clock-selected-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The background colour of selected digits of the clock in a time picker dropdown.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the item background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--timepicker-clock-selected-a, var(--selection-selected-a)))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#timepicker-clock-selected-color">--timepicker-clock-selected-color</a>, <a href="#timepicker-clock-selected-a">--timepicker-clock-selected-a</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-clock-selected-color">--timepicker-clock-selected-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> unset <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The text colour of selected digits of the clock in a time picker dropdown.
+				</p>
+				<p class="see-also">
+					See also: <a href="#timepicker-clock-selected-background">--timepicker-clock-selected-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-empty-color">--timepicker-empty-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> rgb(0, 0, 0, 0.33)
+					<span class="default">Dark default:</span> rgb(240, 240, 240, 0.33)
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The text colour of the placeholders in a time picker input when no date or time is specified.
+					The default values are set to the default values of <code class="css-var">--textbox-color</code> with additional transparency.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-hover-background">--timepicker-hover-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The background colour of unselected items in a time picker dropdown when they are hovered by the mouse cursor.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the item background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-hover-a))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#timepicker-hover-color">--timepicker-hover-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-hover-color">--timepicker-hover-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The text colour of unselected items in a time picker dropdown when they are hovered by the mouse cursor.
+					The default value is:<br>
+					<code data-lang="style-value">var(--default-text-color)</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#timepicker-hover-background">--timepicker-hover-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-month-border-color">--timepicker-month-border-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> rgb(180, 180, 180, 0.5)
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The colour of the border line separating the days in a month from the weekdays and week numbers in a time picker dropdown.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-now-border-color">--timepicker-now-border-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> darkorange
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The colour of the border around the current date in a time picker dropdown.
+				</p>
+				<p class="see-also">
+					See also: <a href="#timepicker-now-other-month-border-color">--timepicker-now-other-month-border-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-now-other-month-border-color">--timepicker-now-other-month-border-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> #ffc581
+					<span class="default">Dark default:</span> #c06800
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The colour of the border around the current date in a time picker dropdown when the current date is in another month than selected.
+				</p>
+				<p class="see-also">
+					See also: <a href="#timepicker-now-border-color">--timepicker-now-border-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-selected-background">--timepicker-selected-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The background colour of selected items in a time picker dropdown.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the item background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-selected-a))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#timepicker-selected-color">--timepicker-selected-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timepicker-selected-color">--timepicker-selected-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> unset <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-timepicker.html">TimePicker</a>)</span>
+				</p>
+				<p>
+					The text colour of selected items in a time picker dropdown.
+				</p>
+				<p class="see-also">
+					See also: <a href="#timepicker-selected-background">--timepicker-selected-background</a>
 				</p>
 			</div>
 

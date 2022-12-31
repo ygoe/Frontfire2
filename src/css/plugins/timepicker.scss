@@ -1,0 +1,366 @@
+// The new visible text input field
+.ff-timepicker-input
+{
+	// No time value set, same as placeholder style
+	&.empty
+	{
+		font-style: italic;
+		color: var(--timepicker-empty-color);
+	}
+}
+
+// The time picker dropdown content
+.ff-timepicker
+{
+	user-select: none;
+	display: flex;
+	flex-direction: column;
+
+	button svg,
+	a svg
+	{
+		pointer-events: none;
+	}
+	button[disabled] svg,
+	a[disabled] svg
+	{
+		opacity: 0.4;
+	}
+}
+
+.ff-timepicker-buttons
+{
+	display: grid;
+	grid-gap: 1px;
+	grid-template-columns: 1fr 3fr 1fr;
+	margin-bottom: 1px;
+	&.four-buttons
+	{
+		grid-template-columns: 1fr 3fr 1fr 1fr;
+	}
+}
+
+.ff-timepicker button,
+.ff-timepicker a.button
+{
+	svg path
+	{
+		fill: black;
+	}
+	svg polyline
+	{
+		stroke: black;
+	}
+	.dark &
+	{
+		svg path
+		{
+			fill: white;
+		}
+		svg polyline
+		{
+			stroke: white;
+		}
+	}
+}
+
+.ff-timepicker-content
+{
+	position: relative;
+}
+
+.ff-timepicker-year,
+.ff-timepicker-month,
+.ff-timepicker-clock
+{
+	touch-action: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+
+	.ff-timepicker-inner
+	{
+		position: relative;
+		transition: transform var(--animation-duration) var(--animation-function), opacity var(--animation-duration) var(--animation-function);
+		z-index: 2;
+
+		&.hidden,
+		&.hidden-reverse
+		{
+			transform: scale(0.67);
+			opacity: 0;
+			z-index: 1;   // move to back to ignore pointer input
+		}
+		&.hidden-reverse
+		{
+			transform: scale(1.5);
+		}
+
+		.header
+		{
+			margin-bottom: 1px;
+			display: flex;
+			justify-content: space-between;
+			align-content: center;
+			align-items: center;
+			text-align: center;
+			font-weight: bold;
+		}
+	}
+}
+
+.ff-timepicker-year
+{
+	.ff-timepicker-inner
+	{
+		.months
+		{
+			display: flex;
+			flex-wrap: wrap;
+
+			.item
+			{
+				width: 33.333%;
+				cursor: pointer;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-content: center;
+				align-items: center;
+				transition: background var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+				&:hover
+				{
+					background: var(
+						--timepicker-hover-background,
+						hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-hover-a)));
+					color: var(--timepicker-hover-color, var(--default-text-color));   // TODO: Fallback value unnecessary? https://github.com/mdn/content/issues/17511
+					transition: background 0s;
+				}
+				&.selected,
+				&.selected:hover
+				{
+					background-color: var(
+						--timepicker-selected-background,
+						hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-selected-a)));
+					transition: background 0s;
+					color: var(--timepicker-selected-color, unset);
+				}
+				&.now
+				{
+					border: solid 1px var(--timepicker-now-border-color);
+				}
+
+				.week-numbers
+				{
+					font-size: 0.7em;
+				}
+			}
+		}
+	}
+}
+
+.ff-timepicker-month
+{
+	.ff-timepicker-inner
+	{
+		.weekdays
+		{
+			display: flex;
+
+			> div
+			{
+				width: calc((100% - 20px) / 7);   // 1 / 7 - week-number
+				border-bottom: solid 1px var(--timepicker-month-border-color);
+				padding-top: 4px;
+				text-align: center;
+				font-size: 0.7em;
+				line-height: 110%;
+				&:first-child
+				{
+					margin-left: 19px;   // week-number - 1px
+					width: calc((100% - 20px) / 7 + 1px);   // 1px additional border above week-number border
+				}
+			}
+		}
+
+		.weeks
+		{
+			display: flex;
+			flex-direction: column;
+
+			.days
+			{
+				display: flex;
+				transition: background var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+
+				.week-number
+				{
+					width: 20px;
+					display: flex;
+					justify-content: center;
+					align-content: center;
+					align-items: center;
+					font-size: 0.7em;
+					border-right: solid 1px var(--timepicker-month-border-color);
+				}
+				.item
+				{
+					width: calc((100% - 20px) / 7);   // 1 / 7 - week-number
+					cursor: pointer;
+					display: flex;
+					justify-content: center;
+					align-content: center;
+					align-items: center;
+					&[disabled]
+					{
+						cursor: default;
+						background: inherit !important;
+					}
+					&.now
+					{
+						border: solid 1px var(--timepicker-now-border-color);
+					}
+					&.prev-month,
+					&.next-month
+					{
+						> span
+						{
+							opacity: 0.4;
+						}
+						&.now
+						{
+							border: solid 1px var(--timepicker-now-other-month-border-color);
+						}
+					}
+				}
+			}
+			&.day-selection
+			{
+				.item:hover
+				{
+					background: var(
+						--timepicker-hover-background,
+						hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-hover-a)));
+					color: var(--timepicker-hover-color, var(--default-text-color));   // TODO: Fallback value unnecessary? https://github.com/mdn/content/issues/17511
+					transition: background 0s;
+				}
+				.item.selected,
+				.item.selected:hover
+				{
+					background-color: var(
+						--timepicker-selected-background,
+						hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-selected-a)));
+					transition: background 0s;
+					color: var(--timepicker-selected-color, unset);
+				}
+			}
+			&.week-selection
+			{
+				.days
+				{
+					cursor: pointer;
+				}
+				.days:hover
+				{
+					background: var(
+						--timepicker-hover-background,
+						hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-hover-a)));
+					color: var(--timepicker-hover-color, var(--default-text-color));   // TODO: Fallback value unnecessary? https://github.com/mdn/content/issues/17511
+					transition: background 0s;
+				}
+				.days.selected,
+				.days.selected:hover
+				{
+					background-color: var(
+						--timepicker-selected-background,
+						hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-selected-a)));
+					transition: background 0s;
+					color: var(--timepicker-selected-color, unset);
+				}
+			}
+		}
+	}
+}
+
+.ff-timepicker-clock
+{
+	.ff-timepicker-inner
+	{
+		border-radius: 100%;
+		background: var(--timepicker-clock-background);
+		border: solid var(--timepicker-clock-border-width, 1px) var(--timepicker-clock-border-color);
+
+		// A displayed number on the clock-face
+		.item
+		{
+			position: absolute;
+			border-radius: 100%;
+			display: flex;
+			justify-content: center;
+			align-content: center;
+			align-items: center;
+			font-size: 1.1em;
+			&.inner-circle
+			{
+				font-size: 0.85em;
+			}
+			&.selected
+			{
+				background-color: var(
+					--timepicker-clock-selected-background,
+					hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--timepicker-clock-selected-a, var(--selection-selected-a))));
+				color: var(--timepicker-clock-selected-color, unset);
+			}
+		}
+
+		svg
+		{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
+		.clock-center-cirle
+		{
+			fill: var(
+				--timepicker-clock-line-color,
+				hsl(var(--selection-h), var(--selection-s), var(--selection-l)));
+		}
+		.clock-hour-line
+		{
+			stroke: var(
+				--timepicker-clock-line-color,
+				hsl(var(--selection-h), var(--selection-s), var(--selection-l)));
+			stroke-width: 3;
+		}
+		.clock-hour-line.secondary
+		{
+			stroke: var(
+				--timepicker-clock-secondary-line-color,
+				hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--timepicker-clock-secondary-line-a, 0.4)));
+			stroke-width: 3;
+		}
+		.clock-minute-line
+		{
+			stroke: var(
+				--timepicker-clock-line-color,
+				hsl(var(--selection-h), var(--selection-s), var(--selection-l)));
+			stroke-width: 2;
+		}
+
+		// A dot for selected minutes that are not displayed with a number
+		// (exists once and is moved to the required position, conditionally visible)
+		.clock-extra-item
+		{
+			fill: var(
+				--timepicker-clock-selected-background,
+				hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--timepicker-clock-selected-a, var(--selection-selected-a))));
+		}
+		.clock-extra-item-dot
+		{
+			fill: var(--default-text-color);
+		}
+	}
+}

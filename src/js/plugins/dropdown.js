@@ -1,4 +1,4 @@
-﻿// ==================== Dropdown plugin ====================
+// ==================== Dropdown plugin ====================
 
 const dropdownContainerClass = "ff-dropdown-container";
 

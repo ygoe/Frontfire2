@@ -1,4 +1,4 @@
-﻿// ==================== Draggable plugin ====================
+// ==================== Draggable plugin ====================
 
 const draggableClass = "ff-draggable";
 const draggableEventClass = ".ff-draggable";

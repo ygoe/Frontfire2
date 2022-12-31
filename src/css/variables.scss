@@ -13,7 +13,8 @@ $viewportWidthDesktop: 1200px;
 // Wide monitors (1201-)
 
 
-:root
+:root,
+.not-dark
 {
 	// ========== Page size ==========
 
@@ -325,6 +326,16 @@ $viewportWidthDesktop: 1200px;
 	--tabs-page-background: transparent;
 	--tabs-noborder-active: hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l));
 	--tabs-noborder-hover: hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l), 0.25);
+
+	// ========== Time picker ==========
+
+	--timepicker-clock-background: rgb(160, 160, 160, 0.05);
+	--timepicker-clock-border-color: rgb(160, 160, 160, 0.2);
+	--timepicker-clock-selected-a: 0.3;
+	--timepicker-now-border-color: darkorange;
+	--timepicker-now-other-month-border-color: #ffc581;
+	--timepicker-month-border-color: rgb(180, 180, 180, 0.5);
+	--timepicker-empty-color: rgb(0, 0, 0, 0.33);   // --textbox-color resolved with additional transparency
 }
 
 // Override some colors for the dark theme.
@@ -464,4 +475,10 @@ $viewportWidthDesktop: 1200px;
 	--tabs-inactive-header-background: #383838;
 	--tabs-inactive-header-hover-background: #2c2c2c;
 	--tabs-noborder-hover: hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l), 0.45);
+
+	// ========== Time picker ==========
+
+	--timepicker-clock-selected-a: 0.7;
+	--timepicker-now-other-month-border-color: #c06800;
+	--timepicker-empty-color: rgb(240, 240, 240, 0.33);   // --textbox-color resolved with additional transparency
 }

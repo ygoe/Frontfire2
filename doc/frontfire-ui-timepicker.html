@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: TimePicker documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">TimePicker plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.2</span>
+		</div>
+		<p>
+			HTML defines a number of input control elements for date- and time-related input.
+			They provide a basic input method but are not very convenient or usable and highly depend on the browser implementation.
+			To achieve a more modern and cross-platform consistent look and provide better usability, these controls are reimplemented by Frontfire.
+			The time picker is highly flexible and can allow input of reduced time components or highlighting of dates.
+		</p>
+		<p>
+			This plugin is only available in the Complete bundle.
+		</p>
+		<p>
+			This plugin depends on the plugins: <a href="frontfire-ui-draggable.html">draggable</a>, <a href="frontfire-ui-dropdown.html">dropdown</a>, <a href="frontfire-ui-form.html#repeat-button">repeatButton</a> (form)
+		</p>
+
+		<h2 id="date">Date selection</h2>
+		<div class="sticky-aside-container require-desktop example-options">
+			<div class="sticky-aside aside-options">
+				<div><label class="indent-checkbox"><input type="checkbox" id="disable-timepickers"> Disable time pickers</label></div>
+				<div><label class="indent-checkbox"><input type="checkbox" id="hide-timepickers"> Hide time pickers</label></div>
+			</div>
+
+			<p>
+				The basic date selection is used with <code data-lang="html">&lt;input type="date"&gt;</code> elements and allows the selection of a date.
+			</p>
+			<p>
+				The colours of the time picker dropdown can be customised with the <a href="frontfire-ui-variables.html?s=@timepicker">CSS variables</a> that start with “--timepicker-”.
+			</p>
+			<p>
+				Each day or month item can be customised with a function that is called with the item and the date as arguments.
+				The function can be specified in the <a href="#options">options</a> or later with the <code>monthFormatter</code> or <code>dayFormatter</code> <a href="#properties">properties</a>.
+				In the example below, all Sundays are marked in red colour.
+			</p>
+			<div class="example no-frontfire" data-source-highlight="(?&lt;=type=&quot;)date(?=&quot;)">
+				<style>
+					.holiday
+					{
+						color: #c00000;
+					}
+					.holiday.selected
+					{
+						color: #e00000 !important;
+					}
+				</style>
+				<p>
+					<input type="date" id="date-input"> → <code id="date-value-view"></code>
+				</p>
+				<div class="buttons p">
+					<button type="button" id="set-date-today" class="button">Set today</button>
+				</div>
+				<script>
+					// Wrapping in onReady() because this demo runs before the control is set up, you don't do that
+					F.onReady(() => {
+						// Format the days in the calendar view
+						F("#date-input").timePicker.dayFormatter = (item, date) => {
+							if (date.getDay() === 0)
+								item.classList.add("holiday");
+						};
+						// Show the element’s value each time it was changed
+						F("#date-input").on("change! input", event => {
+							F("#date-value-view").textContent = '"' + event.currentTarget.value + '"';
+						});
+					});
+					F("#set-date-today").on("click", () => {
+						F("#date-input").value(getTodayISOString());
+					});
+
+					function getTodayISOString() {
+						let now = new Date();
+						return (now.getFullYear() + "").padStart(4, "0") + "-" +
+							(now.getMonth() + 1 + "").padStart(2, "0") + "-" +
+							(now.getDate() + "").padStart(2, "0");
+					}
+				</script>
+			</div>
+
+			<h3 id="month">Month selection</h3>
+			<p>
+				The selection can be limited to months instead of full dates with <code data-lang="html">&lt;input type="month"&gt;</code>.
+				The field value is in the ISO 8601 format “YYYY-MM”, e.g. “2022-12”.
+			</p>
+			<div class="example p no-frontfire" data-source-highlight="(?&lt;=type=&quot;)month(?=&quot;)">
+				<input type="month" id="month-input"> → <code id="month-value-view"></code>
+				<script>
+					// Wrapping in onReady() because this demo runs before the control is set up, you don't do that
+					F.onReady(() => {
+						F("#month-input").on("change! input", event => {
+							F("#month-value-view").textContent = '"' + event.currentTarget.value + '"';
+						});
+					});
+				</script>
+			</div>
+
+			<h3 id="week">Week selection</h3>
+			<p>
+				The selection can be limited to weeks instead of full dates with <code data-lang="html">&lt;input type="week"&gt;</code>.
+				The field value is in the ISO 8601 format “YYYY-‘W’WW”, e.g. “2022-W52”.
+			</p>
+			<div class="example p no-frontfire" data-source-highlight="(?&lt;=type=&quot;)week(?=&quot;)">
+				<input type="week" id="week-input"> → <code id="week-value-view"></code>
+				<script>
+					// Wrapping in onReady() because this demo runs before the control is set up, you don't do that
+					F.onReady(() => {
+						F("#week-input").on("change! input", event => {
+							F("#week-value-view").textContent = '"' + event.currentTarget.value + '"';
+						});
+					});
+				</script>
+			</div>
+		</div>
+		<script>
+			let disableTimePickersCheckbox = F("#disable-timepickers").first;
+			disableTimePickersCheckbox.F.on("click!", () => {
+				F(".example-options input:is([type=date], [type=month], [type=week])").disabled = disableTimePickersCheckbox.checked;
+			});
+			let hideTimePickersCheckbox = F("#hide-timepickers").first;
+			hideTimePickersCheckbox.F.on("click!", () => {
+				F(".example-options input:is([type=date], [type=month], [type=week])").visible = !hideTimePickersCheckbox.checked;
+			});
+		</script>
+
+		<h2 id="time">Time selection</h2>
+		<p>
+			The basic time selection is used with <code data-lang="html">&lt;input type="time"&gt;</code> and allows the selection of a time of day, with hours and minutes.
+			The field value is in the ISO 8601 format “hh:mm”, e.g. “21:42”.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?&lt;=type=&quot;)time(?=&quot;)">
+			<p>
+				<input type="time" id="time-input"> → <code id="time-value-view"></code>
+			</p>
+			<div class="buttons p">
+				<button type="button" id="set-time-now" class="button">Set now</button>
+			</div>
+			<script>
+				// Wrapping in onReady() because this demo runs before the control is set up, you don't do that
+				F.onReady(() => {
+					F("#time-input").on("change! input", event => {
+						F("#time-value-view").textContent = '"' + event.currentTarget.value + '"';
+					});
+				});
+				F("#set-time-now").on("click", () => {
+					F("#time-input").value(getNowTimeISOString());
+				});
+
+				function getNowTimeISOString() {
+					let now = new Date();
+					return (now.getHours() + "").padStart(2, "0") + ":" +
+						(now.getMinutes() + "").padStart(2, "0") + ":" +
+						(now.getSeconds() + "").padStart(2, "0");
+				}
+			</script>
+		</div>
+
+		<h3 id="seconds">With seconds</h3>
+		<p>
+			By setting the <code>step</code> HTML attribute to a value of less than 60 (seconds), the control also enables the input of seconds:
+			<code data-lang="html">&lt;input type="time" step="1"&gt;</code>.
+			You should only choose steps that align with full increments on the higher level, e.g. 5/10/15/30 seconds that align at a full minute, or 5/10/15/30 minutes (300/600/900/1800 seconds) that align at a full hour.
+			This is because each time component can be adjusted individually and the step only applies to the smallest component.
+		</p>
+		<p class="message warning icon">
+			<i class="material">warning.fill</i>
+			<code>min</code>, <code>max</code> and <code>step</code> attributes are not yet implemented (except for activating of seconds input).
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?&lt;=&quot;)step(?=&quot;)">
+			<p>
+				<input type="time" step="1"> → <code></code> (allows every second)
+			</p>
+			<p>
+				<input type="time" step="15"> → <code></code> (allows every 15 seconds)
+			</p>
+			<p>
+				<input type="time" step="300"> → <code></code> (allows every 5 minutes)
+			</p>
+			<script>
+				// Wrapping in onReady() because this demo runs before the control is set up, you don't do that
+				F.onReady(() => {
+					F("input[type=time][step]").on("change! input", event => {
+						event.currentTarget.closest("p").querySelector("code").textContent =
+							'"' + event.currentTarget.value + '"';
+					});
+				});
+			</script>
+		</div>
+
+		<h2 id="datetime">Combined date and time selection</h2>
+		<p>
+			A single field can contain a full timestamp consisting of a date and time of day:
+			<code data-lang="html">&lt;input type="datetime-local"&gt;</code>.
+			This does not support time zones and can only represent a local timestamp (not UTC).
+			The field value is in the ISO 8601 format “YYYY-MM-DD‘T’hh:mm”, e.g. “2019-09-30T21:42”.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="(?&lt;=type=&quot;)datetime-local(?=&quot;)">
+			<p>
+				<input type="datetime-local" id="datetime-input"> → <code id="datetime-value-view"></code>
+			</p>
+			<div class="buttons p">
+				<button type="button" id="set-datetime-now" class="button">Set now</button>
+			</div>
+			<script>
+				// Wrapping in onReady() because this demo runs before the control is set up, you don't do that
+				F.onReady(() => {
+					F("#datetime-input").on("change! input", event => {
+						F("#datetime-value-view").textContent = '"' + event.currentTarget.value + '"';
+					});
+				});
+				F("#set-datetime-now").on("click", () => {
+					F("#datetime-input").value(getNowISOString());
+				});
+
+				function getNowISOString() {
+					let now = new Date();
+					return (now.getFullYear() + "").padStart(4, "0") + "-" +
+						(now.getMonth() + 1 + "").padStart(2, "0") + "-" +
+						(now.getDate() + "").padStart(2, "0") + "T" +
+						(now.getHours() + "").padStart(2, "0") + ":" +
+						(now.getMinutes() + "").padStart(2, "0") + ":" +
+						(now.getSeconds() + "").padStart(2, "0");
+				}
+			</script>
+		</div>
+
+		<h2 id="required">Required input</h2>
+		<p>
+			If the input is not optional and a valid date is required, the <code>required</code> attribute can be used as usual.
+		</p>
+		<p class="message warning icon">
+			<i class="material">warning.fill</i>
+			The <code>required</code> attribute is not fully functional for now.
+			It hides the “clear” button in the dropdown but is itself removed until a proper form validation is in place, because there is no way to show a browser-generated message on the original hidden and the new readonly field.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="(?&lt;= )required">
+			<form>
+				<input type="date" id="required-date-input" required> <span class="value-view"></span>
+				<button type="submit" class="button">Submit date</button>
+			</form>
+		</div>
+
+		<h2 id="localisation">Localisation</h2>
+		<p>
+			The date and time format and label texts are automatically set by the browser language.
+			To override, set the <code>localeCode</code> <a href="#options">option</a>, the following example is set to Icelandic (is-IS):
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="localeCode">
+			<input type="date" id="date-input" data-opt="localeCode: is-IS">
+		</div>
+
+		<p>
+			If no locale code is specified, the language is determined by the browser setting.
+			All time formats are provided by the browser.
+			Currently, the following languages are supported for label texts.
+			Specifying a different language will return English names.
+		</p>
+		<ul>
+			<li><code>cs</code>: Czech</li>
+			<li><code>da</code>: Danish</li>
+			<li><code>de</code>: German</li>
+			<li><code>en</code>: English</li>
+			<li><code>es</code>: Spanish</li>
+			<li><code>fi</code>: Finnish</li>
+			<li><code>fr</code>: French</li>
+			<li><code>hu</code>: Hungarian</li>
+			<li><code>is</code>: Icelandic</li>
+			<li><code>it</code>: Italian</li>
+			<li><code>nl</code>: Dutch</li>
+			<li><code>no</code>: Norwegian</li>
+			<li><code>pt</code>: Portuguese</li>
+			<li><code>ro</code>: Romanian</li>
+			<li><code>sk</code>: Slovak</li>
+			<li><code>sl</code>: Slovene</li>
+			<li><code>sv</code>: Swedish</li>
+		</ul>
+
+		<h2 id="events">Events</h2>
+		<p>
+			The visible element is not the original HTML input element that was in the document.
+			To make it easier to use certain events with the UI element, they are forwarded to the original <code data-lang="html">&lt;input&gt;</code> element using the <a href="frontfire-core.html#forwardUIEvents"><code data-lang="js">Frontfire.forwardUIEvents()</code></a> method.
+		</p>
+		<p>
+			The change event is already managed by other actions and considered in both directions.
+		</p>
+		<p>
+			The <a href="frontfire-ui-dropdown.html#events">dropdown event</a> <a href="#close">close</a> is passed through.
+			The additional <a href="#open">open</a> event is triggered when the selection dropdown is opened.
+		</p>
+		<div class="example p-top no-frontfire">
+			<input type="date" id="date-input1">
+			<p id="event-log">
+				Events:
+			</p>
+			<script>
+				// pointermove, pointerout, pointerover not shown because of their frequency
+				F("#date-input1").on(
+					"blur click close contextmenu dblclick focus focusin focusout input keydown keyup open pointercancel pointerdown pointerenter pointerleave pointerup wheel",
+					event => {
+						// Log to console for further inspection
+						console.log(event);
+						F("#event-log").textContent += " " + event.type;
+					});
+			</script>
+		</div>
+
+		<p>
+			The original element’s <code>focus()</code> method is overwritten to focus the visible element instead.
+		</p>
+		<div class="example p-top no-frontfire">
+			<input type="date" id="date-input2">
+			<p>
+				<button id="focus-input2">Focus input field</button>
+			</p>
+			<script>
+				F("#focus-input2").on("click", () => {
+					F("#date-input2").first.focus();
+				});
+			</script>
+		</div>
+
+		<h2 id="options">Options</h2>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>dayFormatter</code></td>
+					<td>Function</td>
+					<td>A function that changes the format of a day item.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>localeCode</code></td>
+					<td>String</td>
+					<td>The locale used for formats and text translations.</td>
+					<td>Auto</td>
+				</tr>
+				<tr>
+					<td><code>monthFormatter</code></td>
+					<td>Function</td>
+					<td>A function that changes the format of a month item.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>isoFormat</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the ISO 8601 date and time format is used instead of the local format.</td>
+					<td>false</td>
+				</tr>
+				<tr>
+					<td><code>isoFormatSeparator</code></td>
+					<td>String</td>
+					<td>The separator between date and time for ISO 8601 format. Can be set to "T".</td>
+					<td>", "</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="properties">Plugin properties</h2>
+		<p>
+			This plugin provides properties to access the input field.
+		</p>
+
+		<div class="member">
+			<h3 id="dayFormatter">dayFormatter</h3>
+			<ul>
+				<li><code>dayFormatter</code> → Function</li>
+			</ul>
+			<p>
+				Gets or sets a function that changes the format of a day item.
+				The callback function gets two arguments:
+			</p>
+			<ol>
+				<li>The HTML element that represents the specific day.</li>
+				<li>The Date of the day.</li>
+			</ol>
+<div class="code">F("#timepicker").timePicker.dayFormatter = (item, date) => {
+	if (date.getDay() === 0)
+		item.classList.add("weekend");
+};
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="monthFormatter">monthFormatter</h3>
+			<ul>
+				<li><code>monthFormatter</code> → Function</li>
+			</ul>
+			<p>
+				Gets or sets a function that changes the format of a month item.
+				The callback function gets two arguments:
+			</p>
+			<ol>
+				<li>The HTML element that represents the specific month.</li>
+				<li>The Date of the first day of the month.</li>
+			</ol>
+<div class="code">F("#timepicker").timePicker.monthFormatter = (item, date) => {
+	if (date.getMonth() === 0)
+		item.classList.add("holiday");
+};
+</div>
+		</div>
+
+		<h2 id="events">Plugin events</h2>
+		<p>
+			This plugin triggers events for the input field.
+		</p>
+
+		<div class="member">
+			<h3 id="close">close</h3>
+			<p>
+				Triggered when the selection dropdown is closed.
+			</p>
+		</div>
+
+		<div class="member">
+			<h3 id="open">open</h3>
+			<p>
+				Triggered when the selection dropdown is opened.
+			</p>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

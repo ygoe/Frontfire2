@@ -283,7 +283,7 @@ public class App
 
 		double sizeKiB = (double)GetCompressedSize(filePath) / 1024;
 		string sizeStr = sizeKiB.ToString("0", CultureInfo.InvariantCulture);
-		if (sizeKiB < 10)
+		if (sizeKiB < 9.5)
 			sizeStr = sizeKiB.ToString("0.0", CultureInfo.InvariantCulture);
 
 		bool modified = false;

@@ -2142,7 +2142,7 @@ nodesF.style({
 			<div class="member" data-aliases="replaceWith">
 				<h3 id="unwrap">unwrap</h3>
 				<ul>
-					<li><code>wrap()</code> → this</li>
+					<li><code>unwrap()</code> → this</li>
 				</ul>
 				<p>
 					Replaces the parent of each selected Node with the selected Node itself, removing their parents.
@@ -2494,6 +2494,19 @@ nodesF.style({
 					Returns all dispatched events, for the caller to inspect their properties that may have been set by the event handlers.
 					If only one element was selected and one event was triggered, the returned collection will contain a single Event object.
 				</p>
+<div class="code">// Non-bubbling event without data
+F("#id").trigger("init");
+
+// Bubbling event without data
+F("#id").trigger("change", { bubbles: true });
+
+// Bubbling, cancellable event with data
+let events = F("#id").trigger("close", { bubbles: true, cancelable: true }, { closeReason: "userRequest" });
+if (!events.first.defaultPrevented) {
+	// Continue
+	// (can read properties from events.first that were set in event handlers)
+}
+</div>
 				<p>
 					Unlike jQuery that only calls its own added event handlers, this method triggers a native DOM event that will be visible to all event handlers added with the Frontfire or DOM methods alike.
 					Unlike jQuery events that always bubble, this behaviour must be explicitly enabled with the <code>bubbles</code> eventInit property like with the DOM API.
@@ -5113,6 +5126,21 @@ await F.sleep(500);
 				<p>
 					Makes each selected checkbox cycle through indeterminate (third) state on clicking.
 					This is automatically called for elements matching the selector <code data-lang="css">input[type=checkbox].three-state</code>.
+					See the plugin page for examples.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="timePicker">timePicker</h3>
+				<p>
+					<span class="plugin">Plugin:</span> <a href="frontfire-ui-timepicker.html">TimePicker</a>
+				</p>
+				<ul>
+					<li><code>timePicker(options)</code> → this</li>
+				</ul>
+				<p>
+					Applies the enhanced date and time picker control on the selected elements.
+					This is automatically called for elements matching the selectors <code data-lang="css">input[type^=date]</code>, <code data-lang="css">input[type=month]</code>, <code data-lang="css">input[type=time]</code> or <code data-lang="css">input[type=week]</code>.
 					See the plugin page for examples.
 				</p>
 			</div>

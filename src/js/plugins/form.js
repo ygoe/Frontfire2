@@ -300,7 +300,7 @@ function spinner(options) {
 		//Frontfire.internalData.add(input, "disabled.ancillaries", incButton);
 
 		// Show or hide the wrapper instead whenever the input should be shown or hidden
-		Frontfire.internalData.set(input, "visible.replacement", wrapper);
+		F.internalData.set(input, "visible.replacement", wrapper);
 	});
 }
 
@@ -344,7 +344,7 @@ function toggleButton() {
 		input.after(button);
 		input.F.hide();
 		// Copy some CSS classes to the button
-		["narrow", "icon-only", "icon-right", "transparent", "input-validation-error"].forEach(clsName => {
+		["narrow", "icon-only", "icon-right", "transparent", "input-validation-error", "dark", "not-dark"].forEach(clsName => {
 			if (input.classList.contains(clsName))
 				button.classList.add(clsName);
 		});
@@ -364,7 +364,7 @@ function toggleButton() {
 		});
 
 		// Show or hide the button instead whenever the input should be shown or hidden
-		Frontfire.internalData.set(input, "visible.replacement", button);
+		F.internalData.set(input, "visible.replacement", button);
 		// Enable or disable the button when the input is enabled or disabled
 		input.F.observeDisabled(disabled => button.disabled = disabled);
 

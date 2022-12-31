@@ -6,9 +6,9 @@
 	display: none;
 	border: 1px solid #0078d7;
 	box-shadow: 0 6px 20px rgb(0, 0, 0, 0.3);
-	background: white;
+	background: var(--default-background);
+	color: var(--default-text-color);
 	padding: 25px;
-	color: black;
 	max-width: 80%;
 	max-height: calc(100% - 30px);
 	@media (max-width: variables.$viewportWidthPhone)
@@ -23,11 +23,6 @@
 		{
 			max-width: 100%;
 		}
-	}
-	.dark &
-	{
-		background: var(--dark-background);
-		color: var(--dark-text-color);
 	}
 
 	.buttons

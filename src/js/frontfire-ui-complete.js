@@ -45,6 +45,7 @@ import "./plugins/colorpicker";
 import "./plugins/progressbar";
 import "./plugins/slider";
 import "./plugins/tabs";
+import "./plugins/timepicker";
 import "./plugins/toggleswitch";
 import "./plugins/treeview";
 import "./plugins/wheelscrolling";
@@ -54,8 +55,6 @@ import "./plugins/wheelscrolling";
 //import "./plugins/input";   // - move colorPicker to separate plugin, use new code from dashboard editor (with modal instead of dropdown)
 
 //import "./plugins/carousel";   // uses draggable
-
-//import "./plugins/timepicker";   // uses draggable, repeatButton (input)
 
 //import "./plugins/gallery";
 
