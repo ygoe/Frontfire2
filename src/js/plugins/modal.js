@@ -265,18 +265,8 @@ F.registerPlugin("confirm", confirmModal, {
 // ========== Static modal method ==========
 
 const buttonNames = {
-	de: {
-		ok: "OK",
-		cancel: "Abbrechen",
-		yes: "Ja",
-		no: "Nein"
-	},
-	en: {
-		ok: "OK",
-		cancel: "Cancel",
-		yes: "Yes",
-		no: "No"
-	}
+	de: { ok: "OK", cancel: "Abbrechen", yes: "Ja", no: "Nein" },
+	en: { ok: "OK", cancel: "Cancel", yes: "Yes", no: "No" }
 };
 
 // Shows a standard message box modal with content and buttons.
@@ -292,7 +282,7 @@ const buttonNames = {
 // options.buttons[].className: (String) Additional CSS classes for the button.
 // options.buttons[].result: The result value of the button.
 // options.className: (String) Additional CSS class names for the modal element.
-// options.languageOverride: (String) The language to use for default buttons.
+// options.language: (String) The language to use for default buttons.
 //
 // If a string is passed as first argument, it is displayed as text with an OK button.
 //
@@ -327,33 +317,31 @@ F.modal = function (options) {
 
 	let buttons = options.buttons;
 	if (F.isString(buttons)) {
-		let language = options.languageOverride || document.documentElement.lang;
-		if (!(language in buttonNames))
-			language = "en";
-		const names = buttonNames[language];
+		let language = options.language || document.documentElement.lang;
+		let translate = F.getTranslator(buttonNames, language);
 
 		switch (buttons) {
 			case "OK":
 				buttons = [
-					{ text: names.ok, className: "default", result: true }
+					{ text: translate("ok"), className: "default", result: true }
 				];
 				break;
 			case "OK cancel":
 				buttons = [
-					{ text: names.ok, className: "default", result: true },
-					{ text: names.cancel, className: "transparent", result: false }
+					{ text: translate("ok"), className: "default", result: true },
+					{ text: translate("cancel"), className: "transparent", result: false }
 				];
 				break;
 			case "YES no":
 				buttons = [
-					{ text: names.yes, className: "default", result: true },
-					{ text: names.no, result: false }
+					{ text: translate("yes"), className: "default", result: true },
+					{ text: translate("no"), result: false }
 				];
 				break;
 			case "yes NO":
 				buttons = [
-					{ text: names.yes, result: true },
-					{ text: names.no, className: "default", result: false }
+					{ text: translate("yes"), result: true },
+					{ text: translate("no"), className: "default", result: false }
 				];
 				break;
 			default:

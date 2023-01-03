@@ -1,0 +1,22 @@
+.ff-input-wrapper
+{
+	button.ff-colorpicker
+	{
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+
+		svg .dots
+		{
+			fill: var(--button-color);
+			transition: fill var(--animation-duration) var(--animation-function);
+		}
+		&:disabled
+		{
+			svg .dots
+			{
+				fill: var(--button-disabled-color);
+			}
+		}
+	}
+}

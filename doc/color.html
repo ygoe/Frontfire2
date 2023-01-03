@@ -46,8 +46,9 @@
 				The minified and gzipped code is under <strong>3 KiB</strong>.
 				TODO: It is also fully covered by unit tests. (in work)
 			</p>
-			<p>
-				By the way, please excuse the wild spelling of the word “colour”.
+			<p class="message information icon">
+				<i class="material">language</i>
+				Please excuse the wild spelling of the word “colour”.
 				While source code is generally expected to use US English spelling for consistency with existing APIs, this documentation uses British/int’l English spelling which becomes especially apparent on this page.
 			</p>
 			<h3>How?</h3>
@@ -539,7 +540,7 @@ new Color("hsl(120, 100%, 50%, 0.5)").toString()
 				<h3 id="description">description</h3>
 				<ul>
 					<li><code>description()</code> → String</li>
-					<li><code>description(languageOverride)</code> → String</li>
+					<li><code>description(language)</code> → String</li>
 				</ul>
 				<p>
 					Returns a simple description of the color.
@@ -547,13 +548,14 @@ new Color("hsl(120, 100%, 50%, 0.5)").toString()
 					The description is rather inaccurate and works with fixed ranges of hue, saturation, lightness and alpha.
 				</p>
 				<p>
-					If no language override is specified, the language is determined by the <code>lang</code> attribute of the document root element (<code data-lang="html">&lt;html&gt;</code>).
+					If no language is specified, the language is determined by the <code>lang</code> attribute of the document root element (<code data-lang="html">&lt;html&gt;</code>).
 					Currently, the following languages are supported.
 					Specifying a different language will return English names.
 				</p>
 				<ul>
 					<li><code>de</code>: German</li>
-					<li><code>en</code>: English (USA)</li>
+					<li><code>en</code>: English (British)</li>
+					<li><code>en-US</code>: English (USA)</li>
 				</ul>
 				<p>
 					Example colour descriptions (in English) are:

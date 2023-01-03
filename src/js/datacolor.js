@@ -161,8 +161,8 @@
 	};
 
 	// Gets the localized name of a color.
-	DataColor.getName = function (colorId, languageOverride) {
-		let language = languageOverride || document.documentElement.lang;
+	DataColor.getName = function (colorId, language) {
+		language = language || document.documentElement.lang;
 		if (!(language in colorNames))
 			language = "en";
 		const names = colorNames[language];

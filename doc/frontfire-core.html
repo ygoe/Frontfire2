@@ -4397,6 +4397,59 @@ F.forceReflow();
 				</p>
 			</div>
 
+			<div class="member" data-aliases="translate language">
+				<h3 id="getTranslator">getTranslator</h3>
+				<ul>
+					<li><code>Frontfire.getTranslator(dictionary)</code> → Function</li>
+					<li><code>Frontfire.getTranslator(dictionary, language)</code> → Function</li>
+				</ul>
+				<p>
+					Builds a translation function with a text dictionary for the specified language.
+					If no language is specified, the language is determined by the <code>lang</code> attribute of the document root element (<code data-lang="html">&lt;html&gt;</code>).
+					The dictionary contains a key for each supported language, which is an object that contains a key for each text.
+					The language keys must be defined in lower case.
+					The language “en” is the fallback and must be complete.
+				</p>
+				<p>
+					The returned function can be called with a single argument:
+				</p>
+				<ol>
+					<li>Text key as defined in the dictionary</li>
+				</ol>
+				<p>
+					It then returns the translated text from the dictionary, in the selected language or a fallback language if that text is undefined in the selected language.
+					If the language contains a region, like “pt-BR”, then the language alone (here “pt”) is also considered.
+				</p>
+<div class="code">let dictionary = {
+	de: { red: "Rot", blue: "Blau", gray: "Grau" },
+	en: { red: "Red", blue: "Blue", gray: "Grey", green: "Green" },
+	"en-us": { gray: "Gray" }
+};
+
+let translateGerman = F.getTranslator(dictionary, "de");
+translateGerman("red")
+→ "Rot"
+translateGerman("green")
+→ "Green" (not available in that language)
+
+let translateEnglish = F.getTranslator(dictionary, "en");
+translateEnglish("red")
+→ "Red"
+translateEnglish("gray")
+→ "Grey"
+
+let translateEnglishUS = F.getTranslator(dictionary, "en-US");
+translateEnglishUS("gray")
+→ "Gray" (overridden in that language)
+</div>
+				<p>
+					Note that this is only a very basic translation system.
+					It can be used for simple words or short phrases but does not support any more advanced features like placeholders or counting.
+					This method is used by Frontfire UI plugins for their UI labels.
+					Websites and applications should consider a more comprehensive translation solution to build on.
+				</p>
+			</div>
+
 			<div class="member" data-aliases="find getelementbyid">
 				<h3 id="id">id</h3>
 				<ul>
@@ -4850,6 +4903,36 @@ await F.sleep(500);
 			</div>
 
 			<div class="member">
+				<h3 id="colorInput">colorInput</h3>
+				<p>
+					<span class="plugin">Plugin:</span> <a href="frontfire-ui-colorpicker.html#colorinput">ColorPicker</a>
+				</p>
+				<ul>
+					<li><code>colorInput(options)</code> → this</li>
+				</ul>
+				<p>
+					Converts each selected input element into a text field with colour picker button.
+					This is automatically called for elements matching the selector <code data-lang="css">input.color-picker</code>.
+					See the plugin page for examples.
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="colorPicker">colorPicker</h3>
+				<p>
+					<span class="plugin">Plugin:</span> <a href="frontfire-ui-colorpicker.html#colorpicker">ColorPicker</a>
+				</p>
+				<ul>
+					<li><code>colorPicker(options)</code> → this</li>
+				</ul>
+				<p>
+					Shows a colour picker on the element.
+					This is automatically called for elements matching the selector <code data-lang="css">div.color-picker</code>.
+					See the plugin page for examples.
+				</p>
+			</div>
+
+			<div class="member">
 				<h3 id="confirm">confirm</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-modal.html#confirm">Modal</a>
@@ -5197,6 +5280,27 @@ await F.sleep(500);
 				These methods are defined by Frontfire UI plugins as static methods.
 				They can be called on the Frontfire class and have no relation to specific nodes.
 			</p>
+
+			<div class="member">
+				<h3 id="colorPickerModal">colorPickerModal</h3>
+				<p>
+					<span class="plugin">Plugin:</span> <a href="frontfire-ui-colorpicker.html#modal">ColorPicker</a>
+				</p>
+				<ul>
+					<li><code>Frontfire.colorPickerModal(options)</code> → Promise</li>
+				</ul>
+				<p>
+					Opens a modal with a color picker.
+					Returns a Promise that is resolved to the selected color when the modal is confirmed, or "" if the “no color” button was clicked, or undefined if the modal was cancelled or otherwise closed.
+					See the plugin page for examples.
+				</p>
+				<p>
+					The returned Promise has an additional <code>cancel()</code> method to close the modal before a user interaction.
+				</p>
+				<p class="see-also">
+					See also: <a href="#modal-static">Frontfire.modal()</a> (static method)
+				</p>
+			</div>
 
 			<div class="member" data-aliases="background dimmer">
 				<h3 id="dimBackground">dimBackground</h3>

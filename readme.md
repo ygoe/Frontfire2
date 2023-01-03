@@ -39,7 +39,7 @@ The following is the content of the archive. All files in readable and minified 
 | Frontfire UI Minimal  | frontfire-ui-minimal.bundle.js<br>frontfire-ui-minimal.min.js (16 KiB) | frontfire-ui-minimal-singlefile.bundle.js<br>frontfire-ui-minimal-singlefile.min.js (28 KiB) |
 | Color                 | color.js<br>color.min.js (2.6 KiB) | – |
 | DataColor             | datacolor.js<br>datacolor.min.js (1.2 KiB) | – |
-| Frontfire UI Complete | frontfire-ui-complete.bundle.js<br>frontfire-ui-complete.min.js (34 KiB) | frontfire-ui-complete-singlefile.bundle.js<br>frontfire-ui-complete-singlefile.min.js (49 KiB) |
+| Frontfire UI Complete | frontfire-ui-complete.bundle.js<br>frontfire-ui-complete.min.js (35 KiB) | frontfire-ui-complete-singlefile.bundle.js<br>frontfire-ui-complete-singlefile.min.js (50 KiB) |
 
 
 ### CSS files
@@ -128,7 +128,7 @@ Features
 | Color | Colour conversion, computation and palette | ➕ | ➕ | ✔️ |
 | ToggleSwitch | A simple and nice toggle switch | | | 📕 |
 | TreeView | A tree view for arbitrary data | | | 📕 |
-| ColorPicker | A comprehensive color picker | | | 📕 |
+| ColorPicker | A comprehensive color picker with form input | | | ✔️ |
 | Tabs | Shows one out of several panels, selectable through tab headers | | | ✔️ |
 | ProgressBar | A progress bar with a text indicator | | | ✔️ |
 | Accordion | Shows one out of several panels, selectable through accordion headers | | | 🚧 |

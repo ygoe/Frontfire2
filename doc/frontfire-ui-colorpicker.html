@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: ColorPicker documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">ColorPicker plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.2</span>
+		</div>
+		<p>
+			The default colour picker opens a platform-specific and much outdated colour selection dialog window.
+			On Windows 10, this dialog usually still originates from Windows 3.1 and 95, over 30 years ago.
+			Frontfire replaces that with a modern and simple colour selector including palettes and component sliders in a combined view.
+			It can be used independently anywhere on the page, or triggered through an input field in a form.
+		</p>
+		<p>
+			This plugin is only available in the Complete bundle.
+		</p>
+		<p>
+			This plugin depends on the plugins: <a href="frontfire-ui-modal.html">modal</a>, <a href="frontfire-ui-slider.html">slider</a>, <a href="frontfire-ui-tabs.html">tabs</a>
+		</p>
+		<p class="message information icon">
+			<i class="material">language</i>
+			Please excuse the wild spelling of the word “colour”.
+			While source code is generally expected to use US English spelling for consistency with existing APIs, this documentation uses British/int’l English spelling which becomes especially apparent on this page.
+		</p>
+
+		<h2 id="colorpicker">Colour picker view</h2>
+		<p>
+			A colour picker is defined with the <code class="css-class">color-picker</code> CSS class, or by calling the <a href="frontfire-core.html#colorPicker"><code>colorPicker()</code></a> plugin method on an element.
+		</p>
+		<div class="example p resizable no-frontfire" data-source-highlight="color-picker">
+			<div class="color-picker">
+			</div>
+		</div>
+
+		<h3 id="colorpicker-data">Data colour integration</h3>
+		<p>
+			The <a href="datacolor.html">DataColor</a> palette can be used in this picker by setting the <code>colorUse</code> option.
+		</p>
+		<div class="example p resizable no-frontfire" data-source-highlight="color-picker|color-use">
+			<div class="color-picker" data-opt="color-use: foreground;">
+			</div>
+		</div>
+
+		<h3 id="colorpicker-options">Options</h3>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>color</code></td>
+					<td>String</td>
+					<td>The initially selected color.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>colorUse</code></td>
+					<td>String</td>
+					<td>The type of use for the color (foreground, background). This determines which data colour palette is displayed.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>language</code></td>
+					<td>String</td>
+					<td>The language to use for text labels (see below).</td>
+					<td>Page language</td>
+				</tr>
+				<tr>
+					<td><code>previewHex</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the preview panel shows the currently selected color in HTML hex notation.</td>
+					<td>true</td>
+				</tr>
+				<tr>
+					<td><code>withAlpha</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the alpha channel is displayed and editable.</td>
+					<td>false</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>
+			If no language is specified, the language is determined by the <code>lang</code> attribute of the document root element (<code data-lang="html">&lt;html&gt;</code>).
+			Currently, the following languages are supported.
+			Specifying a different language will use "en".
+		</p>
+		<ul>
+			<li><code>de</code>: German</li>
+			<li><code>en</code>: English (British)</li>
+			<li><code>en-US</code>: English (USA)</li>
+		</ul>
+
+		<h3 id="colorpicker-properties">Plugin properties</h3>
+		<p>
+			This plugin provides properties to access the view.
+		</p>
+
+		<div class="member">
+			<h4 id="color">color</h4>
+			<ul>
+				<li><code>color</code> → String</li>
+			</ul>
+			<p>
+				Gets or sets the selected color of the color picker.
+			</p>
+		</div>
+
+		<h3 id="colorpicker-events">Plugin events</h3>
+		<p>
+			This plugin triggers events for the input field.
+		</p>
+
+		<div class="member">
+			<h4 id="apply">apply</h4>
+			<p>
+				Triggered when a colour was double-clicked to confirm its selection.
+			</p>
+		</div>
+
+		<div class="member">
+			<h4 id="change">change</h4>
+			<p>
+				Triggered when the colour selection was changed.
+			</p>
+		</div>
+
+		<h2 id="modal">Colour picker modal</h2>
+		<p>
+			Besides showing a colour picker in a selected (existing) HTML element, there is another method to open a colour picker in a modal without any preparations.
+			The static <a href="frontfire-core.html#colorPickerModal"><code>Frontfire.colorPickerModal()</code></a> plugin function creates and opens a modal that contains a colour picker as shown above.
+			This method accepts the options as described above as a single object argument.
+			Additional options (see below) are used to define the content of the generated modal element.
+		</p>
+		<p>
+			The modal selects the first tab that contains the initial colour.
+			(This can only be seen in the colour input examples below as the following example starts with a fixed colour.)
+			The modal can also be quickly confirmed by double-clicking on a colour box, or cancelled by pressing the <kbd>Esc</kbd> key.
+		</p>
+		<p>
+			The method returns a Promise that is resolved to the selected color when the modal is confirmed, or "" if the “no color” button was clicked, or undefined if the modal was cancelled or otherwise closed.
+			Like with the <a href="frontfire-core.html#modal-static"><code>Frontfire.modal()</code></a> function, the Promise has an additional <code>cancel()</code> method to close the modal before a user interaction.
+		</p>
+
+		<div class="example no-frontfire" data-source-highlight="F\.colorPickerModal|(?<=\.)cancel(?=\()|await">
+			<div class="buttons p">
+				<button id="open-modal-static1">Pick colour</button>
+				<button id="open-modal-static2">Pick optional colour</button>
+			</div>
+			<p>
+				Result: <span id="modal-static-result">Not yet opened</span>
+			</p>
+			<script>
+				F("#open-modal-static1").on("click", async () => {
+					// Save Promise to variable to access its cancel() method
+					let promise = F.colorPickerModal({
+						color: "#55ccee"
+					});
+					// Cancel the Promise (close the modal) when pressing the PageDown key
+					F("html").on("keydown.cancel", event => {
+						if (event.key === "PageDown") {
+							event.preventDefault();
+							promise.cancel();
+						}
+					});
+					// Now wait for the modal result
+					let result = await promise;
+					F("html").off("keydown.cancel");
+					if (result === undefined)
+						result = "Cancelled";
+					F("#modal-static-result").textContent = result;
+				});
+
+				F("#open-modal-static2").on("click", async () => {
+					let result = await F.colorPickerModal({
+						color: "#55ccee",
+						allowEmpty: true
+					});
+					if (result === undefined)
+						result = "Cancelled";
+					F("#modal-static-result").textContent = result;
+				});
+			</script>
+		</div>
+
+		<h3 id="modal-options">Additional options</h3>
+		<p>
+			In addition to the <a href="#colorpicker-options">colour picker options</a> listed above, these options are available for the static method:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>allowEmpty</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the “no color” button is available.</td>
+					<td>false</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="colorinput">Colour input field</h2>
+		<p>
+			The standard <code data-lang="html">&lt;input type="color"&gt;</code> element is too limited and not used here.
+			Instead, use a regular text input field and add the <code class="css-class">color-picker</code> CSS class or call the <a href="frontfire-core.html#colorInput"><code>colorInput()</code></a> plugin method on the element.
+		</p>
+		<p>
+			A button is added next to the input field that opens the picker modal.
+			Alternatively, the modal can be opened by pressing the Space key within the input field.
+		</p>
+		<div class="sticky-aside-container require-desktop example-options">
+			<div class="sticky-aside aside-options">
+				<div><label class="indent-checkbox"><input type="checkbox" id="disable-colorinputs"> Disable color inputs</label></div>
+				<div><label class="indent-checkbox"><input type="checkbox" id="hide-colorinputs"> Hide color inputs</label></div>
+			</div>
+
+			<div class="example p no-frontfire" data-source-highlight="color-picker">
+				<input type="text" class="color-picker" data-opt="with-alpha: true; allow-empty: true;">
+			</div>
+			<div class="example p no-frontfire" data-source-highlight="color-picker">
+				<input type="text" class="color-picker" data-opt="allow-empty: true; color-use: foreground; language: en-US;" value="#ee3b2b">
+			</div>
+		</div>
+		<script>
+			let disableColorInputsCheckbox = F("#disable-colorinputs").first;
+			disableColorInputsCheckbox.F.on("click!", () => {
+				F(".example-options input.color-picker").disabled = disableColorInputsCheckbox.checked;
+			});
+			let hideColorInputsCheckbox = F("#hide-colorinputs").first;
+			hideColorInputsCheckbox.F.on("click!", () => {
+				F(".example-options input.color-picker").visible = !hideColorInputsCheckbox.checked;
+			});
+		</script>
+
+		<h3 id="colorinput-options">Additional options</h3>
+		<p>
+			In addition to the <a href="#modal-options">colour picker modal options</a> listed above, these <a href="frontfire-ui-options.html">options</a> are available for the input field:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><s><code>color</code></s></td>
+					<td></td>
+					<td>Not supported here; the selected colour is synchronised with the input field value.</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

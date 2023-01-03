@@ -273,8 +273,8 @@
 	// All R/G/B/A values are blended separately.
 	Color_prototype.blendWith = function (other, ratio, includeAlpha) {
 		const isHSL = this.h !== undefined || other.h !== undefined;
-		const color = Color(this);
-		other = Color(other);
+		const color = new Color(this);
+		other = new Color(other);
 		ratio = clamp1(ratio);
 		["r", "g", "b"].forEach(c => {
 			color[c] = clamp255(round(extend255(color[c]) + (extend255(other[c]) - extend255(color[c])) * ratio));
@@ -289,9 +289,9 @@
 	// Returns a blended color with the specified ratio from 0 (no change) to 1 (only other color).
 	// The H value is blended on the short or long path around the circle, S/L/A values are blended normally.
 	Color_prototype.blendWithHSL = Color_prototype.blendByHueWith = function (other, ratio, includeAlpha, largeArc) {
-		const color = Color(this);
+		const color = new Color(this);
 		if (!(other instanceof Color))
-			other = Color(other);
+			other = new Color(other);
 		if (color.h === undefined)
 			color.updateHSL();
 		if (other.h === undefined)
@@ -427,12 +427,12 @@
 			brown: "braun",
 			dark: "dunkel%",
 			light: "hell%",
-			pale: "blass%"
+			pale: "blass%",
 		},
 		en: {
 			transparent: "transparent",
 			black: "black",
-			gray: "gray",
+			gray: "grey",
 			white: "white",
 			red: "red",
 			orange: "orange",
@@ -445,18 +445,21 @@
 			brown: "brown",
 			dark: "dark %",
 			light: "light %",
-			pale: "pale %"
-		}
+			pale: "pale %",
+		},
+		"en-us": {
+			gray: "gray",
+		},
 	};
 
 	// Returns a simple description of the color.
-	Color_prototype.description = function (languageOverride) {
-		const color = Color(this);
+	Color_prototype.description = function (language) {
+		const color = new Color(this);
 		if (color.h === undefined)
 			color.updateHSL();
 		if (color.h === undefined || isNaN(color.h))
 			return null;
-		let language = languageOverride || document.documentElement.lang;
+		language = language || document.documentElement.lang;
 		if (!(language in colorNames))
 			language = "en";
 		const names = colorNames[language];
@@ -514,7 +517,7 @@
 	// ==================== Private methods ====================
 
 	function processColor(color, hslMode, fn) {
-		color = Color(color);   // Make a copy
+		color = new Color(color);   // Make a copy
 		if (hslMode)
 			color.updateHSL();
 		fn.call(color);

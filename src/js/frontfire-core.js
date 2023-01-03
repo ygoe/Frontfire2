@@ -3021,6 +3021,23 @@
 	Frontfire.encodeHTML = text =>
 		text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+	// Builds a translation function with a text dictionary for the specified language.
+	Frontfire.getTranslator = (dictionary, language) => {
+		if (!language)
+			language = document.documentElement.lang;
+		language = language.trim().toLowerCase();
+		if (!(language in dictionary))
+			language = "en";
+		let languageOnly = language;
+		if (language.indexOf("-") !== -1)
+			languageOnly = language.replace(/-.*$/, "");
+		let translate = key =>
+			key in dictionary[language] ? dictionary[language][key] :
+				key in dictionary[languageOnly] ? dictionary[languageOnly][key] :
+					dictionary.en[key];
+		return translate;
+	};
+
 	// ---------- Scrolling ----------
 
 	var isScrollingPrevented = false;

@@ -6,6 +6,28 @@ const inputWrapperClass = "ff-input-wrapper";
 
 const svgNS = "http://www.w3.org/2000/svg";
 
+// Chromium sources: https://github.com/chromium/chromium/tree/master/third_party/blink/public/strings/translations
+// "en" is the fallback and must be complete.
+const dictionary = {
+	cs: { y: "rrrr", month: "Měsíc", week1: null, week2: ". týden, ", w: "tt", today: "Dnes", now: "Teď", back: "Zpátky", keyboard: "Klávesnice", clear: "Smazat" },
+	da: { y: "åååå", month: "Måned", week1: "Uge ", w: "uu", today: "I dag", now: "Nu", back: "Tilbage", keyboard: "Tastatur", clear: "Slette" },
+	de: { y: "jjjj", month: "Monat", week1: "Woche ", w: "ww", d: "tt", today: "Heute", now: "Jetzt", back: "Zurück", keyboard: "Tastatur", clear: "Löschen" },
+	en: { y: "yyyy", month: "Month", mo: "mm", week1: "Week ", week2: ", ", w: "ww", d: "dd", today: "Today", now: "Now", back: "Back", keyboard: "Keyboard", clear: "Clear" },
+	es: { y: "aaaa", month: "Mes", week1: "Semana ", w: "ss", today: "Hoy", now: "Ahora", back: "Atrás", keyboard: "Teclado", clear: "Borrar" },
+	fi: { y: "vvvv", month: "Kuukausi", mo: "kk", week1: "Viikko ", w: "vv", d: "pp", today: "Tänään", now: "Nyt", back: "Takaisin", keyboard: "Näppäimistö", clear: "Poistaa" },
+	fr: { y: "aaaa", month: "Mois", week1: "Semaine ", w: "ss", d: "jj", today: "Aujourd’hui", now: "Maintenant", back: "Retour", keyboard: "Clavier", clear: "Supprimer" },
+	hu: { y: "éééé", month: "Hónap", mo: "hh", week1: null, week2: ". hét, ", w: "hh", d: "nn", today: "Ma", now: "Most", back: "Vissza", keyboard: "Billentyűzet", clear: "Töröl" },
+	is: { y: "áááá", month: "Mánuður", week1: "Vika ", w: "vv", today: "Í dag", now: "Núna", back: "Aftur", keyboard: "Lyklaborð", clear: "Eyðing" },
+	it: { y: "aaaa", month: "Mese", week1: "Settimana ", w: "ss", d: "gg", today: "Oggi", now: "Ora", back: "Indietro", keyboard: "Tastiera", clear: "Cancellare" },
+	nl: { y: "jjjj", month: "Maand", week1: "Week ", w: "ww", today: "Vandaag", now: "Nu", back: "Terug", keyboard: "Toetsenbord", clear: "Wissen" },
+	no: { y: "åååå", month: "Måned", week1: "Uke ", w: "uu", today: "I dag", now: "Nå", back: "Tilbake", keyboard: "Tastatur", clear: "Slette" },
+	pt: { y: "aaaa", month: "Mês", week1: "Semana ", week2: ", de ", w: "ss", today: "Hoje", now: "Agora", back: "De volta", keyboard: "Teclado", clear: "Cancelar" },
+	ro: { y: "aaaa", month: "Lună", mo: "ll", week1: "Săptămâna ", w: "ss", d: "zz", today: "Astăzi", now: "Acum", back: "Înapoi", keyboard: "Tastatură", clear: "Șterge" },
+	sk: { y: "rrrr", month: "Mesiac", week1: null, week2: ". týždeň, ", w: "tt", today: "Dnes", now: "Teraz", back: "Späť", keyboard: "Klávesnica", clear: "Vymazať" },
+	sl: { y: "llll", month: "Mesec", week1: null, week2: ". teden, ", w: "tt", today: "Danes", now: "Zdaj", back: "Nazaj", keyboard: "Tipkovnica", clear: "Izbrisati" },
+	sv: { y: "åååå", month: "Månad", week1: "Vecka ", week2: " ", w: "vv", today: "Idag", now: "Nu", back: "Tillbaka", keyboard: "Tangentbord", clear: "Radera" }
+};
+
 // Defines default options for the timePicker plugin.
 let timePickerDefaults = {
 	// The locale used for formats and text translations. Default: Auto.
@@ -149,34 +171,6 @@ function timePicker(options) {
 		});
 		newInput.F.forwardUIEvents(input, "blur");
 
-		// Chromium sources: https://github.com/chromium/chromium/tree/master/third_party/blink/public/strings/translations
-		// "en" is the fallback and must be complete.
-		const dictionary = {
-			cs: { y: "rrrr", month: "Měsíc", week1: null, week2: ". týden, ", w: "tt", today: "Dnes", now: "Teď", back: "Zpátky", keyboard: "Klávesnice", clear: "Smazat" },
-			da: { y: "åååå", month: "Måned", week1: "Uge ", w: "uu", today: "I dag", now: "Nu", back: "Tilbage", keyboard: "Tastatur", clear: "Slette" },
-			de: { y: "jjjj", month: "Monat", week1: "Woche ", w: "ww", d: "tt", today: "Heute", now: "Jetzt", back: "Zurück", keyboard: "Tastatur", clear: "Löschen" },
-			en: { y: "yyyy", month: "Month", mo: "mm", week1: "Week ", week2: ", ", w: "ww", d: "dd", today: "Today", now: "Now", back: "Back", keyboard: "Keyboard", clear: "Clear" },
-			es: { y: "aaaa", month: "Mes", week1: "Semana ", w: "ss", today: "Hoy", now: "Ahora", back: "Atrás", keyboard: "Teclado", clear: "Borrar" },
-			fi: { y: "vvvv", month: "Kuukausi", mo: "kk", week1: "Viikko ", w: "vv", d: "pp", today: "Tänään", now: "Nyt", back: "Takaisin", keyboard: "Näppäimistö", clear: "Poistaa" },
-			fr: { y: "aaaa", month: "Mois", week1: "Semaine ", w: "ss", d: "jj", today: "Aujourd’hui", now: "Maintenant", back: "Retour", keyboard: "Clavier", clear: "Supprimer" },
-			hu: { y: "éééé", month: "Hónap", mo: "hh", week1: null, week2: ". hét, ", w: "hh", d: "nn", today: "Ma", now: "Most", back: "Vissza", keyboard: "Billentyűzet", clear: "Töröl" },
-			is: { y: "áááá", month: "Mánuður", week1: "Vika ", w: "vv", today: "Í dag", now: "Núna", back: "Aftur", keyboard: "Lyklaborð", clear: "Eyðing" },
-			it: { y: "aaaa", month: "Mese", week1: "Settimana ", w: "ss", d: "gg", today: "Oggi", now: "Ora", back: "Indietro", keyboard: "Tastiera", clear: "Cancellare" },
-			nl: { y: "jjjj", month: "Maand", week1: "Week ", w: "ww", today: "Vandaag", now: "Nu", back: "Terug", keyboard: "Toetsenbord", clear: "Wissen" },
-			no: { y: "åååå", month: "Måned", week1: "Uke ", w: "uu", today: "I dag", now: "Nå", back: "Tilbake", keyboard: "Tastatur", clear: "Slette" },
-			pt: { y: "aaaa", month: "Mês", week1: "Semana ", week2: ", de ", w: "ss", today: "Hoje", now: "Agora", back: "De volta", keyboard: "Teclado", clear: "Cancelar" },
-			ro: { y: "aaaa", month: "Lună", mo: "ll", week1: "Săptămâna ", w: "ss", d: "zz", today: "Astăzi", now: "Acum", back: "Înapoi", keyboard: "Tastatură", clear: "Șterge" },
-			sk: { y: "rrrr", month: "Mesiac", week1: null, week2: ". týždeň, ", w: "tt", today: "Dnes", now: "Teraz", back: "Späť", keyboard: "Klávesnica", clear: "Vymazať" },
-			sl: { y: "llll", month: "Mesec", week1: null, week2: ". teden, ", w: "tt", today: "Danes", now: "Zdaj", back: "Nazaj", keyboard: "Tipkovnica", clear: "Izbrisati" },
-			sv: { y: "åååå", month: "Månad", week1: "Vecka ", week2: " ", w: "vv", today: "Idag", now: "Nu", back: "Tillbaka", keyboard: "Tangentbord", clear: "Radera" }
-		};
-
-		function translate(key) {
-			if (key in dictionary[language])
-				return dictionary[language][key];
-			return dictionary.en[key];
-		}
-
 		function fixValue(noChangeEvent) {
 			let isComplete = true;
 			for (let i = 0; i < parts.length; i++) {
@@ -246,7 +240,9 @@ function timePicker(options) {
 		let format = new Intl.DateTimeFormat(opt.localeCode, formatOptions);
 		let formatResolvedOptions = format.resolvedOptions();
 		//console.log(formatResolvedOptions);
-		var language = formatResolvedOptions.locale.split("-")[0];
+		let language = formatResolvedOptions.locale.split("-")[0];
+		let translate = F.getTranslator(dictionary, language);
+
 		// All data and text parts of the masked input
 		var parts = [];
 		if (!weekSelection) {

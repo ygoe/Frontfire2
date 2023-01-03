@@ -117,8 +117,9 @@
 				All colours are individually tuned for the light and dark theme, so when the user toggles dark theme, your charts remain readable and meaningful.
 				(Try this page’s dark theme toggle with the preview below.)
 			</p>
-			<p>
-				By the way, please excuse the wild spelling of the word “colour”.
+			<p class="message information icon">
+				<i class="material">language</i>
+				Please excuse the wild spelling of the word “colour”.
 				While source code is generally expected to use US English spelling for consistency with existing APIs, this documentation uses British/int’l English spelling which becomes especially apparent on this page.
 			</p>
 			<h3>Where?</h3>
@@ -315,19 +316,19 @@
 				<h3 id="getName">getName</h3>
 				<ul>
 					<li><code>DataColor.getName(colorId)</code> → String</li>
-					<li><code>DataColor.getName(colorId, languageOverride)</code> → String</li>
+					<li><code>DataColor.getName(colorId, language)</code> → String</li>
 				</ul>
 				<p>
 					Gets the localized name of a colour.
 				</p>
 				<p>
-					If no language override is specified, the language is determined by the <code>lang</code> attribute of the document root element (<code data-lang="html">&lt;html&gt;</code>).
+					If no language is specified, the language is determined by the <code>lang</code> attribute of the document root element (<code data-lang="html">&lt;html&gt;</code>).
 					Currently, the following languages are supported.
 					Specifying a different language will return English names.
 				</p>
 				<ul>
 					<li><code>de</code>: German</li>
-					<li><code>en</code>: English (USA)</li>
+					<li><code>en</code>: English</li>
 				</ul>
 			</div>
 
