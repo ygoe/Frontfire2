@@ -394,7 +394,7 @@ function gotoMember(name, smooth) {
 			headerHeight = searchBox.offsetHeight;
 	}
 	let h = document.getElementById(name);
-	if (h) {
+	if (h?.matches("h1, h2, h3, h4, h5, h6")) {
 		if (h.offsetTop === 0) {
 			// The target is not visible under the current search, reset that
 			searchText.value = "";

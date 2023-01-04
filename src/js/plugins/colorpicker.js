@@ -1,5 +1,7 @@
 // ==================== Color picker plugin ====================
 
+// Encoding: UTF-8 without BOM (auto-detect: °°°°°) for built-in message texts
+
 const colorPickerClass = "ff-color-picker";
 
 // "en" is the fallback and must be complete.

@@ -94,7 +94,7 @@
 			You can also start with absolute-positioned elements which won’t be changed then.
 			Touch actions to scroll the page are disabled in the direction the elements may be dragged.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?&lt;=\.)draggable|drag-cursor|axis|draggablestart">
+		<div class="example p no-frontfire" data-source-highlight="(?<=\.)draggable|drag-cursor|axis|draggablestart">
 			<div id="draggable-any" data-opt-drag-cursor="move">
 				<input type="checkbox" checked> Drag me anywhere (if checked)
 			</div>
@@ -124,7 +124,7 @@
 		<p>
 			The allowed placement of a draggable element can be restricted to another element or the parent element with the <code>containment</code> option.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?&lt;=\.)draggable|containment|(?&lt;=&quot;)parent">
+		<div class="example p no-frontfire" data-source-highlight="containment|(?<=&quot;)parent">
 			<div id="container1" class="container">
 				<div id="draggable-cont" style="cursor: grab;" data-opt-drag-cursor="grabbing">
 					Drag me within the container<br>
@@ -151,7 +151,7 @@
 		<p>
 			With the <code>scroll</code> option, the page will be scrolled if the element is dragged out of the viewport.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?&lt;=\.)draggable|scroll(?=:)">
+		<div class="example p no-frontfire" data-source-highlight="scroll(?=:)">
 			<div id="draggable-scroll" style="z-index: 20;">Drag me out of the page to scroll</div>
 
 			<script>
@@ -163,7 +163,7 @@
 		</div>
 
 		<h2 id="reverting">Reverting</h2>
-		<div class="example p no-frontfire" data-source-highlight="(?&lt;=\.)draggable|draggableend|(?&lt;=\.)revert">
+		<div class="example p no-frontfire" data-source-highlight="draggableend|(?<=\.)revert">
 			<div id="draggable-revert">Drag me and I will come back</div>
 
 			<script>
@@ -182,7 +182,7 @@
 			Usually, dragged elements maintain their original Z order, which is the document order by default.
 			With the <code>stack</code> option, each last-moved element is brought on top of all other elements selected by the CSS selector.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?&lt;=\.)draggable|stack(?=:)">
+		<div class="example p no-frontfire" data-source-highlight="stack(?=:)">
 			<div class="draggable-stack">1. Drag me and I will be at the top</div>
 			<div class="draggable-stack">2. Drag me and I will be at the top</div>
 			<div class="draggable-stack">3. Drag me and I will be at the top</div>
@@ -202,7 +202,7 @@
 			Instead of starting the drag operation anywhere on an element, handles and cancel regions can be defined that are the only place where elements can be dragged or places where no dragging can be initiated, respectively.
 			These handles can also lie outside of the element.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?&lt;=\.)draggable|(handle|cancel)(?=:)">
+		<div class="example p no-frontfire" data-source-highlight="(handle|cancel)(?=:)">
 			<div id="draggable-handle">
 				<span style="display: block;">Drag me<br>here</span>
 				<span style="display: inline-block; position: relative; top: 40px;">or here</span>
@@ -219,7 +219,7 @@
 		</div>
 
 		<h2 id="snap-to-grid">Snapping to grid within the container</h2>
-		<div class="example p no-frontfire" data-source-highlight="(?&lt;=\.)draggable|grid(?=:)">
+		<div class="example p no-frontfire" data-source-highlight="grid(?=:)">
 			<div id="container2" class="container grid">
 				<div id="draggable-grid">Drag me with grid snapping</div>
 				<div id="draggable-grid-x">Drag me horizontally with grid</div>
@@ -243,7 +243,7 @@
 			The dragging can also be started by clicking or touching anywhere in the light grey square around the circle.
 			This is set as the <code>catchElement</code> in the options of the draggable.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?&lt;=\.)draggable|catchElement|draggablemove|newPoint">
+		<div class="example p no-frontfire" data-source-highlight="catchElement|draggablemove|newPoint">
 			<div style="padding: 20px; background: #f6f6f6; width: 190px;">
 				<div style="position: relative; width: 150px; height: 150px; border: dashed 1px gray; border-radius: 100%;">
 					<div id="draggable-circle" style="position: absolute; top: -20px; left: 55px; width: 40px; height: 40px; border-radius: 100%; background: #80d030;"></div>

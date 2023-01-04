@@ -41,6 +41,7 @@ import "./plugins/sortable";
 import "./plugins/table";
 
 // Import all modules of the complete profile
+import "./plugins/accordion";
 import "./plugins/colorpicker";
 import "./plugins/progressbar";
 import "./plugins/slider";
@@ -51,15 +52,8 @@ import "./plugins/treeview";
 import "./plugins/wheelscrolling";
 
 // TODO: Convert and add the following groups of Frontfire 1 modules, with accompanying CSS:
-
-//import "./plugins/input";   // - move colorPicker to separate plugin, use new code from dashboard editor (with modal instead of dropdown)
-
-//import "./plugins/carousel";   // uses draggable
-
+//import "./plugins/carousel";
 //import "./plugins/gallery";
-
-//import "./plugins/accordion";
-
-//import "./plugins/resizable";   // uses draggable, not used itself
+//import "./plugins/resizable";
 
 F.runAutostart();

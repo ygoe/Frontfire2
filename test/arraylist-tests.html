@@ -666,7 +666,7 @@ function assert(array, fn, result, newArray, message) {
 		message = newArray;
 		newArray = undefined;
 	}
-	
+
 	// Backup original array
 	const originalArray = JSON.stringify(array);
 
@@ -700,7 +700,7 @@ function assert(array, fn, result, newArray, message) {
 		if (ret !== result)
 			throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
 	}
-	
+
 	if (newArray) {
 		if (JSON.stringify(array) !== JSON.stringify(newArray))
 			throw new Error(message + " Array was " + JSON.stringify(array) + ", expected " + JSON.stringify(newArray) + ".");

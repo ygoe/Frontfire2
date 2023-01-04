@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Accordion documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Accordion plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.2</span>
+		</div>
+		<p>
+			An accordion contains multiple sections that can be expanded and collapsed separately.
+			This can often be seen with FAQ-style content where the user is only interested in one or few sections and not the entire page.
+		</p>
+		<p>
+			This plugin is only available in the Complete bundle.
+		</p>
+
+		<h2 id="description">Description</h2>
+		<p>
+			An accordion is defined with the <code class="css-class">accordion</code> CSS class, or by calling the <a href="frontfire-core.html#accordion"><code>accordion()</code></a> plugin method on an element.
+			The accordion element contains the individual expandable sections.
+			Each section is a <code data-lang="html">&lt;div&gt;</code> element that has two children.
+			First, the section header as content of a <code data-lang="html">&lt;div&gt;</code> element.
+			Second, the actual section content in another <code data-lang="html">&lt;div&gt;</code> element.
+			Initially, all sections are collapsed.
+		</p>
+		<p>
+			The accordion colours can be customised with the <a href="frontfire-ui-variables.html?s=@accordion">CSS variables</a> that start with “--accordion-”.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="accordion">
+			<div class="accordion">
+				<div>
+					<div>Item 1</div>
+					<div>
+						<p>Section 1 content</p>
+					</div>
+				</div>
+				<div>
+					<div>Item 2</div>
+					<div>
+						<p>Section 2 content</p>
+					</div>
+				</div>
+				<div>
+					<div>Item 3</div>
+					<div>
+						<p>Section 3 content</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<h2 id="controls">Controls</h2>
+		<p>
+			Sections can be expanded and collapsed by code.
+			The shown <a href="#methods">methods</a> are described below.
+		</p>
+		<div class="example p-top no-frontfire" data-source-highlight="accordion\.(expand|collapse)">
+			<div id="accordion" class="accordion">
+				<div>
+					<div>Item 1</div>
+					<div>Section 1 content</div>
+				</div>
+				<div>
+					<div>Item 2</div>
+					<div>Section 2 content</div>
+				</div>
+				<div>
+					<div>Item 3</div>
+					<div>Section 3 content</div>
+				</div>
+			</div>
+			<div class="buttons p">
+				<button id="expand-all">Expand all</button>
+				<button id="collapse-all">Collapse all</button>
+				<button id="expand-first">Expand first</button>
+			</div>
+			<script>
+				F("#expand-all").on("click", () => {
+					F("#accordion").accordion.expand();
+				});
+				F("#collapse-all").on("click", () => {
+					F("#accordion").accordion.collapse();
+				});
+				F("#expand-first").on("click", () => {
+					F("#accordion").accordion.expand(0);
+				});
+			</script>
+		</div>
+
+		<h2 id="exclusive">Exclusive mode</h2>
+		<p>
+			When the <code>exclusive</code> option is set to true, only a single section can be expanded at any time.
+			It is still possible that all sections are collapsed, though.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="exclusive">
+			<div class="accordion" data-opt="exclusive: true;">
+				<div>
+					<div>Item 1</div>
+					<div>Section 1 content</div>
+				</div>
+				<div>
+					<div>Item 2</div>
+					<div>Section 2 content</div>
+				</div>
+				<div>
+					<div>Item 3</div>
+					<div>Section 3 content</div>
+				</div>
+			</div>
+		</div>
+
+		<h2 id="icons">Icons</h2>
+		<p>
+			The expanded state can be indicated with different icon sets.
+			These icon sets are specified as CSS class with the accordion element.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="plusminus">
+			<div class="accordion plusminus">
+				<div>
+					<div>Item 1</div>
+					<div>Section 1 content</div>
+				</div>
+				<div>
+					<div>Item 2</div>
+					<div>Section 2 content</div>
+				</div>
+			</div>
+		</div>
+
+		<p>
+			All defined class names are shown in the following sub-headers.
+		</p>
+		<div class="clearfix">
+			<div style="width: calc(50% - 8px); float: left; margin-bottom: 1em;">
+				<h3>plusminus</h3>
+				<div class="accordion plusminus">
+					<div>
+						<div>Item 1</div>
+						<div>Section 1 content</div>
+					</div>
+					<div>
+						<div>Item 2</div>
+						<div>Section 2 content</div>
+					</div>
+					<div>
+						<div>Item 3</div>
+						<div>Section 3 content</div>
+					</div>
+				</div>
+			</div>
+
+			<div style="width: calc(50% - 8px); float: right; margin-bottom: 1em;">
+				<h3>plusminus-right</h3>
+				<div class="accordion plusminus-right">
+					<div>
+						<div>Item 1</div>
+						<div>Section 1 content</div>
+					</div>
+					<div>
+						<div>Item 2</div>
+						<div>Section 2 content</div>
+					</div>
+					<div>
+						<div>Item 3</div>
+						<div>Section 3 content</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="clearfix">
+			<div style="width: calc(50% - 8px); float: left; margin-bottom: 1em;">
+				<h3>sidearrows</h3>
+				<div class="accordion sidearrows">
+					<div>
+						<div>Item 1</div>
+						<div>Section 1 content</div>
+					</div>
+					<div>
+						<div>Item 2</div>
+						<div>Section 2 content</div>
+					</div>
+					<div>
+						<div>Item 3</div>
+						<div>Section 3 content</div>
+					</div>
+				</div>
+			</div>
+
+			<div style="width: calc(50% - 8px); float: right; margin-bottom: 1em;">
+				<h3>sidearrows-right</h3>
+				<div class="accordion sidearrows-right">
+					<div>
+						<div>Item 1</div>
+						<div>Section 1 content</div>
+					</div>
+					<div>
+						<div>Item 2</div>
+						<div>Section 2 content</div>
+					</div>
+					<div>
+						<div>Item 3</div>
+						<div>Section 3 content</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="clearfix">
+			<div style="width: calc(50% - 8px); float: left; margin-bottom: 1em;">
+				<h3>updownarrows</h3>
+				<div class="accordion updownarrows">
+					<div>
+						<div>Item 1</div>
+						<div>Section 1 content</div>
+					</div>
+					<div>
+						<div>Item 2</div>
+						<div>Section 2 content</div>
+					</div>
+					<div>
+						<div>Item 3</div>
+						<div>Section 3 content</div>
+					</div>
+				</div>
+			</div>
+
+			<div style="width: calc(50% - 8px); float: right; margin-bottom: 1em;">
+				<h3>updownarrows-right</h3>
+				<div class="accordion updownarrows-right">
+					<div>
+						<div>Item 1</div>
+						<div>Section 1 content</div>
+					</div>
+					<div>
+						<div>Item 2</div>
+						<div>Section 2 content</div>
+					</div>
+					<div>
+						<div>Item 3</div>
+						<div>Section 3 content</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<h2 id="no-background">No background</h2>
+		<p>
+			The <code class="css-class">no-background</code> CSS class removes the background colour from the section headers.
+			It should be used together with icons to indicate that this is an interactive element.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="no-background|sidearrows">
+			<div class="accordion no-background sidearrows">
+				<div>
+					<div>Item 1</div>
+					<div>Section 1 content</div>
+				</div>
+				<div>
+					<div>Item 2</div>
+					<div>Section 2 content</div>
+				</div>
+				<div>
+					<div>Item 3</div>
+					<div>Section 3 content</div>
+				</div>
+			</div>
+		</div>
+
+		<h2 id="anchors">Anchors</h2>
+		<p>
+			If a section element has an <code>id</code> HTML attribute, the URL hash is set to the value of the expanded section until it is collapsed.
+			When reloading the page with such a hash name set, the corresponding accordion section is automatically expanded and scrolled to at load time.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="id">
+			<div class="accordion" data-opt="exclusive: true;">
+				<div id="linkitem1">
+					<div>Item 1</div>
+					<div>Section 1 content</div>
+				</div>
+				<div id="linkitem2">
+					<div>Item 2</div>
+					<div>Section 2 content</div>
+				</div>
+				<div id="linkitem3">
+					<div>Item 3</div>
+					<div>Section 3 content</div>
+				</div>
+			</div>
+		</div>
+
+		<h3 id="anchors-offset">Anchors with scroll offset</h3>
+		<p>
+			If there are fixed-position elements at the top of the page, scrolling to an item will leave it hidden behind the fixed-position element.
+			In this case, the <code>scrollOffsetElement</code> option can be set to an element (selector) whose height will be considered when scrolling.
+			Alternatively, the <code>scrollOffset</code> option can be set to a fixed height offset (in pixels) to keep clear when scrolling.
+			Both offsets can be used together and are added.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="scroll-offset">
+			<div class="accordion" data-opt="exclusive: true; scroll-offset: 100;">
+				<div id="linkitem1o">
+					<div>Item 1 with scroll offset</div>
+					<div>Section 1 content</div>
+				</div>
+				<div id="linkitem2o">
+					<div>Item 2 with scroll offset</div>
+					<div>Section 2 content</div>
+				</div>
+			</div>
+		</div>
+
+		<h2 id="options">Options</h2>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>exclusive</code></td>
+					<td>Boolean</td>
+					<td>Exclusive mode allows only one item to be expanded at a time.</td>
+					<td>false</td>
+				</tr>
+				<tr>
+					<td><code>scrollOffset</code></td>
+					<td>Number</td>
+					<td>Offset to consider when scrolling to an item, when there are fixed elements at the top.</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td><code>scrollOffsetElement</code></td>
+					<td>String, Node</td>
+					<td>Element whose height to consider when scrolling to an item, as CSS selector or Node. Both offsets are added.</td>
+					<td>None</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="methods">Plugin methods</h2>
+		<p>
+			This plugin provides methods to control the accordion state.
+		</p>
+
+		<div class="member">
+			<h3 id="collapse">collapse</h3>
+			<ul>
+				<li><code>collapse()</code> → Frontfire</li>
+				<li><code>collapse(indexOrItem)</code> → Frontfire</li>
+			</ul>
+			<p>
+				Collapses all items or the specified item.
+				The item can be specified as the item element or its zero-based index.
+				The item can be a Node or a Frontfire instance.
+				If it is a Frontfire instance, only its first selected element will be used.
+				Negative indexes are counted from the end, i.e. -1 is the last item, -2 the second-last etc.
+			</p>
+<div class="code">F("#accordion").accordion.collapse();
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="expand">expand</h3>
+			<ul>
+				<li><code>expand()</code> → Frontfire</li>
+				<li><code>expand(indexOrItem)</code> → Frontfire</li>
+			</ul>
+			<p>
+				Expands all items or the specified item.
+				The item can be specified as the item element or its zero-based index.
+				The item can be a Node or a Frontfire instance.
+				If it is a Frontfire instance, only its first selected element will be used.
+				Negative indexes are counted from the end, i.e. -1 is the last item, -2 the second-last etc.
+			</p>
+<div class="code">F("#accordion").accordion.expand();
+</div>
+		</div>
+
+		<h2 id="events">Plugin events</h2>
+		<p>
+			This plugin triggers events for the accordion.
+		</p>
+
+		<div class="member">
+			<h3 id="itemCollapse">itemCollapse</h3>
+			<p>
+				Triggered when a section item was collapsed.
+				The following properties are provided with the event:
+			</p>
+			<ul>
+				<li><code>item</code>: The collapsed item element.</li>
+			</ul>
+		</div>
+
+		<div class="member">
+			<h3 id="itemExpand">itemExpand</h3>
+			<p>
+				Triggered when a section item was expanded.
+				The following properties are provided with the event:
+			</p>
+			<ul>
+				<li><code>item</code>: The expanded item element.</li>
+			</ul>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

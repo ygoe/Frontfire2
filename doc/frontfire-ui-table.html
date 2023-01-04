@@ -50,7 +50,7 @@
 		<p>
 			The table border and grid line colour can be customised with the <code class="css-var">--table-grid-color</code> CSS class, the table header background with <code class="css-var">--table-header-background</code>.
 		</p>
-		<div class="example p no-frontfire">
+		<div class="example p no-frontfire" data-source-highlight="(?<=<)table">
 			<table>
 				<thead>
 					<tr>
@@ -427,7 +427,7 @@
 			So to avoid missing or inconsistent table borders, only use this feature with all borders in the table header disabled.
 			The set of classes shown in the example demonstrate this.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)sticky-header|--sticky-header-top|&lt;/?thead&gt;">
+		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)sticky-header|--sticky-header-top|</?thead>">
 			<table class="sticky-header no-border no-vgrid no-outer-padding" style="--sticky-header-top: var(--fixed-header-height);">
 				<thead>
 					<tr>

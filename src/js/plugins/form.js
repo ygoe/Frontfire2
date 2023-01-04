@@ -142,6 +142,7 @@ function spinner(options) {
 		input.before(wrapper);
 		wrapper.append(input);
 		input.setAttribute("autocomplete", "off");
+		// TODO: Change dataset.stepFactor to a plugin option?
 		if (input.dataset.stepFactor !== undefined) {
 			// The default step is 1 and the usual min value for exponential steps is not an integer,
 			// so only integer increments of the min value would be valid for the browser. Tell it

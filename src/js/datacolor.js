@@ -1,6 +1,8 @@
 /*! datacolor.js v2.0.0-beta.2 | @license MIT | ygoe.de */
 /* build-dir(build) */
 
+// Encoding: UTF-8 without BOM (auto-detect: °°°°°) for built-in color names
+
 // Copyright (c) 2022, Yves Goergen, https://ygoe.de
 // All rights reserved.
 //

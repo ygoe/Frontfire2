@@ -238,7 +238,7 @@
 			Tabs can be added, removed and reordered by code and their title can be changed.
 			See the descriptions of the plugin methods below.
 		</p>
-		<div class="example p-top no-frontfire" data-source-highlight="(?<=\.)(addTab|title|(re)?moveTab)">
+		<div class="example p-top no-frontfire" data-source-highlight="tabs\.(addTab|title|(re)?moveTab)">
 			<div id="dynamic-tabs" class="tabs">
 				<div title="Tab 1">
 					Content of page 1
@@ -473,7 +473,7 @@ F("#tabs").tabs.activeTabIndex = 3;
 			If the tab page contains a table that has a <code>data-name</code> attribute itself, the table is set up for template rows and will show the subrecords in that field.
 			Since this is done internally, the row template must be specified in a <code>data-opt</code> attribute at the table element.
 		</p>
-		<div class="example no-frontfire" data-source-highlight="<template.*?>|template(?=:)|templateRows|addTabs?|loadJSON|getRecords|saveJSON|(?<=\.)title|(?<=<)table">
+		<div class="example no-frontfire" data-source-highlight="<template.*?>|template(?=:)|templateRows\.addRow|addTabs?|loadJSON|getRecords|saveJSON|tabs\.title|(?<=<)table">
 			<div class="buttons p">
 				<button id="clear-tabs">Clear</button>
 				<hr>

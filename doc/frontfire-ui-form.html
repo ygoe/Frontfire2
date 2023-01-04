@@ -244,7 +244,7 @@
 			Common values are <code>1fr</code> (and other numeric values with the <code>fr</code> unit) for proportional widths, <code>max-content</code> for the content’s desired width, and fixed lengths in pixels or other units.
 			See the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns">CSS specification</a> for details.
 		</p>
-		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(grid-template-columns)">
+		<div class="example no-frontfire" data-source-highlight="grid-template-columns">
 			<div class="form-row require-minitab" style="grid-template-columns: 2fr 1fr max-content max-content;">
 				<div class="label">First field label</div>
 				<input type="text" class="input-validation-error">
@@ -270,7 +270,7 @@
 			In a CSS stylesheet, different values can be assigned to the class using media queries.
 			In this example, no labels or validation messages can be used because the option fields may be arranged in one or more rows and columns.
 		</p>
-		<div class="example no-frontfire">
+		<div class="example no-frontfire" data-source-highlight="grid-template-columns">
 			<style>
 				.form-single-row.custom
 				{
@@ -511,7 +511,7 @@
 				Input elements created by code can be enhanced by calling the <a href="frontfire-core.html#spinner"><code>spinner()</code></a> plugin method on them.
 				The buttons are <a href="#repeat-button">repeat-buttons</a> so you can long-press them and the value is continuously decremented or incremented automatically, at an increasing speed (within limits).
 			</p>
-			<div id="spinner-example" class="example p no-frontfire">
+			<div id="spinner-example" class="example p no-frontfire" data-source-highlight="number">
 				<input type="number" value="10">
 			</div>
 			<p>
@@ -545,7 +545,7 @@
 				The spinner supports the usual range limits with the <code>min</code> and <code>max</code> attributes.
 				Any decrement or increment through the buttons beyond that valid range will be rejected.
 			</p>
-			<div id="spinner-example2" class="example p no-frontfire">
+			<div id="spinner-example2" class="example p no-frontfire" data-source-highlight="min|max">
 				<input type="number" value="5" min="5" max="20">
 			</div>
 		</div>
@@ -565,7 +565,7 @@
 			The same applies to the <code>data-min</code> and <code>data-max</code> attributes.
 			Use those to limit the range reachable by the buttons but still allow other manual input.
 		</p>
-		<div class="example no-frontfire">
+		<div class="example no-frontfire" data-source-highlight="step">
 			<p>
 				<input type="number" value="10" min="4" max="20" step="2">
 			</p>
@@ -583,7 +583,7 @@
 			This factor will be applied to the value with each button click, instead of a linear addition or subtraction.
 			There is no corresponding attribute in the HTML standard, so the data attribute is the only option here.
 		</p>
-		<div class="example no-frontfire">
+		<div class="example no-frontfire" data-source-highlight="data-step-factor">
 			<p>
 				<input type="number" value="10" min="0.0000000000001" max="1000000000000" data-step-factor="10"> (Factor 10)
 			</p>
@@ -663,7 +663,7 @@
 			A segmented input can also bind one or multiple buttons with an input field.
 			The button(s) can provide a specific action on the input data, like a lookup or details view.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(segmented-input)">
+		<div class="example p no-frontfire" data-source-highlight="segmented-input|(?<=<)button">
 			<div class="segmented-input">
 				<input type="text" style="width: 120px;">
 				<button class="narrow icon-only"><i class="material">search</i></button>
@@ -692,7 +692,7 @@
 			The element of a left icon must be placed before the input field, a right icon must be placed after the input field in the document.
 			Both, a left and right icon, cannot be combined.
 		</p>
-		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(icon-left|icon-right)">
+		<div class="example no-frontfire" data-source-highlight="icon-left|icon-right|(?<=<)i(?= )">
 			<div class="form-row no-validation">
 				<div class="label">Telephone number</div>
 				<div class="segmented-input icon-left">
@@ -732,7 +732,7 @@
 			<p>
 				The style of the active state buttons can be customised with the <a href="frontfire-ui-variables.html?s=^--button-active-">CSS variables</a> that start with “--button-active-”.
 			</p>
-			<div id="toggle-button-example" class="example p no-frontfire">
+			<div id="toggle-button-example" class="example p no-frontfire" data-source-highlight="checkbox|toggle-button(?=&quot;)|toggleButton">
 				<label><input type="checkbox" class="toggle-button"> Press me</label>
 				<label><input type="checkbox" id="toggle-button2"> Press me</label>
 				<script>
@@ -795,7 +795,7 @@
 			Add the <code class="css-class">repeat-button</code> CSS class to a button element, or call the <a href="frontfire-core.html#repeatButton"><code>repeatButton()</code></a> plugin method on it, to enable the feature.
 			It then triggers a <code>repeatclick</code> repeatedly, starting slowly and turning faster by the time, until a minimum interval is reached.
 		</p>
-		<div class="example p no-frontfire">
+		<div class="example p no-frontfire" data-source-highlight="repeat-button(?=&quot;)|repeatclick">
 			<button id="repeat-button1" class="repeat-button">Press me long</button> <span id="repeat-info">0</span>
 			<script>
 				let repeatCounter = 0;
@@ -905,7 +905,7 @@
 		<p>
 			Add the <code class="css-class">submit-lock</code> CSS class to a <code data-lang="html">&lt;button type="submit"&gt;</code> or <code data-lang="html">&lt;input type="submit"&gt;</code> element, or call the <a href="frontfire-core.html#submitLock"><code>submitLock()</code></a> plugin method on it, and it will add the form submit behaviour.
 		</p>
-		<div class="example p no-frontfire">
+		<div class="example p no-frontfire" data-source-highlight="submit-lock|submitLock\.(lock|unlock)">
 			<form target="submit-lock-target">
 				<div class="buttons no-top-margin">
 					<button type="submit" class="default submit-lock" data-opt-timeout="10">

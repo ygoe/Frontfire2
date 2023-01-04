@@ -98,7 +98,7 @@
 			Items can be selected or deselected individually by a single click instead of pressing the <kbd>Ctrl</kbd> key, by setting the <code>toggle</code> option.
 			This implies multiple selection.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="toggle">
+		<div class="example p no-frontfire" data-source-highlight="(?<=-)toggle">
 			Click any item to toggle selection:
 			<div class="selectable" data-opt-toggle="true">
 				<div>First item</div>
@@ -127,7 +127,7 @@
 				For list boxes (not dropdowns), the height is determined by the <code>size</code> attribute.
 				To override the height of the list box, explicitly set the <code>height</code> style of the <code data-lang="html">&lt;select&gt;</code> element to a length value or to <code>auto</code> to fit the list box size to the items.
 			</p>
-			<div class="example p no-frontfire html-select-example" data-source-highlight="(?<=&lt;)select">
+			<div class="example p no-frontfire html-select-example" data-source-highlight="(?<=<)(select|option)">
 				<select size="4" multiple>
 					<option>First item</option>
 					<option>Second item</option>
@@ -225,7 +225,7 @@
 			To prevent the user to select certain element, they can be disabled by adding the <code>disabled</code> attribute to the child element.
 			Disabled items can still be selected by code.
 		</p>
-		<div class="example p-bottom no-frontfire" data-source-highlight="getSelection|selectAll|selectNone|selectItem|disabled">
+		<div class="example p-bottom no-frontfire" data-source-highlight="selectable\.(getSelection|selectAll|selectNone|selectItem)|disabled">
 			<div class="buttons p">
 				<button id="select-none">Select none</button>
 				<button id="select-all">Select all</button>
@@ -273,7 +273,7 @@
 			When the selection changes (from user interaction or by calling any of these methods), the <code>change</code> event is triggered on the HTML <code data-lang="html">&lt;select&gt;</code> element (not its UI representation).
 			You generally only interact with the <code data-lang="html">&lt;select&gt;</code> element and its children here and don’t care about its presentation elements.
 		</p>
-		<div class="example p-bottom no-frontfire" data-source-highlight="getSelection|selectAll|selectNone|selectItem|(?<=\.)selected(?= =)|(?<=&quot;)change(?=&quot;)|disabled">
+		<div class="example p-bottom no-frontfire" data-source-highlight="selectable\.(getSelection|selectAll|selectNone|selectItem)|(?<=\.)selected(?= =)|(?<=&quot;)change(?=&quot;)|disabled">
 			<div class="buttons p">
 				<button id="select-none-html">Select none</button>
 				<button id="select-all-html">Select all</button>
@@ -467,11 +467,11 @@
 		</p>
 		<div class="example p no-frontfire" data-source-highlight="width">
 			<select multiple style="width: 300px;">
-				<option>First item</option>
-				<option>Second item</option>
-				<option>Third item</option>
-				<option>Fourth item</option>
-				<option>Fifth item</option>
+				<option selected>First item</option>
+				<option selected>Second item</option>
+				<option selected>Third item</option>
+				<option selected>Fourth item</option>
+				<option selected>Fifth item</option>
 			</select>
 		</div>
 
@@ -503,7 +503,7 @@
 
 		<h2 id="sortable">Sortable selectable</h2>
 		<p>
-			Selectable and sortable lists can be combined.
+			Selectable and <a href="frontfire-ui-sortable.html">sortable</a> lists can be combined.
 			It is advisable to restrict the sortable movements to the list flow direction and within the list container.
 		</p>
 		<div class="example p no-frontfire" data-source-highlight="selectable|sortable|axis: y|containment: parent">

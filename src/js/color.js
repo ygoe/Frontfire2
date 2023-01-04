@@ -1,6 +1,8 @@
 /*! color.js v2.0.0-beta.2 | @license MIT | ygoe.de */
 /* build-dir(build) */
 
+// Encoding: UTF-8 without BOM (auto-detect: °°°°°) for built-in color names
+
 // Copyright (c) 2022, Yves Goergen, https://ygoe.de
 // All rights reserved.
 //
@@ -40,14 +42,14 @@
 
 		if (value === undefined || value === null)
 			value = "";
-		
+
 		if (typeof value === "string") {
 			if (value === "") {
 				this.format = "CSS";
 				this.r = this.g = this.b = this.a = 0;
 				return;
 			}
-			
+
 			this.format = value.match(/^rgba?\(/) ? "CSS" : "HTML";
 
 			// Add "#" prefix if missing and the data is otherwise looking good (3/4/6/8 hex digits)

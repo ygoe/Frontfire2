@@ -113,6 +113,353 @@
 			<h2>Variable names</h2>
 
 			<div class="member">
+				<h3 id="accordion-header-background">--accordion-header-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The background colour of accordion headers.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the accordion header background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--accordion-header-background-h), var(--accordion-header-background-s), var(--accordion-header-background-l))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-hover-background">--accordion-header-hover-background</a>, <a href="#accordion-header-pressed-background">--accordion-header-pressed-background</a>, <a href="#button-background">--button-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-background-h">--accordion-header-background-h</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value &lt; 360
+					<span class="default">Default:</span> 0
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The hue of the background colour of accordion headers, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-background">--accordion-header-background</a>, <a href="#accordion-header-background-l">--accordion-header-background-l</a>, <a href="#accordion-header-background-s">--accordion-header-background-s</a>, <a href="#button-background-h">--button-background-h</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-background-l">--accordion-header-background-l</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 87%
+					<span class="default">Dark default:</span> 35%
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The lightness of the background colour of accordion headers, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-background">--accordion-header-background</a>, <a href="#accordion-header-background-h">--accordion-header-background-h</a>, <a href="#accordion-header-background-s">--accordion-header-background-s</a>, <a href="#button-background-l">--button-background-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-background-s">--accordion-header-background-s</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 0%
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The saturation of the background colour of accordion headers, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-background">--accordion-header-background</a>, <a href="#accordion-header-background-h">--accordion-header-background-h</a>, <a href="#accordion-header-background-l">--accordion-header-background-l</a>, <a href="#button-background-s">--button-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-color">--accordion-header-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The text colour of accordion headers.
+					The default value is:<br>
+					<code data-lang="style-value">var(--default-text-color)</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-pressed-color">--accordion-header-pressed-color</a>, <a href="#button-color">--button-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-expanded-background">--accordion-header-expanded-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The background colour of expanded accordion headers.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the accordion header background colour is computed from the three H, S and L variables:<br>
+					<code data-lang="style-value">hsl(var(--accordion-header-expanded-background-h), var(--accordion-header-expanded-background-s), var(--accordion-header-expanded-background-l))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-expanded-hover-background">--accordion-header-expanded-hover-background</a>, <a href="#accordion-header-expanded-pressed-background">--accordion-header-expanded-pressed-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-expanded-background-h">--accordion-header-expanded-background-h</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value &lt; 360
+					<span class="default">Default:</span> 0
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The hue of the background colour of expanded accordion headers, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-expanded-background">--accordion-header-expanded-background</a>, <a href="#accordion-header-expanded-background-l">--accordion-header-expanded-background-l</a>, <a href="#accordion-header-expanded-background-s">--accordion-header-expanded-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-expanded-background-l">--accordion-header-expanded-background-l</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 94%
+					<span class="default">Dark default:</span> 24%
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The lightness of the background colour of expanded accordion headers, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-expanded-background">--accordion-header-expanded-background</a>, <a href="#accordion-header-expanded-background-h">--accordion-header-expanded-background-h</a>, <a href="#accordion-header-expanded-background-s">--accordion-header-expanded-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-expanded-background-s">--accordion-header-expanded-background-s</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 0%
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The saturation of the background colour of expanded accordion headers, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-expanded-background">--accordion-header-expanded-background</a>, <a href="#accordion-header-expanded-background-h">--accordion-header-expanded-background-h</a>, <a href="#accordion-header-expanded-background-l">--accordion-header-expanded-background-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-expanded-color">--accordion-header-expanded-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The text colour of expanded accordion headers.
+					The default value is:<br>
+					<code data-lang="style-value">var(--default-text-color)</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-expanded-pressed-color">--accordion-header-expanded-pressed-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-expanded-hover-background">--accordion-header-expanded-hover-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The background colour of expanded accordion headers when they are hovered by the mouse cursor.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the accordion header hover background colour is computed from the three H, S and L variables <code class="css-var">--accordion-header-expanded-background-h</code>, <code class="css-var">--accordion-header-expanded-background-s</code> and <code class="css-var">--accordion-header-expanded-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--accordion-header-expanded-hover-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-expanded-background">--accordion-header-expanded-background</a>, <a href="#accordion-header-expanded-hover-lf">--accordion-header-expanded-hover-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-expanded-hover-lf">--accordion-header-expanded-hover-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.05
+					<span class="default">Dark default:</span> 0.08
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The lightness factor of expanded accordion headers when they are hovered by the mouse cursor.
+					The base lightness from <code class="css-var">--accordion-header-expanded-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-expanded-hover-background">--accordion-header-expanded-hover-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-expanded-pressed-background">--accordion-header-expanded-pressed-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The background colour of expanded accordion headers while they are pushed down.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the accordion header hover background colour is computed from the three H, S and L variables <code class="css-var">--accordion-header-expanded-background-h</code>, <code class="css-var">--accordion-header-expanded-background-s</code> and <code class="css-var">--accordion-header-expanded-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--accordion-header-expanded-pressed-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-expanded-background">--accordion-header-expanded-background</a>, <a href="#accordion-header-expanded-pressed-lf">--accordion-header-expanded-pressed-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-expanded-pressed-color">--accordion-header-expanded-pressed-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The text colour of expanded accordion headers while they are pushed down.
+					The default value is:<br>
+					<code data-lang="style-value">var(--accordion-header-expanded-color)</code>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-expanded-pressed-lf">--accordion-header-expanded-pressed-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.15
+					<span class="default">Dark default:</span> 0.18
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The lightness factor of expanded accordion headers while they are pushed down.
+					The base lightness from <code class="css-var">--accordion-header-expanded-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-expanded-pressed-background">--accordion-header-expanded-pressed-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-hover-background">--accordion-header-hover-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The background colour of accordion headers when they are hovered by the mouse cursor.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the accordion header hover background colour is computed from the three H, S and L variables <code class="css-var">--accordion-header-background-h</code>, <code class="css-var">--accordion-header-background-s</code> and <code class="css-var">--accordion-header-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--accordion-header-hover-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-background">--accordion-header-background</a>, <a href="#accordion-header-hover-lf">--accordion-header-hover-lf</a>, <a href="#button-hover-background">--button-hover-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-hover-lf">--accordion-header-hover-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.08
+					<span class="default">Dark default:</span> 0.12
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The lightness factor of accordion headers when they are hovered by the mouse cursor.
+					The base lightness from <code class="css-var">--accordion-header-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-hover-background">--accordion-header-hover-background</a>, <a href="#button-hover-lf">--button-hover-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-pressed-background">--accordion-header-pressed-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The background colour of accordion headers while they are pushed down.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the accordion header hover background colour is computed from the three H, S and L variables <code class="css-var">--accordion-header-background-h</code>, <code class="css-var">--accordion-header-background-s</code> and <code class="css-var">--accordion-header-background-l</code> where the lightness is adjusted by the factor in <code class="css-var">--accordion-header-pressed-lf</code>.
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-background">--accordion-header-background</a>, <a href="#accordion-header-pressed-lf">--accordion-header-pressed-lf</a>, <a href="#button-pressed-background">--button-pressed-background</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-pressed-color">--accordion-header-pressed-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The text colour of accordion headers while they are pushed down.
+					The default value is:<br>
+					<code data-lang="style-value">var(--accordion-header-color)</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-color">--accordion-header-color</a>, <a href="#button-pressed-color">--button-pressed-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="accordion-header-pressed-lf">--accordion-header-pressed-lf</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> -1 ≤ value ≤ 1
+					<span class="default">Default:</span> -0.2
+					<span class="default">Dark default:</span> 0.25
+					<span class="source">(for <a href="frontfire-ui-accordion.html">Accordion</a>)</span>
+				</p>
+				<p>
+					The lightness factor of accordion headers while they are pushed down.
+					The base lightness from <code class="css-var">--accordion-header-background-l</code> is adjusted by this factor.
+					The value -1 turns the base colour to black, the value 0 leaves it unchanged and the value 1 turns it to white.
+					Values less than 0 make the colour darker, greater than 0 make it lighter.
+				</p>
+				<p class="see-also">
+					See also: <a href="#accordion-header-pressed-background">--accordion-header-pressed-background</a>, <a href="#button-pressed-lf">--button-pressed-lf</a>
+				</p>
+			</div>
+
+			<div class="member">
 				<h3 id="animation-duration">--animation-duration</h3>
 				<p>
 					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/time">time</a>
@@ -1055,7 +1402,7 @@
 					<code data-lang="style-value">var(--button-color)</code>
 				</p>
 				<p class="see-also">
-					See also: <a href="#button-disabled-color">--button-disabled-color</a>
+					See also: <a href="#button-color">--button-color</a>
 				</p>
 			</div>
 

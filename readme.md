@@ -48,7 +48,7 @@ The following is the content of the archive. All files in readable and minified 
 |-----------------------|-------------|
 | Frontfire Core        | –           |
 | Frontfire UI Minimal  | frontfire-ui-minimal.css<br>frontfire-ui-minimal.min.css (13 KiB) |
-| Frontfire UI Complete | frontfire-ui-complete.css<br>frontfire-ui-complete.min.css (16 KiB) |
+| Frontfire UI Complete | frontfire-ui-complete.css<br>frontfire-ui-complete.min.css (17 KiB) |
 
 
 ### Bundles
@@ -131,7 +131,7 @@ Features
 | ColorPicker | A comprehensive color picker with form input | | | ✔️ |
 | Tabs | Shows one out of several panels, selectable through tab headers | | | ✔️ |
 | ProgressBar | A progress bar with a text indicator | | | ✔️ |
-| Accordion | Shows one out of several panels, selectable through accordion headers | | | 🚧 |
+| Accordion | Shows one out of several panels, selectable through accordion headers | | | ✔️ |
 | Carousel | Shows one out of several panels that slide and animate horizontally | | | 🚧 |
 | Slider | A range value picker with stops and multiple handles | | | ✔️ |
 | TimePicker | A formatted date and time picker with calendar and clock | | | ✔️ |

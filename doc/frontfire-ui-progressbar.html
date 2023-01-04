@@ -34,14 +34,14 @@
 			This plugin is only available in the Complete bundle.
 		</p>
 
-		<h2 id="basic-progressbar">Basic progress bar</h2>
+		<h2 id="description">Description</h2>
 		<p>
 			A progress bar is defined with the <code class="css-class">progressbar</code> CSS class, or by calling the <a href="frontfire-core.html#progressbar"><code>progressbar()</code></a> plugin method on an element.
 		</p>
 		<p>
 			The progress bar colours can be customised with the <a href="frontfire-ui-variables.html?s=@progressbar">CSS variables</a> that start with “--progress-”.
 		</p>
-		<div class="example resizable no-frontfire" data-source-highlight="progressbar">
+		<div class="example resizable no-frontfire" data-source-highlight="progressbar(\.(valuePrefix|valueSuffix|value))?">
 			<p>
 				<button id="get-value" class="button">Get value</button>
 				<input id="value-input" type="number" style="width: 120px;">
@@ -80,7 +80,7 @@
 		<p>
 			Styles are set by adding one of the CSS classes <code class="css-class">error</code>, <code class="css-class">warning</code> or <code class="css-class">success</code> to the progress bar element.
 		</p>
-		<div class="example no-frontfire" data-source-highlight="progressbar|min|max|value(Suffix)?">
+		<div class="example no-frontfire" data-source-highlight="error|warning|success">
 			<div class="progressbar error p" data-opt-value="40" data-opt-value-suffix="%"></div>
 			<div class="progressbar warning p" data-opt-value="40" data-opt-value-suffix="%"></div>
 			<div class="progressbar success p" data-opt-value="40" data-opt-value-suffix="%"></div>

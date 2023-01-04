@@ -3064,28 +3064,28 @@
 		}
 	}
 
-	// Scrolls the window so that the rectangle is fully visible.
-	Frontfire.scrollIntoView = rect => {
-		// TODO: Convert from jQuery and add to documentation
-		let cont = $(window);
-		let viewportWidth = cont.width() - 1;
-		let viewportHeight = cont.height() - 1;
-		let scrollTop = cont.scrollTop();
-		let scrollLeft = cont.scrollLeft();
+	// TODO: Convert from jQuery when needed and add to documentation (instance method already exists, this is a separate static method!)
+	//// Scrolls the window so that the rectangle is fully visible.
+	//Frontfire.scrollIntoView = rect => {
+	//	let cont = $(window);
+	//	let viewportWidth = cont.width() - 1;
+	//	let viewportHeight = cont.height() - 1;
+	//	let scrollTop = cont.scrollTop();
+	//	let scrollLeft = cont.scrollLeft();
 
-		if (rect.top < scrollTop) {
-			cont.scrollTop(rect.top);
-		}
-		if (rect.bottom > scrollTop + viewportHeight) {
-			cont.scrollTop(scrollTop + (rect.bottom - (scrollTop + viewportHeight)));
-		}
-		if (rect.left < scrollLeft) {
-			cont.scrollLeft(rect.left);
-		}
-		if (rect.right > scrollLeft + viewportWidth) {
-			cont.scrollLeft(scrollLeft + (rect.right - (scrollLeft + viewportWidth)));
-		}
-	}
+	//	if (rect.top < scrollTop) {
+	//		cont.scrollTop(rect.top);
+	//	}
+	//	if (rect.bottom > scrollTop + viewportHeight) {
+	//		cont.scrollTop(scrollTop + (rect.bottom - (scrollTop + viewportHeight)));
+	//	}
+	//	if (rect.left < scrollLeft) {
+	//		cont.scrollLeft(rect.left);
+	//	}
+	//	if (rect.right > scrollLeft + viewportWidth) {
+	//		cont.scrollLeft(scrollLeft + (rect.right - (scrollLeft + viewportWidth)));
+	//	}
+	//}
 
 	// ---------- Network requests ----------
 

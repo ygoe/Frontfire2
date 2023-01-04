@@ -1,5 +1,7 @@
 // ==================== Modal plugin ====================
 
+// Encoding: UTF-8 without BOM (auto-detect: °°°°°) for built-in message texts
+
 const modalEventClass = ".ff-modal";
 const modalClass = "ff-modal-container";
 const modalCloseButtonClass = "ff-modal-close-button";

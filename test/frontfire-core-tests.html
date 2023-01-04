@@ -53,7 +53,7 @@ function assert(treeId, fn, result, newArray, message) {
 		message = newArray;
 		newArray = undefined;
 	}
-	
+
 	createTree(treeId);
 
 	const ret = fn(array);
@@ -86,7 +86,7 @@ function assert(treeId, fn, result, newArray, message) {
 		if (ret !== result)
 			throw new Error(message + " Return value was " + JSON.stringify(ret) + ", expected " + JSON.stringify(result) + ".");
 	}
-	
+
 	if (newArray) {
 		if (JSON.stringify(array) !== JSON.stringify(newArray))
 			throw new Error(message + " Array was " + JSON.stringify(array) + ", expected " + JSON.stringify(newArray) + ".");

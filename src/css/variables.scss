@@ -112,11 +112,6 @@ $viewportWidthDesktop: 1200px;
 	--thin-scrollbar-thumb: rgb(0, 0, 0, 0.3);
 
 
-	// ========== Images ==========
-
-	--image-caption-color: #666666;
-
-
 	// ========== Messages and notifications ==========
 
 	--critical-background-h: 347;
@@ -237,14 +232,26 @@ $viewportWidthDesktop: 1200px;
 	--focus-keyboard-outline-full-offset: -2px;
 
 
-	// ========== Toggle switch ==========
+	// ========== Accordion ==========
 
-	--toggle-switch-unset-h: 225;
-	--toggle-switch-unset-s: 0%;
-	--toggle-switch-unset-l: 69%;
-	--toggle-switch-set-h: 225;   // default button hue
-	--toggle-switch-set-s: 73%;
-	--toggle-switch-set-l: 51%;
+	--accordion-header-background-h: 0;
+	--accordion-header-background-s: 0%;
+	--accordion-header-background-l: 87%;
+	// Lightness factors (-1 is black, 0 is unchanged, 1 is white):
+	--accordion-header-hover-lf: -0.08;
+	--accordion-header-pressed-lf: -0.2;
+
+	--accordion-header-expanded-background-h: 0;
+	--accordion-header-expanded-background-s: 0%;
+	--accordion-header-expanded-background-l: 94%;
+	// Lightness factors (-1 is black, 0 is unchanged, 1 is white):
+	--accordion-header-expanded-hover-lf: -0.05;
+	--accordion-header-expanded-pressed-lf: -0.15;
+
+
+	// ========== Images ==========
+
+	--image-caption-color: #666666;
 
 
 	// ========== Menu ==========
@@ -336,6 +343,16 @@ $viewportWidthDesktop: 1200px;
 	--timepicker-now-other-month-border-color: #ffc581;
 	--timepicker-month-border-color: rgb(180, 180, 180, 0.5);
 	--timepicker-empty-color: rgb(0, 0, 0, 0.33);   // --textbox-color resolved with additional transparency
+
+
+	// ========== Toggle switch ==========
+
+	--toggle-switch-unset-h: 225;
+	--toggle-switch-unset-s: 0%;
+	--toggle-switch-unset-l: 69%;
+	--toggle-switch-set-h: 225;   // default button hue
+	--toggle-switch-set-s: 73%;
+	--toggle-switch-set-l: 51%;
 }
 
 // Override some colors for the dark theme.
@@ -359,11 +376,6 @@ $viewportWidthDesktop: 1200px;
 	--loading-highlight-color: rgb(255, 255, 255, 0.8);
 
 	--thin-scrollbar-thumb: rgb(255, 255, 255, 0.3);
-
-
-	// ========== Images ==========
-
-	--image-caption-color: #888888;
 
 
 	// ========== Messages and notifications ==========
@@ -436,10 +448,20 @@ $viewportWidthDesktop: 1200px;
 	--focus-keyboard-outline: solid 2px hsl(var(--selection-h), var(--selection-s), 80%, 0.5);
 
 
-	// ========== Toggle switch ==========
+	// ========== Accordion ==========
 
-	--toggle-switch-unset-l: 57%;
-	--toggle-switch-set-l: 75%;
+	--accordion-header-background-l: 35%;
+	--accordion-header-hover-lf: 0.12;
+	--accordion-header-pressed-lf: 0.25;
+
+	--accordion-header-expanded-background-l: 24%;
+	--accordion-header-expanded-hover-lf: 0.08;
+	--accordion-header-expanded-pressed-lf: 0.18;
+
+
+	// ========== Images ==========
+
+	--image-caption-color: #888888;
 
 
 	// ========== Menu ==========
@@ -453,6 +475,7 @@ $viewportWidthDesktop: 1200px;
 	--submenu-hover-lf: 0.1;
 	--submenu-active-lf: 0.2;
 	--submenu-color: var(--default-text-color);
+
 
 	// ========== Slider ==========
 
@@ -469,6 +492,7 @@ $viewportWidthDesktop: 1200px;
 	--slider-disabled-small-tick-color: #707070;
 	--slider-disabled-large-tick-color: #909090;
 
+
 	// ========== Tabs ==========
 
 	--tabs-border-color: #606060;
@@ -476,9 +500,16 @@ $viewportWidthDesktop: 1200px;
 	--tabs-inactive-header-hover-background: #2c2c2c;
 	--tabs-noborder-hover: hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l), 0.45);
 
+
 	// ========== Time picker ==========
 
 	--timepicker-clock-selected-a: 0.7;
 	--timepicker-now-other-month-border-color: #c06800;
 	--timepicker-empty-color: rgb(240, 240, 240, 0.33);   // --textbox-color resolved with additional transparency
+
+
+	// ========== Toggle switch ==========
+
+	--toggle-switch-unset-l: 57%;
+	--toggle-switch-set-l: 75%;
 }

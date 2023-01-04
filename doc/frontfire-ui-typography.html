@@ -45,7 +45,7 @@
 			The header font sizes can be customised with the <code class="css-var">--h1-font-size</code>, <code class="css-var">--h2-font-size</code>, <code class="css-var">--h3-font-size</code> and <code class="css-var">--h4-font-size</code> CSS variables.
 			The header font weight is set with the <code class="css-var">--header-weight</code> CSS variable.
 		</p>
-		<div class="example no-frontfire">
+		<div class="example no-frontfire" data-source-highlight="(?<=<)h[1-6]">
 			<h1>Header 1</h1>
 			<p>Sample text</p>
 			<h2>Header 2</h2>
@@ -150,11 +150,14 @@
 			You can move the previous href value to the element’s dataset to restore it when enabling the link again.
 			For convenience, the <a href="frontfire-core.html#disabled"><code data-lang="js">Frontfire.disabled</code></a> stashes and restores the <code>href</code> attribute as well.
 		</p>
-		<p>
-			<label><input type="checkbox" id="disable-links"> Disable links in the example</label>
-		</p>
-		<div id="link-example" class="example p no-frontfire" data-source-highlight="disabled" data-find=" data-ff-disabled-href=&quot;#&quot;" data-replace="">
-			<a href="#">Click here to get nowhere</a>
+		<div class="sticky-aside-container require-desktop example-options">
+			<div class="sticky-aside aside-options">
+				<div><label class="indent-checkbox"><input type="checkbox" id="disable-links"> Disable links</label></div>
+			</div>
+
+			<div id="link-example" class="example p no-frontfire" data-source-highlight="(?<=<)a|disabled" data-find=" data-ff-disabled-href=&quot;#&quot;" data-replace="">
+				<a href="#">Click here to get nowhere</a>
+			</div>
 		</div>
 		<script>
 			// addExampleCode will be defined at end of page
@@ -180,14 +183,14 @@
 		<p>
 			Separators with the <code data-lang="html">&lt;hr&gt;</code> element can be used to visually separate content with a horizontal line instead of whitespace.
 		</p>
-		<div class="example no-frontfire">
+		<div class="example no-frontfire" data-source-highlight="(?<=<)hr">
 			<p>Sample text</p>
 			<hr>
 			<p>Sample text</p>
 		</div>
 
 		<h2 id="lists">Lists</h2>
-		<div class="example no-frontfire">
+		<div class="example no-frontfire" data-source-highlight="(?<=<)ul">
 			<ul>
 				<li>There can be</li>
 				<li>unordered lists with the <code>&lt;ul&gt;</code> element that
@@ -200,7 +203,7 @@
 				<li>before each list item.</li>
 			</ul>
 		</div>
-		<div class="example no-frontfire">
+		<div class="example no-frontfire" data-source-highlight="(?<=<)ol">
 			<ol>
 				<li>Ordered lists with the <code>&lt;ol&gt;</code> element have numbered</li>
 				<li>items each with a number increased</li>
@@ -231,7 +234,7 @@
 		<p>
 			Use the <code data-lang="html">&lt;kbd&gt;</code> element to style labels as keys on the computer’s keyboard.
 		</p>
-		<div class="example p-top no-frontfire">
+		<div class="example p-top no-frontfire" data-source-highlight="(?<=<)(code|tt|kbd)|(?<=&quot;)code">
 			<div class="code">
 				void main()<br>
 				{<br>
