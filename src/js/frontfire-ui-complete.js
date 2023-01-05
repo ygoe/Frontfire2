@@ -3,7 +3,7 @@
 /* iife-args(Frontfire, window, document) */
 /* build-dir(build) */
 
-// Copyright (c) 2022, Yves Goergen, https://ygoe.de
+// Copyright (c) 2022-2023, Yves Goergen, https://ygoe.de
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are permitted

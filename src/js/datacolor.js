@@ -3,7 +3,7 @@
 
 // Encoding: UTF-8 without BOM (auto-detect: °°°°°) for built-in color names
 
-// Copyright (c) 2022, Yves Goergen, https://ygoe.de
+// Copyright (c) 2022-2023, Yves Goergen, https://ygoe.de
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are permitted

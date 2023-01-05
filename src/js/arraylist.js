@@ -1,7 +1,7 @@
 /*! arraylist.js v2.0.0-beta.2 | @license MIT | ygoe.de */
 /* build-dir(build) */
 
-// Copyright (c) 2021-2022, Yves Goergen, https://ygoe.de
+// Copyright (c) 2021-2023, Yves Goergen, https://ygoe.de
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are permitted
