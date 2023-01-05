@@ -1753,7 +1753,7 @@
 	// keep: (Boolean) Indicates whether the final state should be persisted (true) or reverted
 	//   (false). Defaults to true if unset.
 	//
-	// TODO: Keeping the final state keeps the animation alive, using memory and blocking further style updates. Find another solution. See MDN for Element.animate(). Note that offCanvas needs the animation to later reverse() it.
+	// TODO: Keeping the final state keeps the animation alive, using memory and blocking further style updates. Find another solution. See MDN for Element.animate(). Note that offCanvas needs the animation to later reverse() it. - https://developer.mozilla.org/en-US/docs/Web/API/Animation#automatically_removing_filling_animations
 	Frontfire_prototype.animateFromTo = function (data, duration, easing, keep) {
 		let keyframes = [{}, {}];
 		for (let key in data) {
