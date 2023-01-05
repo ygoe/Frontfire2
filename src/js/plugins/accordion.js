@@ -23,6 +23,12 @@ function accordion(options) {
 		let opt = F.initOptions("accordion", accordion, {}, options);
 
 		let items = accordion.querySelectorAll(":scope > div");
+		let hasExpanded = false;
+		let hashMatchItem = items.F.where(item => {
+			let id = item.getAttribute("id");
+			return F.isSet(id) && location.hash === "#" + id;
+		}).first;
+
 		items.forEach(item => {
 			let header = item.querySelector(":scope > div:nth-of-type(1)");
 			let content = item.querySelector(":scope > div:nth-of-type(2)");
@@ -47,9 +53,8 @@ function accordion(options) {
 				}
 			});
 
-			let id = item.getAttribute("id");
-			if (F.isSet(id) && location.hash === "#" + id) {
-				// Manually set item expanded
+			// Manually sets the item expanded at initialisation.
+			let expandNow = () => {
 				item.classList.add("expanded");
 				content.style.height = "auto";
 				F.onReady(() => {
@@ -64,8 +69,19 @@ function accordion(options) {
 						});
 					}
 				});
+			};
+
+			if (hashMatchItem && item == hashMatchItem) {
+				// We have a hash match, only expand that item
+				expandNow();
+			}
+			else if (!hashMatchItem && item.classList.contains("expanded") && (!hasExpanded || !opt.exclusive)) {
+				// No hash match, expand all specified items (only the first one for exclusive mode)
+				expandNow();
+				hasExpanded = true;
 			}
 			else {
+				// Collapse everything else
 				content.style.transition = "none";
 				accordion.F.accordion.collapse(item);
 				F.forceReflow();

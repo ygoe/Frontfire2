@@ -70,6 +70,31 @@
 			</div>
 		</div>
 
+		<h2 id="expanded">Initially expanded items</h2>
+		<p>
+			To expand one or multiple items automatically at page load, add the <code class="css-class">expanded</code> CSS class to the affected item(s).
+		</p>
+		<p>
+			If the exclusive option is set, only the first item with that class is initially expanded.
+			If an item will be expanded because of its <code>id</code> attribute matching the location hash, no items with that class are initially expanded.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="expanded">
+			<div class="accordion">
+				<div class="expanded">
+					<div>Item 1</div>
+					<div><p>Section 1 content</p></div>
+				</div>
+				<div>
+					<div>Item 2</div>
+					<div><p>Section 2 content</p></div>
+				</div>
+				<div>
+					<div>Item 3</div>
+					<div><p>Section 3 content</p></div>
+				</div>
+			</div>
+		</div>
+
 		<h2 id="controls-events">Controls and events</h2>
 		<p>
 			Sections can be expanded and collapsed by code.
