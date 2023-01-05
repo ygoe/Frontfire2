@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Gallery documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Gallery plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.3</span>
+		</div>
+		<p>
+			A gallery presents images or photos in a row layout where all rows have a consistent width and the images are scaled automatically so that they fill up each row.
+			The height of the rows varies slightly and usually unnoticeable to allow for this scaling.
+		</p>
+		<p>
+			This plugin is only available in the Complete bundle.
+		</p>
+
+		<h2 id="description">Description</h2>
+		<p>
+			A gallery is defined with the <code class="css-class">gallery</code> CSS class, or by calling the <a href="frontfire-core.html#gallery"><code>gallery()</code></a> plugin method on an element.
+		</p>
+		<p>
+			Each image can also have a caption that appears when hovering it with the mouse cursor.
+			Image (<code data-lang="html">&lt;img&gt;</code>) and caption (<code data-lang="html">&lt;span&gt;</code>) must be grouped in another element.
+			This can be an <code data-lang="html">&lt;a&gt;</code> element which can then also be used to enable a zoom view for the image when clicking on it.
+			Currently, Frontfire provides no such zoom view but third-party solutions like Fancybox can be used here.
+		</p>
+		<p>
+			Since the images are scaled a little bit to fill the row layout, the image dimensions should be at least 1.5 times the average render size to avoid blurry display.
+			The images should also not be much greater than that to minimise the download size.
+			This example only provides static images in a single size, but dynamic server-side scaling solutions can ease this task.
+			<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-srcset">Image source sets</a> can normally be used to serve high-DPI screens.
+		</p>
+		<div class="example p resizable no-frontfire" data-source-highlight="gallery">
+			<div class="gallery">
+				<a>
+					<img src="res/aurora.webp">
+					<span>Aurora in Iceland</span>
+				</a>
+				<a>
+					<img src="res/loch-coruisk.webp">
+					<span>Loch Coruisk</span>
+				</a>
+				<a>
+					<img src="res/neist-point.webp">
+					<span>Neist Point Lighthouse</span>
+				</a>
+				<a>
+					<img src="res/plouha-sunrise.webp">
+					<span>Before sunrise at Gwin Zégal</span>
+				</a>
+				<a>
+					<img src="res/strandkorb-evening.webp">
+					<span>Strandkorb evening</span>
+				</a>
+				<a>
+					<img src="res/kinderdijk.webp">
+					<span>Kinderdijk in the morning</span>
+				</a>
+				<a>
+					<img src="res/zeelandbrug.webp">
+					<span>Zeeland Bridge</span>
+				</a>
+				<a>
+					<img src="res/amsterdam.webp">
+					<span>Amsterdam centrum</span>
+				</a>
+				<a>
+					<img src="res/zeeland-dune.webp">
+					<span>Zeeland sand dune</span>
+				</a>
+			</div>
+		</div>
+
+		<h2 id="alignment">Alignment</h2>
+		<p>
+			The incomplete last row is usually aligned to the left side.
+			This can be changed to the centre or right side with the additional CSS classes <code class="css-class">center</code> or <code class="css-class">right</code>, respectively.
+		</p>
+		<div class="example p resizable no-frontfire" data-source-highlight="center">
+			<div class="gallery center">
+				<img src="res/aurora.webp">
+				<img src="res/loch-coruisk.webp">
+				<img src="res/neist-point.webp">
+				<img src="res/kinderdijk.webp">
+				<img src="res/plouha-sunrise.webp">
+			</div>
+		</div>
+		<div class="example p resizable no-frontfire" data-source-highlight="right">
+			<div class="gallery right">
+				<img src="res/aurora.webp">
+				<img src="res/loch-coruisk.webp">
+				<img src="res/neist-point.webp">
+				<img src="res/kinderdijk.webp">
+				<img src="res/plouha-sunrise.webp">
+			</div>
+		</div>
+
+		<h2 id="options">Options</h2>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>allowedOversize</code></td>
+					<td>Number</td>
+					<td>The allowed factor of exceeding the desired size in the last row before the row is left-aligned.</td>
+					<td>1.2</td>
+				</tr>
+				<tr>
+					<td><code>desiredSize</code></td>
+					<td>Number</td>
+					<td>The desired image size (depending on sizeMode), in pixels.</td>
+					<td>150</td>
+				</tr>
+				<tr>
+					<td><code>gap</code></td>
+					<td>Number</td>
+					<td>The spacing between the images, in pixels.</td>
+					<td>10</td>
+				</tr>
+				<tr>
+					<td><code>sizeMode</code></td>
+					<td>String</td>
+					<td>The layout size mode.<br>
+						"height": The <code>desiredSize</code> is the preferred row height.<br>
+						"area": The square value of <code>desiredSize</code> is the preferred image area.</td>
+					<td>height</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="methods">Plugin methods</h2>
+		<p>
+			This plugin provides methods to control the gallery.
+		</p>
+
+		<div class="member">
+			<h3 id="relayout">relayout</h3>
+			<ul>
+				<li><code>relayout()</code> → Frontfire</li>
+			</ul>
+			<p>
+				Updates the layout of the gallery after a size change.
+				This is automatically called when the window size changes, but needs to be called when only the gallery container changes size.
+				In the examples above, the resize event is triggered on the window from the documentation page script internally.
+			</p>
+<div class="code">F("#gallery").gallery.relayout();
+</div>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022–2023, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+	<script>
+		// Initially relayout all galleries because they didn't know the correct page size yet
+		F(".gallery").gallery.relayout();
+	</script>
+</body>
+</html>

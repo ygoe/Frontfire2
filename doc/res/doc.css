@@ -769,10 +769,11 @@ div.example-resize-handle
 	width: 12px;
 	flex-shrink: 0;
 	cursor: ew-resize;
-	background: rgb(160, 160, 160, 0.5);
+	background-color: rgb(160, 160, 160, 0.5);
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	transition: background-color var(--animation-duration) var(--animation-function);
 }
 /* Make the touch surface larger */
 div.example-resize-handle::before
@@ -786,15 +787,26 @@ div.example-resize-handle::before
 }
 div.example-resize-handle:hover
 {
-	background: rgb(160, 160, 160, 0.65);
+	background-color: rgb(160, 160, 160, 0.65);
+	transition: fill 0s;
 }
 div.example-resize-handle svg rect
 {
-	fill: rgb(0, 0, 0, 0.15);
+	fill: rgb(0, 0, 0, 0.2);
+	transition: fill var(--animation-duration) var(--animation-function);
 }
 div.example-resize-handle:hover svg rect
 {
-	fill: rgb(0, 0, 0, 0.25);
+	fill: rgb(0, 0, 0, 0.3);
+	transition: fill 0s;
+}
+.dark div.example-resize-handle svg rect
+{
+	fill: rgb(255, 255, 255, 0.3);
+}
+.dark div.example-resize-handle:hover svg rect
+{
+	fill: rgb(255, 255, 255, 0.4);
 }
 
 div.code

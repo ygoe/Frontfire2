@@ -39,7 +39,7 @@ The following is the content of the archive. All files in readable and minified 
 | Frontfire UI Minimal  | frontfire-ui-minimal.bundle.js<br>frontfire-ui-minimal.min.js (16 KiB) | frontfire-ui-minimal-singlefile.bundle.js<br>frontfire-ui-minimal-singlefile.min.js (28 KiB) |
 | Color                 | color.js<br>color.min.js (2.6 KiB) | – |
 | DataColor             | datacolor.js<br>datacolor.min.js (1.2 KiB) | – |
-| Frontfire UI Complete | frontfire-ui-complete.bundle.js<br>frontfire-ui-complete.min.js (35 KiB) | frontfire-ui-complete-singlefile.bundle.js<br>frontfire-ui-complete-singlefile.min.js (50 KiB) |
+| Frontfire UI Complete | frontfire-ui-complete.bundle.js<br>frontfire-ui-complete.min.js (36 KiB) | frontfire-ui-complete-singlefile.bundle.js<br>frontfire-ui-complete-singlefile.min.js (51 KiB) |
 
 
 ### CSS files
@@ -135,7 +135,7 @@ Features
 | Carousel | Shows one out of several panels that slide and animate horizontally | | | 🚧 |
 | Slider | A range value picker with stops and multiple handles | | | ✔️ |
 | TimePicker | A formatted date and time picker with calendar and clock | | | ✔️ |
-| Gallery | Scales multiple images to fill each row | | | 🚧 |
+| Gallery | Scales multiple images to fill each row | | | ✔️ |
 | Wheel-scrolling | Custom mouse wheel scrolling | | | 📕 |
 
 ✔️ Included in the bundle<br>

@@ -1,0 +1,71 @@
+.ff-gallery
+{
+	> *
+	{
+		display: none;   // Initially hidden, will be put where it's visible when loaded
+	}
+
+	> .ff-gallery-row
+	{
+		display: flex;
+		justify-content: space-between;
+		&.incomplete
+		{
+			justify-content: flex-start;
+		}
+
+		img
+		{
+			vertical-align: middle;
+		}
+		a
+		{
+			position: relative;
+
+			span
+			{
+				opacity: 0;
+				display: block;
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				padding: 0.2em 0.5em 0.25em;
+				background: rgb(255, 255, 255, 0.82);
+				color: black;
+				hyphens: auto;
+				font-size: 0.85em;
+				line-height: 130%;
+				text-align: center;
+				transition: opacity var(--animation-duration) var(--animation-function);
+				.dark &
+				{
+					background: rgb(0, 0, 0, 0.6);
+					color: white;
+				}
+			}
+			&:hover span,
+			&:focus span
+			{
+				opacity: 1;
+				transition: opacity 0s;
+			}
+		}
+	}
+
+	&.center > .ff-gallery-row.incomplete
+	{
+		justify-content: center;
+	}
+	&.right > .ff.gallery-row.incomplete
+	{
+		justify-content: flex-end;
+	}
+
+	> .loading-row
+	{
+		display: block;
+		text-align: center;
+		padding-top: 6px;
+	}
+}
