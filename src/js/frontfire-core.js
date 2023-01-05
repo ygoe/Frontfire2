@@ -2218,8 +2218,39 @@
 
 	// Scrolls the first selected element into view in its scrolling parent, if it is not already
 	// fully visible. If the element does not fit in the view height, it is aligned at the top edge.
-	Frontfire_prototype.scrollIntoView = function (margin) {
+	// margin: Vertical margin to keep clear (top and bottom as single number or both values in an array), in pixels. (Optional)
+	// smooth: Indicates whether the scrolling should animate smoothly. (Optional, default: false)
+	// recursive: Indicates whether scrollable parents are also scrolled into view. (Optional, default: false)
+	Frontfire_prototype.scrollIntoView = function (margin, smooth, recursive) {
 		let element = this.first;
+		if (element)
+			scrollElement(element, margin, smooth, recursive, "");
+		return this;   // Support chaining
+	};
+
+	// Scrolls the first selected element to the top of its scrolling parent.
+	// topMargin: Top margin to keep clear, in pixels. (Optional)
+	// smooth: Indicates whether the scrolling should animate smoothly. (Optional, default: false)
+	// recursive: Indicates whether scrollable parents are also scrolled to the top. (Optional, default: false)
+	Frontfire_prototype.scrollToTop = function (topMargin, smooth, recursive) {
+		let element = this.first;
+		if (element)
+			scrollElement(element, topMargin, smooth, recursive, "top");
+		return this;   // Support chaining
+	};
+
+	// Scrolls the first selected element to the bottom of its scrolling parent.
+	// bottomMargin: Bottom margin to keep clear, in pixels. (Optional)
+	// smooth: Indicates whether the scrolling should animate smoothly. (Optional, default: false)
+	// recursive: Indicates whether scrollable parents are also scrolled to the bottom. (Optional, default: false)
+	Frontfire_prototype.scrollToBottom = function (bottomMargin, smooth, recursive) {
+		let element = this.first;
+		if (element)
+			scrollElement(element, bottomMargin, smooth, recursive, "bottom");
+		return this;   // Support chaining
+	};
+
+	function scrollElement(element, margin, smooth, recursive, position) {
 		let scrollable = closestScrollable(element.parentElement ?? element);
 		let top = getRelativeTop(element, scrollable);
 		// getRelativeTop measures from top of the parent border, scrolling starts at bottom of border
@@ -2239,28 +2270,31 @@
 		}
 
 		let newScrollTop = scrollable.scrollTop;
-		if (viewBottom < bottom)
-			newScrollTop = bottom - scrollable.clientHeight;
-		if (viewTop > top)
-			newScrollTop = top;
+		switch (position) {
+			case "top":
+				newScrollTop = top;
+				break;
+			case "bottom":
+				newScrollTop = bottom - scrollable.clientHeight;
+				break;
+			default:
+				if (viewBottom < bottom)
+					newScrollTop = bottom - scrollable.clientHeight;
+				if (viewTop > top)
+					newScrollTop = top;
+				break;
+		}
 		if (newScrollTop !== scrollable.scrollTop)
-			scrollable.scrollTop = newScrollTop;
-		return this;   // Support chaining
-	};
-
-	// Immediately scrolls the page so that the first selected element is at the top.
-	// offset: The vertical offset to scroll the element to.
-	// smooth: Indicates whether the scrolling should animate smoothly. (Optional, default: false)
-	// TODO: Scroll the closest scrolling parent, not just the entire page
-	Frontfire_prototype.scrollToTop = function (offset, smooth) {
-		if (this.length) {
-			document.documentElement.scrollTo({
-				top: this.array[0].getBoundingClientRect().top + window.scrollY - (offset || 0),
+			scrollable.scrollTo({
+				top: newScrollTop,
 				behavior: smooth ? "smooth" : "auto"
 			});
+
+		if (recursive && scrollable !== document.documentElement) {
+			//scrollable.F.scrollIntoView(margin, recursive);
+			scrollElement(scrollable, margin, smooth, recursive, position);
 		}
-		return this;   // Support chaining
-	};
+	}
 
 	function isScrollable(element) {
 		let hasScrollableContent = element.scrollHeight > element.clientHeight;

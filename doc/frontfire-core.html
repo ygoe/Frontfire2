@@ -2204,7 +2204,7 @@ nodesF.style({
 					Determines whether the first selected element is fully visible in its scrolling parent.
 				</p>
 				<p class="see-also">
-					See also: <a href="#closestScrollable">Frontfire.closestScrollable()</a>, <a href="#scrollIntoView">Frontfire.scrollIntoView()</a>
+					See also: <a href="#closestScrollable">Frontfire.closestScrollable()</a>, <a href="#scrollIntoView">Frontfire.scrollIntoView()</a>, <a href="#scrollToTop">Frontfire.scrollToTop()</a>, <a href="#scrollToBottom">Frontfire.scrollToBottom()</a>
 				</p>
 			</div>
 
@@ -2213,15 +2213,40 @@ nodesF.style({
 				<ul>
 					<li><code>scrollIntoView()</code> → this</li>
 					<li><code>scrollIntoView(margin)</code> → this</li>
+					<li><code>scrollIntoView(margin, smooth)</code> → this</li>
+					<li><code>scrollIntoView(margin, smooth, recursive)</code> → this</li>
 					<li><code>scrollIntoView([marginTop, marginBottom])</code> → this</li>
+					<li><code>scrollIntoView([marginTop, marginBottom], smooth)</code> → this</li>
+					<li><code>scrollIntoView([marginTop, marginBottom], smooth, recursive)</code> → this</li>
 				</ul>
 				<p>
 					Scrolls the first selected element into view in its scrolling parent, if it is not already fully visible.
 					If the element does not fit in the view height, it is aligned at the top edge.
 					If a margin is specified, the parent is scrolled further to keep the margin around the element visible.
+					If the smooth parameter is true, the scrolling animates smoothly instead of an instant scroll.
+					If the recursive parameter is set to true, parent scroll containers are also brought into view of their respective parents, up to the window.
 				</p>
 				<p class="see-also">
-					See also: <a href="#isScrollVisible">Frontfire.isScrollVisible()</a>
+					See also: <a href="#scrollToTop">Frontfire.scrollToTop()</a>, <a href="#scrollToBottom">Frontfire.scrollToBottom()</a>, <a href="#isScrollVisible">Frontfire.isScrollVisible()</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="scrollToBottom">scrollToBottom</h3>
+				<ul>
+					<li><code>scrollToBottom()</code> → this</li>
+					<li><code>scrollToBottom(bottomMargin)</code> → this</li>
+					<li><code>scrollToBottom(bottomMargin, smooth)</code> → this</li>
+					<li><code>scrollToBottom(bottomMargin, smooth, recursive)</code> → this</li>
+				</ul>
+				<p>
+					Scrolls the first selected element to the bottom of its scrolling parent.
+					If a margin is specified, the parent is scrolled further to keep the margin below the element visible.
+					If the smooth parameter is true, the scrolling animates smoothly instead of an instant scroll.
+					If the recursive parameter is set to true, parent scroll containers are also brought to the bottom of their respective parents, up to the window.
+				</p>
+				<p class="see-also">
+					See also: <a href="#scrollToTop">Frontfire.scrollToTop()</a>, <a href="#scrollIntoView">Frontfire.scrollIntoView()</a>, <a href="#isScrollVisible">Frontfire.isScrollVisible()</a>
 				</p>
 			</div>
 
@@ -2229,13 +2254,18 @@ nodesF.style({
 				<h3 id="scrollToTop">scrollToTop</h3>
 				<ul>
 					<li><code>scrollToTop()</code> → this</li>
-					<li><code>scrollToTop(offset)</code> → this</li>
-					<li><code>scrollToTop(offset, smooth)</code> → this</li>
+					<li><code>scrollToTop(topMargin)</code> → this</li>
+					<li><code>scrollToTop(topMargin, smooth)</code> → this</li>
+					<li><code>scrollToTop(topMargin, smooth, recursive)</code> → this</li>
 				</ul>
 				<p>
-					Scrolls the page so that the first selected element is at the top.
-					The offset specifies the vertical offset in pixels to scroll the element to, instead of the top of the viewport.
+					Scrolls the first selected element to the top of its scrolling parent.
+					If a margin is specified, the parent is scrolled further to keep the margin above the element visible.
 					If the smooth parameter is true, the scrolling animates smoothly instead of an instant scroll.
+					If the recursive parameter is set to true, parent scroll containers are also brought to the top of their respective parents, up to the window.
+				</p>
+				<p class="see-also">
+					See also: <a href="#scrollToBottom">Frontfire.scrollToBottom()</a>, <a href="#scrollIntoView">Frontfire.scrollIntoView()</a>, <a href="#isScrollVisible">Frontfire.isScrollVisible()</a>
 				</p>
 			</div>
 		</section>
