@@ -85,7 +85,7 @@
 			Normally, a table will only use the width it needs for its content.
 			But for consistency with multiple tables on the same page, or when displaying a long list of data, it could look nicer to always let the table use the full page width.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(full-width)">
+		<div class="example p no-frontfire" data-source-highlight='(?<="| )(full-width)'>
 			<table class="full-width">
 				<thead>
 					<tr>
@@ -119,7 +119,7 @@
 			All table content can be centered with the <code class="css-class">center</code> class applied to the table.
 			Individual cells can be aligned differently by applying the <code class="css-class">left</code>, <code class="css-class">center</code> and <code class="css-class">right</code> classes to each <code data-lang="html">&lt;th&gt;</code> or <code data-lang="html">&lt;td&gt;</code> element (shown in the last row).
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(no-border|no-vgrid|center|left|right)">
+		<div class="example p no-frontfire" data-source-highlight='(?<="| )(no-border|no-vgrid|center|left|right)'>
 			<table class="no-border no-vgrid center">
 				<thead>
 					<tr>
@@ -157,7 +157,7 @@
 			This is most useful in combination with <code class="css-class">no-border</code> (as shown here) and without any cell background colours.
 			It aligns the table content exactly with the surrounding text.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(no-outer-padding|no-border)">
+		<div class="example p no-frontfire" data-source-highlight='(?<="| )(no-outer-padding|no-border)'>
 			<table class="no-outer-padding no-border">
 				<tbody>
 					<tr>
@@ -184,7 +184,7 @@
 			Tables can be made more compact with the <code class="css-class">compact</code> CSS class.
 			This reduces the cell padding and removes the inner grid lines.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)(compact)">
+		<div class="example p no-frontfire" data-source-highlight='(?<=")(compact)'>
 			<table class="compact">
 				<thead>
 					<tr>
@@ -213,7 +213,7 @@
 			It is probably advisable not to use a table header (<code data-lang="html">&lt;th&gt;</code>) with this.
 			You could still place elements with their own custom padding in each table cell.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(no-border|no-grid|no-padding)">
+		<div class="example p no-frontfire" data-source-highlight='(?<="| )(no-border|no-grid|no-padding)'>
 			<table class="no-border no-grid no-padding">
 				<thead>
 					<tr>
@@ -243,7 +243,7 @@
 			Hyperlinks in a table cell that only have the size of the text content can be a bit small to click or touch, and it might seem unintuitive to have a smaller touch area than the visual box of the table cell.
 			For this reason, links in a table can be enlarged to fill their entire cell, by adding the <code class="css-class">big-links</code> CSS class to the table.
 		</p>
-		<div id="big-links-example" class="example p no-frontfire" data-source-highlight="(?<=&quot;)(big-links)">
+		<div id="big-links-example" class="example p no-frontfire" data-source-highlight='(?<=")(big-links)'>
 			<table class="big-links">
 				<thead>
 					<tr>
@@ -279,7 +279,7 @@
 			If some of the rows contain a button and others do not, the row heights are not regular.
 			To avoid this, and to further increase the touch area of links in a table, add the <code class="css-class">tall-rows</code> CSS class to the table.
 		</p>
-		<div id="tall-rows-example" class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(tall-rows)">
+		<div id="tall-rows-example" class="example p no-frontfire" data-source-highlight='(?<= )tall-rows'>
 			<table class="no-border no-vgrid no-outer-padding tall-rows">
 				<thead>
 					<tr>
@@ -316,7 +316,7 @@
 		<p>
 			Here is another example with <code class="css-class">tall-rows</code> and <code class="css-class">big-links</code> together.
 		</p>
-		<div id="tall-rows-big-links-example" class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(big-links|tall-rows)">
+		<div id="tall-rows-big-links-example" class="example p no-frontfire" data-source-highlight='(?<="| )(big-links|tall-rows)'>
 			<table class="no-border no-vgrid no-outer-padding big-links tall-rows">
 				<thead>
 					<tr>
@@ -377,7 +377,7 @@
 			<p>
 				The following example can be used to interactively set the individual table-level CSS classes and see their effect.
 			</p>
-			<div id="table-class-example" class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(full-width|no-border|no-[vh]?grid|no-(outer-)?padding|compact|big-links|tall-rows|left|center|right|top|bottom)">
+			<div id="table-class-example" class="example p no-frontfire" data-source-highlight='(?<="| )(full-width|no-border|no-[vh]?grid|no-(outer-)?padding|compact|big-links|tall-rows|left|center|right|top|bottom)'>
 				<table class="">
 					<thead>
 						<tr>
@@ -427,7 +427,7 @@
 			So to avoid missing or inconsistent table borders, only use this feature with all borders in the table header disabled.
 			The set of classes shown in the example demonstrate this.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)sticky-header|--sticky-header-top|</?thead>">
+		<div class="example p no-frontfire" data-source-highlight='(?<=")sticky-header|--sticky-header-top|</?thead>'>
 			<table class="sticky-header no-border no-vgrid no-outer-padding" style="--sticky-header-top: var(--fixed-header-height);">
 				<thead>
 					<tr>
@@ -469,7 +469,7 @@
 			Text can also be rotated to be vertical by placing it in a <code data-lang="html">&lt;span&gt;</code> element with the <code class="css-class">vertical</code> class.
 			This is especially useful for table headers with narrow columns.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(vertical)">
+		<div class="example p no-frontfire" data-source-highlight='(?<="| )(vertical)'>
 			<table>
 				<thead>
 					<tr>
@@ -537,7 +537,7 @@
 			The example source code already includes the modifications by these methods and adds the highlighted classes.
 			The style <code data-lang="style-value">display: none;</code> (not highlighted) is set by the checkbox event handlers of the example.
 		</p>
-		<div class="example p no-frontfire" id="dynamic-table-example" data-source-highlight="(?<=&quot;)((first|last|hidden)-(column|row))">
+		<div class="example p no-frontfire" id="dynamic-table-example" data-source-highlight='(?<=")((first|last|hidden)-(column|row))'>
 			<table class="no-border no-outer-padding">
 				<thead>
 					<tr>
@@ -655,7 +655,7 @@
 			The layout is already updated when a “change” or “input” event bubbles through the table.
 			See the descriptions of the plugin methods below.
 		</p>
-		<div class="example resizable p no-frontfire" data-source-highlight="(?<=[&quot; ])(overflow-columns|collapsible-column|overflow-column|overflow-button)|data-collapse-priority">
+		<div class="example resizable p no-frontfire" data-source-highlight='(?<=[" ])(overflow-columns|collapsible-column|overflow-column|overflow-button)|data-collapse-priority'>
 			<table id="overflow-table" class="overflow-columns full-width no-border no-grid no-outer-padding">
 				<thead>
 					<tr>

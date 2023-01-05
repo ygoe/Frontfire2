@@ -57,7 +57,7 @@
 				The function can be specified in the <a href="#options">options</a> or later with the <code>monthFormatter</code> or <code>dayFormatter</code> <a href="#properties">properties</a>.
 				In the example below, all Sundays are marked in red colour.
 			</p>
-			<div class="example no-frontfire" data-source-highlight="(?<=type=&quot;)date(?=&quot;)|timePicker\.dayFormatter">
+			<div class="example no-frontfire" data-source-highlight='(?<=type=")date(?=")|timePicker\.dayFormatter'>
 				<style>
 					.holiday
 					{
@@ -105,7 +105,7 @@
 				The selection can be limited to months instead of full dates with <code data-lang="html">&lt;input type="month"&gt;</code>.
 				The field value is in the ISO 8601 format “YYYY-MM”, e.g. “2022-12”.
 			</p>
-			<div class="example p no-frontfire" data-source-highlight="(?<=type=&quot;)month(?=&quot;)">
+			<div class="example p no-frontfire" data-source-highlight='(?<=type=")month(?=")'>
 				<input type="month" id="month-input"> → <code id="month-value-view"></code>
 				<script>
 					// Wrapping in onReady() because this demo runs before the control is set up, you don't do that
@@ -122,7 +122,7 @@
 				The selection can be limited to weeks instead of full dates with <code data-lang="html">&lt;input type="week"&gt;</code>.
 				The field value is in the ISO 8601 format “YYYY-‘W’WW”, e.g. “2022-W52”.
 			</p>
-			<div class="example p no-frontfire" data-source-highlight="(?<=type=&quot;)week(?=&quot;)">
+			<div class="example p no-frontfire" data-source-highlight='(?<=type=")week(?=")'>
 				<input type="week" id="week-input"> → <code id="week-value-view"></code>
 				<script>
 					// Wrapping in onReady() because this demo runs before the control is set up, you don't do that
@@ -150,7 +150,7 @@
 			The basic time selection is used with <code data-lang="html">&lt;input type="time"&gt;</code> and allows the selection of a time of day, with hours and minutes.
 			The field value is in the ISO 8601 format “hh:mm”, e.g. “21:42”.
 		</p>
-		<div class="example no-frontfire" data-source-highlight="(?<=type=&quot;)time(?=&quot;)">
+		<div class="example no-frontfire" data-source-highlight='(?<=type=")time(?=")'>
 			<p>
 				<input type="time" id="time-input"> → <code id="time-value-view"></code>
 			</p>
@@ -216,7 +216,7 @@
 			This does not support time zones and can only represent a local timestamp (not UTC).
 			The field value is in the ISO 8601 format “YYYY-MM-DD‘T’hh:mm”, e.g. “2019-09-30T21:42”.
 		</p>
-		<div class="example no-frontfire" data-source-highlight="(?<=type=&quot;)datetime-local(?=&quot;)">
+		<div class="example no-frontfire" data-source-highlight='(?<=type=")datetime-local(?=")'>
 			<p>
 				<input type="datetime-local" id="datetime-input"> → <code id="datetime-value-view"></code>
 			</p>

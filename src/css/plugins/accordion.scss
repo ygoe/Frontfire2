@@ -30,7 +30,7 @@
 		--accordion-header-background,
 		hsl(var(--accordion-header-background-h), var(--accordion-header-background-s), var(--accordion-header-background-l)));
 	color: var(--accordion-header-color, var(--default-text-color));
-	padding: 5px 9px;   // see button
+	padding: 5px 9px 5px 24px;   // see button, space for icon
 	margin: 1px 0;
 	position: relative;
 	transition: background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
@@ -71,142 +71,56 @@
 		}
 	}
 
+	.no-icons > div > &
+	{
+		padding-left: 9px;   // see button and above (as right padding)
+		&::before
+		{
+			display: none;
+		}
+	}
+	.no-icons.no-background > div > &
+	{
+		padding-left: 0;
+	}
+
 	.no-background > div > &
 	{
 		background-color: transparent;
+		padding-left: 17px;
+		padding-right: 0;
 		&:hover,
 		&:active
 		{
 			background-color: transparent;
 		}
+		&::before
+		{
+			left: 0;
+		}
 	}
-}
 
-// ----- Plus/minus icons -----
-
-.ff-accordion.plusminus > div > .ff-accordion-header
-{
-	padding-left: 28px;
-}
-.ff-accordion.plusminus-right > div > .ff-accordion-header
-{
-	padding-right: 28px;
-}
-
-.ff-accordion.plusminus > div > .ff-accordion-header::after,
-.ff-accordion.plusminus-right > div > .ff-accordion-header::after
-{
-	position: absolute;
-	display: block;
-	top: 5px;
-	content: '+';
-	font-size: 1.2em;
-	line-height: 110%;
-	font-weight: bold;
-}
-.ff-accordion.plusminus > div > .ff-accordion-header::after
-{
-	left: 9px;
-}
-.ff-accordion.plusminus-right > div > .ff-accordion-header::after
-{
-	right: 9px;
-}
-
-.ff-accordion.plusminus > div.expanded > .ff-accordion-header::after,
-.ff-accordion.plusminus-right > div.expanded > .ff-accordion-header::after
-{
-	content: '\2212';   // Minus
-}
-
-// ----- Side/down arrow icons -----
-
-.ff-accordion.sidearrows > div > .ff-accordion-header
-{
-	padding-left: 28px;
-}
-.ff-accordion.sidearrows-right > div > .ff-accordion-header
-{
-	padding-right: 28px;
-}
-
-.ff-accordion.sidearrows > div > .ff-accordion-header::after,
-.ff-accordion.sidearrows-right > div > .ff-accordion-header::after
-{
-	position: absolute;
-	display: block;
-	top: 5px;
-	//content: '\25BC';   // Filled triangle downward
-	//font-size: 0.7em;
-	//opacity: 0.4;
-	font-size: 1.6em;
-	line-height: 60%;
-	transform: scaleX(1.2);
-	transform-origin: 50% 80%;
-	transition: transform var(--animation-duration) var(--animation-function);
-}
-.ff-accordion.sidearrows > div > .ff-accordion-header::after
-{
-	left: 9px;
-	//transform: rotate(-90deg);
-	content: '\203A';   // Chevron right
-}
-.ff-accordion.sidearrows-right > div > .ff-accordion-header::after
-{
-	right: 9px;
-	//transform: rotate(90deg);
-	content: '\2039';   // Chevron left
-	transform-origin: 50% 80%;
-}
-
-.ff-accordion.sidearrows > div.expanded > .ff-accordion-header::after,
-.ff-accordion.sidearrows-right > div.expanded > .ff-accordion-header::after
-{
-	//transform: rotate(0deg);
-}
-.ff-accordion.sidearrows > div.expanded > .ff-accordion-header::after
-{
-	transform: rotate(90deg) scaleX(1.2);
-}
-.ff-accordion.sidearrows-right > div.expanded > .ff-accordion-header::after
-{
-	transform: rotate(-90deg) scaleX(1.2);
-}
-
-// ----- Up/down arrow icons -----
-
-.ff-accordion.updownarrows > div > .ff-accordion-header
-{
-	padding-left: 25px;
-}
-.ff-accordion.updownarrows-right > div > .ff-accordion-header
-{
-	padding-right: 25px;
-}
-
-.ff-accordion.updownarrows > div > .ff-accordion-header::after,
-.ff-accordion.updownarrows-right > div > .ff-accordion-header::after
-{
-	position: absolute;
-	display: block;
-	top: 5px;
-	content: '\25BC';   // Filled triangle downward
-	font-size: 0.7em;
-	opacity: 0.4;
-}
-.ff-accordion.updownarrows > div > .ff-accordion-header::after
-{
-	left: 9px;
-}
-.ff-accordion.updownarrows-right > div > .ff-accordion-header::after
-{
-	right: 9px;
-}
-
-.ff-accordion.updownarrows > div.expanded > .ff-accordion-header::after,
-.ff-accordion.updownarrows-right > div.expanded > .ff-accordion-header::after
-{
-	content: '\25B2';   // Filled triangle upward
+	&::before
+	{
+		display: block;
+		content: "";
+		position: absolute;
+		left: 7px;
+		top: calc(50% - 3.5px);
+		width: 6px;
+		height: 6px;
+		border-right: 1px solid var(--accordion-header-color, var(--default-text-color));
+		border-bottom: 1px solid var(--accordion-header-color, var(--default-text-color));
+		transform: rotate(-45deg);
+		transform-origin: 4px 4px;
+		transition: transform var(--animation-duration) var(--animation-function), border-color var(--animation-duration) var(--animation-function);
+		div.expanded > &
+		{
+			border-right: 1px solid var(--accordion-header-expanded-color, var(--default-text-color));
+			border-bottom: 1px solid var(--accordion-header-expanded-color, var(--default-text-color));
+			transform: rotate(45deg);
+		}
+	}
 }
 
 // ========== Content ==========
@@ -223,5 +137,22 @@
 	{
 		transform: scaleY(1);
 		opacity: 1;
+	}
+
+	.indent > &
+	{
+		padding-left: 24px;
+	}
+	.no-icons > .indent > &
+	{
+		padding-left: 9px;
+	}
+	.no-background > .indent > &
+	{
+		padding-left: 17px;
+	}
+	.no-icons.no-background > .indent > &
+	{
+		padding-left: 0;
 	}
 }

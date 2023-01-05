@@ -51,30 +51,31 @@
 				<div>
 					<div>Item 1</div>
 					<div>
-						<p>Section 1 content</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sodales a lacus in congue. Nam ultrices tempus nisl, eget rutrum tellus tincidunt et. Nullam condimentum ligula neque, quis aliquam arcu feugiat at. Fusce sed felis lacus.</p>
 					</div>
 				</div>
 				<div>
 					<div>Item 2</div>
 					<div>
-						<p>Section 2 content</p>
+						<p>Sed placerat condimentum leo ut ultrices. Vivamus sagittis ligula a est pretium elementum. Morbi laoreet tortor sit amet ligula euismod, eget auctor orci auctor. Quisque eu leo vitae ex vehicula fringilla. Morbi vehicula efficitur nulla a pretium.</p>
+						<p>Duis sit amet orci sit amet mi commodo dignissim. Curabitur ac risus ac ipsum tincidunt commodo.</p>
 					</div>
 				</div>
 				<div>
 					<div>Item 3</div>
 					<div>
-						<p>Section 3 content</p>
+						<p>Vivamus dolor libero, placerat sed lacus ut, pellentesque elementum sem.</p>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<h2 id="controls">Controls</h2>
+		<h2 id="controls-events">Controls and events</h2>
 		<p>
 			Sections can be expanded and collapsed by code.
-			The shown <a href="#methods">methods</a> are described below.
+			The shown <a href="#methods">methods</a> and <a href="#events">events</a> are described below.
 		</p>
-		<div class="example p-top no-frontfire" data-source-highlight="accordion\.(expand|collapse)">
+		<div class="example p-top no-frontfire" data-source-highlight="accordion\.(expand|collapse)|itemCollapse|itemExpand|event\.item">
 			<div id="accordion" class="accordion">
 				<div>
 					<div>Item 1</div>
@@ -94,6 +95,9 @@
 				<button id="collapse-all">Collapse all</button>
 				<button id="expand-first">Expand first</button>
 			</div>
+			<p>
+				Last event: <span id="last-event"></span>
+			</p>
 			<script>
 				F("#expand-all").on("click", () => {
 					F("#accordion").accordion.expand();
@@ -103,6 +107,10 @@
 				});
 				F("#expand-first").on("click", () => {
 					F("#accordion").accordion.expand(0);
+				});
+
+				F("#accordion").on("itemCollapse itemExpand", event => {
+					F("#last-event").textContent = event.type + " of " + event.item.firstElementChild.textContent;
 				});
 			</script>
 		</div>
@@ -129,13 +137,12 @@
 			</div>
 		</div>
 
-		<h2 id="icons">Icons</h2>
+		<h2 id="no-icons">No icons</h2>
 		<p>
-			The expanded state can be indicated with different icon sets.
-			These icon sets are specified as CSS class with the accordion element.
+			The <code class="css-class">no-icons</code> CSS class removes the icons from the section headers.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="plusminus">
-			<div class="accordion plusminus">
+		<div class="example p no-frontfire" data-source-highlight="no-icons">
+			<div class="accordion no-icons">
 				<div>
 					<div>Item 1</div>
 					<div>Section 1 content</div>
@@ -144,122 +151,9 @@
 					<div>Item 2</div>
 					<div>Section 2 content</div>
 				</div>
-			</div>
-		</div>
-
-		<p>
-			All defined class names are shown in the following sub-headers.
-		</p>
-		<div class="clearfix">
-			<div style="width: calc(50% - 8px); float: left; margin-bottom: 1em;">
-				<h3>plusminus</h3>
-				<div class="accordion plusminus">
-					<div>
-						<div>Item 1</div>
-						<div>Section 1 content</div>
-					</div>
-					<div>
-						<div>Item 2</div>
-						<div>Section 2 content</div>
-					</div>
-					<div>
-						<div>Item 3</div>
-						<div>Section 3 content</div>
-					</div>
-				</div>
-			</div>
-
-			<div style="width: calc(50% - 8px); float: right; margin-bottom: 1em;">
-				<h3>plusminus-right</h3>
-				<div class="accordion plusminus-right">
-					<div>
-						<div>Item 1</div>
-						<div>Section 1 content</div>
-					</div>
-					<div>
-						<div>Item 2</div>
-						<div>Section 2 content</div>
-					</div>
-					<div>
-						<div>Item 3</div>
-						<div>Section 3 content</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="clearfix">
-			<div style="width: calc(50% - 8px); float: left; margin-bottom: 1em;">
-				<h3>sidearrows</h3>
-				<div class="accordion sidearrows">
-					<div>
-						<div>Item 1</div>
-						<div>Section 1 content</div>
-					</div>
-					<div>
-						<div>Item 2</div>
-						<div>Section 2 content</div>
-					</div>
-					<div>
-						<div>Item 3</div>
-						<div>Section 3 content</div>
-					</div>
-				</div>
-			</div>
-
-			<div style="width: calc(50% - 8px); float: right; margin-bottom: 1em;">
-				<h3>sidearrows-right</h3>
-				<div class="accordion sidearrows-right">
-					<div>
-						<div>Item 1</div>
-						<div>Section 1 content</div>
-					</div>
-					<div>
-						<div>Item 2</div>
-						<div>Section 2 content</div>
-					</div>
-					<div>
-						<div>Item 3</div>
-						<div>Section 3 content</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="clearfix">
-			<div style="width: calc(50% - 8px); float: left; margin-bottom: 1em;">
-				<h3>updownarrows</h3>
-				<div class="accordion updownarrows">
-					<div>
-						<div>Item 1</div>
-						<div>Section 1 content</div>
-					</div>
-					<div>
-						<div>Item 2</div>
-						<div>Section 2 content</div>
-					</div>
-					<div>
-						<div>Item 3</div>
-						<div>Section 3 content</div>
-					</div>
-				</div>
-			</div>
-
-			<div style="width: calc(50% - 8px); float: right; margin-bottom: 1em;">
-				<h3>updownarrows-right</h3>
-				<div class="accordion updownarrows-right">
-					<div>
-						<div>Item 1</div>
-						<div>Section 1 content</div>
-					</div>
-					<div>
-						<div>Item 2</div>
-						<div>Section 2 content</div>
-					</div>
-					<div>
-						<div>Item 3</div>
-						<div>Section 3 content</div>
-					</div>
+				<div class="indent">
+					<div>Item 3 (indented)</div>
+					<div>Section 3 content</div>
 				</div>
 			</div>
 		</div>
@@ -267,10 +161,9 @@
 		<h2 id="no-background">No background</h2>
 		<p>
 			The <code class="css-class">no-background</code> CSS class removes the background colour from the section headers.
-			It should be used together with icons to indicate that this is an interactive element.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="no-background|sidearrows">
-			<div class="accordion no-background sidearrows">
+		<div class="example p no-frontfire" data-source-highlight="no-background">
+			<div class="accordion no-background">
 				<div>
 					<div>Item 1</div>
 					<div>Section 1 content</div>
@@ -279,8 +172,53 @@
 					<div>Item 2</div>
 					<div>Section 2 content</div>
 				</div>
+				<div class="indent">
+					<div>Item 3 (indented)</div>
+					<div>Section 3 content</div>
+				</div>
+			</div>
+		</div>
+		<p>
+			It can, but should not be used together with the <code class="css-class">no-icons</code> class because there will be no more visible hint that this is an interactive element.
+			The following example shows the usability issue.
+			In this case, another highlighting of the section headers should be applied, for example colour.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="no-background|no-icons">
+			<div class="accordion no-background no-icons">
 				<div>
-					<div>Item 3</div>
+					<div>Item 1</div>
+					<div>Section 1 content</div>
+				</div>
+				<div>
+					<div>Item 2</div>
+					<div>Section 2 content</div>
+				</div>
+				<div class="indent">
+					<div>Item 3 (indented, has no effect here)</div>
+					<div>Section 3 content</div>
+				</div>
+			</div>
+		</div>
+
+		<h2 id="indent">Indent content</h2>
+		<p>
+			The <code class="css-class">indent</code> CSS class can be added to an item to indent the content of the section to the same horizontal position as the header.
+			This is especially useful in combination with the <code class="css-class">no-background</code> CSS class where it might not be so obvious where the content begins and ends.
+			It adapts to the combinations of the <code class="css-class">no-background</code> and <code class="css-class">no-icons</code> CSS classes for the accordion element.
+			Examples for these combinations are shown in the previous examples in item 3.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight='(?<=")indent'>
+			<div class="accordion">
+				<div>
+					<div>Item 1</div>
+					<div>Section 1 content</div>
+				</div>
+				<div>
+					<div>Item 2</div>
+					<div>Section 2 content</div>
+				</div>
+				<div class="indent">
+					<div>Item 3 (indented)</div>
 					<div>Section 3 content</div>
 				</div>
 			</div>

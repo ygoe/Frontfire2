@@ -110,7 +110,7 @@
 		<p>
 			The style of text fields and similar form fields can be customised with the <a href="frontfire-ui-variables.html?s=^--textbox-">CSS variables</a> that start with “--textbox-”.
 		</p>
-		<div class="example no-frontfire" data-source-highlight="(?<=&quot;)(form-row|label)">
+		<div class="example no-frontfire" data-source-highlight='(?<=")(form-row|label)'>
 			<div class="form-row">
 				<div class="label">Field label</div>
 				<input type="text">
@@ -126,7 +126,7 @@
 		<p>
 			The style of validation errors can be customised with the <a href="frontfire-ui-variables.html?s=^--validation-error-">CSS variables</a> that start with “--validation-error-”.
 		</p>
-		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(form-row|(field|input)-validation-error)">
+		<div class="example no-frontfire" data-source-highlight='(?<="| )(form-row|(field|input)-validation-error)'>
 			<div class="form-row">
 				<div class="label">Field label</div>
 				<input type="text" class="input-validation-error">
@@ -165,7 +165,7 @@
 			The label text of checkbox fields should be indented so that a wrapped line does not start at the left edge of the checkbox border but aligned with the text of the first line, right after the checkbox.
 			Add the <code class="css-class">indent-checkbox</code> CSS class to the <code data-lang="html">&lt;label&gt;</code> element to indent the text.
 		</p>
-		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(indent-checkbox)">
+		<div class="example no-frontfire" data-source-highlight='(?<="| )(indent-checkbox)'>
 			<div class="form-row">
 				<label class="indent-checkbox">
 					<input type="checkbox">
@@ -199,7 +199,7 @@
 			The class <code class="css-class">no-validation</code> must be used for the row in this case.
 			This reduces the number of elements for a field from 3 to 2.
 		</p>
-		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(no-validation)">
+		<div class="example no-frontfire" data-source-highlight='(?<="| )(no-validation)'>
 			<div class="form-row no-validation">
 				<div class="label">First field label</div>
 				<input type="text">
@@ -215,7 +215,7 @@
 			Now the class <code class="css-class">require-minitab</code> indicates that the form row switches to a single-field layout when the screen width drops below the width of a small tablet.
 			The following classes are available: <code class="css-class">require-minitab</code>, <code class="css-class">require-tablet</code>, <code class="css-class">require-desktop</code>, <code class="css-class">require-wide</code>
 		</p>
-		<div class="example no-frontfire" data-source-highlight="(?<=&quot;| )(require-minitab)">
+		<div class="example no-frontfire" data-source-highlight='(?<="| )(require-minitab)'>
 			<div class="form-row require-minitab">
 				<div class="label">First field label</div>
 				<input type="text" class="input-validation-error">
@@ -325,7 +325,7 @@
 		<p>
 			Text labels can be added in a buttons row with the <code class="css-class">label</code> class that vertically centers the text in the row.
 		</p>
-		<div class="example p-bottom no-frontfire" data-source-highlight="(?<=&quot;| )(buttons)|<hr>|(?<=span class=&quot;)label">
+		<div class="example p-bottom no-frontfire" data-source-highlight='(?<="| )(buttons)|<hr>|(?<=span class=")label'>
 			<div class="form-row">
 				<div class="label">First field label</div>
 				<input type="text">
@@ -405,7 +405,7 @@
 			To avoid that and keep the icon perfectly centred, add the <code class="css-class">icon-only</code> CSS class to the button.
 			(The first icon-only button in the following example lacks this class to demonstrate the issue.)
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)(icon-right|loading)|icon(?=&quot;)| icon-only|(?<=<)(i|svg)">
+		<div class="example p no-frontfire" data-source-highlight='(?<=")(icon-right|loading)|icon(?=")| icon-only|(?<=<)(i|svg)'>
 			<div class="buttons no-top-margin">
 				<button><i class="material">language</i> Language</button>
 				<button>
@@ -436,7 +436,7 @@
 				You can mix <code data-lang="html">&lt;button&gt;</code data-lang="html"> elements with button-styled hyperlinks (<code>&lt;a&gt;</code>) freely.
 				Here the entire buttons container makes a button group:
 			</p>
-			<div id="button-group-example" class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(group)">
+			<div id="button-group-example" class="example p no-frontfire" data-source-highlight='(?<="| )(group)'>
 				<div class="buttons group no-top-margin">
 					<button class="default"><i class="material">check.7</i> OK</button>
 					<button><i class="material">close.7</i> Cancel</button>
@@ -458,7 +458,7 @@
 		<p>
 			Only some of the buttons can be grouped together by using a separate container element with the <code class="css-class">group</code> class among other buttons:
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(group)">
+		<div class="example p no-frontfire" data-source-highlight='(?<="| )(group)'>
 			<div class="buttons no-top-margin">
 				<button class="default"><i class="material">check.7</i> OK</button>
 				<button><i class="material">close.7</i> Cancel</button>
@@ -479,7 +479,7 @@
 			Like <code data-lang="html">&lt;a&gt;</code> links can be styled as buttons, a <code data-lang="html">&lt;button&gt;</code> or <code data-lang="html">&lt;input type="button"&gt;</code> and similar types can also be styled as links by adding the <code class="css-class">link</code> CSS class.
 			They are not quite the same because their text selection and drag behaviour remains unchanged and differs from each other.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)(link)">
+		<div class="example p no-frontfire" data-source-highlight='(?<=")(link)'>
 			<div class="buttons no-top-margin">
 				<button class="link">OK</button>
 				<button class="link">Cancel</button>
@@ -496,7 +496,7 @@
 		<p>
 			The <code>indeterminate</code> state can be set through code, but then the <code>threeState()</code> method must be called again on the checkbox element to update its internal state for correct cycling through the states by the user.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(three-state)">
+		<div class="example p no-frontfire" data-source-highlight='(?<="| )(three-state)'>
 			<label><input type="checkbox" class="three-state"> Order sunny weather</label>
 		</div>
 
@@ -629,19 +629,19 @@
 		<p>
 			The style of the labels can be customised with the CSS variable <code class="css-var">--input-label-background</code>.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(segmented-input|label)">
+		<div class="example p no-frontfire" data-source-highlight='(?<="| )(segmented-input|label)'>
 			<div class="segmented-input">
 				<span class="label">AX-</span>
 				<input type="text" value="12C" style="width: 120px;">
 			</div>
 		</div>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(segmented-input|label)">
+		<div class="example p no-frontfire" data-source-highlight='(?<="| )(segmented-input|label)'>
 			<div class="segmented-input">
 				<span class="label">AX-</span>
 				<input type="number" value="20" min="1" max="999" style="width: 120px;">
 			</div>
 		</div>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(segmented-input|label)">
+		<div class="example p no-frontfire" data-source-highlight='(?<="| )(segmented-input|label)'>
 			<div class="segmented-input">
 				<input type="number" value="20" min="1" max="999" style="width: 120px;">
 				<span class="label">days</span>
@@ -651,7 +651,7 @@
 		<p>
 			The border and background of a label can be removed with the additional <code class="css-class">no-background</code> CSS class.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(no-background)">
+		<div class="example p no-frontfire" data-source-highlight='(?<="| )(no-background)'>
 			<div class="segmented-input">
 				<input type="number" value="20" min="1" max="999" style="width: 120px;">
 				<span class="label no-background">days</span>
@@ -674,7 +674,7 @@
 			To combine multiple buttons with a separator line, put them in a <code data-lang="html">&lt;span class="group"&gt;</code> element like with a <a href="#buttons-group">button group</a>.
 			<code data-lang="html">&lt;button&gt;</code> and <code data-lang="html">&lt;a class="button"&gt;</code> elements can be mixed in the group as usual.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;| )(segmented-input|group)">
+		<div class="example p no-frontfire" data-source-highlight='(?<="| )(segmented-input|group)'>
 			<div class="segmented-input">
 				<input type="text" style="width: 120px;">
 				<span class="group">
@@ -732,7 +732,7 @@
 			<p>
 				The style of the active state buttons can be customised with the <a href="frontfire-ui-variables.html?s=^--button-active-">CSS variables</a> that start with “--button-active-”.
 			</p>
-			<div id="toggle-button-example" class="example p no-frontfire" data-source-highlight="checkbox|toggle-button(?=&quot;)|toggleButton">
+			<div id="toggle-button-example" class="example p no-frontfire" data-source-highlight='checkbox|toggle-button(?=")|toggleButton'>
 				<label><input type="checkbox" class="toggle-button"> Press me</label>
 				<label><input type="checkbox" id="toggle-button2"> Press me</label>
 				<script>
@@ -795,7 +795,7 @@
 			Add the <code class="css-class">repeat-button</code> CSS class to a button element, or call the <a href="frontfire-core.html#repeatButton"><code>repeatButton()</code></a> plugin method on it, to enable the feature.
 			It then triggers a <code>repeatclick</code> repeatedly, starting slowly and turning faster by the time, until a minimum interval is reached.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="repeat-button(?=&quot;)|repeatclick">
+		<div class="example p no-frontfire" data-source-highlight='repeat-button(?=")|repeatclick'>
 			<button id="repeat-button1" class="repeat-button">Press me long</button> <span id="repeat-info">0</span>
 			<script>
 				let repeatCounter = 0;
@@ -1006,7 +1006,7 @@
 			This can be triggered with the update() plugin method.
 			See the descriptions of the plugin methods below.
 		</p>
-		<div class="example resizable p no-frontfire" data-source-highlight="(?<=[&quot; ])(overflow-buttons|narrow-only)">
+		<div class="example resizable p no-frontfire" data-source-highlight='(?<=[" ])(overflow-buttons|narrow-only)'>
 			<div class="buttons overflow-buttons no-top-margin">
 				<button class="default"><i class="material">check.7</i> OK</button>
 				<button class="caution"><i class="material">delete.fill</i> Delete</button>

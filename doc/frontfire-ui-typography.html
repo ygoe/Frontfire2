@@ -66,7 +66,7 @@
 			Similarly, the <code class="css-class">no-bottom-margin</code> class can be added to an element like <code data-lang="html">&lt;p&gt;</code> that would normally have such a margin.
 			The combination of both is the <code class="css-class">no-vertical-margin</code> class.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)(no-(top|bottom)-margin)">
+		<div class="example p no-frontfire" data-source-highlight='(?<=")(no-(top|bottom)-margin)'>
 			<div style="border: solid 1px green; padding: 8px 10px;">
 				<h2 class="no-top-margin">Header</h2>
 				<p>Sample text</p>
@@ -91,7 +91,7 @@
 			In very narrow paragraphs and without hyphenation, this can easily lead to highly noticeable inconsistencies in word distance.
 			So use it with care or avoid it entirely.
 		</p>
-		<div class="example narrow no-frontfire" data-source-highlight="(?<=&quot;)(right|center|justify)">
+		<div class="example narrow no-frontfire" data-source-highlight='(?<=")(right|center|justify)'>
 			<p>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius orci eu mi tincidunt ullamcorper. Donec pulvinar massa eu purus vehicula, non pharetra odio facilisis. Donec viverra at neque sed ornare. Ut lobortis nisl eu tristique viverra.
 			</p>
@@ -110,7 +110,7 @@
 		<p>
 			<code data-lang="html">&lt;div&gt;</code> and <code data-lang="html">&lt;table&gt;</code> elements can be given the same vertical margin as <code data-lang="html">&lt;p&gt;</code> by adding the <code class="css-class">p</code> class to them.
 		</p>
-		<div class="example no-frontfire" data-source-highlight="(?<=&quot;)p">
+		<div class="example no-frontfire" data-source-highlight='(?<=")p'>
 			<div class="p">Sample text</div>
 			<div class="p">Sample text</div>
 			<div class="p">Sample text</div>
@@ -119,7 +119,7 @@
 		<p>
 			The vertical margin of <code data-lang="html">&lt;p&gt;</code>, <code data-lang="html">&lt;div class="p"&gt;</code>, <code data-lang="html">&lt;table class="p"&gt;</code> and <code data-lang="html">&lt;hr&gt;</code> elements can be doubled by adding the <code class="css-class">double-margin</code> class to them.
 		</p>
-		<div class="example no-frontfire" data-source-highlight="(?<=&quot;)double-margin">
+		<div class="example no-frontfire" data-source-highlight='(?<=")double-margin'>
 			<p>Sample text</p>
 			<p class="double-margin">Sample text with more space around it</p>
 			<p>Sample text</p>
@@ -129,7 +129,7 @@
 		<p>
 			Any text can be made a bit smaller or larger than the default with the <code class="css-class">smaller</code> and <code class="css-class">larger</code> classes, respectively.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="(?<=&quot;)(larger|smaller)">
+		<div class="example p no-frontfire" data-source-highlight='(?<=")(larger|smaller)'>
 			Sample text with <span class="smaller">smaller parts</span> and <span class="larger">larger parts</span>.
 		</div>
 
@@ -155,7 +155,7 @@
 				<div><label class="indent-checkbox"><input type="checkbox" id="disable-links"> Disable links</label></div>
 			</div>
 
-			<div id="link-example" class="example p no-frontfire" data-source-highlight="(?<=<)a|disabled" data-find=" data-ff-disabled-href=&quot;#&quot;" data-replace="">
+			<div id="link-example" class="example p no-frontfire" data-source-highlight="(?<=<)a|disabled" data-find=' data-ff-disabled-href="#"' data-replace="">
 				<a href="#">Click here to get nowhere</a>
 			</div>
 		</div>
@@ -183,7 +183,7 @@
 		<p>
 			Separators with the <code data-lang="html">&lt;hr&gt;</code> element can be used to visually separate content with a horizontal line instead of whitespace.
 		</p>
-		<div class="example no-frontfire" data-source-highlight="(?<=<)hr">
+		<div class="example no-frontfire" data-source-highlight="<hr>">
 			<p>Sample text</p>
 			<hr>
 			<p>Sample text</p>
@@ -234,7 +234,7 @@
 		<p>
 			Use the <code data-lang="html">&lt;kbd&gt;</code> element to style labels as keys on the computer’s keyboard.
 		</p>
-		<div class="example p-top no-frontfire" data-source-highlight="(?<=<)(code|tt|kbd)|(?<=&quot;)code">
+		<div class="example p-top no-frontfire" data-source-highlight='(?<=<)(code|tt|kbd)|(?<=")code'>
 			<div class="code">
 				void main()<br>
 				{<br>
@@ -259,7 +259,7 @@
 			There are several CSS classes available for <a href="frontfire-ui-image.html#float">aligning images</a>.
 			In this example, the alignment is shown with inline CSS for better understanding.
 		</p>
-		<div class="example no-frontfire" data-source-highlight="(?<=&quot;)clearfix|float: left;">
+		<div class="example no-frontfire" data-source-highlight='(?<=")clearfix|float: left;'>
 			<p>
 				Sample text
 			</p>
@@ -295,7 +295,7 @@
 			<label><input type="checkbox" id="sticky-aside-left"> Move side column to the left</label><br>
 			<label><input type="checkbox" id="sticky-aside-width"> Change side column width</label>
 		</p>
-		<div class="example no-frontfire sticky-aside-example" data-source-highlight="(?<=&quot;)(sticky-aside(-container)?)|aside-left">
+		<div class="example no-frontfire sticky-aside-example" data-source-highlight='(?<=")(sticky-aside(-container)?)|aside-left'>
 			<div class="sticky-aside-container">
 				<div class="sticky-aside">
 					<strong>I have my own column and remain visible next to the content when scrolling.</strong>
@@ -343,7 +343,7 @@
 			<li><code class="css-class">slow</code>, <code class="css-class">fast</code>: Let the animation run slower or faster.</li>
 			<li><code class="css-class">reverse</code>: Let the animation run in the reverse direction.</li>
 		</ul>
-		<div class="example p-bottom no-frontfire" data-source-highlight="(?<=&quot;| )(loading|middle|small|medium|large|thick|thin|fast|slow|reverse|icon-label)">
+		<div class="example p-bottom no-frontfire" data-source-highlight='(?<="| )(loading|middle|small|medium|large|thick|thin|fast|slow|reverse|icon-label)'>
 			<p>
 				<i class="loading middle small"></i> Small &nbsp;
 				<i class="loading middle medium"></i> Medium &nbsp;

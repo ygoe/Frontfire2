@@ -66,7 +66,10 @@ function accordion(options) {
 				});
 			}
 			else {
+				content.style.transition = "none";
 				accordion.F.accordion.collapse(item);
+				F.forceReflow();
+				content.style.transition = "";
 			}
 		});
 	});
@@ -90,7 +93,7 @@ function collapse(indexOrItem) {
 		let content = item.querySelector("div." + accordionContentClass);
 		if (!content.classList.contains("ff-fixed-height")) {
 			content.style.height = content.scrollHeight + "px";   // explicitly set to current value
-			F.forceReflow();   // TODO: avoid this
+			F.forceReflow();
 			content.style.height = "0";   // now animate to 0
 			content.classList.add("ff-fixed-height");
 			item.classList.remove("expanded");
