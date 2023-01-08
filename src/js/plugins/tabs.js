@@ -394,7 +394,6 @@ function templateTabs(options) {
 			opt.init(tabPage, record, tabs);
 		}
 		else if (opt.init === undefined) {
-			window.$ && $(tabPage)?.frontfire();   // TODO: Remove FF1 compatibility later
 			tabPage.F.autostart();
 		}
 		return tabPage;

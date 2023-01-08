@@ -311,7 +311,6 @@ function templateRows(options) {
 			opt.init(row, record, table);
 		}
 		else if (opt.init === undefined) {
-			window.$ && $(row)?.frontfire();   // TODO: Remove FF1 compatibility later
 			row.F.autostart();
 		}
 	}
