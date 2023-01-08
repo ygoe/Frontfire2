@@ -42,6 +42,7 @@ import "./plugins/table";
 
 // Import all modules of the complete profile
 import "./plugins/accordion";
+import "./plugins/carousel";
 import "./plugins/colorpicker";
 import "./plugins/gallery";
 import "./plugins/progressbar";
@@ -53,7 +54,6 @@ import "./plugins/treeview";
 import "./plugins/wheelscrolling";
 
 // TODO: Convert and add the following groups of Frontfire 1 modules, with accompanying CSS:
-//import "./plugins/carousel";
 //import "./plugins/resizable";
 
 F.runAutostart();

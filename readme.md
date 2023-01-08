@@ -39,7 +39,7 @@ The following is the content of the archive. All files in readable and minified 
 | Frontfire UI Minimal  | frontfire-ui-minimal.bundle.js<br>frontfire-ui-minimal.min.js (16 KiB) | frontfire-ui-minimal-singlefile.bundle.js<br>frontfire-ui-minimal-singlefile.min.js (28 KiB) |
 | Color                 | color.js<br>color.min.js (2.6 KiB) | – |
 | DataColor             | datacolor.js<br>datacolor.min.js (1.2 KiB) | – |
-| Frontfire UI Complete | frontfire-ui-complete.bundle.js<br>frontfire-ui-complete.min.js (36 KiB) | frontfire-ui-complete-singlefile.bundle.js<br>frontfire-ui-complete-singlefile.min.js (51 KiB) |
+| Frontfire UI Complete | frontfire-ui-complete.bundle.js<br>frontfire-ui-complete.min.js (38 KiB) | frontfire-ui-complete-singlefile.bundle.js<br>frontfire-ui-complete-singlefile.min.js (54 KiB) |
 
 
 ### CSS files
@@ -107,35 +107,35 @@ Features
 | Feature | Description | Core | UI Minimal | UI Complete |
 |---------|-------------|:----:|:----------:|:-----------:|
 | ArrayList | A comfortable array collection | ✔️️ | ✔️️ | ✔️️ |
+| Browser | Browser identification and information | ✔️ | ✔️ | ✔️ |
 | DOM | Easy DOM access on a low level | ✔️ | ✔️ | ✔️️ |
 | Events | Easy event handling | ✔️️ | ✔️️ | ✔️ |
 | Forms | Easy form data handling and validation | 🚧 | 🚧 | 🚧 |
-| Network | Fetch HTTP JSON resources | ✔️ | ✔️ | ✔️ |
-| Browser | Browser identification and information | ✔️ | ✔️ | ✔️ |
-| Table | Designs last visible table column/row | | ✔️ | ✔️ |
+| Network | Fetch HTTP JSON/text resources (AJAX) | ✔️ | ✔️ | ✔️ |
 | Dimmer | Dimmed page background for modals | | ✔️ | ✔️ |
+| Draggable | Supports primitive drag interactions on elements | | ✔️ | ✔️ |
+| Dropdown | A panel that opens besides an element | | ✔️ | ✔️ |
+| Input | Enhances several form input elements (RepeatButton, Spinner, ToggleButton, CheckBox, auto-height textarea, submit lock) | | ✔️ | ✔️ |
+| Menu | A menu bar with dropdown submenus | | ✔️ | ✔️ |
 | Message | Closable inline messages | | ✔️ | ✔️ |
+| Modal | A modal panel that overlays the page | | ✔️ | ✔️ |
 | Notification | Short pop-up notifications | | ✔️ | ✔️ |
 | OffCanvas | A panel that opens from the side of the page | | 📕 | 📕 |
-| Modal | A modal panel that overlays the page | | ✔️ | ✔️ |
-| Input | Enhances several form input elements (RepeatButton, Spinner, ToggleButton, CheckBox, auto-height textarea, submit lock) | | ✔️ | ✔️ |
-| Dropdown | A panel that opens besides an element | | ✔️ | ✔️ |
-| Menu | A menu bar with dropdown submenus | | ✔️ | ✔️ |
-| Selectable | Enhanced list boxes and dropdown select boxes | | ✔️ | ✔️ |
-| Draggable | Supports primitive drag interactions on elements | | ✔️ | ✔️ |
 | Resizable | Supports primitive resize interactions on elements | | 🚧 | 🚧 |
+| Selectable | Enhanced list boxes and dropdown select boxes | | ✔️ | ✔️ |
 | Sortable | Supports primitive reorder interactions on the children of an element | | ✔️ | ✔️ |
+| Table | Designs last visible table column/row | | ✔️ | ✔️ |
 | Color | Colour conversion, computation and palette | ➕ | ➕ | ✔️ |
+| Accordion | Shows one out of several panels, selectable through accordion headers | | | ✔️ |
+| Carousel | Shows one out of several panels that slide and animate horizontally | | | ✔️ |
+| ColorPicker | A comprehensive color picker with form input | | | ✔️ |
+| Gallery | Scales multiple images to fill each row | | | ✔️ |
+| ProgressBar | A progress bar with a text indicator | | | ✔️ |
+| Slider | A range value picker with stops and multiple handles | | | ✔️ |
+| Tabs | Shows one out of several panels, selectable through tab headers | | | ✔️ |
+| TimePicker | A formatted date and time picker with calendar and clock | | | ✔️ |
 | ToggleSwitch | A simple and nice toggle switch | | | 📕 |
 | TreeView | A tree view for arbitrary data | | | 📕 |
-| ColorPicker | A comprehensive color picker with form input | | | ✔️ |
-| Tabs | Shows one out of several panels, selectable through tab headers | | | ✔️ |
-| ProgressBar | A progress bar with a text indicator | | | ✔️ |
-| Accordion | Shows one out of several panels, selectable through accordion headers | | | ✔️ |
-| Carousel | Shows one out of several panels that slide and animate horizontally | | | 🚧 |
-| Slider | A range value picker with stops and multiple handles | | | ✔️ |
-| TimePicker | A formatted date and time picker with calendar and clock | | | ✔️ |
-| Gallery | Scales multiple images to fill each row | | | ✔️ |
 | Wheel-scrolling | Custom mouse wheel scrolling | | | 📕 |
 
 ✔️ Included in the bundle<br>

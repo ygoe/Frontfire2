@@ -9,7 +9,8 @@
 	--header-height: 56px;   /* logo height + vertical padding */
 	--fixed-header-height: var(--header-height);
 	--sticky-aside-top: calc(var(--fixed-header-height) + 1rem);
-	--aside-width: 220px;
+	/* aside becomes visible only over 800px width; let aside be 220px wide then, increasing with more screen width */
+	--aside-width: calc(172px + 6vw);
 	--notification-top-base: var(--header-height);
 	--notification-z-index: 9;   /* stay below fixed header */
 }

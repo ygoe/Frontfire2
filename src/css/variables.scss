@@ -249,6 +249,12 @@ $viewportWidthDesktop: 1200px;
 	--accordion-header-expanded-pressed-lf: -0.15;
 
 
+	// ========== Carousel ==========
+
+	--carousel-indicator-background: rgb(0, 0, 0, 0.1);
+	--carousel-indicator-active-background: rgb(0, 0, 0, 0.3);
+
+
 	// ========== Images ==========
 
 	--image-caption-color: #666666;
@@ -459,6 +465,12 @@ $viewportWidthDesktop: 1200px;
 	--accordion-header-expanded-pressed-lf: 0.18;
 
 
+	// ========== Carousel ==========
+
+	--carousel-indicator-background: rgb(255, 255, 255, 0.15);
+	--carousel-indicator-active-background: rgb(255, 255, 255, 0.5);
+
+
 	// ========== Images ==========
 
 	--image-caption-color: #888888;
@@ -512,4 +524,13 @@ $viewportWidthDesktop: 1200px;
 
 	--toggle-switch-unset-l: 57%;
 	--toggle-switch-set-l: 75%;
+}
+
+// Revert some colors for the light theme.
+.not-dark
+{
+	// ========== Carousel ==========
+
+	--carousel-indicator-background: rgb(0, 0, 0, 0.1);
+	--carousel-indicator-active-background: rgb(0, 0, 0, 0.3);
 }

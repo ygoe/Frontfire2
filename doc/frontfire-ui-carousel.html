@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Carousel documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Carousel plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.3</span>
+		</div>
+		<p>
+			Frontfire UI provides a layout of multiple items that are arranged horizontally and can be scrolled through by swipe gestures.
+			This can be used for large banners or a collection of photos.
+		</p>
+		<p>
+			This plugin is only available in the Complete bundle.
+		</p>
+		<p>
+			This plugin depends on the plugins: <a href="frontfire-ui-draggable.html">draggable</a>
+		</p>
+
+		<h2 id="description">Description</h2>
+		<p>
+			A carousel is defined with the <code class="css-class">carousel</code> CSS class, or by calling the <a href="frontfire-core.html#carousel"><code>carousel()</code></a> plugin method on an element.
+			The carousel pages are added as <code>&lt;div&gt;</code> child elements.
+			Items can have arbitrary content and will be arranged to the full width of the carousel so that only a single item is visible, unless multiple items shall be visible.
+		</p>
+		<p>
+			Below the visible item there is a page indicator that tells the user which is the currently visible page and how many pages there are.
+			The pages can be switched by dragging them to the left or right with any pointing device (mouse, touch, stylus) or by clicking on an indicator item.
+		</p>
+		<p>
+			The colours of the page indicator can be customised with the <a href="frontfire-ui-variables.html?s=@carousel">CSS variables</a> that start with “--carousel-”.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight='(?<=")carousel'>
+			<!-- NOTE: This CSS is also used for the other examples on this page. -->
+			<style>
+				/* Make the items a good size despite their short sample content */
+				/* (A separate class is used for the items because the element structure is changed) */
+				.carousel .item
+				{
+					padding: 80px 20px 20px;
+					background-position: 50% 50%;
+					background-size: cover;
+					font-size: 2em;
+					font-weight: 300;
+				}
+				/* Make text over an image readable */
+				.carousel .item > span
+				{
+					padding: 0 8px;
+					background-color: #303030;
+					color: white;
+				}
+			</style>
+			<div class="carousel">
+				<div class="item not-dark" style="background: #f5c1c1;"><a href="">Item</a> 1</div>
+				<div class="item not-dark" style="background: #f5e9c1;">Item 2</div>
+				<div class="item not-dark" style="background: #e8f5c1;">Item 3</div>
+				<div class="item not-dark" style="background: #c1f5d7;">Item 4</div>
+				<div class="item not-dark" style="background: #c1e3f5;">Item 5</div>
+				<div class="item not-dark" style="background: #e2c1f5;">Item 6</div>
+			</div>
+		</div>
+
+		<h2 id="multiple">Multiple visible items</h2>
+		<p>
+			Multiple items can be visible by setting the <code>items</code> option to a number greater than 1.
+			The <code>gutter</code> option can be used to keep same spacing between the items.
+		</p>
+
+		<p>
+			3 items out of 6 visible, varying item height:
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="items|gutter">
+			<div class="carousel" data-opt="items: 3; gutter: 20;">
+				<div class="item not-dark" style="background: #f5c1c1;"><a href="">Item</a> 1</div>
+				<div class="item not-dark" style="background: #f5e9c1;">Item 2<br>Line 2<br>Line 3</div>
+				<div class="item not-dark" style="background: #e8f5c1;">Item 3<br>Line 2</div>
+				<div class="item not-dark" style="background: #c1f5d7;">Item 4</div>
+				<div class="item not-dark" style="background: #c1e3f5;">Item 5</div>
+				<div class="item not-dark" style="background: #e2c1f5;">Item 6</div>
+			</div>
+		</div>
+
+		<p>
+			3 items out of 7 visible:
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="items|gutter">
+			<div class="carousel" data-opt="items: 3; gutter: 20;">
+				<div class="item not-dark" style="background: #f5c1c1;"><a href="">Item</a> 1</div>
+				<div class="item not-dark" style="background: #f5e9c1;">Item 2</div>
+				<div class="item not-dark" style="background: #e8f5c1;">Item 3</div>
+				<div class="item not-dark" style="background: #c1f5d7;">Item 4</div>
+				<div class="item not-dark" style="background: #c1e3f5;">Item 5</div>
+				<div class="item not-dark" style="background: #e2c1f5;">Item 6</div>
+				<div class="item not-dark" style="background: #c0c0c0;">Item 7</div>
+			</div>
+		</div>
+
+		<p>
+			3 items out of 7 visible, with individual indicator dots:
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="items|dots-each|gutter">
+			<div class="carousel" data-opt="items: 3; dots-each: 1; gutter: 20;">
+				<div class="item not-dark" style="background: #f5c1c1;"><a href="">Item</a> 1</div>
+				<div class="item not-dark" style="background: #f5e9c1;">Item 2</div>
+				<div class="item not-dark" style="background: #e8f5c1;">Item 3</div>
+				<div class="item not-dark" style="background: #c1f5d7;">Item 4</div>
+				<div class="item not-dark" style="background: #c1e3f5;">Item 5</div>
+				<div class="item not-dark" style="background: #e2c1f5;">Item 6</div>
+				<div class="item not-dark" style="background: #c0c0c0;">Item 7</div>
+			</div>
+		</div>
+
+		<p>
+			4 items out of 2 visible:
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="items|gutter">
+			<div class="carousel" data-opt="items: 4; gutter: 20;">
+				<div class="item not-dark" style="background: #f5c1c1;"><a href="">Item</a> 1</div>
+				<div class="item not-dark" style="background: #f5e9c1;">Item 2</div>
+			</div>
+		</div>
+
+		<h2 id="inline-indicator">Inline indicator</h2>
+		<p>
+			The indicator dots can be moved to the inside of the carousel by adding the <code class="css-class">inline-indicator</code> CSS class to the carousel element.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="inline-indicator">
+			<div class="carousel inline-indicator">
+				<div class="item not-dark" style="background: #f5c1c1;">Item 1</div>
+				<div class="item not-dark" style="background: #f5e9c1;">Item 2</div>
+				<div class="item not-dark" style="background: #e8f5c1;">Item 3</div>
+				<div class="item not-dark" style="background: #c1f5d7;">Item 4</div>
+				<div class="item not-dark" style="background: #c1e3f5;">Item 5</div>
+				<div class="item not-dark" style="background: #e2c1f5;">Item 6</div>
+			</div>
+		</div>
+
+		<h2 id="dark-theme">Indicator for dark backgrounds</h2>
+		<p>
+			The indicator dots can be inverted for light display on a dark background by adding the <code class="css-class">dark</code> CSS class to the carousel element or a parent element.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="dark">
+			<div class="carousel dark inline-indicator">
+				<div class="item" style="background: #791313;">Item 1</div>
+				<div class="item" style="background: #796213;">Item 2</div>
+				<div class="item" style="background: #607913;">Item 3</div>
+				<div class="item" style="background: #13793d;">Item 4</div>
+				<div class="item" style="background: #135579;">Item 5</div>
+				<div class="item" style="background: #541379;">Item 6</div>
+			</div>
+		</div>
+
+		<p>
+			To get back dark indicator dots for a light item background within a <code>dark</code> element, add the <code class="css-class">not-dark</code> CSS class.
+		</p>
+		<div class="dark" style="padding: 1em 2em;">
+			<div class="example p no-frontfire" data-source-highlight="not-dark">
+				<div class="carousel not-dark inline-indicator">
+					<div class="item" style="background: #f5c1c1;">Item 1</div>
+					<div class="item" style="background: #f5e9c1;">Item 2</div>
+					<div class="item" style="background: #e8f5c1;">Item 3</div>
+					<div class="item" style="background: #c1f5d7;">Item 4</div>
+					<div class="item" style="background: #c1e3f5;">Item 5</div>
+					<div class="item" style="background: #e2c1f5;">Item 6</div>
+				</div>
+			</div>
+		</div>
+
+		<h2 id="small-indicator">Smaller indicator</h2>
+		<p>
+			The indicator dots size can be decreased by adding the <code class="css-class">small-indicator</code> CSS class to the carousel element.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="small-indicator">
+			<div class="carousel small-indicator" style="width: 50%; margin: 0 auto;">
+				<div class="item not-dark" style="background: #f5c1c1;">Item 1</div>
+				<div class="item not-dark" style="background: #f5e9c1;">Item 2</div>
+				<div class="item not-dark" style="background: #e8f5c1;">Item 3</div>
+				<div class="item not-dark" style="background: #c1f5d7;">Item 4</div>
+				<div class="item not-dark" style="background: #c1e3f5;">Item 5</div>
+				<div class="item not-dark" style="background: #e2c1f5;">Item 6</div>
+			</div>
+		</div>
+
+		<h2 id="drag-cursor">Drag cursor</h2>
+		<p>
+			By default, the mouse cursor does not change when interacting with the carousel with a swipe gesture.
+			The <code>drag-cursor</code> option can be used to assign a different mouse cursor during that time.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="drag-cursor">
+			<div class="carousel" data-opt="drag-cursor: grabbing;">
+				<div class="item not-dark" style="background: #f5c1c1;">Item 1</div>
+				<div class="item not-dark" style="background: #f5e9c1;">Item 2</div>
+				<div class="item not-dark" style="background: #e8f5c1;">Item 3</div>
+				<div class="item not-dark" style="background: #c1f5d7;">Item 4</div>
+				<div class="item not-dark" style="background: #c1e3f5;">Item 5</div>
+				<div class="item not-dark" style="background: #e2c1f5;">Item 6</div>
+			</div>
+		</div>
+
+		<h2 id="auto-play">Autoplay</h2>
+		<p>
+			The following examples have the <code>auto-play</code> option enabled and begin cycling through the items at load time.
+			The animations are paused while the element is hovered by a pointing device and resumed shortly after the pointer leaves the element (twice the interval time).
+			This is to avoid moving away the item when the user is about to click on it or otherwise interact with it.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight="auto-play">
+			<div class="carousel" data-opt="items: 3; gutter: 20; auto-play: true;">
+				<div class="item not-dark" style="background: #f5c1c1;"><a href="">Item</a> 1</div>
+				<div class="item not-dark" style="background: #f5e9c1;">Item 2</div>
+				<div class="item not-dark" style="background: #e8f5c1;">Item 3</div>
+				<div class="item not-dark" style="background: #c1f5d7;">Item 4</div>
+				<div class="item not-dark" style="background: #c1e3f5;">Item 5</div>
+				<div class="item not-dark" style="background: #e2c1f5;">Item 6</div>
+				<div class="item not-dark" style="background: #c0c0c0;">Item 7</div>
+				<div class="item not-dark" style="background: #d0d0d0;">Item 8</div>
+				<div class="item not-dark" style="background: #e0e0e0;">Item 9</div>
+			</div>
+		</div>
+
+		<h2 id="animation">Different animations</h2>
+		<p>
+			The default animation <code>slide-all</code> can be seen in the examples above.
+			A different animation can be selected with the <code>animation</code> option.
+			These animation types are supported:
+		</p>
+		<ul>
+			<li><code>fade</code>: Fades from one item to the other, not moving either one.</li>
+			<li><code>slide-all</code>: Slides all items together like a single big canvas.</li>
+			<li><code>slide-in</code>: Slides in the next item over the current item.</li>
+			<li><code>slide-out</code>: Slides out the current item, revealing the next item.</li>
+			<li><code>slide-fade</code>: Slides the items only a part of the way while at the same time fading from one to the other.</li>
+		</ul>
+		<div class="example p no-frontfire" data-source-highlight="animation">
+			<div class="carousel" data-opt-animation="slide-in">
+				<div class="item not-dark" style="background: #f5c1c1;">Item 1</div>
+				<div class="item not-dark" style="background: #e8f5c1;">Item 2</div>
+				<div class="item not-dark" style="background: #c1e3f5;">Item 3</div>
+			</div>
+		</div>
+
+		<div class="image-x2 require-minitab">
+			<div>
+				<h3 class="no-toc no-top-margin">slide-out</h3>
+				<div class="carousel" data-opt-animation="slide-out">
+					<div class="item not-dark" style="background: #f5c1c1;">Item 1</div>
+					<div class="item not-dark" style="background: #f5e9c1;">Item 2</div>
+					<div class="item not-dark" style="background: #e8f5c1;">Item 3</div>
+					<div class="item not-dark" style="background: #c1f5d7;">Item 4</div>
+					<div class="item not-dark" style="background: #c1e3f5;">Item 5</div>
+					<div class="item not-dark" style="background: #e2c1f5;">Item 6</div>
+				</div>
+			</div>
+			<div>
+				<h3 class="no-toc no-top-margin">slide-in</h3>
+				<div class="carousel" data-opt-animation="slide-in">
+					<div class="item not-dark" style="background: #f5c1c1;">Item 1</div>
+					<div class="item not-dark" style="background: #f5e9c1;">Item 2</div>
+					<div class="item not-dark" style="background: #e8f5c1;">Item 3</div>
+					<div class="item not-dark" style="background: #c1f5d7;">Item 4</div>
+					<div class="item not-dark" style="background: #c1e3f5;">Item 5</div>
+					<div class="item not-dark" style="background: #e2c1f5;">Item 6</div>
+				</div>
+			</div>
+			<div>
+				<h3 class="no-toc no-top-margin">fade</h3>
+				<div class="carousel" data-opt-animation="fade">
+					<div class="item not-dark" style="background: #f5c1c1;">Item 1</div>
+					<div class="item not-dark" style="background: #f5e9c1;">Item 2</div>
+					<div class="item not-dark" style="background: #e8f5c1;">Item 3</div>
+					<div class="item not-dark" style="background: #c1f5d7;">Item 4</div>
+					<div class="item not-dark" style="background: #c1e3f5;">Item 5</div>
+					<div class="item not-dark" style="background: #e2c1f5;">Item 6</div>
+				</div>
+			</div>
+			<div>
+				<h3 class="no-toc no-top-margin">slide-fade</h3>
+				<div class="carousel" data-opt-animation="slide-fade">
+					<div class="item not-dark" style="background: #f5c1c1;">Item 1</div>
+					<div class="item not-dark" style="background: #f5e9c1;">Item 2</div>
+					<div class="item not-dark" style="background: #e8f5c1;">Item 3</div>
+					<div class="item not-dark" style="background: #c1f5d7;">Item 4</div>
+					<div class="item not-dark" style="background: #c1e3f5;">Item 5</div>
+					<div class="item not-dark" style="background: #e2c1f5;">Item 6</div>
+				</div>
+			</div>
+		</div>
+
+		<h2 id="animation-auto-play">Animations with autoplay</h2>
+		<div class="image-x2 require-minitab">
+			<div>
+				<h3 class="no-toc no-top-margin">slide-out</h3>
+				<div class="carousel image-items" data-opt="animation: slide-out; auto-play: true;">
+					<div class="item not-dark" style="background-image: url(res/aurora.webp);"><span>Item 1</span></div>
+					<div class="item not-dark" style="background-image: url(res/neist-point.webp);"><span>Item 2</span></div>
+					<div class="item not-dark" style="background-image: url(res/plouha-sunrise.webp);"><span>Item 3</span></div>
+					<div class="item not-dark" style="background-image: url(res/strandkorb-evening.webp);"><span>Item 4</span></div>
+					<div class="item not-dark" style="background-image: url(res/zeelandbrug.webp);"><span>Item 5</span></div>
+					<div class="item not-dark" style="background-image: url(res/zeeland-dune.webp);"><span>Item 6</span></div>
+				</div>
+			</div>
+			<div>
+				<h3 class="no-toc no-top-margin">slide-in</h3>
+				<div class="carousel image-items" data-opt="animation: slide-in; auto-play: true;">
+					<div class="item not-dark" style="background-image: url(res/aurora.webp);"><span>Item 1</span></div>
+					<div class="item not-dark" style="background-image: url(res/neist-point.webp);"><span>Item 2</span></div>
+					<div class="item not-dark" style="background-image: url(res/plouha-sunrise.webp);"><span>Item 3</span></div>
+					<div class="item not-dark" style="background-image: url(res/strandkorb-evening.webp);"><span>Item 4</span></div>
+					<div class="item not-dark" style="background-image: url(res/zeelandbrug.webp);"><span>Item 5</span></div>
+					<div class="item not-dark" style="background-image: url(res/zeeland-dune.webp);"><span>Item 6</span></div>
+				</div>
+			</div>
+			<div>
+				<h3 class="no-toc no-top-margin">fade</h3>
+				<div class="carousel image-items" data-opt="animation: fade; auto-play: true;">
+					<div class="item not-dark" style="background-image: url(res/aurora.webp);"><span>Item 1</span></div>
+					<div class="item not-dark" style="background-image: url(res/neist-point.webp);"><span>Item 2</span></div>
+					<div class="item not-dark" style="background-image: url(res/plouha-sunrise.webp);"><span>Item 3</span></div>
+					<div class="item not-dark" style="background-image: url(res/strandkorb-evening.webp);"><span>Item 4</span></div>
+					<div class="item not-dark" style="background-image: url(res/zeelandbrug.webp);"><span>Item 5</span></div>
+					<div class="item not-dark" style="background-image: url(res/zeeland-dune.webp);"><span>Item 6</span></div>
+				</div>
+			</div>
+			<div>
+				<h3 class="no-toc no-top-margin">slide-fade</h3>
+				<div class="carousel image-items" data-opt="animation: slide-fade; auto-play: true;">
+					<div class="item not-dark" style="background-image: url(res/aurora.webp);"><span>Item 1</span></div>
+					<div class="item not-dark" style="background-image: url(res/neist-point.webp);"><span>Item 2</span></div>
+					<div class="item not-dark" style="background-image: url(res/plouha-sunrise.webp);"><span>Item 3</span></div>
+					<div class="item not-dark" style="background-image: url(res/strandkorb-evening.webp);"><span>Item 4</span></div>
+					<div class="item not-dark" style="background-image: url(res/zeelandbrug.webp);"><span>Item 5</span></div>
+					<div class="item not-dark" style="background-image: url(res/zeeland-dune.webp);"><span>Item 6</span></div>
+				</div>
+			</div>
+		</div>
+
+		<h2 id="options">Options</h2>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>active</code></td>
+					<td>Number</td>
+					<td>The index of the initially active item.</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td><code>animation</code></td>
+					<td>String</td>
+					<td>The animation between items. <a href="#animation">See above</a> for the possible values.<br>
+						For more than one visible item, only slide-all is supported and automatically used.</td>
+					<td>slide-all</td>
+				</tr>
+				<tr>
+					<td><code>autoPlay</code></td>
+					<td>Boolean</td>
+					<td>Starts looping through all items automatically.</td>
+					<td>false</td>
+				</tr>
+				<tr>
+					<td><code>autoPlayInterval</code></td>
+					<td>Number</td>
+					<td>Autoplay item switch interval, in milliseconds.</td>
+					<td>4000</td>
+				</tr>
+				<tr>
+					<td><code>dotsEach</code></td>
+					<td>Number</td>
+					<td>Show an indicator dot each x items. -1 means the same value as items.</td>
+					<td>-1</td>
+				</tr>
+				<tr>
+					<td><code>dragCursor</code></td>
+					<td>String</td>
+					<td>The mouse cursor to show during dragging.</td>
+					<td>undefined</td>
+				</tr>
+				<tr>
+					<td><code>gutter</code></td>
+					<td>Number</td>
+					<td>The margin between two items, in pixels.</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td><code>indicator</code></td>
+					<td>Boolean</td>
+					<td>Shows the indicator dots for the active item.</td>
+					<td>true</td>
+				</tr>
+				<tr>
+					<td><code>items</code></td>
+					<td>Number</td>
+					<td>The number of items concurrently visible.</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td><code>pauseOnHover</code></td>
+					<td>Boolean</td>
+					<td>Pauses autoplay while the carousel is hovered with the mouse.</td>
+					<td>true</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="properties">Plugin properties</h2>
+		<p>
+			This plugin provides properties to access the carousel state.
+		</p>
+
+		<div class="member">
+			<h3 id="activeItem">activeItem</h3>
+			<ul>
+				<li><code>activeItem</code> → Node</li>
+			</ul>
+			<p>
+				Gets or sets the active item in the first selected carousel.
+				The item can be a Node or a Frontfire instance.
+				If it is a Frontfire instance, only its first selected element will be used.
+			</p>
+<div class="code">let activeItem = F("#carousel").carousel.activeItem;
+F("#carousel").carousel.activeItem = F("#first-item");
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="activeItemIndex">activeItemIndex</h3>
+			<ul>
+				<li><code>activeItemIndex</code> → Number</li>
+			</ul>
+			<p>
+				Gets the index of the active item in the first selected carousel, or sets the index of the active item in all selected carousels.
+				Negative indexes are counted from the end, i.e. -1 is the last item, -2 the second-last etc.
+			</p>
+<div class="code">let activeItemIndex = F("#carousel").carousel.activeItemIndex;
+F("#carousel").carousel.activeItemIndex = 3;
+</div>
+		</div>
+
+		<h2 id="events">Plugin events</h2>
+		<p>
+			This plugin triggers events for the carousel.
+		</p>
+
+		<div class="member">
+			<h3 id="activeItemChange">activeItemChange</h3>
+			<p>
+				Triggered when the active page has changed.
+			</p>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022–2023, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

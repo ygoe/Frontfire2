@@ -248,12 +248,12 @@ function getActiveTab() {
 //
 // page: The active page in each selected tab container.
 function setActiveTab(page) {
-	this.forEach(container => {
-		let headers = container.querySelector(":scope > div." + tabHeadersClass);
-		let pages = container.querySelector(":scope > div." + tabPagesClass);
-		let index = page.F.index;
-		setActiveTabInternal(container, headers, pages, index, page);
-	});
+	let container = this.first;
+	if (!container) return;
+	let headers = container.querySelector(":scope > div." + tabHeadersClass);
+	let pages = container.querySelector(":scope > div." + tabPagesClass);
+	let index = page.F.index;
+	setActiveTabInternal(container, headers, pages, index, page);
 }
 
 // Gets the index of the active page in a tab container.

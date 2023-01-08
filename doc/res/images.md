@@ -1,7 +1,14 @@
 Image sources
 =============
 All photos taken and edited by Yves Goergen.
-The images were compressed for demonstration purposes.
+The images were compressed for demonstration purposes of the Frontfire documentation.
+
+amsterdam.webp
+--------------
+* Description: Houses at a canal in the city centre of Amsterdam
+* Location: Amsterdam, Noord-Holland, Nederland (NL)
+* Time: 2017-05-09
+* Original filename: 170509_a63_1271.arw
 
 aurora.webp
 -----------
@@ -9,6 +16,13 @@ aurora.webp
 * Location: Jökulsárlón, Austurland, Ísland (IS)
 * Time: 2015-10-13
 * Original filename: IMG_9654+6+9.psd
+
+kinderdijk.webp
+---------------
+* Description: A windmill at sunrise with a rainbow before the rain
+* Location: Kinderdijk, Zuid-Holland, Nederland (NL)
+* Time: 2018-09-24
+* Original filename: 180924_a63_9219.arw
 
 loch-coruisk.webp
 -----------------

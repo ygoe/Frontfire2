@@ -1,0 +1,65 @@
+.ff-carousel
+{
+	user-select: none;
+	overflow-x: hidden;
+	position: relative;
+}
+
+.ff-carousel > *
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.ff-carousel-indicator
+{
+	text-align: center;
+
+	> span
+	{
+		display: inline-block;
+		cursor: pointer;
+		padding: 7px;
+		line-height: 0px;
+
+		> span
+		{
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+			border-radius: 100%;
+			background-color: var(--carousel-indicator-background);
+			transition: background-color var(--animation-duration) var(--animation-function);
+		}
+		&:hover > span,
+		&.active > span
+		{
+			background-color: var(--carousel-indicator-active-background);
+			transition: background-color 0s;
+		}
+	}
+}
+
+.small-indicator .ff-carousel-indicator
+{
+	line-height: 10px;
+
+	> span
+	{
+		padding: 4px;
+
+		> span
+		{
+			width: 6px;
+			height: 6px;
+		}
+	}
+}
+
+.inline-indicator .ff-carousel-indicator
+{
+	position: relative;
+	margin-top: -24px;
+	z-index: 200;
+}
