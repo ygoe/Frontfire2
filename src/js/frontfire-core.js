@@ -3123,26 +3123,45 @@
 
 	// ---------- Network requests ----------
 
-	// Executes a GET request to a URL and returns the JSON-data result. If an error occurs, the
-	// error is logged to the console and the returned Promise resolves to null.
+	// Executes a GET request to a URL and returns the text-data result. If an error occurs, the
+	// error is logged to the console and the returned Promise resolves to undefined.
 	//
 	// url: The request URL.
 	// data: An object containing additional URL query parameters. These entries are appended to
 	//   already existing query parameters in the URL.
 	// init: An optional object with additional options to the fetch() call init argument.
 	//   See https://developer.mozilla.org/en-US/docs/Web/API/fetch#parameters
-	Frontfire.getJSON = (url, data, init) => fetchJSON("GET", url, data, init);
+	Frontfire.getText = (url, data, init) => fetchJSON("GET", url, data, init, "text");
 
-	// Executes a JSON-data POST request to a URL and returns the JSON-data result. If an error
-	// occurs, the error is logged to the console and the returned Promise resolves to null.
+	// Executes a GET request to a URL and returns the JSON-data result. If an error occurs, the
+	// error is logged to the console and the returned Promise resolves to undefined.
+	//
+	// url: The request URL.
+	// data: An object containing additional URL query parameters. These entries are appended to
+	//   already existing query parameters in the URL.
+	// init: An optional object with additional options to the fetch() call init argument.
+	//   See https://developer.mozilla.org/en-US/docs/Web/API/fetch#parameters
+	Frontfire.getJSON = (url, data, init) => fetchJSON("GET", url, data, init, "json");
+
+	// Executes a JSON-data POST request to a URL and returns the text-data result. If an error
+	// occurs, the error is logged to the console and the returned Promise resolves to undefined.
 	//
 	// url: The request URL.
 	// data: The object that is sent as JSON-serialized request body.
 	// init: An optional object with additional options to the fetch() call init argument.
 	//   See https://developer.mozilla.org/en-US/docs/Web/API/fetch#parameters
-	Frontfire.postJSON = (url, data, init) => fetchJSON("POST", url, data, init);
+	Frontfire.postJSONText = (url, data, init) => fetchJSON("POST", url, data, init, "text");
 
-	async function fetchJSON(method, url, data, init) {
+	// Executes a JSON-data POST request to a URL and returns the JSON-data result. If an error
+	// occurs, the error is logged to the console and the returned Promise resolves to undefined.
+	//
+	// url: The request URL.
+	// data: The object that is sent as JSON-serialized request body.
+	// init: An optional object with additional options to the fetch() call init argument.
+	//   See https://developer.mozilla.org/en-US/docs/Web/API/fetch#parameters
+	Frontfire.postJSON = (url, data, init) => fetchJSON("POST", url, data, init, "json");
+
+	async function fetchJSON(method, url, data, init, type) {
 		// Convert data to URL parameters for GET requests
 		if (method === "GET" && data !== undefined) {
 			// Parse the provided URL
@@ -3166,23 +3185,33 @@
 			// Set the request content type to JSON (adds to or overwrites any set value, don't do that)
 			setInitHeaderContentType(myInit, "application/json");
 			let response = await fetch(url, myInit);
-			let responseData = await response.json();
+			let responseData = await response[type]();
 			return responseData;
 		}
 		catch (error) {
-			console.error("fetch or JSON error, returning null instead.", error);
-			return null;
+			console.error("fetch or JSON error, returning undefined instead.", error);
 		}
 	}
 
 	// Executes a form-data POST request to a URL and returns the JSON-data result. If an error
-	// occurs, the error is logged to the console and the returned Promise resolves to null.
+	// occurs, the error is logged to the console and the returned Promise resolves to undefined.
 	//
 	// url: The request URL.
 	// data: An object containing the keys and values to send as form fields in the request body.
 	// init: An optional object with additional options to the fetch() call init argument.
 	//   See https://developer.mozilla.org/en-US/docs/Web/API/fetch#parameters
-	Frontfire.postForm = async (url, data, init) => {
+	Frontfire.postFormJSON = (url, data, init) => postForm(url, data, init, "json");
+
+	// Executes a form-data POST request to a URL and returns the text-data result. If an error
+	// occurs, the error is logged to the console and the returned Promise resolves to undefined.
+	//
+	// url: The request URL.
+	// data: An object containing the keys and values to send as form fields in the request body.
+	// init: An optional object with additional options to the fetch() call init argument.
+	//   See https://developer.mozilla.org/en-US/docs/Web/API/fetch#parameters
+	Frontfire.postFormText = (url, data, init) => postForm(url, data, init, "text");
+
+	async function postForm(url, data, init, type) {
 		try {
 			let myInit = { method: "POST" };
 			if (data !== undefined)
@@ -3191,14 +3220,13 @@
 			// Set the request content type to JSON (adds to or overwrites any set value, don't do that)
 			setInitHeaderContentType(myInit, "application/x-www-form-urlencoded");
 			let response = await fetch(url, myInit);
-			let responseData = await response.json();
+			let responseData = await response[type]();
 			return responseData;
 		}
 		catch (error) {
-			console.error("fetch or JSON error, returning null instead.", error);
-			return null;
+			console.error("fetch or JSON error, returning undefined instead.", error);
 		}
-	};
+	}
 
 	function setInitHeaderContentType(init, type) {
 		if (Array.isArray(init.headers)) {

@@ -425,6 +425,10 @@
 			The function takes the options as its single object argument.
 			The options are optional and can alternatively be specified as data-opt HTML attributes with the source HTML elements.
 		</p>
+		<p>
+			This method must be called <strong>before</strong> adding other click event handlers because it will cancel the event at the first time!
+			When the user confirmed the action, another click event is triggered and this time not cancelled.
+		</p>
 
 		<div class="example no-frontfire" data-source-highlight="confirm(?=\()|data-opt-[^=]+" data-find=" (?=data-opt-)" data-replace="\n\t\t">
 			<div class="buttons p">
@@ -441,7 +445,7 @@
 			</p>
 			<script>
 				F("button.confirm")
-					.confirm()
+					.confirm()   // Call before adding click event handlers
 					.on("click", event => {
 						F("#confirm-result").textContent = event.currentTarget.textContent;
 					});
@@ -459,7 +463,7 @@
 			<!-- All buttons on the pages: -->
 			<button class="caution confirm-delete" data-opt-question="Do you want to delete the file?">Delete file</button>
 
-			<!-- Once in a script file: -->
+			<!-- Once in a script file; again, before adding other click event handlers: -->
 			<script>
 				F(".confirm-delete").confirm({
 					confirmText: "Delete",

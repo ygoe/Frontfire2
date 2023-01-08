@@ -4410,7 +4410,7 @@ F.forceReflow();
 				</ul>
 				<p>
 					Executes a GET request to a URL and returns the JSON-data result.
-					If an error occurs, the error is logged to the console and the returned Promise resolves to null.
+					If an error occurs, the error is logged to the console and the returned Promise resolves to undefined.
 				</p>
 				<p>
 					The data parameter accepts an object containing additional URL query parameters.
@@ -4423,7 +4423,37 @@ F.forceReflow();
 → e.g. { success: true }
 </div>
 				<p>
-					For more advanced network requests, use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch">fetch()</a> function directly.
+					For more advanced network requests, use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch">fetch()</a> function or <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> object directly.
+				</p>
+				<p class="see-also">
+					See also: <a href="#getText">getText()</a> (receives data as text), <a href="#postJSON">postJSON()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="fetch ajax">
+				<h3 id="getText">getText</h3>
+				<ul>
+					<li><code>Frontfire.getText(url, data, init)</code> → Promise(response)</li>
+				</ul>
+				<p>
+					Executes a GET request to a URL and returns the text-data result.
+					If an error occurs, the error is logged to the console and the returned Promise resolves to undefined.
+				</p>
+				<p>
+					The data parameter accepts an object containing additional URL query parameters.
+					These entries are appended to already existing query parameters in the URL.
+				</p>
+				<p>
+					The init parameter is an optional object with additional options to the <a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch#parameters">fetch() call init argument</a>.
+				</p>
+<div class="code">let response = await F.getText("controller.php", { id: 1, name: "Abc" });
+→ e.g. "success"
+</div>
+				<p>
+					For more advanced network requests, use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch">fetch()</a> function or <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> object directly.
+				</p>
+				<p class="see-also">
+					See also: <a href="#getJSON">getJSON()</a> (receives data as JSON), <a href="#postFormText">postFormText()</a>
 				</p>
 			</div>
 
@@ -4498,26 +4528,50 @@ translateEnglishUS("gray")
 			</div>
 
 			<div class="member" data-aliases="fetch ajax">
-				<h3 id="postForm">postForm</h3>
+				<h3 id="postFormJSON">postFormJSON</h3>
 				<ul>
-					<li><code>Frontfire.postForm(url, data, init)</code> → Promise(response)</li>
+					<li><code>Frontfire.postFormJSON(url, data, init)</code> → Promise(response)</li>
 				</ul>
 				<p>
 					Executes a form-data POST request to a URL and returns the JSON-data result.
 					The data is specified as an object containing the keys and values to send as form fields in the request body.
-					If an error occurs, the error is logged to the console and the returned Promise resolves to null.
+					If an error occurs, the error is logged to the console and the returned Promise resolves to undefined.
 				</p>
 				<p>
 					The init parameter is an optional object with additional options to the <a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch#parameters">fetch() call init argument</a>.
 				</p>
-<div class="code">let response = await F.postForm("controller.php", { id: 1, name: "Abc" });
+<div class="code">let response = await F.postFormJSON("controller.php", { id: 1, name: "Abc" });
 → e.g. { success: true }
 </div>
 				<p>
-					For more advanced network requests, use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch">fetch()</a> function directly.
+					For more advanced network requests, use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch">fetch()</a> function or <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> object directly.
 				</p>
 				<p class="see-also">
-					See also: <a href="#postJSON">postJSON()</a> (sends data as JSON)
+					See also: <a href="#postFormText">postFormText()</a> (receives data as text), <a href="#postJSON">postJSON()</a> (sends data as JSON), <a href="#getJSON">getJSON()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="fetch ajax">
+				<h3 id="postFormText">postFormText</h3>
+				<ul>
+					<li><code>Frontfire.postFormText(url, data, init)</code> → Promise(response)</li>
+				</ul>
+				<p>
+					Executes a form-data POST request to a URL and returns the text-data result.
+					The data is specified as an object containing the keys and values to send as form fields in the request body.
+					If an error occurs, the error is logged to the console and the returned Promise resolves to undefined.
+				</p>
+				<p>
+					The init parameter is an optional object with additional options to the <a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch#parameters">fetch() call init argument</a>.
+				</p>
+<div class="code">let response = await F.postFormText("controller.php", { id: 1, name: "Abc" });
+→ e.g. "success"
+</div>
+				<p>
+					For more advanced network requests, use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch">fetch()</a> function or <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> object directly.
+				</p>
+				<p class="see-also">
+					See also: <a href="#postFormText">postFormText()</a> (receives data as JSON), <a href="#postJSON">postJSON()</a> (sends and receives data as JSON), <a href="#getText">getText()</a>
 				</p>
 			</div>
 
@@ -4529,7 +4583,7 @@ translateEnglishUS("gray")
 				<p>
 					Executes a JSON-data POST request to a URL and returns the JSON-data result.
 					The data is specified as the object to send as JSON-serialized request body.
-					If an error occurs, the error is logged to the console and the returned Promise resolves to null.
+					If an error occurs, the error is logged to the console and the returned Promise resolves to undefined.
 				</p>
 				<p>
 					The init parameter is an optional object with additional options to the <a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch#parameters">fetch() call init argument</a>.
@@ -4538,10 +4592,34 @@ translateEnglishUS("gray")
 → e.g. { success: true }
 </div>
 				<p>
-					For more advanced network requests, use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch">fetch()</a> function directly.
+					For more advanced network requests, use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch">fetch()</a> function or <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> object directly.
 				</p>
 				<p class="see-also">
-					See also: <a href="#postForm">postForm()</a> (sends data as traditional form fields)
+					See also: <a href="#postFormJSON">postFormJSON()</a> (sends data as traditional form fields), <a href="#postJSONText">postJSONText()</a> (receives data as text), <a href="#getJSON">getJSON()</a>
+				</p>
+			</div>
+
+			<div class="member" data-aliases="fetch ajax">
+				<h3 id="postJSONText">postJSONText</h3>
+				<ul>
+					<li><code>Frontfire.postJSONText(url, data, init)</code> → Promise(response)</li>
+				</ul>
+				<p>
+					Executes a JSON-data POST request to a URL and returns the text-data result.
+					The data is specified as the object to send as JSON-serialized request body.
+					If an error occurs, the error is logged to the console and the returned Promise resolves to undefined.
+				</p>
+				<p>
+					The init parameter is an optional object with additional options to the <a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch#parameters">fetch() call init argument</a>.
+				</p>
+<div class="code">let response = await F.postJSONText("controller.php", { id: 1, name: "Abc" });
+→ e.g. "success"
+</div>
+				<p>
+					For more advanced network requests, use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch">fetch()</a> function or <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> object directly.
+				</p>
+				<p class="see-also">
+					See also: <a href="#postJSON">postJSON()</a> (receives data as JSON), <a href="#getText">getText()</a>
 				</p>
 			</div>
 
@@ -4708,13 +4786,13 @@ await F.sleep(500);
 		<section>
 			<h2 id="static-browser-tests">Static browser tests</h2>
 			<p>
-				These methods prefer detection techniques that do not depend on the User-Agent string that can be manipulated by the user.
+				These methods prefer detection techniques that do not depend on the User-Agent string which can be manipulated by the user.
 				This means that the results may vary over different versions of the browser applications.
 				These methods are intended to be used to work around bugs in certain browser engines, not to tell precisely what application UI is used.
 				Only detection methods for browsers supported by Frontfire are provided.
 			</p>
 
-			<div class="member">
+			<div class="member" data-aliases="browser">
 				<h3 id="isBrave">isBrave</h3>
 				<ul>
 					<li><code>Frontfire.isBrave()</code> → Boolean</li>
@@ -4727,20 +4805,20 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="browser">
 				<h3 id="isChrome">isChrome</h3>
 				<ul>
 					<li><code>Frontfire.isChrome()</code> → Boolean</li>
 				</ul>
 				<p>
-					Determines whether the browser is Chrome or derived from Chromium.
+					Determines whether the browser is Chrome or derived from Chromium (including Brave, Edge and Opera).
 				</p>
 				<p>
 					This test returns <span class="live-test"></span> in your current browser.
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="browser">
 				<h3 id="isEdge">isEdge</h3>
 				<ul>
 					<li><code>Frontfire.isEdge()</code> → Boolean</li>
@@ -4753,7 +4831,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="browser">
 				<h3 id="isEdgeClassic">isEdgeClassic</h3>
 				<ul>
 					<li><code>Frontfire.isEdgeClassic()</code> → Boolean</li>
@@ -4766,7 +4844,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="browser">
 				<h3 id="isFirefox">isFirefox</h3>
 				<ul>
 					<li><code>Frontfire.isFirefox()</code> → Boolean</li>
@@ -4779,7 +4857,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="browser">
 				<h3 id="isOpera">isOpera</h3>
 				<ul>
 					<li><code>Frontfire.isOpera()</code> → Boolean</li>
@@ -4792,13 +4870,13 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="browser">
 				<h3 id="isSafari">isSafari</h3>
 				<ul>
 					<li><code>Frontfire.isSafari()</code> → Boolean</li>
 				</ul>
 				<p>
-					Determines whether the browser is Safari (internal engine of all iOS browsers).
+					Determines whether the browser is Safari (internal engine of all iOS browsers, enforced by Apple policy so far).
 				</p>
 				<p>
 					This test returns <span class="live-test"></span> in your current browser.
@@ -4809,7 +4887,7 @@ await F.sleep(500);
 		<section>
 			<h2 id="static-os-tests">Static OS tests</h2>
 
-			<div class="member">
+			<div class="member" data-aliases="system">
 				<h3 id="isAndroid">isAndroid</h3>
 				<ul>
 					<li><code>Frontfire.isAndroid()</code> → Boolean</li>
@@ -4823,7 +4901,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="system">
 				<h3 id="isIos">isIos</h3>
 				<ul>
 					<li><code>Frontfire.isIos()</code> → Boolean</li>
@@ -4837,7 +4915,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="system">
 				<h3 id="isLinux">isLinux</h3>
 				<ul>
 					<li><code>Frontfire.isLinux()</code> → Boolean</li>
@@ -4851,7 +4929,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="system">
 				<h3 id="isMac">isMac</h3>
 				<ul>
 					<li><code>Frontfire.isMac()</code> → Boolean</li>
@@ -4865,7 +4943,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="system">
 				<h3 id="isWindows">isWindows</h3>
 				<ul>
 					<li><code>Frontfire.isWindows()</code> → Boolean</li>
