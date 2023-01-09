@@ -1570,16 +1570,16 @@ function MonthView(container, boxSize, opt, translate, partName, partDataAccesso
 		// Mark today
 		weeks.F.querySelectorAll(".item").classList.remove("now");
 		if (now.getFullYear() === year && now.getMonth() === month - 1) {
-			weeks.querySelectorAll(".item.day")[now.getDate() - 1].classList.add("now");
+			weeks.querySelectorAll(".item.day")[now.getDate() - 1]?.classList.add("now");
 		}
 		else {
 			let nowYearMonth = now.getFullYear() * 12 + now.getMonth();
 			let yearMonth = year * 12 + month - 1;
 			if (nowYearMonth === yearMonth - 1 && now.getDate() >= prevMonthFirstDay) {
-				weeks.querySelectorAll(".item.prev-month")[now.getDate() - prevMonthFirstDay].classList.add("now");
+				weeks.querySelectorAll(".item.prev-month")[now.getDate() - prevMonthFirstDay]?.classList.add("now");
 			}
 			else if (nowYearMonth === yearMonth + 1 && now.getDate() <= 14) {
-				weeks.querySelectorAll(".item.next-month")[now.getDate() - 1].classList.add("now");
+				weeks.querySelectorAll(".item.next-month")[now.getDate() - 1]?.classList.add("now");
 			}
 		}
 	};
