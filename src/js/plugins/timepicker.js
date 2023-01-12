@@ -769,6 +769,7 @@ function timePicker(options) {
 					cancelSearchTimeout();
 					newInput.F.trigger("input", { bubbles: true });
 					newInput.F.trigger("change", { bubbles: true });
+					break;
 				default:
 					if (event.key.length === 1 && separatorChars.indexOf(event.key) !== -1) {   // Separator
 						event.preventDefault();
