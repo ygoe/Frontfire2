@@ -1,4 +1,4 @@
-.menu
+ul.menu
 {
 	// Calculate lightness values from light factor (lf):
 	// - start with the base lightness
@@ -137,13 +137,13 @@
 	}
 }
 
-.menu.vertical li a > .ff-submenu-indicator
+ul.menu.vertical li a > .ff-submenu-indicator
 {
 	right: 1px;
 	left: auto;
 	top: 40%;
 }
-.menu.vertical > li.separator
+ul.menu.vertical > li.separator
 {
 	margin: 3px 10px;
 	border-left: none;
@@ -230,7 +230,7 @@
 	}
 }
 
-nav .menu
+nav ul.menu
 {
 	background: var(--nav-menu-background);
 	color: var(--nav-menu-color);

@@ -47,7 +47,7 @@ The following is the content of the archive. All files in readable and minified 
 | Bundle                | Stylesheets |
 |-----------------------|-------------|
 | Frontfire Core        | –           |
-| Frontfire UI Minimal  | frontfire-ui-minimal.css<br>frontfire-ui-minimal.min.css (13 KiB) |
+| Frontfire UI Minimal  | frontfire-ui-minimal.css<br>frontfire-ui-minimal.min.css (14 KiB) |
 | Frontfire UI Complete | frontfire-ui-complete.css<br>frontfire-ui-complete.min.css (17 KiB) |
 
 

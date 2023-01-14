@@ -2458,6 +2458,106 @@
 			</div>
 
 			<div class="member">
+				<h3 id="mark-background">--mark-background</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> <em>see description</em> <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-typography.html#mark">Typography</a>)</span>
+				</p>
+				<p>
+					The background colour of <code data-lang="html">&lt;mark&gt;</code> elements.
+					This variable overwrites the HSL colour component variables, so only set this if you do not want to use them.
+					If unset, the mark background colour is computed from the four H, S, L and A variables:<br>
+					<code data-lang="style-value">hsl(var(--mark-background-h), var(--mark-background-s), var(--mark-background-l), var(--mark-background-a))</code>
+				</p>
+				<p class="see-also">
+					See also: <a href="#mark-color">--mark-color</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="mark-background-a">--mark-background-a</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value ≤ 1
+					<span class="default">Default:</span> 0.35
+					<span class="default">Dark default:</span> 0.4
+					<span class="source">(for <a href="frontfire-ui-typography.html#mark">Typography</a>)</span>
+				</p>
+				<p>
+					The alpha value (opacity) of the background colour of <code data-lang="html">&lt;mark&gt;</code> elements.
+				</p>
+				<p class="see-also">
+					See also: <a href="#mark-background">--mark-background</a>, <a href="#mark-background-h">--mark-background-h</a>, <a href="#mark-background-l">--mark-background-l</a>, <a href="#mark-background-s">--mark-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="mark-background-h">--mark-background-h</h3>
+				<p>
+					<span class="type">Type:</span> number
+					<span class="range">Range:</span> 0 ≤ value &lt; 360
+					<span class="default">Default:</span> 59
+					<span class="default">Dark default:</span> 51
+					<span class="source">(for <a href="frontfire-ui-typography.html#mark">Typography</a>)</span>
+				</p>
+				<p>
+					The hue of the background colour of <code data-lang="html">&lt;mark&gt;</code> elements, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#mark-background">--mark-background</a>, <a href="#mark-background-a">--mark-background-a</a>, <a href="#mark-background-l">--mark-background-l</a>, <a href="#mark-background-s">--mark-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="mark-background-l">--mark-background-l</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 50%
+					<span class="source">(for <a href="frontfire-ui-typography.html#mark">Typography</a>)</span>
+				</p>
+				<p>
+					The lightness of the background colour of <code data-lang="html">&lt;mark&gt;</code> elements, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#mark-background">--mark-background</a>, <a href="#mark-background-a">--mark-background-a</a>, <a href="#mark-background-h">--mark-background-h</a>, <a href="#mark-background-s">--mark-background-s</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="mark-background-s">--mark-background-s</h3>
+				<p>
+					<span class="type">Type:</span> percentage
+					<span class="range">Range:</span> 0% ≤ value ≤ 100%
+					<span class="default">Default:</span> 50%
+					<span class="source">(for <a href="frontfire-ui-typography.html#mark">Typography</a>)</span>
+				</p>
+				<p>
+					The saturation of the background colour of <code data-lang="html">&lt;mark&gt;</code> elements, in the HSL colour space.
+				</p>
+				<p class="see-also">
+					See also: <a href="#mark-background">--mark-background</a>, <a href="#mark-background-a">--mark-background-a</a>, <a href="#mark-background-h">--mark-background-h</a>, <a href="#mark-background-l">--mark-background-l</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="mark-color">--mark-color</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
+					<span class="default">Default:</span> unset <span class="unset"></span>
+					<span class="source">(for <a href="frontfire-ui-typography.html#mark">Typography</a>)</span>
+				</p>
+				<p>
+					The text colour of <code data-lang="html">&lt;mark&gt;</code> elements.
+					With the default value <code>unset</code>, the text colour will match its parent element.
+				</p>
+				<p class="see-also">
+					See also: <a href="#mark-background">--mark-background</a>
+				</p>
+			</div>
+
+			<div class="member">
 				<h3 id="menu-active-background">--menu-active-background</h3>
 				<p>
 					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color</a>
@@ -2522,7 +2622,7 @@
 					<code data-lang="style-value">hsl(var(--menu-background-h), var(--menu-background-s), var(--menu-background-l))</code>
 				</p>
 				<p class="see-also">
-					See also: <a href="#menu-hover-background">--menu-hover-background</a>, <a href="#menu-active-background">--menu-active-background</a>
+					See also: <a href="#menu-hover-background">--menu-hover-background</a>, <a href="#menu-active-background">--menu-active-background</a>, <a href="#menu-color">--menu-color</a>
 				</p>
 			</div>
 
@@ -2589,7 +2689,7 @@
 					<code data-lang="style-value">var(--default-text-color)</code>
 				</p>
 				<p class="see-also">
-					See also: <a href="#menu-background-color">--menu-background-color</a>
+					See also: <a href="#menu-background">--menu-background</a>
 				</p>
 			</div>
 
@@ -3642,7 +3742,7 @@
 					<code data-lang="style-value">hsl(var(--submenu-background-h), var(--submenu-background-s), var(--submenu-background-l))</code>
 				</p>
 				<p class="see-also">
-					See also: <a href="#submenu-hover-background">--submenu-hover-background</a>, <a href="#submenu-active-background">--submenu-active-background</a>
+					See also: <a href="#submenu-hover-background">--submenu-hover-background</a>, <a href="#submenu-active-background">--submenu-active-background</a>, <a href="#submenu-color">--submenu-color</a>
 				</p>
 			</div>
 
@@ -3709,7 +3809,7 @@
 					<code data-lang="style-value">var(--default-text-color)</code>
 				</p>
 				<p class="see-also">
-					See also: <a href="#submenu-background-color">--submenu-background-color</a>
+					See also: <a href="#submenu-background">--submenu-background</a>
 				</p>
 			</div>
 

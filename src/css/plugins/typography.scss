@@ -312,6 +312,21 @@ kbd
 	}
 }
 
+mark
+{
+	margin: 0 -2px;
+	padding: 0 2px;
+	// Defaults to plain yellow
+	background-color: var(
+		--mark-background,
+		hsl(var(--mark-background-h, 60), var(--mark-background-s, 100%), var(--mark-background-l, 50%), var(--mark-background-a, 1)));
+	color: var(--mark-color, unset);
+	border-radius: 3px;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+	transition: background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
+}
+
 .nowrap
 {
 	white-space: nowrap;

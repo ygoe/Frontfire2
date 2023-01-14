@@ -401,7 +401,9 @@ function gotoMember(name, smooth) {
 			updateSearchResults();
 		}
 		window.scrollTo({ top: h.offsetTop - 15 - headerHeight, behavior: smooth ? "smooth" : "auto" });
+		return true;
 	}
+	return false;
 }
 
 document.querySelectorAll("a[href]").forEach(prepareScrollLink);
@@ -411,6 +413,8 @@ function prepareScrollLink(a) {
 	if (match)
 		a.addEventListener("click", e => {
 			e.preventDefault();
+
+			if (!gotoMember(match[1], true)) return;   // Target not found
 
 			let baseUrl = location.href.replace(/#.*$/, "").replace(/\?.*$/, "");
 			let state = {};
@@ -431,7 +435,6 @@ function prepareScrollLink(a) {
 			let parentLink = a.closest(".link");
 			if (parentLink)
 				parentLink.classList.add("active");
-			gotoMember(match[1], true);
 		});
 }
 

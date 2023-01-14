@@ -102,6 +102,11 @@ $viewportWidthDesktop: 1200px;
 	--code-padding: 6px 10px;
 	--code-background: rgb(0, 0, 0, 0.06);
 
+	--mark-background-h: 59;
+	--mark-background-s: 100%;
+	--mark-background-l: 50%;
+	--mark-background-a: 0.35;
+
 	--sticky-aside-width: 200px;
 	--sticky-aside-gap: 2rem;
 	--sticky-aside-top: 0px;
@@ -377,6 +382,9 @@ $viewportWidthDesktop: 1200px;
 	--table-header-background: #383838;
 
 	--code-background: rgb(255, 255, 255, 0.12);
+
+	--mark-background-h: 51;
+	--mark-background-a: 0.4;
 
 	--loading-color: rgb(255, 255, 255, 0.15);
 	--loading-highlight-color: rgb(255, 255, 255, 0.8);
