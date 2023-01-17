@@ -478,12 +478,12 @@
 	cursor: pointer;
 	-webkit-tap-highlight-color: transparent;   // for Chrome/Android (and derivates)
 	transition: background-color var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function), border var(--animation-duration) var(--animation-function);
-	&:where(:link, :visited)
+	&:where(:any-link)
 	{
 		color: var(--button-color);
 		text-decoration: none !important;
 	}
-	&:where(:link, :visited):where(:hover)
+	&:where(:any-link):where(:hover)
 	{
 		color: var(--button-color);
 	}
@@ -518,8 +518,8 @@
 			hsl(var(--button-background-h), var(--button-background-s), var(--button-pressed-background-l)));
 		transition: background-color 0s;
 		color: var(--button-pressed-color, var(--button-color));
-		&:where(:link, :visited),
-		&:where(:link, :visited):hover
+		&:where(:any-link),
+		&:where(:any-link):hover
 		{
 			color: var(--button-pressed-color, var(--button-color));
 		}
@@ -535,8 +535,8 @@
 			hsl(var(--button-background-h), var(--button-background-s), var(--button-disabled-background-l)));
 		color: var(--button-disabled-color);
 		cursor: default;
-		&:where(:link, :visited),
-		&:where(:link, :visited):where(:hover)
+		&:where(:any-link),
+		&:where(:any-link):where(:hover)
 		{
 			color: var(--button-disabled-color);
 		}
@@ -556,8 +556,8 @@
 			--button-default-background,
 			hsl(var(--button-default-background-h), var(--button-default-background-s), var(--button-default-background-l)));
 		color: var(--button-default-color);
-		&:is(:link, :visited),
-		&:is(:link, :visited):hover
+		&:any-link,
+		&:any-link:hover
 		{
 			color: var(--button-default-color);
 		}
@@ -580,8 +580,8 @@
 				hsl(var(--button-default-background-h), var(--button-default-background-s), var(--button-default-pressed-background-l)));
 			color: var(--button-default-pressed-color, var(--button-default-color));
 			transition: background-color 0s;
-			&:is(:link, :visited),
-			&:is(:link, :visited):hover
+			&:any-link,
+			&:any-link:hover
 			{
 				color: var(--button-default-pressed-color, var(--button-default-color));
 			}
@@ -598,8 +598,8 @@
 			--button-caution-background,
 			hsl(var(--button-caution-background-h), var(--button-caution-background-s), var(--button-caution-background-l)));
 		color: var(--button-caution-color);
-		&:is(:link, :visited),
-		&:is(:link, :visited):hover
+		&:any-link,
+		&:any-link:hover
 		{
 			color: var(--button-caution-color);
 		}
@@ -622,8 +622,8 @@
 				hsl(var(--button-caution-background-h), var(--button-caution-background-s), var(--button-caution-pressed-background-l)));
 			color: var(--button-caution-pressed-color, var(--button-caution-color));
 			transition: background-color 0s;
-			&:is(:link, :visited),
-			&:is(:link, :visited):hover
+			&:any-link,
+			&:any-link:hover
 			{
 				color: var(--button-caution-pressed-color, var(--button-caution-color));
 			}
@@ -646,7 +646,7 @@
 
 		background-color: var(--button-transparent-background, transparent);
 		color: var(--button-transparent-color, var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l))));
-		&:is(:link, :visited)
+		&:any-link
 		{
 			color: var(--button-transparent-color, var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l))));
 		}
@@ -655,12 +655,12 @@
 			fill: var(--button-transparent-color, var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l))));
 		}
 
-		&:hover
+		&:not(.ff-tb-active):hover
 		{
 			background-color: var(--button-transparent-hover-background);
 			color: var(--button-transparent-hover-color, var(--link-hover-color, var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-hover-color-l)))));
 			transition: background-color 0s, color 0s;
-			&:is(:link, :visited)
+			&:any-link
 			{
 				color: var(--button-transparent-hover-color, var(--link-hover-color, var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-hover-color-l)))));
 			}
@@ -669,15 +669,15 @@
 				fill: var(--button-transparent-hover-color, var(--link-hover-color, var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-hover-color-l)))));
 			}
 		}
-		&:is(:active, .ff-active)
+		&:not(.ff-tb-active):is(:active, .ff-active)
 		{
 			background-color: var(--button-transparent-pressed-background,
 				var(--button-pressed-background,
 					hsl(var(--button-background-h), var(--button-background-s), var(--button-pressed-background-l))));
 			color: var(--button-transparent-pressed-color, var(--button-pressed-color, var(--button-color)));
 			transition: background-color 0s;
-			&:is(:link, :visited),
-			&:is(:link, :visited):hover
+			&:any-link,
+			&:any-link:hover
 			{
 				color: var(--button-transparent-pressed-color, var(--button-pressed-color, var(--button-color)));
 			}
@@ -691,8 +691,8 @@
 	{
 		background-color: var(--button-transparent-background, transparent);
 		color: var(--button-disabled-color);
-		&:is(:link, :visited),
-		&:is(:link, :visited):hover
+		&:any-link,
+		&:any-link:hover
 		{
 			color: var(--button-disabled-color);
 		}

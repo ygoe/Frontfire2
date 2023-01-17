@@ -928,11 +928,6 @@
 							node.removeAttribute(name);
 					}
 					if (changed) {
-						// TODO: Remove this new feature again if all usage scenarios can use MutationObserver instead
-						//let ancillaries = getNodeData(node, name + ".ancillaries");
-						//if (ancillaries)
-						//	ancillaries.forEach(a => a.F[name] = state);
-
 						node.dispatchEvent(new Event(name + "change"));
 					}
 

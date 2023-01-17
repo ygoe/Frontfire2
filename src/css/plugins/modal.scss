@@ -62,7 +62,7 @@
 	font-size: 19px;
 	line-height: 19px;
 	transition: background var(--animation-duration) var(--animation-function), color var(--animation-duration) var(--animation-function);
-	&:is(:link, :visited)
+	&:is(:any-link)
 	{
 		color: gray;
 		text-decoration: none;
@@ -77,7 +77,7 @@
 		background: #e81123;
 		text-decoration: none;
 		transition: background 0s, color 0s;
-		&:is(:link, :visited)
+		&:is(:any-link)
 		{
 			color: white;
 		}

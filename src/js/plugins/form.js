@@ -296,10 +296,6 @@ function spinner(options) {
 			});
 		}
 
-		// TODO: Remove commented out code when no other plugin needs it and uses MutationObserver
-		//Frontfire.internalData.add(input, "disabled.ancillaries", decButton);
-		//Frontfire.internalData.add(input, "disabled.ancillaries", incButton);
-
 		// Show or hide the wrapper instead whenever the input should be shown or hidden
 		F.internalData.set(input, "visible.replacement", wrapper);
 	});
@@ -345,7 +341,7 @@ function toggleButton() {
 		input.after(button);
 		input.F.hide();
 		// Copy some CSS classes to the button
-		["narrow", "icon-only", "icon-right", "transparent", "input-validation-error", "dark", "not-dark"].forEach(clsName => {
+		["narrow", "icon-only", "icon-right", "transparent", "dark", "not-dark"].forEach(clsName => {
 			if (input.classList.contains(clsName))
 				button.classList.add(clsName);
 		});

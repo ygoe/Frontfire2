@@ -732,7 +732,7 @@
 			<p>
 				The style of the active state buttons can be customised with the <a href="frontfire-ui-variables.html?s=^--button-active-">CSS variables</a> that start with “--button-active-”.
 			</p>
-			<div id="toggle-button-example" class="example p no-frontfire" data-source-highlight='checkbox|toggle-button(?=")|toggleButton'>
+			<div class="toggle-button-example example p no-frontfire" data-source-highlight='checkbox|toggle-button(?=")|toggleButton'>
 				<label><input type="checkbox" class="toggle-button"> Press me</label>
 				<label><input type="checkbox" id="toggle-button2"> Press me</label>
 				<script>
@@ -752,15 +752,30 @@
 				Other ways like manipulating the <code>style.display</code> property directly will not work.
 				Since it was visibly replaced by the button, that button will be shown or hidden instead of the checkbox element.
 			</p>
+
+			<h3 id="toggle-button-styles">Styles</h3>
+			<p>
+				Additional CSS classes can be added to the checkbox element besides <code class="css-class">toggle-button</code> as for regular buttons:
+				<code class="css-class">icon-only</code>,
+				<code class="css-class">icon-right</code>,
+				<code class="css-class">narrow</code>,
+				<code class="css-class">transparent</code>.
+			</ul>
+			<div class="toggle-button-example example p no-frontfire" data-source-highlight="icon-only|icon-right|narrow|transparent">
+				<label><input type="checkbox" class="toggle-button narrow icon-only"><i class="material">help</i></label>
+				<label><input type="checkbox" class="toggle-button icon-right"> Next <i class="material">arrow_forward</i></label>
+				<label><input type="checkbox" class="toggle-button narrow"> Narrow</label>
+				<label><input type="checkbox" class="toggle-button transparent"> Transparent</label>
+			</div>
 		</div>
 		<script>
 			let disableToggleButtonsCheckbox = F("#disable-toggle-buttons").first;
 			disableToggleButtonsCheckbox.F.on("click!", () => {
-				F("#toggle-button-example input").disabled = disableToggleButtonsCheckbox.checked;
+				F(".toggle-button-example input").disabled = disableToggleButtonsCheckbox.checked;
 			});
 			let hideToggleButtonsCheckbox = F("#hide-toggle-buttons").first;
 			hideToggleButtonsCheckbox.F.on("click!", () => {
-				F("#toggle-button-example input").visible = !hideToggleButtonsCheckbox.checked;
+				F(".toggle-button-example input").visible = !hideToggleButtonsCheckbox.checked;
 			});
 		</script>
 
