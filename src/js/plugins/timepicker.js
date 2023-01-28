@@ -636,12 +636,12 @@ function timePicker(options) {
 			// (but not when clicking an item in the dropdown)
 			// DEBUG: disable following code to allow inspecting the dropdown contents
 			if (newInput.classList.contains("open") && !blurCloseTimeout) {
-				blurCloseTimeout = setTimeout(function () {
+				blurCloseTimeout = setTimeout(() => {
 					dropdown.F.dropdown.close();
 					blurCloseTimeout = undefined;
 					// Forward this event explicitly to the original input
 					input.F.trigger("blur", event, FocusEvent);
-				}, 50);
+				}, 20);
 			}
 			else {
 				// Forward this event explicitly to the original input
@@ -691,7 +691,7 @@ function timePicker(options) {
 					break;
 				case " ":
 					event.preventDefault();
-					if (!newInput.hasClass("open"))
+					if (!newInput.classList.contains("open"))
 						openDropdown();
 					else
 						dropdown.F.dropdown.close();

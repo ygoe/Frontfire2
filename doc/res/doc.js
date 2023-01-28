@@ -796,6 +796,9 @@ function getClassForSyntaxState(state) {
 		case "tag":
 		case "tag-end":
 			return "tag";
+		case "doctype":
+		case "doctype-end":
+			return "doctype";
 		case "entity":
 		case "entity-end":
 			return "entity";
@@ -1083,11 +1086,23 @@ function syntaxHighlightHTML(code) {
 	while (pos < code.length) {
 		let newState = state;
 		let skip = 1;
+		if (code.substring(pos, pos + 3) === "{{{") {
+			html += '<span class="highlight">';
+			pos += 3;
+		}
+		if (code.substring(pos, pos + 3) === "}}}") {
+			html += '</span>';
+			pos += 3;
+		}
 		switch (state) {
 			case "":
 				if (code.substring(pos, pos + 4) === "<!--") {
 					newState = "comment";
 					skip = 4;
+				}
+				else if (code.substring(pos, pos + 2) === "<!") {
+					newState = "doctype";
+					skip = 2;
 				}
 				else if (code.substring(pos, pos + 1) === "<") {
 					newState = "tag";
@@ -1127,6 +1142,11 @@ function syntaxHighlightHTML(code) {
 					tagName += code.substring(pos, pos + 1);
 				}
 				break;
+			case "doctype":
+				if (code.substring(pos, pos + 1) === ">") {
+					newState = "doctype-end";
+				}
+				break;
 			case "attribute":
 				if (code.substring(pos, pos + 1) === "=") {
 					newState = "attribute-value";
@@ -1162,6 +1182,10 @@ function syntaxHighlightHTML(code) {
 				}
 				break;
 			case "tag-end":
+				newState = "";
+				skip = 0;
+				break;
+			case "doctype-end":
 				newState = "";
 				skip = 0;
 				break;

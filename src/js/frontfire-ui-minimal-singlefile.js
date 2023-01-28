@@ -1,6 +1,7 @@
 /*! frontfire-ui-minimal-singlefile.js v2.0.0-beta.3 | @license MIT | ygoe.de */
 /* no-iife */
 /* build-dir(build) */
+/* no-bundle-suffix */
 
 // Copyright (c) 2022-2023, Yves Goergen, https://ygoe.de
 // All rights reserved.
@@ -26,4 +27,4 @@
 
 import "./arraylist";
 import "./frontfire-core";
-import "./build/frontfire-ui-minimal.bundle";
+import "./build/frontfire-ui-minimal";

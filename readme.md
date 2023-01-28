@@ -7,7 +7,7 @@ The Frontfire Web Frontend Toolkit offers essential styles and effects combined 
 
 While [Frontfire version 1](https://github.com/ygoe/Frontfire1) (which as a work in progress never actually used version numbers) was made as a jQuery plugin, version 2 comes in two parts: **Core**, basically replacing jQuery, and **UI**, building with plugins upon Core.
 
-Frontfire is published under the [MIT licence](license.txt).
+Frontfire is published under the [MIT licence](license.txt). Please leave a ⭐ star on this reporitory if you like or use it to help others find it, too. Thank you!
 
 
 Documentation
@@ -25,6 +25,8 @@ Download
 
 ⏭ [Change log](https://ygoe.de/tmp/frontfire2/changes.html) (online documentation)
 
+🚀 [Installation](https://ygoe.de/tmp/frontfire2/frontfire-ui-installation.html) (online documentation)
+
 There are currently no CDN offerings available so you have to host the files yourself. This is the preferred method anyway since CDNs often make websites slower, less reliable and come with privacy implications.
 
 The following is the content of the archive. All files in readable and minified form, with source map. Descriptions of bundles and variants below. All file sizes measured with GZip compression.
@@ -34,12 +36,12 @@ The following is the content of the archive. All files in readable and minified 
 
 | ▾ Bundle ╲ Variant ▸  | Separate files | Single file (includes all above) |
 |-----------------------|----------------|-------------|
-| ArrayList             | arraylist.js<br>arraylist.min.js (3.1 KiB) | – |
-| Frontfire Core        | frontfire-core.js<br>frontfire-core.min.js (10 KiB) | frontfire-core-singlefile.bundle.js<br>frontfire-core-singlefile.min.js (13 KiB) |
-| Frontfire UI Minimal  | frontfire-ui-minimal.bundle.js<br>frontfire-ui-minimal.min.js (16 KiB) | frontfire-ui-minimal-singlefile.bundle.js<br>frontfire-ui-minimal-singlefile.min.js (28 KiB) |
+| ArrayList             | arraylist.js<br>arraylist.min.js (3.0 KiB) | – |
+| Frontfire Core        | frontfire-core.js<br>frontfire-core.min.js (10 KiB) | frontfire-core-singlefile.js<br>frontfire-core-singlefile.min.js (13 KiB) |
+| Frontfire UI Minimal  | frontfire-ui-minimal.js<br>frontfire-ui-minimal.min.js (16 KiB) | frontfire-ui-minimal-singlefile.js<br>frontfire-ui-minimal-singlefile.min.js (28 KiB) |
 | Color                 | color.js<br>color.min.js (2.6 KiB) | – |
 | DataColor             | datacolor.js<br>datacolor.min.js (1.2 KiB) | – |
-| Frontfire UI Complete | frontfire-ui-complete.bundle.js<br>frontfire-ui-complete.min.js (38 KiB) | frontfire-ui-complete-singlefile.bundle.js<br>frontfire-ui-complete-singlefile.min.js (53 KiB) |
+| Frontfire UI Complete | frontfire-ui-complete.js<br>frontfire-ui-complete.min.js (38 KiB) | frontfire-ui-complete-singlefile.js<br>frontfire-ui-complete-singlefile.min.js (53 KiB) |
 
 
 ### CSS files
@@ -47,7 +49,7 @@ The following is the content of the archive. All files in readable and minified 
 | Bundle                | Stylesheets |
 |-----------------------|-------------|
 | Frontfire Core        | –           |
-| Frontfire UI Minimal  | frontfire-ui-minimal.css<br>frontfire-ui-minimal.min.css (14 KiB) |
+| Frontfire UI Minimal  | frontfire-ui-minimal.css<br>frontfire-ui-minimal.min.css (13 KiB) |
 | Frontfire UI Complete | frontfire-ui-complete.css<br>frontfire-ui-complete.min.css (17 KiB) |
 
 
@@ -97,8 +99,8 @@ Apart from the total selection of features, the toolkit is built in two variants
 **Single file** &nbsp; 👉 recommended use
 
 * All levels and dependencies are compiled into a single JavaScript file
-* Simple usage as you just include one JavaScript and one CSS files and have all the bundle’s features available
-* Further reduces transfer size due to combined compression effects
+* Simple usage as you just include one JavaScript and one CSS file and have all the bundle’s features available
+* Further reduces transfer size due to combined compression advantages
 
 
 Features
@@ -144,68 +146,11 @@ Features
 🚧 Not developed or fully ported to Frontfire 2 yet
 
 
-Installation
-------------
-To use **Frontfire Core** with **separate** files, include it like this:
-
-```html
-<script src="arraylist.min.js"></script>
-<!-- color.js and datacolor.js are optional, depends on your usage -->
-<script src="frontfire-core.min.js"></script>
-```
-
-To use **Frontfire UI** with **separate** files, include it like this:
-
-```html
-<script src="arraylist.min.js"></script>
-<script src="color.min.js"></script>
-<!-- datacolor.js is optional, depends on your usage -->
-<script src="frontfire-core.min.js"></script>
-<script src="frontfire-ui-complete.min.js"></script><!-- alternatively, -minimal -->
-
-<link rel="stylesheet" href="frontfire-ui-complete.min.css"><!-- alternatively, -minimal -->
-```
-
-(You can also use frontfire-core-*singlefile*.js and frontfire-ui-complete/minimal.js together.)
-
-To use **Frontfire Core** with a **single** file, include it like this:
-
-```html
-<script src="frontfire-core-singlefile.min.js"></script>
-<!-- includes arraylist.js -->
-```
-
-To use **Frontfire UI** with a **single** file, include it like this:
-
-```html
-<script src="frontfire-ui-complete-singlefile.min.js"></script><!-- alternatively, -minimal -->
-
-<link rel="stylesheet" href="frontfire-ui-complete.min.css"><!-- alternatively, -minimal -->
-```
-
-It is best-practice to include all stylesheets at the end of the HTML `<head>` and all scripts at the end of the HTML `<body>` element. Then include your site-specific styles and scripts after the library files to be able to customise the library’s styles and build upon its scripts.
-
-```html
-<head>
-	...
-	<link rel="stylesheet" href="lib/frontfire/css/frontfire-ui-complete.min.css">
-	<!-- followed by your site-specific styles: -->
-	<link rel="stylesheet" href="css/site.min.css">
-</head>
-<body>
-	...
-	<script src="lib/frontfire/js/frontfire-ui-complete-singlefile.min.js"></script>
-	<!-- followed by your site-specific scripts: -->
-	<script src="js/site.min.js"></script>
-</body>
-```
-
-
 Building
 --------
-Frontfire is written in modern JavaScript and Sass. The distribution JavaScript and CSS files are built with a set of public tools (CSS: sass, csso; JavaScript: rollup, uglifyjs) bundled in my **[Mini Web Compiler](https://github.com/ygoe/MiniWebCompiler)** application for Windows. It glues all the tools together so that they actually work. Version 1.3.1 or newer is required.
+Frontfire is written in modern JavaScript and Sass. The distribution JavaScript and CSS files are built with a set of public tools (CSS: sass, csso; JavaScript: rollup, uglifyjs) bundled in my **[Mini Web Compiler](https://github.com/ygoe/MiniWebCompiler)** application for Windows. It glues all the tools together so that they actually work. Version 2.3.0 or newer is required.
 
-Building from source is **not necessary** if you just use Frontfire. In version 2, almost all Sass variables have been converted to CSS custom properties (“CSS variables”) which you can modify directly from your own stylesheets, now fully dynamically in the browser and even selectively for parts of the document.
+Building from source is **not necessary** if you just use Frontfire. In version 2, all Sass variables (except responsive layout break points) have been converted to CSS custom properties (“CSS variables”) which you can modify directly from your own stylesheets, now fully dynamically in the browser and even selectively for parts of the document.
 
 When building your own version, you can leave out certain modules that you don’t need so you can further reduce the file size.
 

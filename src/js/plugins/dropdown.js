@@ -324,7 +324,9 @@ function closeDropdown() {
 	if (!container?.classList.contains(dropdownContainerClass)) return this;   // Dropdown is not open
 	let opt = F.loadOptions("dropdown", element);
 
-	document.F.off(">pointerdown.dropdown-close");
+	if (opt.autoClose === undefined || opt.autoClose) {
+		document.F.off(">pointerdown.dropdown-close");
+	}
 	container.classList.remove("open");
 	container.classList.add("closed");
 	container.F.on("transitionend", () => {

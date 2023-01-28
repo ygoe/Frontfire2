@@ -2,6 +2,7 @@
 /* iife-params(F, window, document) */
 /* iife-args(Frontfire, window, document) */
 /* build-dir(build) */
+/* no-bundle-suffix */
 
 // Copyright (c) 2022-2023, Yves Goergen, https://ygoe.de
 // All rights reserved.

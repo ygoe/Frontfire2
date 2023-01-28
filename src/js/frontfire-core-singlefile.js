@@ -1,6 +1,7 @@
 /*! frontfire-core-singlefile.js v2.0.0-beta.3 | @license MIT | ygoe.de */
 /* no-iife */
 /* build-dir(build) */
+/* no-bundle-suffix */
 
 // Copyright (c) 2021-2023, Yves Goergen, https://ygoe.de
 // All rights reserved.

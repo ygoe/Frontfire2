@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Installation documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Installation</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.3</span>
+		</div>
+
+		<p>
+			To use Frontfire on a web page, its script and style files must be included.
+			There are different options how to select the files and where to include them in the HTML document structure.
+		</p>
+		<p>
+			In any case you are expected to upload the included files to your web server or provide them with your application.
+			There are no public cloud hosting or <acronym title="Content Delivery Network">CDN</acronym> offerings and for performance, availability and privacy reasons, it is not recommended to use such external services.
+		</p>
+
+		<h2 id="singlefile">Single file</h2>
+		<p>
+			Apart from the total selection of features, the toolkit is built in two variants for the JavaScript files.
+			The CSS files are always the same.
+		</p>
+		<p>
+			With the single file variant, all toolkit levels and dependencies are compiled into a single JavaScript file.
+			It allows the simplest usage as you just include one JavaScript and one CSS file and have all the bundle’s features available.
+			It also further reduces the transfer size due to combined compression advantages.
+			This is the recommended installation method.
+		</p>
+
+		<h3 id="singlefile-core">Frontfire Core</h3>
+		<p>
+			To use Frontfire Core with a single file, write this:
+		</p>
+<div class="code" data-lang="html">&lt;script src="frontfire-core-singlefile.min.js"&gt;&lt;/script&gt;
+</div>
+		<p>
+			This includes the file arraylist.js.
+		</p>
+
+		<h3 id="singlefile-ui-minimal">Frontfire UI Minimal</h3>
+		<p>
+			To use the Frontfire UI Minimal bundle with a single file, write this:
+		</p>
+<div class="code" data-lang="html">&lt;script src="frontfire-ui-minimal-singlefile.min.js"&gt;&lt;/script&gt;
+
+&lt;link rel="stylesheet" href="frontfire-ui-minimal.min.css"&gt;
+</div>
+
+		<h3 id="singlefile-ui-complete">Frontfire UI Complete</h3>
+		<p>
+			To use the Frontfire UI Complete bundle with a single file, write this:
+		</p>
+<div class="code" data-lang="html">&lt;script src="frontfire-ui-complete-singlefile.min.js"&gt;&lt;/script&gt;
+
+&lt;link rel="stylesheet" href="frontfire-ui-complete.min.css"&gt;
+</div>
+
+		<h2 id="separate">Separate files</h2>
+		<p>
+			With separate files, you include each of the toolkit levels as a separate file.
+			This gives you the option to load just the parts needed for a specific web view.
+			However, it also means that more files will be loaded by the browser which can slow down page loading.
+		</p>
+		<p>
+			The order of including the script files is important because some of them depend on others which have to be loaded before.
+			Usually, the frontfire-core file needs arraylist, and the ui files need core and color.
+		</p>
+
+		<h3 id="separate-core">Frontfire Core</h3>
+		<p>
+			To use Frontfire Core with separate files, write this:
+		</p>
+<div class="code" data-lang="html">&lt;script src="arraylist.min.js"&gt;&lt;/script&gt;
+&lt;script src="frontfire-core.min.js"&gt;&lt;/script&gt;
+</div>
+		<p>
+			The files color.js and datacolor.js are optional, it depends on your usage.
+		</p>
+
+		<h3 id="separate-ui-minimal">Frontfire UI Minimal</h3>
+		<p>
+			To use the Frontfire UI Minimal with separate files, write this:
+		</p>
+<div class="code" data-lang="html">&lt;script src="arraylist.min.js"&gt;&lt;/script&gt;
+&lt;script src="color.min.js"&gt;&lt;/script&gt;
+&lt;script src="frontfire-core.min.js"&gt;&lt;/script&gt;
+&lt;script src="frontfire-ui-minimal.min.js"&gt;&lt;/script&gt;
+
+&lt;link rel="stylesheet" href="frontfire-ui-minimal.min.css"&gt;
+</div>
+		<p>
+			The file datacolor.js is optional, it depends on your usage.
+		</p>
+
+		<h3 id="separate-ui-complete">Frontfire UI Complete</h3>
+		<p>
+			To use the Frontfire UI Complete with separate files, write this:
+		</p>
+<div class="code" data-lang="html">&lt;script src="arraylist.min.js"&gt;&lt;/script&gt;
+&lt;script src="color.min.js"&gt;&lt;/script&gt;
+&lt;script src="frontfire-core.min.js"&gt;&lt;/script&gt;
+&lt;script src="frontfire-ui-complete.min.js"&gt;&lt;/script&gt;
+
+&lt;link rel="stylesheet" href="frontfire-ui-complete.min.css"&gt;
+</div>
+		<p>
+			The file datacolor.js is optional, it depends on your usage.
+		</p>
+
+		<p>
+			(You can also use frontfire-core-<em>singlefile</em>.js and frontfire-ui-complete/minimal.js together.)
+		</p>
+
+		<h2 id="placement">Placement</h2>
+		<p>
+			It is best-practice to include all stylesheets at the end of the HTML <code data-lang="html">&lt;head&gt;</code> and all scripts at the end of the HTML <code data-lang="html">&lt;body&gt;</code> element.
+			Then include your site-specific styles and scripts after the library files to be able to customise the library’s styles and build upon its scripts.
+		</p>
+		<p>
+			Also make sure you set a correct <a href="https://developer.mozilla.org/en-US/docs/Glossary/Doctype">doctype</a> to set the HTML parser in standards mode.
+			Failing to do so leaves the parser in the old quirks mode which can have unpredictable results, also for JavaScript code.
+		</p>
+<div class="code" data-lang="html">&lt;!doctype html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;!-- metadata --&gt;
+		...
+		&lt;link rel="stylesheet" href="lib/frontfire/css/frontfire-ui-complete.min.css"&gt;
+		&lt;!-- followed by your site-specific styles: --&gt;
+		&lt;link rel="stylesheet" href="css/site.min.css"&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;!-- content --&gt;
+		...
+		&lt;script src="lib/frontfire/js/frontfire-ui-complete-singlefile.min.js"&gt;&lt;/script&gt;
+		&lt;!-- followed by your site-specific scripts: --&gt;
+		&lt;script src="js/site.min.js"&gt;&lt;/script&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+</div>
+		<p>
+			See the <a href="frontfire-ui-autostart.html#javascript">Autostart</a> page for more details about the placement of script files.
+		</p>
+
+		<h2 id="debug">Debugging</h2>
+		<p>
+			For debugging Frontfire, it can help to use the non-minified files.
+			Even though source maps are provided, they can only resolve source files and line numbers but not show the original function and variable names in stack traces and error messages.
+			To switch to the unminified files, remove the <strong>.min</strong> part of each JavaScript and CSS file name.
+			Examples:
+		</p>
+		<ul>
+			<li>frontfire-core-singlefile<mark>.min.js</mark> → frontfire-core-singlefile<mark>.js</mark></li>
+			<li>frontfire-ui-complete-singlefile<mark>.min.js</mark> → frontfire-ui-complete-singlefile<mark>.js</mark></li>
+			<li>frontfire-ui-complete<mark>.min.css</mark> → frontfire-ui-complete<mark>.css</mark></li>
+			<li>arraylist<mark>.min.js</mark> → arraylist<mark>.js</mark></li>
+		</ul>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022–2023, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

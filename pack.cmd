@@ -91,8 +91,8 @@ public class App
 		Copy(@"..\src\js\color.js", dir);
 		Copy(@"..\src\js\datacolor.js", dir);
 		Copy(@"..\src\js\frontfire-core.js", dir);
-		Copy(@"..\src\js\build\frontfire-ui-minimal.bundle.js*", dir);
-		Copy(@"..\src\js\build\frontfire-ui-complete.bundle.js*", dir);
+		Copy(@"..\src\js\build\frontfire-ui-minimal.js*", dir);
+		Copy(@"..\src\js\build\frontfire-ui-complete.js*", dir);
 		dir = "js-min";
 		Copy(@"..\src\js\build\arraylist.min.js*", dir);
 		Copy(@"..\src\js\build\color.min.js*", dir);
@@ -101,9 +101,9 @@ public class App
 		Copy(@"..\src\js\build\frontfire-ui-minimal.min.js*", dir);
 		Copy(@"..\src\js\build\frontfire-ui-complete.min.js*", dir);
 		dir = "js-singlefile";
-		Copy(@"..\src\js\build\frontfire-core-singlefile.bundle.js*", dir);
-		Copy(@"..\src\js\build\frontfire-ui-minimal-singlefile.bundle.js*", dir);
-		Copy(@"..\src\js\build\frontfire-ui-complete-singlefile.bundle.js*", dir);
+		Copy(@"..\src\js\build\frontfire-core-singlefile.js*", dir);
+		Copy(@"..\src\js\build\frontfire-ui-minimal-singlefile.js*", dir);
+		Copy(@"..\src\js\build\frontfire-ui-complete-singlefile.js*", dir);
 		dir = "js-singlefile-min";
 		Copy(@"..\src\js\build\frontfire-core-singlefile.min.js*", dir);
 		Copy(@"..\src\js\build\frontfire-ui-minimal-singlefile.min.js*", dir);

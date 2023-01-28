@@ -449,6 +449,9 @@
 			light: "light %",
 			pale: "pale %",
 		},
+		"en-ca": {
+			gray: "gray",
+		},
 		"en-us": {
 			gray: "gray",
 		},

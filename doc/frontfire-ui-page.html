@@ -90,12 +90,12 @@
 &lt;body&gt;
 	&lt;!-- spans to the left and right window edge --&gt;
 	&lt;header&gt;
-		&lt;div class="page-width"&gt;
+		&lt;div class="{{{page-width}}}"&gt;
 			&lt;!-- limited width, responsive layout --&gt;
 			Header content
 		&lt;/div&gt;
 	&lt;/header&gt;
-	&lt;main class="page-width"&gt;
+	&lt;main class="{{{page-width}}}"&gt;
 		&lt;!-- limited width, responsive layout --&gt;
 		&lt;h1 class="no-top-margin"&gt;Page title&lt;/h1&gt;
 		&lt;p&gt;
@@ -106,6 +106,15 @@
 &lt;/body&gt;
 &lt;/html&gt;
 </div>
+		<p>
+			In this example, the JavaScript file is included at the end of the document’s <code data-lang="html">&lt;body&gt;</code> after all visible elements.
+			Alternatively (not preferred), it can be placed in the document <code data-lang="html">&lt;head&gt;</code>.
+			If included anywhere else (like at the beginning of <code data-lang="html">&lt;body&gt;</code> or before some visible elements in the document, it will not apply the default features to all following elements.
+			Then you have to call the <a href="frontfire-core.html#autostart"><code>autostart()</code></a> method yourself after all relevant elements have been added to the page.
+		</p>
+		<p>
+			See the <a href="frontfire-ui-installation.html">Installation</a> page for more details about how to include Frontfire in a web page.
+		</p>
 
 		<h2 id="page-width">Limited page width</h2>
 		<p>

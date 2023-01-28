@@ -842,6 +842,7 @@ div.example div.code
 	--syntax-keyword: #0770e9;
 	--syntax-result: #00b000;
 	--syntax-tag: #7c0af5;
+	--syntax-doctype: unset;
 	--syntax-attribute: #13a2be;
 	--syntax-entity: #2e9900;
 	--syntax-id-selector: #e57506;
@@ -887,6 +888,10 @@ code .syntax-result, div.code .syntax-result
 code .syntax-tag, div.code .syntax-tag
 {
 	color: var(--syntax-tag);
+}
+code .syntax-doctype, div.code .syntax-doctype
+{
+	color: var(--syntax-doctype);
 }
 code .syntax-attribute, div.code .syntax-attribute
 {

@@ -42,6 +42,10 @@ const dictionary = {
 		"no color": "No colour",
 		cancel: "Cancel",
 	},
+	"en-ca": {
+		"select color": "Select color",
+		"no color": "No color",
+	},
 	"en-us": {
 		"select color": "Select color",
 		"no color": "No color",

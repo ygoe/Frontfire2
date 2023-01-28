@@ -68,10 +68,12 @@
 			They can be called directly for newly created elements.
 		</p>
 		<p>
+			<strong>Note:</strong><br>
 			The <code>autostart()</code> method is also called when loading Frontfire UI’s JavaScript file.
 			In this case, it is assumed that the JavaScript file is included at the end of the document’s <code data-lang="html">&lt;body&gt;</code> after all visible elements (preferred) or in the document <code data-lang="html">&lt;head&gt;</code>.
 			If included anywhere else (like at the beginning of <code data-lang="html">&lt;body&gt;</code> or before some visible elements in the document, it will not apply the default features to all following elements.
-			Then you have to call the method yourself when all relevant elements have been added to the page.
+			Then you have to call the method yourself after all relevant elements have been added to the page.
+			See the <a href="frontfire-ui-installation.html#placement">Installation</a> page for an example.
 		</p>
 
 		<h2 id="opt-out">Opt-out</h2>

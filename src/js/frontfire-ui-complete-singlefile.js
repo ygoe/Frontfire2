@@ -1,6 +1,7 @@
 /*! frontfire-ui-complete-singlefile.js v2.0.0-beta.3 | @license MIT | ygoe.de */
 /* no-iife */
 /* build-dir(build) */
+/* no-bundle-suffix */
 
 // Copyright (c) 2022-2023, Yves Goergen, https://ygoe.de
 // All rights reserved.
@@ -28,4 +29,4 @@ import "./arraylist";
 import "./color";
 import "./datacolor";
 import "./frontfire-core";
-import "./build/frontfire-ui-complete.bundle";
+import "./build/frontfire-ui-complete";
