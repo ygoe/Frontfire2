@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: OffCanvas documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">OffCanvas plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.3</span>
+		</div>
+		<p>
+			An off-canvas element appears on request on either side of the page and overlays or pushes away the main page content.
+			This can be used for navigation menus or other side panels that don’t need to be permanently visible.
+		</p>
+		<p>
+			This plugin is available in the Minimal and Complete bundles.
+		</p>
+
+		<h2 id="description">Description</h2>
+		<p>
+			The off-canvas content can be freely defined in an HTML element with the <code class="css-class">off-canvas</code> CSS class which applies basic side panel styles and makes the element invisible at first.
+		</p>
+		<p>
+			To open an off-canvas element, call the <a href="frontfire-core.html#offCanvas"><code>offCanvas()</code></a> plugin function on the element to show as off-canvas.
+			The function takes the options as its single object argument.
+			The options are optional and can alternatively be specified as data-opt HTML attributes with the off-canvas HTML element.
+		</p>
+
+		<h2 id="example">Example</h2>
+		<div class="example no-frontfire" data-source-highlight='(?<=")off-canvas|offCanvas'>
+			<div id="side-menu" class="off-canvas">
+				<h2 class="no-top-margin">Example navigation</h2>
+				<nav>
+					<ul class="menu vertical">
+						<li><a href="#">Home page</a></li>
+						<li><a href="#">About us</a></li>
+						<li><a href="#">Products</a></li>
+						<li><a href="#">Solutions</a></li>
+						<li><a href="#">History</a></li>
+						<li><a href="#">Careers</a></li>
+						<li><a href="#">Contact</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="buttons p">
+				<button id="open-offcanvas-l1">Open off-canvas left pushing</button>
+				<button id="open-offcanvas-l05">Open off-canvas left half-pushing</button>
+				<button id="open-offcanvas-l0">Open off-canvas left overlapping</button>
+			</div>
+			<div class="buttons p">
+				<button id="open-offcanvas-r1">Open off-canvas right pushing</button>
+				<button id="open-offcanvas-r05">Open off-canvas right half-pushing</button>
+				<button id="open-offcanvas-r0">Open off-canvas right overlapping</button>
+			</div>
+			<script>
+				F("#open-offcanvas-l1").on("click", () => {
+					F("#side-menu").offCanvas();
+				});
+				F("#open-offcanvas-l05").on("click", () => {
+					F("#side-menu").offCanvas({ pushFactor: 0.5 });
+				});
+				F("#open-offcanvas-l0").on("click", () => {
+					F("#side-menu").offCanvas({ pushFactor: 0 });
+				});
+				F("#open-offcanvas-r1").on("click", () => {
+					F("#side-menu").offCanvas({ edge: "right" });
+				});
+				F("#open-offcanvas-r05").on("click", () => {
+					F("#side-menu").offCanvas({ edge: "right", pushFactor: 0.5 });
+				});
+				F("#open-offcanvas-r0").on("click", () => {
+					F("#side-menu").offCanvas({ edge: "right", pushFactor: 0 });
+				});
+			</script>
+		</div>
+		<p>
+			Note, the example uses a <code data-lang="html">&lt;div&gt;</code> HTML element for the off-canvas.
+			Usually, <code data-lang="html">&lt;aside&gt;</code> is a good semantic choice for this kind of element, but the documentation styles interfere with this so it cannot be demonstrated here.
+		</p>
+		<p>
+			Also, the fixed-position contents panel on the left (only visible on larger screens) cannot be moved to the side (just as the fixed-position header).
+			In this situation, the push animation is not recommended and the overlap (pushFactor = 0) should be used.
+		</p>
+
+		<h2 id="options">Options</h2>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>cancelable</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the user can close the off-canvas panel by clicking anywhere outside of it or pressing the Escape key.</td>
+					<td>true</td>
+				</tr>
+				<tr>
+					<td><code>closeOnResize</code></td>
+					<td>Boolean</td>
+					<td>Close the panel when the window size has changed.</td>
+					<td>true</td>
+				</tr>
+				<tr>
+					<td><code>dimBackground</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the page background is dimmed while the panel is open.</td>
+					<td>true</td>
+				</tr>
+				<tr>
+					<td><code>edge</code></td>
+					<td>String</td>
+					<td>The side from which the off-canvas opens (left, right).</td>
+					<td>"left"</td>
+				</tr>
+				<tr>
+					<td><code>noClose</code></td>
+					<td>String</td>
+					<td>The selector for elements that don’t close the off-canvas panel when touched.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>pushFactor</code></td>
+					<td>Number</td>
+					<td>Push the page content to the side by this factor when showing the off-canvas panel.<br>0 doesn’t push, 0.5 pushes half-way, 1 pushes the full panel width.</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td><code>transitionTime</code></td>
+					<td>Number</td>
+					<td>The push/slide transition time in milliseconds.</td>
+					<td>400</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="properties">Plugin properties</h2>
+		<p>
+			This plugin provides properties to access the off-canvas state.
+		</p>
+
+		<div class="member">
+			<h3 id="isOpen">isOpen</h3>
+			<ul>
+				<li><code>isOpen</code> → Boolean</li>
+			</ul>
+			<p>
+				Determines whether the off-canvas is currently open or opening but not closing.
+				This property cannot be written.
+			</p>
+<div class="code">if (F("#off-canvas").offCanvas.isOpen) {
+	// ...
+}
+</div>
+		</div>
+
+		<h2 id="methods">Plugin methods</h2>
+		<p>
+			This plugin provides methods to control the off-canvas.
+		</p>
+
+		<div class="member">
+			<h3 id="close">close</h3>
+			<ul>
+				<li><code>close()</code> → this</li>
+			</ul>
+			<p>
+				Closes the selected off-canvas.
+			</p>
+<div class="code">F("#off-canvas").offCanvas.close();
+</div>
+		</div>
+
+		<h2 id="events">Plugin events</h2>
+		<p>
+			This plugin triggers events for the off-canvas.
+		</p>
+
+		<div class="member">
+			<h3 id="closing">closing</h3>
+			<p>
+				Triggered when the off-canvas is beginning to close.
+			</p>
+		</div>
+
+		<div class="member">
+			<h3 id="close-event">close</h3>
+			<p>
+				Triggered when the off-canvas is completely closed.
+			</p>
+		</div>
+
+		<div class="member">
+			<h3 id="opening">opening</h3>
+			<p>
+				Triggered when the off-canvas is beginning to open.
+			</p>
+		</div>
+
+		<div class="member">
+			<h3 id="open">open</h3>
+			<p>
+				Triggered when the off-canvas is completely open.
+			</p>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022–2023, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

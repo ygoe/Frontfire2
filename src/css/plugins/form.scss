@@ -436,10 +436,7 @@
 	a.button
 )
 {
-	// Calculate lightness values from light factor (lf):
-	// - start with the base lightness
-	// - add the factor towards 100% (only if the factor is > 0)
-	// - subtract the negative factor towards 0% (only if the factor is < 0)
+	// Calculate lightness values from light factor (see description in variables.scss):
 	--button-hover-background-l: calc(var(--button-background-l)
 		+ max(0%, (100% - var(--button-background-l)) * var(--button-hover-lf))
 		- max(0%, var(--button-background-l) * (0 - (var(--button-hover-lf)))));
@@ -636,10 +633,7 @@
 
 	&.transparent:not(:disabled):not([disabled])
 	{
-		// Calculate lightness values from light factor (lf):
-		// - start with the base lightness
-		// - add the factor towards 100% (only if the factor is > 0)
-		// - subtract the negative factor towards 0% (only if the factor is < 0)
+		// Calculate lightness values from light factor (see description in variables.scss):
 		--link-hover-color-l: calc(var(--link-color-l)
 			+ max(0%, (100% - var(--link-color-l)) * var(--link-hover-lf))
 			- max(0%, var(--link-color-l) * (0 - (var(--link-hover-lf)))));
@@ -761,10 +755,7 @@
 	input[type=submit].link
 )
 {
-	// Calculate lightness values from light factor (lf):
-	// - start with the base lightness
-	// - add the factor towards 100% (only if the factor is > 0)
-	// - subtract the negative factor towards 0% (only if the factor is < 0)
+	// Calculate lightness values from light factor (see description in variables.scss):
 	--link-hover-color-l: calc(var(--link-color-l)
 		+ max(0%, (100% - var(--link-color-l)) * var(--link-hover-lf))
 		- max(0%, var(--link-color-l) * (0 - (var(--link-hover-lf)))));
@@ -877,10 +868,7 @@ span.buttons
 :is(div, span).buttons.group,
 :is(div.buttons, .ff-input-wrapper, .segmented-input) > span.group
 {
-	// Calculate lightness values from light factor (lf):
-	// - start with the base lightness
-	// - add the factor towards 100% (only if the factor is > 0)
-	// - subtract the negative factor towards 0% (only if the factor is < 0)
+	// Calculate lightness values from light factor (see description in variables.scss):
 	--button-group-separator-l: calc(var(--button-background-l)
 		+ max(0%, (100% - var(--button-background-l)) * var(--button-group-separator-lf))
 		- max(0%, var(--button-background-l) * (0 - (var(--button-group-separator-lf)))));
@@ -920,10 +908,7 @@ span.buttons.group,
 // Toggle button
 button.ff-toggle-button.ff-tb-active
 {
-	// Calculate lightness values from light factor (lf):
-	// - start with the base lightness
-	// - add the factor towards 100% (only if the factor is > 0)
-	// - subtract the negative factor towards 0% (only if the factor is < 0)
+	// Calculate lightness values from light factor (see description in variables.scss):
 	--button-active-hover-background-l: calc(var(--button-active-background-l)
 		+ max(0%, (100% - var(--button-active-background-l)) * var(--button-active-hover-lf))
 		- max(0%, var(--button-active-background-l) * (0 - (var(--button-active-hover-lf)))));

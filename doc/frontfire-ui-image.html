@@ -250,11 +250,13 @@
 		<h2 id="overlay-text">Image with text overlay</h2>
 		<p>
 			Text can be placed over an image and aligned in a corner with an HTML structure that begins with the <code class="css-class">image-overlay-text</code> CSS class.
-			Each such <code data-lang="html">&lt;div&gt;</code> (without link) or <code data-lang="html">&lt;a&gt;</code> (with link) element has two children.
-			First, the image without additional classes or size styles.
-			Second, two nested <code data-lang="html">&lt;span&gt;</code> elements with the text in the inner one.
-			The outer element is for text positioning, the inner one for the background colour.
+			Each such <code data-lang="html">&lt;div&gt;</code> (without link) or <code data-lang="html">&lt;a&gt;</code> (with link) element has two children:
 		</p>
+		<ol>
+			<li>The <code data-lang="html">&lt;img&gt;</code> image without additional classes or size styles</li>
+			<li>Two nested <code data-lang="html">&lt;span&gt;</code> elements with the text in the inner one.
+				The outer element is for text positioning, the inner one for the background colour.</li>
+		</ol>
 		<p>
 			If a hyperlink (<code data-lang="html">&lt;a&gt;</code>) is used as the root element, the entire image area will be clickable for the link.
 			Also, text overlays over links will have the usual hyperlink colours; otherwise, a neutral black/white colour is used.
@@ -273,6 +275,12 @@
 			The CSS variables <code class="css-var">--link-invert-hover-lf</code> or <code class="css-var">--link-invert-hover-color</code> should be adjusted when setting the <code class="css-var">--link-color-l</code> or <code class="css-var">--link-color</code> variables.
 		</p>
 		<p>
+			To prevent any effects of the dark theme, each image block should also have the <code class="css-class">not-dark</code> CSS class.
+			This preserves the normal link colours on the image.
+			In the dark theme, the link colours would be adjusted for a dark text background.
+			This would be inappropriate here because the image in the background does not depend on a theme, it remains the same.
+		</p>
+		<p>
 			These text overlays are best used with smaller images, so the example uses the image grid that is described in the next section.
 		</p>
 		<style>
@@ -281,20 +289,33 @@
 				font-weight: 600;
 			}
 		</style>
-		<div class="example p no-frontfire" data-source-highlight='(?<="| )(image-overlay-text|bottom|center|right|invert)'>
+		<div class="example p no-frontfire" data-source-highlight='(?<="| )(image-overlay-text|bottom|center|right|invert|not-dark)|(?<=<)a(?= href)|(?<=<)div(?= class="image-overlay-text)'>
 			<div class="image-x3 require-minitab narrow-x2">
-				<a href="#" class="image-overlay-text shadow">
+				<a href="#" class="image-overlay-text shadow not-dark">
 					<img src="res/zeelandbrug.webp">
 					<span class="bottom"><span>Netherlands</span></span>
 				</a>
-				<a href="#" class="image-overlay-text shadow">
+				<a href="#" class="image-overlay-text shadow not-dark">
 					<img src="res/neist-point.webp">
 					<span class="right"><span class="invert">Scotland</span></span>
 				</a>
-				<div class="image-overlay-text shadow">
+				<div class="image-overlay-text shadow not-dark">
 					<img src="res/aurora.webp">
 					<span class="bottom right"><span>Iceland</span></span>
 				</div>
+			</div>
+		</div>
+
+		<h3 id="overlay-text-multiple">Multiple text overlays</h3>
+		<p>
+			The second child element with the overlay text can be repeated for additional texts.
+			These should be placed in a different corner of the image, depending on the image size and text length.
+		</p>
+		<div class="example p resizable narrow no-frontfire">
+			<div class="image-full-width image-overlay-text shadow not-dark">
+				<img src="res/zeeland-dune.webp" class="no-bottom-margin">
+				<span><span>Visitors’ favourite:</span></span>
+				<span class="bottom right"><span class="invert">The tranquil<br>sand dunes</span></span>
 			</div>
 		</div>
 

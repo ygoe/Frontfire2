@@ -5,9 +5,6 @@
 	z-index: 1500;
 	top: 0;
 	height: 100%;
-	padding: 10px;
-	background: #f4f4f4;
-	color: black;
 	touch-action: pan-y;
 	overflow-y: auto;
 	overscroll-behavior: contain;
@@ -20,4 +17,9 @@
 	{
 		visibility: visible;
 	}
+
+	// These visual styles are just a suggestion, override them in your page styles as needed:
+	padding: 10px;
+	background: #f4f4f4;
+	color: black;
 }

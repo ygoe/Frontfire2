@@ -503,9 +503,11 @@ function setActiveItem(item) {
 	index = F.clamp(index, 0, items.length - opt.items);
 	opt.active = index;
 	opt._layout(0);
-	let dots = carousel.F.querySelector("." + carouselIndicatorClass).children;
-	dots.classList.remove("active");
-	dots.get(Math.ceil(index / opt.dotsEach)).classList.add("active");
+	if (opt.indicator) {
+		let dots = carousel.F.querySelector("." + carouselIndicatorClass).children;
+		dots.classList.remove("active");
+		dots.get(Math.ceil(index / opt.dotsEach)).classList.add("active");
+	}
 	carousel.F.trigger("activeItemChange");
 }
 
@@ -533,9 +535,11 @@ function setActiveItemIndex(index) {
 		index = F.clamp(index, 0, items.length - opt.items);
 		opt.active = index;
 		opt._layout(0);
-		let dots = carousel.F.querySelector("." + carouselIndicatorClass).children;
-		dots.classList.remove("active");
-		dots.get(Math.ceil(index / opt.dotsEach)).classList.add("active");
+		if (opt.indicator) {
+			let dots = carousel.F.querySelector("." + carouselIndicatorClass).children;
+			dots.classList.remove("active");
+			dots.get(Math.ceil(index / opt.dotsEach)).classList.add("active");
+		}
 		carousel.F.trigger("activeItemChange");
 	});
 }

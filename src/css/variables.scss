@@ -12,6 +12,31 @@ $viewportWidthTablet: 900px;
 $viewportWidthDesktop: 1200px;
 // Wide monitors (1201-)
 
+// Color calculation description:
+//
+// Universal lightness factor definition:
+// Value between 0 and 1 to increase lightness
+//   --new-lf: 0.2;
+// Value between 0 and -1 to decrease lightness
+//   --new-lf: -0.2;
+// Calculate lightness values from light factor (lf):
+// - start with the base lightness
+// - add the factor towards 100% (only if the factor is > 0)
+// - subtract the negative factor towards 0% (only if the factor is < 0)
+//   --new-color-l: calc(var(--color-l)
+//       + max(0%, (100% - var(--color-l)) * var(--new-lf))
+//       - max(0%, var(--color-l) * (0 - (var(--new-lf)))));
+//
+// Simplified calculation to only increase the lightness:
+//   --lighter: 0.2;
+//   --new-color-l: calc(var(--color-l) + (100% - var(--color-l)) * var(--lighter));
+//   --new-color-l: calc((1 - var(--lighter)) * var(--color-l) + var(--lighter) * 100%);
+//
+// Simplified calculation to only decrease the lightness:
+//   --darker: 0.2;
+//   --new-color-l: calc(var(--color-l) - var(--color-l) * var(--darker));
+//   --new-color-l: calc(var(--color-l) * (1 - var(--darker)));
+
 
 :root,
 .not-dark
@@ -91,6 +116,14 @@ $viewportWidthDesktop: 1200px;
 	--link-color-l: 51%;
 	// Lightness factors (-1 is black, 0 is unchanged, 1 is white):
 	--link-hover-lf: -0.25;
+
+	// TODO: Experiment
+	//--link-color-h: 220;
+	//--link-color-s: 90%;
+	//--link-color-l: 60%;
+	//--link-color: var(--default-text-color);
+	//--link-text-decoration-color: hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l));
+	//--link-hover-text-decoration-color: transparent;
 
 	--table-grid-color: #d8d8d8;
 	// Table header cannot be transparent because of sticky-header
@@ -532,13 +565,4 @@ $viewportWidthDesktop: 1200px;
 
 	--toggle-switch-unset-l: 57%;
 	--toggle-switch-set-l: 75%;
-}
-
-// Revert some colors for the light theme.
-.not-dark
-{
-	// ========== Carousel ==========
-
-	--carousel-indicator-background: rgb(0, 0, 0, 0.1);
-	--carousel-indicator-active-background: rgb(0, 0, 0, 0.3);
 }

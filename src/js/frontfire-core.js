@@ -1741,33 +1741,34 @@
 	// instance. The animation uses the fill-mode "forwards" so that its final frame remains active.
 	// See also: Element.animate()
 	//
-	// data: (Object) An object that contains the CSS properties to animate and each an array of the
+	// styles: (Object) An object that contains the CSS properties to animate and each an array of the
 	//   start and end value of the animation.
 	// duration: (Number) The duration of the animation, in milliseconds.
 	// easing: (String) The easing function, defaults to the symmetric "ease-in-out".
 	// keep: (Boolean) Indicates whether the final state should be persisted (true) or reverted
 	//   (false). Defaults to true if unset.
-	//
-	// TODO: Keeping the final state keeps the animation alive, using memory and blocking further style updates. Find another solution. See MDN for Element.animate(). Note that offCanvas needs the animation to later reverse() it. - https://developer.mozilla.org/en-US/docs/Web/API/Animation#automatically_removing_filling_animations
-	Frontfire_prototype.animateFromTo = function (data, duration, easing, keep) {
+	Frontfire_prototype.animateFromTo = function (styles, duration, easing, keep) {
 		let keyframes = [{}, {}];
-		for (let key in data) {
-			keyframes[0][camelCase(key)] = data[key][0];
-			keyframes[1][camelCase(key)] = data[key][1];
+		for (let key in styles) {
+			keyframes[0][camelCase(key)] = styles[key][0];
+			keyframes[1][camelCase(key)] = styles[key][1];
 		}
 		if (this.length === 0)
 			return null;
 		let anim = this.first.animate(keyframes, {
 			duration: duration,
 			easing: easing || "ease-in-out",
-			fill: keep === false ? "none" : "forwards"
+			fill: keep !== false ? "forwards" : "none"
 		});
-		//if (keep !== false) {
-		//	anim.addEventListener("finish", () => {
-		//		anim.commitStyles();
-		//		anim.cancel();
-		//	});
-		//}
+		// Animation styles to keep must be forwards-filling so that they can still be observed when
+		// the animation finishes. But to avoid keeping the animation in place (which still keeps
+		// overriding other styles), it should be committed into element styles and then removed.
+		if (keep !== false) {
+			anim.addEventListener("finish", () => {
+				anim.commitStyles();
+				anim.cancel();
+			});
+		}
 		return anim;
 	};
 

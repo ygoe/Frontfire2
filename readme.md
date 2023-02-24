@@ -29,7 +29,7 @@ Download
 
 There are currently no CDN offerings available so you have to host the files yourself. This is the preferred method anyway since CDNs often make websites slower, less reliable and come with privacy implications.
 
-The following is the content of the archive. All files in readable and minified form, with source map. Descriptions of bundles and variants below. All file sizes measured with GZip compression.
+The following is the content of the archive. All files in readable and minified form, with source map. Descriptions of bundles and variants below. All file sizes measured with GZip compression (brotli isn’t any better here).
 
 
 ### JavaScript files

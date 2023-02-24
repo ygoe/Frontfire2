@@ -8,7 +8,7 @@ const offCanvasClosingClass = "closing";
 // Defines default options for the off-canvas plugin.
 let offCanvasDefaults = {
 	// Indicates whether the user can close the off-canvas panel by clicking anywhere outside of it or pressing the Escape key.
-	cancellable: true,
+	cancelable: true,
 
 	// The selector for elements that don't close the off-canvas panel when touched.
 	noClose: undefined,
@@ -51,7 +51,7 @@ function offCanvas(options) {
 	else
 		opt = F.loadOptions("offCanvas", container);
 
-	container.F.trigger("offcanvasopening");
+	container.F.trigger("opening");
 
 	container.classList.add(offCanvasClass, offCanvasOpeningClass);
 	document.body.append(container);
@@ -61,12 +61,12 @@ function offCanvas(options) {
 	if (opt.edge === "left") opt._opposite = "right";
 	else if (opt.edge === "right") opt._opposite = "left";
 
-	let html = F("html");
+	let html = document.documentElement;
 	let width = container.F.width;
 
 	if (!wasClosing) {
 		opt._htmlStyle = {
-			overflowX: html.computedStyle.overflowX
+			overflowX: html.F.computedStyle.overflowX
 		};
 	}
 
@@ -78,11 +78,32 @@ function offCanvas(options) {
 
 	if (!wasClosing) {
 		// Start the animation to the opened state
-		opt._anim = container.F.animateFromTo({ [opt.edge]: [-width + "px", "0"] }, opt.transitionTime);
-		opt._anim2 = html.animateFromTo({
-			["margin-" + opt.edge]: ["0", (width * opt.pushFactor) + "px"],
-			["margin-" + opt._opposite]: ["0", (-width * opt.pushFactor) + "px"]
-		}, opt.transitionTime);
+		// (don't use F.animateFromTo because it commits and removes the animation after it's finished)
+		opt._anim = container.animate([
+			{ [F.camelCase(opt.edge)]: -width + "px" },
+			{ [F.camelCase(opt.edge)]: "0" }
+		], {
+			duration: opt.transitionTime,
+			easing: "ease-in-out",
+			fill: "forwards"
+		});
+		opt._anim2 = html.animate([
+			{ [F.camelCase("margin-" + opt.edge)]: "0", [F.camelCase("margin-" + opt._opposite)]: "0" },
+			{ [F.camelCase("margin-" + opt.edge)]: (width * opt.pushFactor) + "px", [F.camelCase("margin-" + opt._opposite)]: (-width * opt.pushFactor) + "px" }
+		], {
+			duration: opt.transitionTime,
+			easing: "ease-in-out",
+			fill: "forwards"
+		});
+
+		// Alternative approach that can push anything to the side (also fixed-position elements) (incomplete; don't use animateFromTo)
+		//let dx = opt.edge === "left" ? width : -width;
+		//opt._anim = container.F.animateFromTo({
+		//	transform: ["translate(0)", `translate(${-dx}px)`],
+		//	[opt.edge]: [-width + "px", "0"]
+		//}, opt.transitionTime);
+		//opt._anim2 = html.F.animateFromTo({ transform: ["translate(0)", `translate(${dx}px)`] }, opt.transitionTime);
+
 		html.style.overflowX = "hidden";
 	}
 	else {
@@ -94,7 +115,7 @@ function offCanvas(options) {
 	opt._anim.finished.then(() => {
 		if (container.classList.contains(offCanvasOpeningClass) && !container.classList.contains(offCanvasClosingClass)) {
 			container.classList.remove(offCanvasOpeningClass);
-			container.F.trigger("offcanvasopen");
+			container.F.trigger("open");
 		}
 	});
 
@@ -102,8 +123,8 @@ function offCanvas(options) {
 		F.dimBackground(true);
 
 	let firstFocusable = container.F.queryFocusable().first;
-	firstFocusable.focus();
-	firstFocusable.blur();
+	firstFocusable?.focus();
+	firstFocusable?.blur();
 
 	F.preventScrolling();
 
@@ -119,7 +140,7 @@ function offCanvas(options) {
 	});
 
 	// Close on pressing the Escape key or clicking outside the offCanvas
-	if (opt.cancellable) {
+	if (opt.cancelable) {
 		document.F.on("keydown" + offCanvasEventClass, event => {
 			if (event.key === "Escape") {
 				event.preventDefault();
@@ -161,7 +182,7 @@ function closeOffCanvas() {
 		container.classList.remove(offCanvasOpeningClass);
 	}
 
-	container.F.trigger("offcanvasclosing");
+	container.F.trigger("closing");
 
 	let html = F("html");
 
@@ -182,8 +203,10 @@ function closeOffCanvas() {
 		if (container.classList.contains(offCanvasClosingClass) && !container.classList.contains(offCanvasOpeningClass)) {
 			container.classList.remove(offCanvasClass, offCanvasClosingClass);
 			html.style(opt._htmlStyle);
-			container.F.trigger("offcanvasclose");
+			container.F.trigger("close");
 		}
+		opt._anim.cancel();
+		opt._anim2.cancel();
 	});
 }
 

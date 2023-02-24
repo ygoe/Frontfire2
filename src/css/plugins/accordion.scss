@@ -6,10 +6,7 @@
 
 .ff-accordion-header
 {
-	// Calculate lightness values from light factor (lf):
-	// - start with the base lightness
-	// - add the factor towards 100% (only if the factor is > 0)
-	// - subtract the negative factor towards 0% (only if the factor is < 0)
+	// Calculate lightness values from light factor (see description in variables.scss):
 	--accordion-header-hover-background-l: calc(var(--accordion-header-background-l)
 		+ max(0%, (100% - var(--accordion-header-background-l)) * var(--accordion-header-hover-lf))
 		- max(0%, var(--accordion-header-background-l) * (0 - (var(--accordion-header-hover-lf)))));

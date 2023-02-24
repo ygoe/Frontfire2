@@ -1,9 +1,6 @@
 ul.menu
 {
-	// Calculate lightness values from light factor (lf):
-	// - start with the base lightness
-	// - add the factor towards 100% (only if the factor is > 0)
-	// - subtract the negative factor towards 0% (only if the factor is < 0)
+	// Calculate lightness values from light factor (see description in variables.scss):
 	--menu-hover-background-l: calc(var(--menu-background-l)
 		+ max(0%, (100% - var(--menu-background-l)) * var(--menu-hover-lf))
 		- max(0%, var(--menu-background-l) * (0 - (var(--menu-hover-lf)))));
@@ -154,10 +151,7 @@ ul.menu.vertical > li.separator
 
 .ff-submenu
 {
-	// Calculate lightness values from light factor (lf):
-	// - start with the base lightness
-	// - add the factor towards 100% (only if the factor is > 0)
-	// - subtract the negative factor towards 0% (only if the factor is < 0)
+	// Calculate lightness values from light factor (see description in variables.scss):
 	--submenu-hover-background-l: calc(var(--submenu-background-l)
 		+ max(0%, (100% - var(--submenu-background-l)) * var(--submenu-hover-lf))
 		- max(0%, var(--submenu-background-l) * (0 - (var(--submenu-hover-lf)))));

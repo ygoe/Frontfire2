@@ -40,6 +40,7 @@
 		<ul>
 			<li>CSS classes <code>gallery-center</code> and <code>gallery-right</code> renamed to <code class="css-class">center</code> and <code class="css-class">right</code></li>
 			<li>CSS class <code>inverted-indicator</code> of the carousel removed, use the <code class="css-class">dark</code> and <code class="css-class">not-dark</code> theme classes instead</li>
+			<li>Off-canvas <code>offcanvasopening</code>, <code>offcanvasopen</code>, <code>offcanvasclosing</code>, <code>offcanvasclose</code> events renamed to <a href="frontfire-ui-offcanvas.html#opening"><code>opening</code></a>, <a href="frontfire-ui-offcanvas.html#open"><code>open</code></a>, <a href="frontfire-ui-offcanvas.html#closing"><code>closing</code></a>, <a href="frontfire-ui-offcanvas.html#close-event"><code>close</code></a> (similar to modal)</li>
 		</ul>
 
 		<hr class="double-margin">
@@ -107,7 +108,7 @@
 			<li><code data-lang="html">&lt;a&gt;</code> within <code data-lang="html">&lt;div class="buttons"&gt;</code> is no longer a button, add the <code class="css-class">button</code> class explicitly</li>
 			<li>JavaScript <code>frontfire()</code> method with arguments indicating autostart mode must be replaced with the separate <a href="frontfire-core.html#modal"><code>autostart()</code></a> method without arguments.</li>
 			<li>JavaScript <a href="frontfire-core.html#modal"><code>F.modal()</code></a> returns Promise instead of accepting a resultHandler option.</li>
-			<li>Modal option <code>cancellable</code> renamed to <code>cancelable</code> (US spelling, as in DOM events API)</li>
+			<li>Modal and off-canvas option <code>cancellable</code> renamed to <code>cancelable</code> (US spelling, as in DOM events API)</li>
 			<li>JavaScript <code>F.updateLastColumn()</code> renamed to <a href="frontfire-core.html#updateFirstLastColumn"><code>updateFirstLastColumn()</code></a></li>
 			<li>The <code>step</code> or <code>data-step</code> attribute of <code data-lang="html">&lt;input type="number"&gt;</code> elements cannot contain values like "*10" anymore, the step factor must be specified in the <a href="frontfire-ui-form.html#spinner-step-factor"><code>data-step-factor</code></a> attribute.</li>
 			<li>CSS class <code>white-margin</code> renamed to <code class="css-class">white-border</code></li>
@@ -125,6 +126,8 @@
 			<li>Tabs property <a href="frontfire-ui-tabs.html#activeTab"><code>activeTab</code></a> can only handle page nodes, use <a href="frontfire-ui-tabs.html#activeTabIndex"><code>activeTabIndex</code></a> to use page index numbers.</li>
 			<li>Sortable method <code>addChild</code> removed, not needed anymore</li>
 			<li>Slider event <code>valuechange</code> renamed to <a href="frontfire-ui-slider.html#change"><code>change</code></a></li>
+			<li>CSS class <code>dark</code> for <code data-lang="html">&lt;a|div class="image-overlay-text"&gt;</code> renamed to <code class="css-class">invert</code></li>
+			<li>Off-canvas option <code>push</code> renamed to <code>pushFactor</code></li>
 		</ul>
 	</main>
 

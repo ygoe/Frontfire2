@@ -180,10 +180,7 @@ div.justify
 // These colors are also used for <button class="link"> in the Form plugin
 :where(a)
 {
-	// Calculate lightness values from light factor (lf):
-	// - start with the base lightness
-	// - add the factor towards 100% (only if the factor is > 0)
-	// - subtract the negative factor towards 0% (only if the factor is < 0)
+	// Calculate lightness values from light factor (see description in variables.scss):
 	--link-hover-color-l: calc(var(--link-color-l)
 		+ max(0%, (100% - var(--link-color-l)) * var(--link-hover-lf))
 		- max(0%, var(--link-color-l) * (0 - (var(--link-hover-lf)))));
@@ -214,7 +211,7 @@ div.justify
 		}
 	}
 	// text-decoration cannot be set for :visited
-	&:where(:link)
+	&:where(:any-link)
 	{
 		text-decoration: var(--link-text-decoration, underline);
 		text-decoration-color: var(--link-text-decoration-color, currentcolor);

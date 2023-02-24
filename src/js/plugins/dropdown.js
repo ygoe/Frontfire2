@@ -265,7 +265,7 @@ function createDropdown(target, options) {
 
 	container.F.top = top;
 	container.F.left = left;
-	// TODO: Use animateFromTo() instead of forceReflow()
+	// TODO: Use Animation instead of forceReflow()
 	container.classList.add("animate-" + direction);
 	F.forceReflow();
 	container.classList.add("open");

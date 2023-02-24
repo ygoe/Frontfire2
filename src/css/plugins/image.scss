@@ -315,6 +315,7 @@ div.image-right
 	position: relative;
 	display: block;
 	font-size: 1.4em;
+	line-height: 130%;   // Keep multiple lines in the same contiguous background area
 	text-align: left;
 	color: inherit;
 
@@ -401,7 +402,7 @@ a.image-overlay-text
 			background-color: var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l)));
 		}
 	}
-	&:is(:hover, :focus)
+	&:hover
 	{
 		// Intensify text background a little on hovering the image
 		> :not(.ff-foreground-only)
@@ -412,10 +413,7 @@ a.image-overlay-text
 			}
 			> span.invert
 			{
-				// Calculate lightness values from light factor (lf):
-				// - start with the base lightness
-				// - add the factor towards 100% (only if the factor is > 0)
-				// - subtract the negative factor towards 0% (only if the factor is < 0)
+				// Calculate lightness values from light factor (see description in variables.scss):
 				--link-invert-hover-color-l: calc(var(--link-color-l)
 					+ max(0%, (100% - var(--link-color-l)) * var(--link-invert-hover-lf, -0.15))
 					- max(0%, var(--link-color-l) * (0 - (var(--link-invert-hover-lf, -0.15)))));
