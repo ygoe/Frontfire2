@@ -390,13 +390,15 @@ function styleCheckbox() {
 			input.F.wrap('<label class="empty">');
 		}
 		input.classList.add(styleCheckboxClass);
-		input.after(F.c("span"));
+		let span = F.c("span");
+		span.classList.add(styleCheckboxClass);
+		input.after(span);
 	});
 }
 
 F.registerPlugin("styleCheckbox", styleCheckbox, {
 	selectors: [
-		"input[type=checkbox]",
+		"input[type=checkbox]:not(.toggle-switch):not(.toggle-button)",
 		"input[type=radio]"
 	]
 });

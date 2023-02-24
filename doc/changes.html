@@ -30,11 +30,13 @@
 			<li><a href="frontfire-ui-gallery.html">Gallery</a> plugin</li>
 			<li>CSS class <code class="css-class">expanded</code> for initially expanded accordion items</li>
 			<li>Added styling for the <a href="frontfire-ui-typography.html#mark"><code>&lt;mark&gt;</code> element</a></li>
+			<li>ToggleSwitch can be applied to an <code data-lang="html">&lt;input type="checkbox"&gt;</code> element, also automatically with the <code class="css-class">toggle-switch</code> CSS class</li>
 		</ul>
 		<h3 class="no-toc">Breaking changes</h3>
 		<ul>
 			<li>AJAX methods <a href="frontfire-core.html#getJSON"><code>F.getJSON</code></a>, <a href="frontfire-core.html#postJSON"><code>F.postJSON</code></a> and <code>F.postForm</code> returned Promise resolves to undefined (instead of null) on error to be able to indicate the JSON value <code>null</code> as response</li>
 			<li>AJAX method <code>F.postForm</code> renamed to <a href="frontfire-core.html#postFormJSON"><code>F.postFormJSON</code></a> as <a href="frontfire-core.html?s=ajax">more AJAX methods</a> were added</li>
+			<li>ToggleSwitch plugin method does not return a plugin instance anymore, but can convert multiple elements at once</li>
 		</ul>
 		<h3 class="no-toc">Breaking changes since v1</h3>
 		<ul>

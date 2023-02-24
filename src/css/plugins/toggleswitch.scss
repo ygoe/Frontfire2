@@ -9,6 +9,8 @@
 	width: 34px;
 	height: 24px;
 	cursor: pointer;
+	transition: opacity var(--animation-duration) var(--animation-function);
+
 	div.background
 	{
 		position: absolute;
@@ -17,9 +19,9 @@
 		left: 2px;
 		right: 2px;
 		border-radius: 20px;
-		opacity: var(--toggle-switch-background-opacity, 0.5);
+		opacity: var(--toggle-switch-background-opacity, 0.33);
 		background-color: var(--toggle-switch);
-		transition: background-color 0.2s;
+		transition: background-color var(--animation-duration) var(--animation-function), opacity var(--animation-duration) var(--animation-function);
 	}
 	div.thumb
 	{
@@ -31,7 +33,7 @@
 		border-radius: 20px;
 		background-color: var(--toggle-switch);
 		box-shadow: 0 1px 2px rgb(0, 0, 0, 0.2);
-		transition: background-color 0.2s, left 0.2s;
+		transition: background-color var(--animation-duration) var(--animation-function), left var(--animation-duration) var(--animation-function);
 	}
 	&.active
 	{
@@ -45,7 +47,7 @@
 	&.indeterminate
 	{
 		--toggle-switch: hsl(
-			calc((var(--toggle-switch-unset-h) + var(--toggle-switch-set-h)) / 2),
+			var(--toggle-switch-set-h),
 			calc((var(--toggle-switch-unset-s) + var(--toggle-switch-set-s)) / 2),
 			calc((var(--toggle-switch-unset-l) + var(--toggle-switch-set-l)) / 2));
 
@@ -62,5 +64,9 @@
 		outline-offset: var(--focus-keyboard-outline-offset);
 	}
 
-	// TODO: Add disabled state, better visually differentiate it from the deselected state (use grey only when disabled)
+	&[disabled]
+	{
+		opacity: var(--toggle-switch-disabled-opacity);
+		cursor: default;
+	}
 }

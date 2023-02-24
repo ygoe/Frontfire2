@@ -5,7 +5,10 @@ Frontfire Web Frontend Toolkit
 
 The Frontfire Web Frontend Toolkit offers essential styles and effects combined with a consistent set of interactive widgets and layout utilities. It is suitable for web pages and web applications that need a modern and consistent look and feel and use responsive design to work on all devices and screen sizes. All interactions are fully touch-aware and work with any type of pointing device. The default style equally supports light and dark theme.
 
-While [Frontfire version 1](https://github.com/ygoe/Frontfire1) (which as a work in progress never actually used version numbers) was made as a jQuery plugin, version 2 comes in two parts: **Core**, basically replacing jQuery, and **UI**, building with plugins upon Core.
+While [Frontfire version 1](https://github.com/ygoe/Frontfire1) (which as a work in progress never actually used version numbers) was made as a jQuery plugin, version 2 comes in two parts:
+
+* **Core**, basically replacing jQuery, and
+* **UI**, building with plugins upon Core
 
 Frontfire is published under the [MIT licence](license.txt). Please leave a ⭐ star on this reporitory if you like or use it to help others find it, too. Thank you!
 
@@ -29,19 +32,19 @@ Download
 
 There are currently no CDN offerings available so you have to host the files yourself. This is the preferred method anyway since CDNs often make websites slower, less reliable and come with privacy implications.
 
-The following is the content of the archive. All files in readable and minified form, with source map. Descriptions of bundles and variants below. All file sizes measured with GZip compression (brotli isn’t any better here).
+The following is the content of the release archive. All files in readable and minified form, with source map. Descriptions of bundles and variants below. All file sizes measured with GZip compression.
 
 
 ### JavaScript files
 
-| ▾ Bundle ╲ Variant ▸  | Separate files | Single file (includes all above) |
+| ╲ Variant ▸<br>▾ Bundle ╲ | Separate files | Single file (includes all above) |
 |-----------------------|----------------|-------------|
 | ArrayList             | arraylist.js<br>arraylist.min.js (3.0 KiB) | – |
 | Frontfire Core        | frontfire-core.js<br>frontfire-core.min.js (10 KiB) | frontfire-core-singlefile.js<br>frontfire-core-singlefile.min.js (13 KiB) |
-| Frontfire UI Minimal  | frontfire-ui-minimal.js<br>frontfire-ui-minimal.min.js (16 KiB) | frontfire-ui-minimal-singlefile.js<br>frontfire-ui-minimal-singlefile.min.js (28 KiB) |
+| Frontfire UI<br>Minimal  | frontfire-ui-minimal.js<br>frontfire-ui-minimal.min.js (16 KiB) | frontfire-ui-minimal-singlefile.js<br>frontfire-ui-minimal-singlefile.min.js (28 KiB) |
 | Color                 | color.js<br>color.min.js (2.6 KiB) | – |
 | DataColor             | datacolor.js<br>datacolor.min.js (1.2 KiB) | – |
-| Frontfire UI Complete | frontfire-ui-complete.js<br>frontfire-ui-complete.min.js (38 KiB) | frontfire-ui-complete-singlefile.js<br>frontfire-ui-complete-singlefile.min.js (53 KiB) |
+| Frontfire UI<br>Complete | frontfire-ui-complete.js<br>frontfire-ui-complete.min.js (39 KiB) | frontfire-ui-complete-singlefile.js<br>frontfire-ui-complete-singlefile.min.js (54 KiB) |
 
 
 ### CSS files
@@ -83,7 +86,7 @@ Color (dependency for UI Complete)
 
 * Provides colour conversion and computation functions
 
-DataColor (dependency for UI Complete)
+DataColor (optional dependency for UI Complete)
 
 * Defines a flexible colour palette for data visualisation
 
@@ -122,7 +125,7 @@ Features
 | Message | Closable inline messages | | ✔️ | ✔️ |
 | Modal | A modal panel that overlays the page | | ✔️ | ✔️ |
 | Notification | Short pop-up notifications | | ✔️ | ✔️ |
-| OffCanvas | A panel that opens from the side of the page | | 📕 | 📕 |
+| OffCanvas | A panel that opens from the side of the page | | ✔️ | ✔️ |
 | Resizable | Supports primitive resize interactions on elements | | 🚧 | 🚧 |
 | Selectable | Enhanced list boxes and dropdown select boxes | | ✔️ | ✔️ |
 | Sortable | Supports primitive reorder interactions on the children of an element | | ✔️ | ✔️ |
@@ -136,13 +139,13 @@ Features
 | Slider | A range value picker with stops and multiple handles | | | ✔️ |
 | Tabs | Shows one out of several panels, selectable through tab headers | | | ✔️ |
 | TimePicker | A formatted date and time picker with calendar and clock | | | ✔️ |
-| ToggleSwitch | A simple and nice toggle switch | | | 📕 |
+| ToggleSwitch | A simple and nice toggle switch | | | ✔️ |
 | TreeView | A tree view for arbitrary data | | | 📕 |
 | Wheel-scrolling | Custom mouse wheel scrolling | | | 📕 |
 
 ✔️ Included in the bundle<br>
 ➕ Can be added separately (not in the bundle)<br>
-📕 Implemented but not documented yet<br>
+📕 Included but not documented yet<br>
 🚧 Not developed or fully ported to Frontfire 2 yet
 
 

@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: ToggleSwitch documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">ToggleSwitch plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.3</span>
+		</div>
+		<p>
+			Frontfire UI provides a toggle switch that has the same function as a checkbox but the appearance of a slider button.
+			It is now commonly known from mobile device UIs.
+		</p>
+		<p>
+			This plugin is only available in the Complete bundle.
+		</p>
+
+		<h2 id="description">Description</h2>
+		<p>
+			Call the <a href="frontfire-core.html#toggleSwitch"><code>toggleSwitch()</code></a> plugin method on an element to make it a toggle switch.
+		</p>
+		<p>
+			The colours of the switch can be customised with the <a href="frontfire-ui-variables.html?s=@toggleswitch">CSS variables</a> that start with “--toggle-switch-”.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="toggleSwitch|state|--toggle-switch-set-h">
+			<div class="p" style="display: flex; align-items: center; gap: 8px;">
+				<span id="switch1"></span>
+				<span>This is initially off</span>
+			</div>
+			<div class="p" style="display: flex; align-items: center; gap: 8px;">
+				<span id="switch2"></span>
+				<span>This is initially on</span>
+			</div>
+			<div class="p" style="display: flex; align-items: center; gap: 8px;">
+				<span id="switch-color" style="--toggle-switch-set-h: var(--error-background-h);"></span>
+				<span>This is a dangerous setting</span>
+			</div>
+			<script>
+				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
+				F.onReady(() => {
+					F("#switch1").toggleSwitch();
+					F("#switch2").toggleSwitch({ state: true });
+					F("#switch-color").toggleSwitch();
+				});
+			</script>
+		</div>
+
+		<h2 id="input-element">HTML &lt;input&gt; element</h2>
+		<div class="sticky-aside-container require-desktop">
+			<div class="sticky-aside aside-options">
+				<div><label class="indent-checkbox"><input type="checkbox" id="disable-html-inputs"> Disable HTML input elements</label></div>
+				<div><label class="indent-checkbox"><input type="checkbox" id="hide-html-inputs"> Hide HTML input elements</label></div>
+			</div>
+
+			<p>
+				A regular HTML <code data-lang="html">&lt;input type="checkbox"&gt;</code> element can be used for the toggle switch.
+				All such elements that have the <code class="css-class">toggle-switch</code> CSS class are transformed automatically.
+				It is then replaced by a toggle switch that represents the checkbox checked state.
+			</p>
+			<div class="example p no-frontfire html-input-example" data-source-highlight="(?<=<)input|checkbox|toggle-switch">
+				<input type="checkbox" class="toggle-switch">
+			</div>
+		</div>
+
+		<p>
+			The toggle switch can be enabled and disabled by setting the <code>disabled</code> property of the HTML <code data-lang="html">&lt;input&gt;</code> element by any means (through Frontfire or the native DOM API).
+			Since it was visibly replaced by the new element, that element will follow the disabled state automatically.
+		</p>
+		<p>
+			The toggle switch can be shown and hidden by setting the <code>Frontfire.visible</code> property of the HTML <code data-lang="html">&lt;input&gt;</code> element.
+			Alternatively, the Frontfire methods <a href="frontfire-core.html#show"><code>show()</code></a>, <a href="frontfire-core.html#hide"><code>hide()</code></a> and <a href="frontfire-core.html#toggle"><code>toggle()</code></a> can be called.
+			Other ways like manipulating the <code>style.display</code> property directly will not work.
+			Since it was visibly replaced by the new element, that element will be shown or hidden instead of the input element.
+		</p>
+		<script>
+			let disableHtmlInputsCheckbox = F("#disable-html-inputs").first;
+			disableHtmlInputsCheckbox.F.on("click!", () => {
+				F(".html-input-example input").disabled = disableHtmlInputsCheckbox.checked;
+			});
+			let hideHtmlInputsCheckbox = F("#hide-html-inputs").first;
+			hideHtmlInputsCheckbox.F.on("click!", () => {
+				F(".html-input-example input").visible = !hideHtmlInputsCheckbox.checked;
+			});
+		</script>
+
+		<h2 id="state">State control</h2>
+		<h3 id="state-custom">Custom elements</h3>
+		<p>
+			The toggle state of non-HTML inputs can be controlled with a plugin property.
+			The <code>state</code> property gets or sets the current state of the toggle switch.
+		</p>
+		<p>
+			When the state changes (from user interaction or by calling any of these methods), the <code>change</code> event is triggered on the element.
+		</p>
+		<div class="example p-bottom no-frontfire" data-source-highlight="toggleSwitch\.state|disabled">
+			<div class="buttons p">
+				<button id="set-false">Set false</button>
+				<button id="set-true">Set true</button>
+				<button id="set-null">Set null</button>
+			</div>
+			<p>
+				State: <span id="current-state"></span>
+			</p>
+			<span id="switch3"></span>
+			<script>
+				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
+				F.onReady(() => {
+					F("#switch3").toggleSwitch();
+
+					F("#switch3").on("change!", () => {
+						let state = F("#switch3").toggleSwitch.state;
+						F("#current-state").textContent = state === null ? "null" : state;
+					});
+
+					F("#set-false").on("click", () => {
+						F("#switch3").toggleSwitch.state = false;
+					});
+					F("#set-true").on("click", () => {
+						F("#switch3").toggleSwitch.state = true;
+					});
+					F("#set-null").on("click", () => {
+						F("#switch3").toggleSwitch.state = null;
+					});
+				});
+			</script>
+		</div>
+
+		<h3 id="state-html">HTML input</h3>
+		<p>
+			With HTML <code data-lang="html">&lt;input type="checkbox"&gt;</code> elements, the same as above applies.
+		</p>
+		<p>
+			Additionally, the element’s <code>checked</code> property can be changed directly.
+			In this case, a <code>change</code> event must be triggered on the input element so that the UI can be updated accordingly because there is no way to automatically detect such a property change.
+		</p>
+		<p>
+			When the state changes (from user interaction or by calling any of these methods), the <code>change</code> event is triggered on the HTML <code data-lang="html">&lt;input&gt;</code> element (not its UI representation).
+			You generally only interact with the <code data-lang="html">&lt;input&gt;</code> element here and don’t care about its presentation elements.
+		</p>
+		<div class="example p-bottom no-frontfire" data-source-highlight='toggleSwitch\.state|(?<=\.)checked(?= =)|(?<=")change(?=")|disabled'>
+			<div class="buttons p">
+				<button id="set-false-html">Set false</button>
+				<button id="set-true-html">Set true</button>
+				<button id="set-null-html">Set null</button>
+			</div>
+			<p>
+				State: <span id="current-state-html"></span>
+			</p>
+			<input type="checkbox" id="switch4" class="toggle-switch">
+			<script>
+				F("#switch4").on("change!", () => {
+					F("#current-state-html").textContent = F("#switch4").first.indeterminate ? "null" : F("#switch4").checked;
+				});
+				F("#set-false-html").on("click", () => {
+					F("#switch4").first.indeterminate = false;
+					F("#switch4").first.checked = false;
+					F("#switch4").trigger("change");
+				});
+				F("#set-true-html").on("click", () => {
+					F("#switch4").first.indeterminate = false;
+					F("#switch4").first.checked = true;
+					F("#switch4").trigger("change");
+				});
+				F("#set-null-html").on("click", () => {
+					F("#switch4").first.checked = false;
+					F("#switch4").first.indeterminate = true;
+					F("#switch4").trigger("change");
+				});
+			</script>
+		</div>
+
+		<h2 id="options">Options</h2>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>state</code></td>
+					<td>Boolean</td>
+					<td>The initial state of the toggle switch.</td>
+					<td>false</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="properties">Plugin properties</h2>
+		<p>
+			This plugin provides properties to access the tabs state.
+		</p>
+
+		<div class="member">
+			<h3 id="state">state</h3>
+			<ul>
+				<li><code>state</code> → Boolean</li>
+			</ul>
+			<p>
+				Gets or sets the state of the toggle switch.
+			</p>
+<div class="code">let state = F("#switch").toggleSwitch.state;
+F("#switch").toggleSwitch.state = true;
+</div>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022–2023, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

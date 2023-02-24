@@ -101,8 +101,10 @@
 			It relies on CSS reset styles and alters the basic appearance of many standard HTML elements to give them a consistent style without drowning the document in CSS classes.
 			Read the <a href="frontfire-ui-autostart.html">Autostart documentation</a> to learn more about this and how to selectively opt out.
 		</p>
-		<p>
-			<label><input type="checkbox" id="show-complete-modules" checked> Show modules only available in the Complete bundle</label>
+		<p style="display: flex; align-items: center; gap: 8px; justify-content: flex-end; margin-left: 2em;">
+			<span id="show-complete-modules-false" style="cursor: pointer; user-select: none; text-align: right;">Show only modules available in the Minimal bundle</span>
+			<input type="checkbox" id="show-complete-modules" checked class="toggle-switch">
+			<span id="show-complete-modules-true" style="cursor: pointer; user-select: none;">Show all modules</span>
 		</p>
 		<div class="doc-parts p">
 			<a href="frontfire-ui-accordion.html">
@@ -231,6 +233,12 @@
 				<span class="bundles"><span class="complete"></span></span>
 				<span class="description">Date and time picker input fields</span>
 			</a>
+			<a href="frontfire-ui-toggleswitch.html">
+				<span class="title">ToggleSwitch</span>
+				<span class="type">Plugin demo</span>
+				<span class="bundles"><span class="complete"></span></span>
+				<span class="description">Toggle switch that can replace a checkbox</span>
+			</a>
 			<a href="frontfire-ui-typography.html">
 				<span class="title">Typography</span>
 				<span class="type">Styles demo</span>
@@ -279,11 +287,19 @@
 	<script src="res/doc.js"></script>
 	<script>
 		F("#apple-ios-warning").visible = F.isSafari();
-		F("#show-complete-modules").on("click!", event => {
+		F("#show-complete-modules").on("change!", event => {
 			F(".doc-parts a")
 				.having(".bundles")
 				.where(a => !a.F.querySelector(".bundles .minimal"))
 				.visible = event.currentTarget.checked;
+		});
+		F("#show-complete-modules-false").on("click", () => {
+			F("#show-complete-modules").checked = false;
+			F("#show-complete-modules").trigger("change");
+		});
+		F("#show-complete-modules-true").on("click", () => {
+			F("#show-complete-modules").checked = true;
+			F("#show-complete-modules").trigger("change");
 		});
 	</script>
 </body>

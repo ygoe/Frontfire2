@@ -393,10 +393,11 @@ $viewportWidthDesktop: 1200px;
 
 	--toggle-switch-unset-h: 225;
 	--toggle-switch-unset-s: 0%;
-	--toggle-switch-unset-l: 69%;
+	--toggle-switch-unset-l: 50%;
 	--toggle-switch-set-h: 225;   // default button hue
 	--toggle-switch-set-s: 73%;
 	--toggle-switch-set-l: 51%;
+	--toggle-switch-disabled-opacity: 0.5;
 }
 
 // Override some colors for the dark theme.
@@ -563,6 +564,8 @@ $viewportWidthDesktop: 1200px;
 
 	// ========== Toggle switch ==========
 
-	--toggle-switch-unset-l: 57%;
-	--toggle-switch-set-l: 75%;
+	--toggle-switch-unset-l: 55%;
+	--toggle-switch-set-s: 100%;
+	--toggle-switch-set-l: 70%;
+	--toggle-switch-disabled-opacity: 0.6;
 }

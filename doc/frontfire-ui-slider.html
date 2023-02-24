@@ -210,6 +210,7 @@
 			<div id="slider3" class="slider gradient" style="margin-top: 1em; width: 300px;" data-opt="value: 9; small-step: 0.01; large-step: 1; min: 0; max: 10;"></div>
 
 			<script>
+				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
 				F.onReady(() => {
 					let range = F("#slider3 .ff-range").first;
 					range.style.overflow = "hidden";

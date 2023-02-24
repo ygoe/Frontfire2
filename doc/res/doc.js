@@ -20,7 +20,8 @@ let darkThemeBox = F(`<div id="dark-theme-box">
 </div>`);
 F("header").append(darkThemeBox);
 
-let darkThemeSwitch = F("#dark-theme-switch").toggleSwitch();
+F("#dark-theme-switch").toggleSwitch();
+let darkThemeSwitch = F("#dark-theme-switch").toggleSwitch;
 let darkSchemeMql = window.matchMedia("(prefers-color-scheme: dark)");
 
 // Disable dark theme transitions until after the page has been set up

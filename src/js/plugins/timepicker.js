@@ -65,7 +65,8 @@ function timePicker(options) {
 		// Put a wrapper between the input and its parent
 		let wrapper = F.c("div");
 		wrapper.classList.add(inputWrapperClass);
-		wrapper.setAttribute("style", input.getAttribute("style"));
+		if (input.getAttribute("style"))
+			wrapper.setAttribute("style", input.getAttribute("style"));
 		input.F.wrap(wrapper);
 
 		// Hide original input and add a new one, synchronise (and convert) values

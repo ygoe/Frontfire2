@@ -971,7 +971,7 @@ input:is([type=checkbox], [type=radio]).ff-checkbox
 	opacity: 0.01;
 	&:focus { outline: none; }
 
-	+ span
+	+ span.ff-checkbox
 	{
 		display: inline-block;
 		margin: 3px 0 -3px;
@@ -983,46 +983,46 @@ input:is([type=checkbox], [type=radio]).ff-checkbox
 		position: relative;
 		transition: border var(--animation-duration) var(--animation-function), background-color var(--animation-duration) var(--animation-function);
 	}
-	&:disabled + span
+	&:disabled + span.ff-checkbox
 	{
 		border-color: var(--textbox-disabled-border);
 	}
-	&:not(:disabled):focus + span
+	&:not(:disabled):focus + span.ff-checkbox
 	{
 		outline: var(--focus-outline);
 		outline-offset: var(--focus-outline-offset);
 		z-index: 2;   // Bring it above neighbouring elements to see the full outline
 	}
-	&:not(:disabled):focus-visible + span
+	&:not(:disabled):focus-visible + span.ff-checkbox
 	{
 		outline: var(--focus-keyboard-outline);
 		outline-offset: var(--focus-keyboard-outline-offset);
 		z-index: 2;   // Bring it above neighbouring elements to see the full outline
 	}
-	&:hover:not(:disabled) + span,
-	label:hover &:not(:disabled) + span
+	&:hover:not(:disabled) + span.ff-checkbox,
+	label:hover &:not(:disabled) + span.ff-checkbox
 	{
 		border-color: var(--textbox-hover-border);
 	}
-	&.input-validation-error:hover:not(:disabled) + span,
-	label:hover &.input-validation-error:not(:disabled) + span
+	&.input-validation-error:hover:not(:disabled) + span.ff-checkbox,
+	label:hover &.input-validation-error:not(:disabled) + span.ff-checkbox
 	{
 		border-color: var(--validation-error-text);
 	}
-	&:active:not(:disabled) + span,
-	label:active &:not(:disabled) + span
+	&:active:not(:disabled) + span.ff-checkbox,
+	label:active &:not(:disabled) + span.ff-checkbox
 	{
 		border-color: var(--textbox-hover-border);
 		background-color: var(--checkbox-pressed-background, var(--button-background, hsl(var(--button-background-h), var(--button-background-s), var(--button-background-l))));
 		transition: background-color 0s;
 	}
-	&.input-validation-error:active:not(:disabled) + span,
-	label:active &.input-validation-error:not(:disabled) + span
+	&.input-validation-error:active:not(:disabled) + span.ff-checkbox,
+	label:active &.input-validation-error:not(:disabled) + span.ff-checkbox
 	{
 		border-color: var(--validation-error-text);   // mix($textboxFocusBorder, $validationErrorText, 50%);
 		background-color: var(--checkbox-validation-error-pressed-background);   // mix($checkboxPressedBackground, $validationErrorBackground, 50%);
 	}
-	&:checked + span::before
+	&:checked + span.ff-checkbox::before
 	{
 		content: '';
 		display: block;
@@ -1046,11 +1046,11 @@ input:is([type=checkbox], [type=radio]).ff-checkbox
 			background-image: url('data:image/svg+xml,<svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M1,5L5,9L11,3" fill="none" stroke="black" stroke-width="2.2"/></svg>');
 		}
 	}
-	&:checked:disabled + span::before
+	&:checked:disabled + span.ff-checkbox::before
 	{
 		opacity: 0.5;
 	}
-	&:indeterminate + span::before
+	&:indeterminate + span.ff-checkbox::before
 	{
 		content: '';
 		display: block;
@@ -1062,21 +1062,21 @@ input:is([type=checkbox], [type=radio]).ff-checkbox
 		background-color: black;
 		transition: background-color var(--animation-duration) var(--animation-function);
 	}
-	&:indeterminate:disabled + span::before
+	&:indeterminate:disabled + span.ff-checkbox::before
 	{
 		background-color: gray;
 	}
-	&.input-validation-error + span
+	&.input-validation-error + span.ff-checkbox
 	{
 		border-color: var(--validation-error-text);
 		background-color: var(--validation-error-background);
 	}
 
-	label & + span
+	label & + span.ff-checkbox
 	{
 		margin-right: 4px;
 	}
-	label.empty & + span
+	label.empty & + span.ff-checkbox
 	{
 		margin-right: 0;
 	}
@@ -1084,11 +1084,11 @@ input:is([type=checkbox], [type=radio]).ff-checkbox
 
 input[type=radio].ff-checkbox
 {
-	+ span
+	+ span.ff-checkbox
 	{
 		border-radius: 100%;
 	}
-	&:checked + span::before
+	&:checked + span.ff-checkbox::before
 	{
 		display: block;
 		content: '';
@@ -1109,11 +1109,11 @@ input[type=radio].ff-checkbox
 			background-color: black;
 		}
 	}
-	&:checked:disabled + span::before
+	&:checked:disabled + span.ff-checkbox::before
 	{
 		background-color: gray;
 	}
-	&:indeterminate + span::before
+	&:indeterminate + span.ff-checkbox::before
 	{
 		display: none;
 	}
