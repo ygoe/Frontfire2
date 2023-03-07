@@ -51,7 +51,7 @@ import "./plugins/slider";
 import "./plugins/tabs";
 import "./plugins/timepicker";
 import "./plugins/toggleswitch";
-import "./plugins/treeview";
+import "./plugins/tree";
 import "./plugins/wheelscrolling";
 
 // TODO: Convert and add the following groups of Frontfire 1 modules, with accompanying CSS:

@@ -449,6 +449,23 @@ try {
 	// select
 	assert([], a => a.L.select(i => i > 0), [], "select() failed with empty array.");
 	assert([1, -2, 3], a => a.L.select(i => i > 0), [true, false, true], "select() failed with non-empty array.");
+	// selectManyRecursive
+	arr = [
+		{ name: "a" },
+		{ name: "b", children: [
+			{ name: "b1" }
+		] },
+		{ name: "c", children: [
+			{ name: "c1" },
+			{ name: "c2", children: [
+				{ name: "c2a" }
+			] }
+		] },
+		{ name: "d", children: [] }
+	];
+	assert([], a => a.L.selectManyRecursive(i => i.children), [], "selectManyRecursive() failed with empty array.");
+	assert([1, 2, 3], a => a.L.selectManyRecursive(i => i.children), [1, 2, 3], "selectManyRecursive() failed with array of values.");
+	assert(arr, a => a.L.selectManyRecursive(i => i.children).select(i => i.name), ["a", "b", "b1", "c", "c1", "c2", "c2a", "d"], "selectManyRecursive() failed with array of objects.");
 	// skip
 	assert([], a => a.L.skip(0), [], "skip() failed with empty array with count 0.");
 	assert([1, 2, 3], a => a.L.skip(0), [1, 2, 3], "skip() failed with non-empty array with count 0.");

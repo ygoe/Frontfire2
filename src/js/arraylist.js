@@ -99,6 +99,14 @@
 		}
 	});
 
+	// Also allow L on an ArrayList instance for simplicity and consistency.
+	// It will just return the same instance so it's a very cheap operation.
+	object_defineProperty(ArrayList_prototype, "L", {
+		get: function () {
+			return this;
+		}
+	});
+
 	// Pass through toString (has no effect on the devtools console)
 	ArrayList_prototype.toString = function () {
 		return this.array.toString();
@@ -742,6 +750,23 @@
 	// See also: Array.map()
 	ArrayList_prototype.select = function (selector, thisArg) {
 		return new ArrayList(this.array.map(selector, thisArg));
+	};
+
+	// Recursively collects all items from the array and their children into a flat array.
+	ArrayList_prototype.selectManyRecursive = function (childrenSelector) {
+		let target = [];
+		let recurse;
+		recurse = source => {
+			source.forEach(item => {
+				target.push(item);
+				let children = childrenSelector(item);
+				if (children) {
+					recurse(children);
+				}
+			});
+		}
+		recurse(this.array);
+		return new ArrayList(target);
 	};
 
 	// Returns a copy of the array without the first items.

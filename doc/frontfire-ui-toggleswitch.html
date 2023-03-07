@@ -55,12 +55,11 @@
 				<span>This is a dangerous setting</span>
 			</div>
 			<script>
-				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
-				F.onReady(() => {
-					F("#switch1").toggleSwitch();
-					F("#switch2").toggleSwitch({ state: true });
-					F("#switch-color").toggleSwitch();
-				});
+				/*hideline*/F.onReady(() => {
+				F("#switch1").toggleSwitch();
+				F("#switch2").toggleSwitch({ state: true });
+				F("#switch-color").toggleSwitch();
+				/*hideline*/});
 			</script>
 		</div>
 
@@ -122,25 +121,24 @@
 			</p>
 			<span id="switch3"></span>
 			<script>
-				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
-				F.onReady(() => {
-					F("#switch3").toggleSwitch();
+				/*hideline*/F.onReady(() => {
+				F("#switch3").toggleSwitch();
 
-					F("#switch3").on("change!", () => {
-						let state = F("#switch3").toggleSwitch.state;
-						F("#current-state").textContent = state === null ? "null" : state;
-					});
-
-					F("#set-false").on("click", () => {
-						F("#switch3").toggleSwitch.state = false;
-					});
-					F("#set-true").on("click", () => {
-						F("#switch3").toggleSwitch.state = true;
-					});
-					F("#set-null").on("click", () => {
-						F("#switch3").toggleSwitch.state = null;
-					});
+				F("#switch3").on("change!", () => {
+					let state = F("#switch3").toggleSwitch.state;
+					F("#current-state").textContent = state === null ? "null" : state;
 				});
+
+				F("#set-false").on("click", () => {
+					F("#switch3").toggleSwitch.state = false;
+				});
+				F("#set-true").on("click", () => {
+					F("#switch3").toggleSwitch.state = true;
+				});
+				F("#set-null").on("click", () => {
+					F("#switch3").toggleSwitch.state = null;
+				});
+				/*hideline*/});
 			</script>
 		</div>
 

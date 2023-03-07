@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Tree documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Tree plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.3</span>
+		</div>
+		<p>
+			Frontfire UI provides a hierarchical tree selection control.
+			It looks like a selection box and also allows multiple selection and rearranging items by dragging and dropping.
+			Items can have children and those can be shown or hidden by expanding or collapsing the parent item.
+		</p>
+		<p>
+			This plugin is only available in the Complete bundle.
+		</p>
+
+		<h2 id="description">Description</h2>
+		<p>
+			A tree contains items that can have child items.
+			The children of an item are displayed with an indentation and can be expanded or collapsed.
+			They can again have child items.
+			Items can be selected by clicking on them.
+			The selected items are highlighted.
+			The tree control is focusable and the selection can be changed with the arrow keys when it has the focus.
+		</p>
+		<p>
+			The actual (logical) tree items can be of any type.
+			However, their label text and child items must be extractable from each item object.
+			Usually, an item is an object that has properties for the label, children and others like an icon image, together with arbitrary payload properties.
+			The tree will generate HTML elements for each logical item and manage their event handlers to make them clickable and draggable.
+		</p>
+		<p>
+			The items structure is passed in to the generator function that builds the tree.
+			Further changes to the items must be represented in this items structure and the tree must be notified about changes to update the UI.
+		</p>
+		<p>
+			Call the <a href="frontfire-core.html#tree"><code>tree()</code></a> plugin method on an element to make it a tree view.
+		</p>
+		<p>
+			The colours of hovered and selected items can be customised with the CSS variables that start with “<a href="frontfire-ui-variables.html?s=@selectable">--selectable-</a>” or “<a href="frontfire-ui-variables.html?s=@tree">--tree-</a>”.
+			The border and background can be customised with some of the CSS variables that start with “<a href="frontfire-ui-variables.html?s=--textbox-">--textbox-</a>”.
+		</p>
+		<p>
+			Multiple items may be selected at the same time with the <code>multiSelect</code> option.
+			It handles clicking an item with the <kbd>Ctrl</kbd> or <kbd>Shift</kbd> key pressed.
+		</p>
+
+		<h2 id="example">Basic example</h2>
+		<div class="example p no-frontfire" data-source-highlight="tree(?=\()|items(?=: i)|childrenKey">
+			<div id="basic-tree" style="height: 300px;">
+			</div>
+			<script>
+				// Define tree items data (also used for other examples on this page)
+				let items = [
+					{ icon: "folder-fill", text: "Folder 1", items: [
+						{ icon: "image-fill", text: "Image 1" },
+						{ icon: "image-fill", text: "Image 2" },
+						{ icon: "music-note", text: "Audio 3" }
+					] },
+					{ icon: "folder-fill", text: "Folder 2", items: [
+						{ icon: "folder-fill", text: "Folder 3", items: [
+							{ icon: "image-fill", text: "Image 4" },
+							{ icon: "image-fill", text: "Image 5" },
+							{ icon: "music-note", text: "Audio 6" }
+						] },
+						{ icon: "folder-fill", text: "Folder 4", items: [
+							{ icon: "image-fill", text: "Image 7" },
+							{ icon: "image-fill", text: "Image 8" },
+							{ icon: "music-note", text: "Audio 9" }
+						] },
+						{ icon: "text-sheet-fill", text: "Document 10" },
+						{ icon: "text-sheet-fill", text: "Document 11" },
+						{ text: "Other item 12 (drop replace target)", isDropTarget: true }
+					] }
+				];
+
+				// Returns the HTML code for a coloured tree item icon (also used for other examples)
+				function buildIcon(icon) {
+					let color;
+					switch (icon) {
+						case "folder-fill":
+						case "folder-open-fill": color = "#e6a819"; break;
+						case "image-fill": color = "#22c322"; break;
+						case "music-note": color = "#a552e0"; break;
+						case "plus-circle-fill": color = "#2dd2d2"; break;
+						case "text-sheet-fill": color = "#1991e6"; break;
+						default: color = "#808080"; break;
+					}
+					return "<i class='material m-16px' style='vertical-align: -2px; color: " + color + ";'>" + (icon || "sheet-fill") + "</i>";
+				}
+
+				// Define the tree options
+				/*hideline*/F.onReady(() => {
+				let tree;
+				let treeOptions = {
+					items: items,
+					singleRoot: false,
+					iconGetter: item => buildIcon(item.icon),
+					labelGetter: item => item.text,
+					childrenKey: "items",
+					itemExpanded: (item, expanded) => {
+						// Update the folder icon to visualise the closed/open state
+						if (item.icon === "folder-fill" && expanded) {
+							item.icon = "folder-open-fill";
+							tree.updateItem(item);
+						}
+						else if (item.icon === "folder-open-fill" && !expanded) {
+							item.icon = "folder-fill";
+							tree.updateItem(item);
+						}
+					},
+					multiSelect: true,
+					dragdrop: true,
+					isDropTarget: item => item.isDropTarget,
+					dragHandler: (draggedItems, dropTarget) => {
+						if (draggedItems.some(i => i.isDropTarget))
+							return false;
+						return true;
+					},
+					dropHandler: (draggedItems, dropTargetItem, dropPosition) => {
+						draggedItems.forEach(i => {
+						});
+					},
+					keyHandler: e => {
+						if (e.key === "Delete") {
+							e.preventDefault();
+							F.id("delete").trigger("click");
+						}
+					}
+				};
+
+				// Create the tree view
+				tree = F("#basic-tree").tree(treeOptions);
+				/*hideline*/});
+			</script>
+		</div>
+
+		<h2 id="selection">Selection control</h2>
+		<p>
+			The selected items can be controlled with plugin methods.
+			The <code>getSelectedItems()</code> method returns all selected items.
+			The <code>selectItem()</code> method selects a single item, optionally deselecting all others.
+			The <code>deselectItem()</code> method deselects an item.
+		</p>
+		<p>
+			When the selection changes (from user interaction or by calling any of these methods), the <code>itemSelected</code> callback function is called.
+		</p>
+		<div class="example p-bottom no-frontfire" data-source-highlight="itemSelected|getSelectedItems|deselectItem|selectItem">
+			<div class="buttons p">
+				<button id="select-none">Select none</button>
+				<button id="select-all">Select all top-level items</button>
+				<button id="select-image-8">Select Image 8</button>
+			</div>
+			<p>
+				Selection: <span id="current-selection"></span>
+			</p>
+			<div id="selection-tree" style="height: 300px;">
+			</div>
+			<script>
+				// Make a clean copy of the data for this demo
+				let items2 = JSON.parse(JSON.stringify(items));
+
+				/*hideline*/F.onReady(() => {
+				let tree;
+				let treeOptions = {
+					items: items2,
+					singleRoot: false,
+					iconGetter: item => buildIcon(item.icon),
+					labelGetter: item => item.text,
+					childrenKey: "items",
+					itemSelected: (item, selected) => showSelection(),
+					itemExpanded: (item, expanded) => {
+						// Update the folder icon to visualise the closed/open state
+						if (item.icon === "folder-fill" && expanded) {
+							item.icon = "folder-open-fill";
+							tree.updateItem(item);
+						}
+						else if (item.icon === "folder-open-fill" && !expanded) {
+							item.icon = "folder-fill";
+							tree.updateItem(item);
+						}
+					},
+					multiSelect: true
+				};
+
+				tree = F("#selection-tree").tree(treeOptions);
+
+				function showSelection() {
+					F("#current-selection").textContent = tree.getSelectedItems().map(i => i.text);
+				}
+				showSelection();
+
+				F("#select-none").on("click", () => {
+					tree.getSelectedItems().forEach(item => tree.deselectItem(item));
+				});
+				F("#select-all").on("click", () => {
+					items2.forEach((item, index) => tree.selectItem(item, index === 0, index > 0));
+				});
+				F("#select-image-8").on("click", () => {
+					let image8 = items2.L.selectManyRecursive(i => i.items).find(i => i.text === "Image 8");
+					tree.selectItem(image8);
+				});
+				/*hideline*/});
+			</script>
+		</div>
+
+		<h2 id="items-updating">Items updating</h2>
+		<p>
+			To add or remove items to the tree, first the data structure must be updated.
+			The tree methods can only be called to notify the tree about a data change and update its UI elements accordingly.
+			Calling these methods will not change the data itself!
+		</p>
+		<div class="example p-bottom no-frontfire" data-source-highlight="(insert|update|remove)Item|push|L\.remove">
+			<div class="p buttons">
+				<button id="add-item" type="button"><i class="material">plus-bold</i> Add child</button>
+				<button id="update-item" type="button"><i class="material">pen-fill</i> Update</button>
+				<button id="remove-item" type="button" class="caution"><i class="material">bin-fill</i> Delete</button>
+			</div>
+			<div id="updating-tree" style="height: 300px;">
+			</div>
+			<script>
+				// Make a clean copy of the data for this demo
+				let items3 = JSON.parse(JSON.stringify(items));
+
+				/*hideline*/F.onReady(() => {
+				let tree;
+				let treeOptions = {
+					items: items3,
+					singleRoot: false,
+					iconGetter: item => buildIcon(item.icon),
+					labelGetter: item => item.text,
+					childrenKey: "items",
+					itemSelected: (item, selected) => updateSelection(),
+					itemExpanded: (item, expanded) => {
+						// Update the folder icon to visualise the closed/open state
+						if (item.icon === "folder-fill" && expanded) {
+							item.icon = "folder-open-fill";
+							tree.updateItem(item);
+						}
+						else if (item.icon === "folder-open-fill" && !expanded) {
+							item.icon = "folder-fill";
+							tree.updateItem(item);
+						}
+					}
+				};
+
+				tree = F("#updating-tree").tree(treeOptions);
+
+				function updateSelection() {
+					let hasSelectedItem = !!tree.getSelectedItems()[0];
+					F("#update-item").disabled = !hasSelectedItem;
+					F("#remove-item").disabled = !hasSelectedItem;
+				}
+				updateSelection();
+
+				let counter = 1;
+				// Add new tree item
+				F("#add-item").on("click", () => {
+					let newItem = { icon: "plus-circle-fill", text: "New " + (counter++) };
+					let target = items3;
+					let selectedItem = tree.getSelectedItems()[0];
+					if (selectedItem)
+						target = selectedItem.items = selectedItem.items || [];
+					// Add to data
+					target.push(newItem);
+					// Update tree UI
+					tree.insertItem(newItem, selectedItem);
+				});
+				// Modify and update selected item
+				F("#update-item").on("click", () => {
+					let selectedItem = tree.getSelectedItems()[0];
+					if (selectedItem) {
+						// Modify in data
+						selectedItem.text += " edited";
+						// Update tree UI
+						tree.updateItem(selectedItem);
+					}
+				});
+				// Remove selected item
+				F("#remove-item").on("click", () => {
+					let selectedItem = tree.getSelectedItems()[0];
+					if (selectedItem) {
+						// Delete from data (find the array that contains the selected item, or the root data)
+						let array = items3.L.selectManyRecursive(i => i.items)
+							.select(i => i.items)
+							.where(i => i?.L.contains(selectedItem))
+							.first || items3;
+						array.L.remove(selectedItem);
+						// Update tree UI
+						tree.removeItem(selectedItem);
+						updateSelection();
+					}
+				});
+				/*hideline*/});
+			</script>
+		</div>
+
+		<h2 id="options">Options</h2>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>childrenKey</code></td>
+					<td>String</td>
+					<td>The object key of the child items for an item.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>doubleClickExpand</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether an expandable item will be expanded or collapsed when double-clicked.</td>
+					<td>true</td>
+				</tr>
+				<tr>
+					<td><code>dragdrop</code></td>
+					<td>Boolean</td>
+					<td>Enables drag and drop of items.</td>
+					<td>false</td>
+				</tr>
+				<tr>
+					<td><code>dragHandler</code></td>
+					<td>Function</td>
+					<td>A function that is called while dragging items. Parameters: dragged items, drop target element</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>dropHandler</code></td>
+					<td>Function</td>
+					<td>A function that is called after a drag&drop operation was completed. Parameters: dragged items, drop target item, drop position</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>iconGetter</code></td>
+					<td>Function</td>
+					<td>A function that returns the icon element for an item.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>isDropTarget</code></td>
+					<td>Function</td>
+					<td>A function that indicates whether an item is a drop target itself. Parameters: item</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>itemDoubleClicked</code></td>
+					<td>Function</td>
+					<td>A function that is called when an item was double-clicked. Parameters: item</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>itemExpanded</code></td>
+					<td>Function</td>
+					<td>A function that is called when an item was expanded or collapsed. Parameters: item, expandedState (true, false)</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>itemHover</code></td>
+					<td>Function</td>
+					<td>A function that is called when an item was hovered or left. Parameters: item, hoverState (true, false)</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>items</code></td>
+					<td>Array</td>
+					<td>The items of the tree view.</td>
+					<td>[]</td>
+				</tr>
+				<tr>
+					<td><code>itemSelected</code></td>
+					<td>Function</td>
+					<td>A function that is called when an item was selected or deselected. Parameters: item, selectedState (true, false)</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>keyHandler</code></td>
+					<td>Function</td>
+					<td>A function that is called when an unhandled key is pressed. Parameters: event</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>labelGetter</code></td>
+					<td>Function</td>
+					<td>A function that returns the label text for an item.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>multiSelect</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether multiple items can be selected at the same time.</td>
+					<td>false</td>
+				</tr>
+				<tr>
+					<td><code>singleRoot</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether a single root item is shown that cannot be collapsed.</td>
+					<td>false</td>
+				</tr>
+				<tr>
+					<td><code>styleGetter</code></td>
+					<td>Function</td>
+					<td>A function that returns the CSS style text for an item.</td>
+					<td>None</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="methods">Plugin methods</h2>
+		<p>
+			This plugin provides methods to control the tree view.
+		</p>
+
+		<div class="member">
+			<h3 id="deselectItem">deselectItem</h3>
+			<ul>
+				<li><code>deselectItem(item)</code> → void</li>
+				<li><code>deselectItem(item, focus)</code> → void</li>
+			</ul>
+			<p>
+				Deselects an item.
+				If the focus parameter is true, the item is focused.
+			</p>
+<div class="code">F("#tree").tree.deselectItem(item);
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="getSelectedItems">getSelectedItems</h3>
+			<ul>
+				<li><code>getSelectedItems()</code> → Array</li>
+			</ul>
+			<p>
+				Gets all selected items in the visual order.
+			</p>
+<div class="code">F("#tree").tree.getSelectedItems();
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="hoverItem">hoverItem</h3>
+			<ul>
+				<li><code>hoverItem(item)</code> → Boolean</li>
+				<li><code>hoverItem(item, isHovered)</code> → void</li>
+			</ul>
+			<p>
+				Sets or gets the hovered state of an item.
+				If the isHovered parameter is set, the hover state is set according to its value; otherwise, the current state is returned.
+			</p>
+			<p>
+				<strong>Note:</strong><br>
+				This state is used for highlighting items in the tree, it cannot be used to determine whether the user has currently placed the mouse cursor over an item.
+				Use the callback function in options.itemHover for this purpose instead.
+			</p>
+<div class="code">F("#tree").tree.hoverItem(item, true);
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="insertItem">insertItem</h3>
+			<ul>
+				<li><code>insertItem(item, parent)</code> → void</li>
+			</ul>
+			<p>
+				Inserts a new item into the tree view.
+				The item must already exist in its parent collection.
+				Leave parent unset to insert the item at the root level.
+			</p>
+<div class="code">F("#tree").tree.insertItem(item, parentItem);
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="isItemExpanded">isItemExpanded</h3>
+			<ul>
+				<li><code>isItemExpanded(item)</code> → Boolean</li>
+			</ul>
+			<p>
+				Gets the expanded state of an item.
+			</p>
+<div class="code">F("#tree").tree.isItemExpanded(item);
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="isItemSelected">isItemSelected</h3>
+			<ul>
+				<li><code>isItemSelected(item)</code> → Boolean</li>
+			</ul>
+			<p>
+				Determines whether an item is selected.
+				The method returns undefined if the item does not exist in the tree.
+			</p>
+<div class="code">F("#tree").tree.isItemSelected(item);
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="removeItem">removeItem</h3>
+			<ul>
+				<li><code>removeItem(item)</code> → void</li>
+			</ul>
+			<p>
+				Removes the item from the tree view.
+			</p>
+<div class="code">F("#tree").tree.removeItem(oldItem);
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="selectItem">selectItem</h3>
+			<ul>
+				<li><code>selectItem(item)</code> → void</li>
+				<li><code>selectItem(item, focus)</code> → void</li>
+				<li><code>selectItem(item, focus, keepOtherSelected)</code> → void</li>
+			</ul>
+			<p>
+				Selects an item and makes sure it’s visible.
+				If the focus parameter is true, the item is also focused.
+				If the keepOtherSelected parameter is not true, all other already selected items are deselected.
+			</p>
+<div class="code">F("#tree").tree.selectItem(item, true);
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="setItemExpanded">setItemExpanded</h3>
+			<ul>
+				<li><code>setItemExpanded(item, expanded)</code> → Boolean</li>
+			</ul>
+			<p>
+				Expands or collapses an item.
+				The method returns the new expand state; or undefined, if the state could not be set (e.g. the item does not exist or cannot be expanded).
+			</p>
+<div class="code">F("#tree").tree.setItemExpanded(item, true);
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="updateItem">updateItem</h3>
+			<ul>
+				<li><code>updateItem(item)</code> → void</li>
+			</ul>
+			<p>
+				Updates the item in the tree view.
+			</p>
+<div class="code">F("#tree").tree.updateItem(item);
+</div>
+		</div>
+
+		<div class="member">
+			<h3 id="updateView">updateView</h3>
+			<ul>
+				<li><code>updateView()</code> → void</li>
+			</ul>
+			<p>
+				Updates the entire tree view from the data source, resetting the view state.
+			</p>
+<div class="code">F("#tree").tree.updateView();
+</div>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022–2023, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

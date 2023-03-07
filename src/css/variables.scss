@@ -249,7 +249,7 @@ $viewportWidthDesktop: 1200px;
 	--checkbox-validation-error-pressed-background: #e9bebe;   // Half mix to validation error background, slightly darker
 
 
-	// ========== Selectable, TreeView ==========
+	// ========== Selectable, Tree ==========
 
 	--selection-h: 220;
 	--selection-s: 100%;
@@ -261,7 +261,7 @@ $viewportWidthDesktop: 1200px;
 
 	--selectable-selected-disabled-background: rgb(180, 180, 180, 0.3);
 
-	--treeview-guideline-color: rgb(0, 0, 0, 0.4);
+	--tree-guideline-color: rgb(0, 0, 0, 0.4);
 
 	--focus-outline: solid 1px hsl(var(--selection-h), var(--selection-s), var(--selection-l), 0.5);
 	--focus-outline-offset: -1px;
@@ -316,23 +316,6 @@ $viewportWidthDesktop: 1200px;
 	--submenu-active-lf: -0.2;
 	--submenu-color: #000000;
 
-	--nav-menu-background: #505050;
-	--nav-menu-color: #ffffff;
-	--nav-menu-hover-background: #686868;
-	--nav-menu-hover-color: #ffffff;
-	--nav-menu-active-background: #808080;
-	--nav-menu-active-color: #ffffff;
-	--nav-menu-open-background: #606060;
-	--nav-menu-open-color: #ffffff;
-
-	--nav-submenu-background: var(--nav-menu-background);
-	--nav-submenu-color: var(--nav-menu-color);
-	--nav-submenu-hover-background: var(--nav-menu-hover-background);
-	--nav-submenu-hover-color: var(--nav-menu-hover-color);
-	--nav-submenu-active-background: --nav-menu-active-background;
-	--nav-submenu-active-color: var(--nav-menu-active-color);
-	--nav-submenu-open-background: var(--nav-menu-open-background);
-	--nav-submenu-open-color: var(--nav-menu-open-color);
 
 	// ========== Progress bar ==========
 
@@ -341,6 +324,7 @@ $viewportWidthDesktop: 1200px;
 	--progress-error-color: #c44818;
 	--progress-warning-color: #dfb511;
 	--progress-success-color: #6ec418;
+
 
 	// ========== Slider ==========
 
@@ -367,6 +351,7 @@ $viewportWidthDesktop: 1200px;
 	--slider-disabled-small-tick-color: #dddddd;
 	--slider-disabled-large-tick-color: #bbbbbb;
 
+
 	// ========== Tabs ==========
 
 	--tabs-border-color: #d8d8d8;
@@ -377,6 +362,7 @@ $viewportWidthDesktop: 1200px;
 	--tabs-page-background: transparent;
 	--tabs-noborder-active: hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l));
 	--tabs-noborder-hover: hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l), 0.25);
+
 
 	// ========== Time picker ==========
 
@@ -490,7 +476,7 @@ $viewportWidthDesktop: 1200px;
 	--selection-selected-hover-a: 0.67;
 	--selection-focused-a: 0.7;
 
-	--treeview-guideline-color: rgb(255, 255, 255, 0.4);
+	--tree-guideline-color: rgb(255, 255, 255, 0.4);
 
 	--focus-outline: solid 1px hsl(var(--selection-h), var(--selection-s), 80%, 0.5);
 	--focus-keyboard-outline: solid 2px hsl(var(--selection-h), var(--selection-s), 80%, 0.5);

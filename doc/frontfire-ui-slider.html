@@ -210,12 +210,11 @@
 			<div id="slider3" class="slider gradient" style="margin-top: 1em; width: 300px;" data-opt="value: 9; small-step: 0.01; large-step: 1; min: 0; max: 10;"></div>
 
 			<script>
-				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
-				F.onReady(() => {
-					let range = F("#slider3 .ff-range").first;
-					range.style.overflow = "hidden";
-					range.innerHTML = '<div style="margin-left: 261px; font-size: 8px; line-height: 9px; font-weight: 900; color: white;">!</div>';
-				});
+				/*hideline*/F.onReady(() => {
+				let range = F("#slider3 .ff-range").first;
+				range.style.overflow = "hidden";
+				range.innerHTML = '<div style="margin-left: 261px; font-size: 8px; line-height: 9px; font-weight: 900; color: white;">!</div>';
+				/*hideline*/});
 			</script>
 		</div>
 
@@ -263,17 +262,16 @@
 			<div id="slider4" style="margin-top: 1em;" data-opt='handle-count: 4; values: [10, 20, 70, 80]; handle-interaction-mode: push;'></div>
 
 			<script>
-				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
-				F.onReady(() => {
-					F("#slider4").slider({
-						ranges: [
-							{ start: "#0", end: "#1", color: /**#f9d869**/"#f9d869" },
-							{ start: "#1", end: "#2", color: /**#90ee90**/"lightgreen" },
-							{ start: "#2", end: "#3", color: /**#f9d869**/"#f9d869" },
-							{ start: "#3", end: "#0", color: /**#f08080**/"lightcoral" }
-						]
-					});
+				/*hideline*/F.onReady(() => {
+				F("#slider4").slider({
+					ranges: [
+						{ start: "#0", end: "#1", color: /**#f9d869**/"#f9d869" },
+						{ start: "#1", end: "#2", color: /**#90ee90**/"lightgreen" },
+						{ start: "#2", end: "#3", color: /**#f9d869**/"#f9d869" },
+						{ start: "#3", end: "#0", color: /**#f08080**/"lightcoral" }
+					]
 				});
+				/*hideline*/});
 			</script>
 		</div>
 
@@ -307,22 +305,21 @@
 			<div id="slider5" class="large-handle" style="margin-top: 1em;" data-opt='handle-count: 5; values: [10, 20, 55, 70, 80]; handle-interaction-mode: push;'></div>
 
 			<script>
-				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
-				F.onReady(() => {
-					F("#slider5").slider({
-						ranges: [
-							{ start: "min", end: 25, color: /**#81c5f7**/"#81c5f7" },
-							{ start: 25, end: "#3", color: /**#90ee90**/"lightgreen" },
-							{ start: "#3", end: "max", color: /**#f08080**/"lightcoral" }
-						]
-					});
-					let handles = F("#slider5 .ff-handle").array;
-					handles[0].innerHTML = "A<sub>0</sub>";
-					handles[1].textContent = "B";
-					handles[2].textContent = "C";
-					handles[3].textContent = "D";
-					handles[4].textContent = "E*";
+				/*hideline*/F.onReady(() => {
+				F("#slider5").slider({
+					ranges: [
+						{ start: "min", end: 25, color: /**#81c5f7**/"#81c5f7" },
+						{ start: 25, end: "#3", color: /**#90ee90**/"lightgreen" },
+						{ start: "#3", end: "max", color: /**#f08080**/"lightcoral" }
+					]
 				});
+				let handles = F("#slider5 .ff-handle").array;
+				handles[0].innerHTML = "A<sub>0</sub>";
+				handles[1].textContent = "B";
+				handles[2].textContent = "C";
+				handles[3].textContent = "D";
+				handles[4].textContent = "E*";
+				/*hideline*/});
 			</script>
 		</div>
 

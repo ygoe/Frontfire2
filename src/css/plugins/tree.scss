@@ -1,4 +1,4 @@
-.ff-tree-view
+.ff-tree
 {
 	overflow-y: auto;
 	overscroll-behavior: contain;
@@ -46,8 +46,8 @@
 				{
 					width: 6px;
 					height: 6px;
-					border-right: 1px solid var(--treeview-expander-color, var(--textbox-color));
-					border-bottom: 1px solid var(--treeview-expander-color, var(--textbox-color));
+					border-right: 1px solid var(--tree-expander-color, var(--textbox-color));
+					border-bottom: 1px solid var(--tree-expander-color, var(--textbox-color));
 					transform: rotate(-45deg);
 					transform-origin: 4px 4px;
 					transition: transform var(--animation-duration) var(--animation-function), border-color var(--animation-duration) var(--animation-function);
@@ -106,21 +106,21 @@
 		&:not(.single-root) .children
 		{
 			margin-left: 8px;
-			border-left: 1px dotted var(--treeview-guideline-color);
+			border-left: 1px dotted var(--tree-guideline-color);
 			padding-left: 5px;
 			transition: border-color var(--animation-duration) var(--animation-function);
 		}
 	}
 }
 
-.ff-tree-view:focus
+.ff-tree:focus
 {
 	outline: var(--focus-outline);
 	outline-offset: var(--focus-outline-offset);
 }
 
 // Separate class for Firefox, see https://bugzilla.mozilla.org/show_bug.cgi?id=1775199
-.ff-tree-view:is(:focus-visible, .ff-focus-visible)
+.ff-tree:is(:focus-visible, .ff-focus-visible)
 {
 	outline: var(--focus-keyboard-outline);
 	outline-offset: var(--focus-keyboard-outline-offset);
@@ -132,7 +132,7 @@
 		outline-offset: -1px;
 	}
 }
-div.tree-view-drag-indicator
+div.tree-drag-indicator
 {
 	background-color: var(--default-text-color);
 	opacity: 0.5;

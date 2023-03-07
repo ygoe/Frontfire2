@@ -31,18 +31,21 @@
 			<li>CSS class <code class="css-class">expanded</code> for initially expanded accordion items</li>
 			<li>Added styling for the <a href="frontfire-ui-typography.html#mark"><code>&lt;mark&gt;</code> element</a></li>
 			<li>ToggleSwitch can be applied to an <code data-lang="html">&lt;input type="checkbox"&gt;</code> element, also automatically with the <code class="css-class">toggle-switch</code> CSS class</li>
+			<li>Added <a href="arraylist.html#selectManyRecursive"><code>ArrayList.selectManyRecursive</code></a> method</li>
 		</ul>
 		<h3 class="no-toc">Breaking changes</h3>
 		<ul>
 			<li>AJAX methods <a href="frontfire-core.html#getJSON"><code>F.getJSON</code></a>, <a href="frontfire-core.html#postJSON"><code>F.postJSON</code></a> and <code>F.postForm</code> returned Promise resolves to undefined (instead of null) on error to be able to indicate the JSON value <code>null</code> as response</li>
 			<li>AJAX method <code>F.postForm</code> renamed to <a href="frontfire-core.html#postFormJSON"><code>F.postFormJSON</code></a> as <a href="frontfire-core.html?s=ajax">more AJAX methods</a> were added</li>
 			<li>ToggleSwitch plugin method does not return a plugin instance anymore, but can convert multiple elements at once</li>
+			<li>TreeView plugin renamed to Tree</li>
 		</ul>
 		<h3 class="no-toc">Breaking changes since v1</h3>
 		<ul>
 			<li>CSS classes <code>gallery-center</code> and <code>gallery-right</code> renamed to <code class="css-class">center</code> and <code class="css-class">right</code></li>
 			<li>CSS class <code>inverted-indicator</code> of the carousel removed, use the <code class="css-class">dark</code> and <code class="css-class">not-dark</code> theme classes instead</li>
 			<li>Off-canvas <code>offcanvasopening</code>, <code>offcanvasopen</code>, <code>offcanvasclosing</code>, <code>offcanvasclose</code> events renamed to <a href="frontfire-ui-offcanvas.html#opening"><code>opening</code></a>, <a href="frontfire-ui-offcanvas.html#open"><code>open</code></a>, <a href="frontfire-ui-offcanvas.html#closing"><code>closing</code></a>, <a href="frontfire-ui-offcanvas.html#close-event"><code>close</code></a> (similar to modal)</li>
+			<li>Removed undocumented styles for <code data-lang="css">nav ul.menu</code>, modify the <a href="frontfire-ui-variables.html?s=@menu">--menu-*</a> CSS variables for that scope instead</li>
 		</ul>
 
 		<hr class="double-margin">
@@ -68,7 +71,7 @@
 		<h3 class="no-toc">Breaking changes since v1</h3>
 		<ul>
 			<li>Colour input fields are used with <code data-lang="html">&lt;input type="text" class="color-picker"&gt;</code> instead of <code data-lang="html">&lt;input type="color"&gt;</code></li>
-			<li>Accordion icons are enabled by default (can be hidden with the <code class="css-class">no-icons</code> CSS class) and fixed (no different icon styles anymore, same as in TreeView);<br>
+			<li>Accordion icons are enabled by default (can be hidden with the <code class="css-class">no-icons</code> CSS class) and fixed (no different icon styles anymore, same as in Tree);<br>
 				CSS classes <code>plusminus</code>, <code>plusminus-right</code>, <code>sidearrows</code>, <code>sidearrows-right</code>, <code>updownarrows</code> and <code>updownarrows-right</code> removed</li>
 		</ul>
 
@@ -81,7 +84,7 @@
 			<li>ColorPicker plugin</li>
 			<li>Notification plugin</li>
 			<li>ToggleSwitch plugin</li>
-			<li>TreeView plugin</li>
+			<li>Tree plugin</li>
 			<li>OffCanvas animation events</li>
 			<li>Several little enhancements and new methods</li>
 		</ul>

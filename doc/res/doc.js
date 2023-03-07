@@ -1286,7 +1286,11 @@ function syntaxHighlightJavaScript(code, inlineData) {
 	let state = "";
 	let className = "";
 	let types = ["Array", "ArrayList", "Color", "DataColor", "Frontfire", "Object", "Promise"];
-	let keywords = ["async", "await", "const", "false", "for", "function", "if", "in", "let", "new", "null", "of", "return", "this", "true", "undefined", "var"];
+	let keywords = ["async", "await", "break", "case", "const", "continue", "default", "do", "else", "false", "for", "function", "if", "in", "let", "new", "null", "of", "return", "switch", "this", "true", "undefined", "var", "while"];
+	// Hide lines that are only necessary in the examples but not in real use
+	let origLength = code.length;
+	code = code.replace(/^[ \t]*\/\*hideline\*\/.*?\n/gm, "");
+	let hiddenLength = origLength - code.length;
 	while (pos < code.length) {
 		let newState = state;
 		let skip = 1;
@@ -1294,7 +1298,7 @@ function syntaxHighlightJavaScript(code, inlineData) {
 		if (inlineData &&
 			state.match(inlineData.endStatePattern) &&
 			code.substring(pos, pos + inlineData.end.length) === inlineData.end) {
-			inlineData.skip = pos;
+			inlineData.skip = pos + hiddenLength;
 			return html;
 		}
 		let colorMatch = code.substring(pos, pos + 13).match(/^\/\*\*(#[0-9A-Fa-f]+)\*\*\//);
@@ -1420,7 +1424,7 @@ function syntaxHighlightJavaScript(code, inlineData) {
 		}
 	}
 	if (inlineData)
-		inlineData.skip = pos;
+		inlineData.skip = pos + hiddenLength;
 	return html;
 }
 

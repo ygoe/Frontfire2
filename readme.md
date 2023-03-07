@@ -39,7 +39,7 @@ The following is the content of the release archive. All files in readable and m
 
 | ╲ Variant ▸<br>▾ Bundle ╲ | Separate files | Single file (includes all above) |
 |-----------------------|----------------|-------------|
-| ArrayList             | arraylist.js<br>arraylist.min.js (3.0 KiB) | – |
+| ArrayList             | arraylist.js<br>arraylist.min.js (3.1 KiB) | – |
 | Frontfire Core        | frontfire-core.js<br>frontfire-core.min.js (10 KiB) | frontfire-core-singlefile.js<br>frontfire-core-singlefile.min.js (13 KiB) |
 | Frontfire UI<br>Minimal  | frontfire-ui-minimal.js<br>frontfire-ui-minimal.min.js (16 KiB) | frontfire-ui-minimal-singlefile.js<br>frontfire-ui-minimal-singlefile.min.js (28 KiB) |
 | Color                 | color.js<br>color.min.js (2.6 KiB) | – |
@@ -140,7 +140,7 @@ Features
 | Tabs | Shows one out of several panels, selectable through tab headers | | | ✔️ |
 | TimePicker | A formatted date and time picker with calendar and clock | | | ✔️ |
 | ToggleSwitch | A simple and nice toggle switch | | | ✔️ |
-| TreeView | A tree view for arbitrary data | | | 📕 |
+| Tree | A tree view for arbitrary data | | | ✔️ |
 | Wheel-scrolling | Custom mouse wheel scrolling | | | 📕 |
 
 ✔️ Included in the bundle<br>

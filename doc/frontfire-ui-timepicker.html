@@ -75,18 +75,17 @@
 					<button type="button" id="set-date-today" class="button">Set today</button>
 				</div>
 				<script>
-					// Wrapping in onReady() because this demo runs before the control is set up, you don't do that
-					F.onReady(() => {
-						// Format the days in the calendar view
-						F("#date-input").timePicker.dayFormatter = (item, date) => {
-							if (date.getDay() === 0)
-								item.classList.add("holiday");
-						};
-						// Show the element’s value each time it was changed
-						F("#date-input").on("change! input", event => {
-							F("#date-value-view").textContent = '"' + event.currentTarget.value + '"';
-						});
+					/*hideline*/F.onReady(() => {
+					// Format the days in the calendar view
+					F("#date-input").timePicker.dayFormatter = (item, date) => {
+						if (date.getDay() === 0)
+							item.classList.add("holiday");
+					};
+					// Show the element’s value each time it was changed
+					F("#date-input").on("change! input", event => {
+						F("#date-value-view").textContent = '"' + event.currentTarget.value + '"';
 					});
+					/*hideline*/});
 					F("#set-date-today").on("click", () => {
 						F("#date-input").value(getTodayISOString());
 					});
@@ -108,12 +107,11 @@
 			<div class="example p no-frontfire" data-source-highlight='(?<=type=")month(?=")'>
 				<input type="month" id="month-input"> → <code id="month-value-view"></code>
 				<script>
-					// Wrapping in onReady() because this demo runs before the control is set up, you don't do that
-					F.onReady(() => {
-						F("#month-input").on("change! input", event => {
-							F("#month-value-view").textContent = '"' + event.currentTarget.value + '"';
-						});
+					/*hideline*/F.onReady(() => {
+					F("#month-input").on("change! input", event => {
+						F("#month-value-view").textContent = '"' + event.currentTarget.value + '"';
 					});
+					/*hideline*/});
 				</script>
 			</div>
 
@@ -125,12 +123,11 @@
 			<div class="example p no-frontfire" data-source-highlight='(?<=type=")week(?=")'>
 				<input type="week" id="week-input"> → <code id="week-value-view"></code>
 				<script>
-					// Wrapping in onReady() because this demo runs before the control is set up, you don't do that
-					F.onReady(() => {
-						F("#week-input").on("change! input", event => {
-							F("#week-value-view").textContent = '"' + event.currentTarget.value + '"';
-						});
+					/*hideline*/F.onReady(() => {
+					F("#week-input").on("change! input", event => {
+						F("#week-value-view").textContent = '"' + event.currentTarget.value + '"';
 					});
+					/*hideline*/});
 				</script>
 			</div>
 		</div>
@@ -158,12 +155,11 @@
 				<button type="button" id="set-time-now" class="button">Set now</button>
 			</div>
 			<script>
-				// Wrapping in onReady() because this demo runs before the control is set up, you don't do that
-				F.onReady(() => {
-					F("#time-input").on("change! input", event => {
-						F("#time-value-view").textContent = '"' + event.currentTarget.value + '"';
-					});
+				/*hideline*/F.onReady(() => {
+				F("#time-input").on("change! input", event => {
+					F("#time-value-view").textContent = '"' + event.currentTarget.value + '"';
 				});
+				/*hideline*/});
 				F("#set-time-now").on("click", () => {
 					F("#time-input").value(getNowTimeISOString());
 				});
@@ -185,7 +181,7 @@
 			This is because each time component can be adjusted individually and the step only applies to the smallest component.
 		</p>
 		<p class="message warning icon">
-			<i class="material">warning.fill</i>
+			<i class="material">exclamation-triangle-fill</i>
 			<code>min</code>, <code>max</code> and <code>step</code> attributes are not yet implemented (except for activating of seconds input).
 		</p>
 		<div class="example no-frontfire" data-source-highlight="(?<= )step">
@@ -199,13 +195,12 @@
 				<input type="time" step="300"> → <code></code> (allows every 5 minutes)
 			</p>
 			<script>
-				// Wrapping in onReady() because this demo runs before the control is set up, you don't do that
-				F.onReady(() => {
-					F("input[type=time][step]").on("change! input", event => {
-						event.currentTarget.closest("p").querySelector("code").textContent =
-							'"' + event.currentTarget.value + '"';
-					});
+				/*hideline*/F.onReady(() => {
+				F("input[type=time][step]").on("change! input", event => {
+					event.currentTarget.closest("p").querySelector("code").textContent =
+						'"' + event.currentTarget.value + '"';
 				});
+				/*hideline*/});
 			</script>
 		</div>
 
@@ -224,12 +219,11 @@
 				<button type="button" id="set-datetime-now" class="button">Set now</button>
 			</div>
 			<script>
-				// Wrapping in onReady() because this demo runs before the control is set up, you don't do that
-				F.onReady(() => {
-					F("#datetime-input").on("change! input", event => {
-						F("#datetime-value-view").textContent = '"' + event.currentTarget.value + '"';
-					});
+				/*hideline*/F.onReady(() => {
+				F("#datetime-input").on("change! input", event => {
+					F("#datetime-value-view").textContent = '"' + event.currentTarget.value + '"';
 				});
+				/*hideline*/});
 				F("#set-datetime-now").on("click", () => {
 					F("#datetime-input").value(getNowISOString());
 				});
@@ -251,7 +245,7 @@
 			If the input is not optional and a valid date is required, the <code>required</code> attribute can be used as usual.
 		</p>
 		<p class="message warning icon">
-			<i class="material">warning.fill</i>
+			<i class="material">exclamation-triangle-fill</i>
 			The <code>required</code> attribute is not fully functional for now.
 			It hides the “clear” button in the dropdown but is itself removed until a proper form validation is in place, because there is no way to show a browser-generated message on the original hidden and the new readonly field.
 		</p>

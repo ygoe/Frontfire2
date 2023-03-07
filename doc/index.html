@@ -53,7 +53,7 @@
 			While Frontfire version 1 (which as a work in progress never actually used version numbers) was made as a jQuery plugin, version 2 comes in two parts.
 		</p>
 		<p id="apple-ios-warning" class="message warning icon" style="display: none;">
-			<i class="material">warning.fill</i>
+			<i class="material">exclamation-triangle-fill</i>
 			<strong>Compatibility warning:</strong><br>
 			Unfortunately, the Apple Safari browser does not support <a href="https://caniuse.com/js-regexp-lookbehind">a common feature of regular expressions</a> which probably breaks largs parts of this documentation website.
 			Due to restrictions imposed by Apple on the iOS platform, this affects all browsers on Apple mobile devices.
@@ -102,9 +102,14 @@
 			Read the <a href="frontfire-ui-autostart.html">Autostart documentation</a> to learn more about this and how to selectively opt out.
 		</p>
 		<p style="display: flex; align-items: center; gap: 8px; justify-content: flex-end; margin-left: 2em;">
-			<span id="show-complete-modules-false" style="cursor: pointer; user-select: none; text-align: right;">Show only modules available in the Minimal bundle</span>
+			<span>
+				<svg class="icon" width="13" height="12" viewBox="0 0 13 12">
+					<path d="M0,0L13,0L8,6L8,11L5,12L5,6Z"/>
+				</svg>
+			</span>
+			<span id="show-complete-modules-false" style="cursor: pointer; user-select: none; text-align: right;">Minimal bundle</span>
 			<input type="checkbox" id="show-complete-modules" checked class="toggle-switch">
-			<span id="show-complete-modules-true" style="cursor: pointer; user-select: none;">Show all modules</span>
+			<span id="show-complete-modules-true" style="cursor: pointer; user-select: none;">Complete bundle</span>
 		</p>
 		<div class="doc-parts p">
 			<a href="frontfire-ui-accordion.html">
@@ -238,6 +243,12 @@
 				<span class="type">Plugin demo</span>
 				<span class="bundles"><span class="complete"></span></span>
 				<span class="description">Toggle switch that can replace a checkbox</span>
+			</a>
+			<a href="frontfire-ui-tree.html">
+				<span class="title">Tree</span>
+				<span class="type">Plugin demo</span>
+				<span class="bundles"><span class="complete"></span></span>
+				<span class="description">Hierarchical tree item selection, with drag &amp; drop</span>
 			</a>
 			<a href="frontfire-ui-typography.html">
 				<span class="title">Typography</span>

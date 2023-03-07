@@ -1,9 +1,9 @@
-// ==================== Tree view plugin ====================
+// ==================== Tree plugin ====================
 
-const treeViewClass = "ff-tree-view";
+const treeClass = "ff-tree";
 
 // Defines default options for the tree view plugin.
-let treeViewDefaults = {
+let treeDefaults = {
 	// The items of the tree view.
 	items: [],
 
@@ -50,25 +50,32 @@ let treeViewDefaults = {
 	// Enables drag&drop of items.
 	dragdrop: false,
 
-	// A function that indicates whether an item is a drop target itself.
+	// A function that indicates whether an item is a drop target itself. Parameters:
+	// - item
 	isDropTarget: undefined,
 
-	// A function that is called while dragging items.
+	// A function that is called while dragging items. Parameters:
+	// - dragged items
+	// - drop target element
 	dragHandler: undefined,
 
-	// A function that is called after a drag&drop operation was completed.
+	// A function that is called after a drag&drop operation was completed. Parameters:
+	// - dragged items
+	// - drop target item
+	// - drop position
 	dropHandler: undefined,
 
-	// A function that is called when an unhandled key is pressed.
+	// A function that is called when an unhandled key is pressed. Parameters:
+	// - event
 	keyHandler: undefined
 };
 
 // Shows a tree view on the element.
-function treeView(options) {
+function tree(options) {
 	let container = this.first;
 	if (!container) return;   // Nothing to do
-	if (container.classList.contains(treeViewClass)) return container.F.treeView;   // Already created
-	let opt = F.initOptions("treeView", container, {}, options);
+	if (container.classList.contains(treeClass)) return container.F.tree;   // Already created
+	let opt = F.initOptions("tree", container, {}, options);
 	opt._getSelectedItems = getSelectedItems;
 	opt._selectItem = selectItem;
 	opt._deselectItem = deselectItem;
@@ -93,7 +100,7 @@ function treeView(options) {
 	let dropTarget, dropPosition;
 	let dragExpandTimeout, dragExpandTarget;
 
-	container.classList.add(treeViewClass);
+	container.classList.add(treeClass);
 	if (container.tabIndex === -1)
 		container.tabIndex = 0;
 
@@ -343,7 +350,7 @@ function treeView(options) {
 						itemContent.setPointerCapture(e.pointerId);
 						itemContent.style.cursor = "grabbing";
 						dragIndicator = document.createElement("div");
-						dragIndicator.classList.add("tree-view-drag-indicator");
+						dragIndicator.classList.add("tree-drag-indicator");
 						if (container.closest(".dark, .not-dark")?.classList.contains("dark"))
 							dragIndicator.classList.add("dark");
 						dragIndicator.style.position = "fixed";
@@ -904,7 +911,7 @@ function treeView(options) {
 	}
 
 	// Return current plugin instance
-	return container.F.treeView;
+	return container.F.tree;
 }
 
 // Gets all selected items in the visual order.
@@ -969,13 +976,13 @@ function updateView() {
 function callMethod(self, name, args) {
 	let container = self.first;
 	if (!container) return;   // Nothing to do
-	let opt = F.loadOptions("treeView", container);
-	if (!opt) return;   // TreeView not initialized
+	let opt = F.loadOptions("tree", container);
+	if (!opt) return;   // Tree not initialized
 	return opt["_" + name].apply(null, args);
 }
 
-F.registerPlugin("treeView", treeView, {
-	defaultOptions: treeViewDefaults,
+F.registerPlugin("tree", tree, {
+	defaultOptions: treeDefaults,
 	methods: {
 		getSelectedItems: getSelectedItems,
 		selectItem: selectItem,

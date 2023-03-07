@@ -254,8 +254,8 @@
 					let promise = F.modal({
 						text: "Do you want to answer this question? This operation cannot be undone.",
 						buttons: [
-							{ text: "Hell, yes!", icon: "material", iconText: "check.7", className: "default", result: "Yes" },
-							{ text: "Oh no.", icon: "material", iconText: "close", result: "No" }
+							{ text: "Hell, yes!", icon: "material", iconText: "check-bold", className: "default", result: "Yes" },
+							{ text: "Oh no.", icon: "material", iconText: "cross", result: "No" }
 						]
 					});
 					// Cancel the Promise (close the modal) when pressing the 1 digit key
@@ -436,7 +436,7 @@
 					data-opt-question="Do you want to delete the file?"
 					data-opt-confirm-text="Delete"
 					data-opt-confirm-icon="material"
-					data-opt-confirm-icon-text="delete.fill"
+					data-opt-confirm-icon-text="bin-fill"
 					data-opt-cancel-text="Keep the file">Delete file</button>
 				<button class="confirm">Generic texts</button>
 			</div>
@@ -468,7 +468,7 @@
 				F(".confirm-delete").confirm({
 					confirmText: "Delete",
 					confirmIcon: "material",
-					confirmIconText: "delete.fill",
+					confirmIconText: "bin-fill",
 					cancelText: "Cancel"   // may need localisation, too
 				});
 			</script>

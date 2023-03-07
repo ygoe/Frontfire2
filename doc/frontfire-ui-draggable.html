@@ -106,17 +106,16 @@
 			</div>
 
 			<script>
-				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
-				F.onReady(() => {
-					F("#draggable-any").draggable();
-					F("#draggable-any").on("draggablestart", event => {
-						if (!F("#draggable-any input").checked)
-							event.preventDefault();
-					});
-
-					F("#draggable-x").draggable({ axis: "x" });
-					F("#draggable-y").draggable({ axis: "y" });
+				/*hideline*/F.onReady(() => {
+				F("#draggable-any").draggable();
+				F("#draggable-any").on("draggablestart", event => {
+					if (!F("#draggable-any input").checked)
+						event.preventDefault();
 				});
+
+				F("#draggable-x").draggable({ axis: "x" });
+				F("#draggable-y").draggable({ axis: "y" });
+				/*hideline*/});
 			</script>
 		</div>
 
@@ -133,17 +132,16 @@
 			</div>
 
 			<script>
-				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
-				F.onReady(() => {
-					F("#draggable-cont").draggable({ containment: "#container1" });
-					F("#draggable-parent").draggable({ containment: "parent" });
-					F("#draggable-parent").on("draggablestart", event => {
-						event.currentTarget.classList.add("dragging");
-					});
-					F("#draggable-parent").on("draggableend", event => {
-						event.currentTarget.classList.remove("dragging");
-					});
+				/*hideline*/F.onReady(() => {
+				F("#draggable-cont").draggable({ containment: "#container1" });
+				F("#draggable-parent").draggable({ containment: "parent" });
+				F("#draggable-parent").on("draggablestart", event => {
+					event.currentTarget.classList.add("dragging");
 				});
+				F("#draggable-parent").on("draggableend", event => {
+					event.currentTarget.classList.remove("dragging");
+				});
+				/*hideline*/});
 			</script>
 		</div>
 
@@ -155,10 +153,9 @@
 			<div id="draggable-scroll" style="z-index: 20;">Drag me out of the page to scroll</div>
 
 			<script>
-				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
-				F.onReady(() => {
-					F("#draggable-scroll").draggable({ scroll: true, containment: "html" });
-				});
+				/*hideline*/F.onReady(() => {
+				F("#draggable-scroll").draggable({ scroll: true, containment: "html" });
+				/*hideline*/});
 			</script>
 		</div>
 
@@ -167,13 +164,12 @@
 			<div id="draggable-revert">Drag me and I will come back</div>
 
 			<script>
-				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
-				F.onReady(() => {
-					F("#draggable-revert").draggable();
-					F("#draggable-revert").on("draggableend", event => {
-						event.revert();
-					});
+				/*hideline*/F.onReady(() => {
+				F("#draggable-revert").draggable();
+				F("#draggable-revert").on("draggableend", event => {
+					event.revert();
 				});
+				/*hideline*/});
 			</script>
 		</div>
 
@@ -190,10 +186,9 @@
 			<div class="draggable-stack">5. Drag me and I will be at the top</div>
 
 			<script>
-				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
-				F.onReady(() => {
-					F(".draggable-stack").draggable({ stack: ".draggable-stack" });
-				});
+				/*hideline*/F.onReady(() => {
+				F(".draggable-stack").draggable({ stack: ".draggable-stack" });
+				/*hideline*/});
 			</script>
 		</div>
 
@@ -210,11 +205,10 @@
 			<div id="draggable-cancel">Drag me <span>but not here</span></div>
 
 			<script>
-				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
-				F.onReady(() => {
-					F("#draggable-handle").draggable({ handle: "span" });
-					F("#draggable-cancel").draggable({ cancel: "span" });
-				});
+				/*hideline*/F.onReady(() => {
+				F("#draggable-handle").draggable({ handle: "span" });
+				F("#draggable-cancel").draggable({ cancel: "span" });
+				/*hideline*/});
 			</script>
 		</div>
 
@@ -226,11 +220,10 @@
 			</div>
 
 			<script>
-				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
-				F.onReady(() => {
-					F("#draggable-grid").draggable({ containment: "#container2", grid: [20, 20] });
-					F("#draggable-grid-x").draggable({ containment: "#container2", axis: "x", grid: [20, 20] });
-				});
+				/*hideline*/F.onReady(() => {
+				F("#draggable-grid").draggable({ containment: "#container2", grid: [20, 20] });
+				F("#draggable-grid-x").draggable({ containment: "#container2", axis: "x", grid: [20, 20] });
+				/*hideline*/});
 			</script>
 		</div>
 
@@ -251,27 +244,26 @@
 			</div>
 
 			<script>
-				// Wrapping in onReady() only to keep this raw source code visible, you don't do that
-				F.onReady(() => {
-					F("#draggable-circle").draggable({ catchElement: F("#draggable-circle").parentElement.parentElement });
-					F("#draggable-circle").on("draggablemove", event => {
-						let draggableRadius = F("#draggable-circle").borderWidth / 2;
-						let circleRect = F("#draggable-circle").parentElement.rect;
-						let radius = circleRect.width / 2;
+				/*hideline*/F.onReady(() => {
+				F("#draggable-circle").draggable({ catchElement: F("#draggable-circle").parentElement.parentElement });
+				F("#draggable-circle").on("draggablemove", event => {
+					let draggableRadius = F("#draggable-circle").borderWidth / 2;
+					let circleRect = F("#draggable-circle").parentElement.rect;
+					let radius = circleRect.width / 2;
 
-						// Compute angle of draggable from centre
-						let angle = Math.atan2(
-							(event.newPoint.left + draggableRadius) - (circleRect.left + radius),
-							(circleRect.top + radius) - (event.newPoint.top + draggableRadius));
-						console.log(event.newPoint, (angle / 2 / Math.PI * 360 + 360) % 360);
+					// Compute angle of draggable from centre
+					let angle = Math.atan2(
+						(event.newPoint.left + draggableRadius) - (circleRect.left + radius),
+						(circleRect.top + radius) - (event.newPoint.top + draggableRadius));
+					console.log(event.newPoint, (angle / 2 / Math.PI * 360 + 360) % 360);
 
-						// Determine point on circle at this angle
-						event.newPoint = {
-							top: Math.round(-Math.cos(angle) * radius * 100) / 100 + circleRect.top + radius - draggableRadius,
-							left: Math.round(Math.sin(angle) * radius * 100) / 100 + circleRect.left + radius - draggableRadius
-						};
-					});
+					// Determine point on circle at this angle
+					event.newPoint = {
+						top: Math.round(-Math.cos(angle) * radius * 100) / 100 + circleRect.top + radius - draggableRadius,
+						left: Math.round(Math.sin(angle) * radius * 100) / 100 + circleRect.left + radius - draggableRadius
+					};
 				});
+				/*hideline*/});
 			</script>
 		</div>
 

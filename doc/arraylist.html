@@ -1704,11 +1704,11 @@ arr.L.outerJoin(other,
 <div class="code">[1, 2, 3, 4].L.select(x => x + 10)
 → [11, 12, 13, 14]
 let arr = [
-	{ key: 1, value: "a"},
-	{ key: 1, value: "b"},
-	{ key: 1, value: "c"},
-	{ key: 2, value: "d"},
-	{ key: 3, value: "e"}
+	{ key: 1, value: "a" },
+	{ key: 1, value: "b" },
+	{ key: 1, value: "c" },
+	{ key: 2, value: "d" },
+	{ key: 3, value: "e" }
 ];
 arr.L.select(x => x.value)
 → ["a", "b", "c", "d", "e"]
@@ -1716,6 +1716,36 @@ arr.L.select(x => x.value)
 				<p class="see-also">
 					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map">Array.map()</a>
 				</p>
+			</div>
+
+			<div class="member" data-aliases="map project">
+				<h3 id="selectManyRecursive">selectManyRecursive</h3>
+				<ul>
+					<li><code>selectManyRecursive(childrenSelector)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Recursively collects all items from the array and their children into a flat array.
+					The returned array contains as many items as the array and all child items that can be found with the selector function.
+					The childrenSelector function is called for each item with the item as parameter.
+					It should return an array of all children of the item (can be empty), or a falsy value if there are no children.
+				</p>
+<div class="code">let arr = [
+	{ name: "a" },
+	{ name: "b", children: [
+		{ name: "b1" }
+	] },
+	{ name: "c", children: [
+		{ name: "c1" },
+		{ name: "c2", children: [
+			{ name: "c2a" }
+		] }
+	] },
+	{ name: "d" }
+];
+arr.L.selectManyRecursive(x => x.children)
+	.select(x => x.name)   // for result brevity
+→ ["a", "b", "b1", "c", "c1", "c2", "c2a", "d"]
+</div>
 			</div>
 
 			<div class="member" data-aliases="slice">
