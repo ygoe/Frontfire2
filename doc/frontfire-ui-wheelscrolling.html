@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: WheelScrolling documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">WheelScrolling plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-beta.3</span>
+		</div>
+		<p>
+			This plugin enables custom mouse wheel scrolling on elements.
+		</p>
+		<p>
+			The usual mouse wheel scrolling behaviour of web browsers is to scroll the closest scrollable element in the direction of the wheel rotation.
+			That means, if the user wants to scroll downwards while the mouse cursor is over a scrollable element (like a selectable or tree) and the page itself also has a scrollbar, then the element is scrolled as long as it is not already scrolled to its end.
+			Otherwise, the page is scrolled instead.
+			Once a scroll operation has started, its target is locked until an idle timeout expires or the mouse cursor was moved a bit.
+			That means, once the smaller element is scrolling, further scrolling will always go to that element, even if it cannot scroll any further in the direction.
+			This allows to scroll an element to its end by generously spinning the wheel without also starting to scroll a parent element or the page afterwards.
+		</p>
+		<p>
+			The main problem here is often that the page is scrolled if the hovered element cannot scroll any further in the indicated direction.
+			Think of such a scrollable list or tree in a fixed side panel, like a configuration view.
+			When the user wants to scroll that, maybe only to see if there is more content to be revealed, they might inadvertently scroll the entire page instead.
+		</p>
+		<p>
+			To prevent that situation, this wheel scrolling plugin can be used by calling the <a href="frontfire-core.html#wheelScrolling"><code>wheelScrolling()</code></a> plugin method on an element.
+			It intercepts the <code>wheel</code> event and implements its own scrolling for any element, without falling back to scrolling parent elements or the page.
+			This guarantees that turning the mouse wheel over an element will never scroll any parent or the page.
+		</p>
+		<p>
+			Additionally, the scroll steps and speed can be configured.
+			This is especially useful for smaller views that are only a few lines tall.
+			The usual scroll speed would often shift the view by more than half of its height, which leads to the loss of orientation or prevents accurate positioning to see the desired lines.
+			The smaller the scroll height, the smaller the scroll step should be.
+		</p>
+
+		<h2 id="default-example">Default example</h2>
+		<p>
+			This example shows the scroll behaviour over a small scrollable element with default settings.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="wheelScrolling">
+			<p id="scroller" style="max-width: 200px; max-height: 200px; overflow-y: auto;">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus lectus nec mi gravida, sed vulputate lorem scelerisque. Vestibulum dictum bibendum nisi eget molestie. Maecenas aliquam laoreet vulputate. Proin magna purus, viverra eget lorem vitae, semper tincidunt mauris. Duis accumsan elit imperdiet sapien lacinia ullamcorper. Aliquam eget consequat risus, euismod euismod ex. Fusce et vestibulum enim. Morbi mauris massa, ullamcorper mattis viverra vel, consectetur a lectus. Sed tincidunt orci convallis neque iaculis sodales in et odio. Integer egestas pulvinar laoreet. Nullam sodales elit non urna congue consequat. Duis tempor quis velit ut volutpat. Aliquam fringilla sem a efficitur molestie. Aenean a dui pellentesque, aliquam justo eu, blandit augue. Donec sit amet imperdiet neque.
+			</p>
+			<script>
+				F("#scroller").wheelScrolling();
+			</script>
+		</div>
+
+		<h2 id="custom-example">Custom example</h2>
+		<p>
+			This example shows custom scroll step and speed settings.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="wheelScrolling|step|duration">
+			<p id="scroller2" style="max-width: 200px; max-height: 200px; overflow-y: auto;">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus lectus nec mi gravida, sed vulputate lorem scelerisque. Vestibulum dictum bibendum nisi eget molestie. Maecenas aliquam laoreet vulputate. Proin magna purus, viverra eget lorem vitae, semper tincidunt mauris. Duis accumsan elit imperdiet sapien lacinia ullamcorper. Aliquam eget consequat risus, euismod euismod ex. Fusce et vestibulum enim. Morbi mauris massa, ullamcorper mattis viverra vel, consectetur a lectus. Sed tincidunt orci convallis neque iaculis sodales in et odio. Integer egestas pulvinar laoreet. Nullam sodales elit non urna congue consequat. Duis tempor quis velit ut volutpat. Aliquam fringilla sem a efficitur molestie. Aenean a dui pellentesque, aliquam justo eu, blandit augue. Donec sit amet imperdiet neque.
+			</p>
+			<script>
+				F("#scroller2").wheelScrolling({ step: 0.5, duration: 500 });
+			</script>
+		</div>
+
+		<h2 id="disabled">Disable scrolling</h2>
+		<p>
+			The <code>disabled</code> option allows to disable any scrolling over a specific element.
+			The element itself should not be scrollable.
+			Turning the mouse wheel over such an element will never scroll the page.
+		</p>
+		<div class="example no-frontfire" data-source-highlight="wheelScrolling|disabled">
+			<p id="no-scroll" data-opt-disabled="true">
+				Try as you might, turning the mouse wheel over this paragraph of text will not scroll the page.
+				Apply this to a fixed-position side panel that may contain scrollable elements on its own, but shall never leak scrolling to the rest of the page.
+			</p>
+			<script>
+				F("#no-scroll").wheelScrolling();
+			</script>
+		</div>
+
+		<h2 id="options">Options</h2>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>disabled</code></td>
+					<td>Boolean</td>
+					<td>Specifies whether wheel scrolling is disabled completely.</td>
+					<td>false</td>
+				</tr>
+				<tr>
+					<td><code>duration</code></td>
+					<td>Number</td>
+					<td>The duration of a single scroll event animation, in milliseconds.</td>
+					<td>150</td>
+				</tr>
+				<tr>
+					<td><code>step</code></td>
+					<td>Number</td>
+					<td>The scroll offset of a single wheel delta event. Values between 0 (exclusive) and 1 (inclusive) are treated as the ratio of the element’s visible height. Values greater than 1 are absolute pixel offsets.</td>
+					<td>0.1</td>
+				</tr>
+			</tbody>
+		</table>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022–2023, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

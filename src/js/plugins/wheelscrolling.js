@@ -10,7 +10,7 @@ let wheelScrollingDefaults = {
 	// The duration of a single scroll event animation, in milliseconds.
 	duration: 150,
 
-	// Indicates whether wheel scrolling is disabled completely.
+	// Specifies whether wheel scrolling is disabled completely.
 	disabled: false
 }
 

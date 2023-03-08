@@ -141,11 +141,10 @@ Features
 | TimePicker | A formatted date and time picker with calendar and clock | | | ✔️ |
 | ToggleSwitch | A simple and nice toggle switch | | | ✔️ |
 | Tree | A tree view for arbitrary data | | | ✔️ |
-| Wheel-scrolling | Custom mouse wheel scrolling | | | 📕 |
+| Wheel-scrolling | Custom mouse wheel scrolling | | | ✔️ |
 
 ✔️ Included in the bundle<br>
 ➕ Can be added separately (not in the bundle)<br>
-📕 Included but not documented yet<br>
 🚧 Not developed or fully ported to Frontfire 2 yet
 
 
