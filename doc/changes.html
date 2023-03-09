@@ -22,12 +22,13 @@
 		<h1 class="no-top-margin">Change log</h1>
 
 		<!-- NOTE: The first version and date in this file are picked up by the pack script. -->
-		<h2 id="v2-0-0-beta-3">Version 2.0.0-beta.3</h2>
-		<p>Released: not yet (will be renamed to 2.0.0)</p>
+		<h2 id="v2-0-0-rc-1">Version 2.0.0-rc.1</h2>
+		<p>Released: not yet</p>
 		<h3 class="no-toc">New features</h3>
 		<ul>
 			<li><a href="frontfire-ui-carousel.html">Carousel</a> plugin</li>
 			<li><a href="frontfire-ui-gallery.html">Gallery</a> plugin</li>
+			<li><a href="frontfire-ui-resizable.html">Resizable</a> plugin</li>
 			<li>CSS class <code class="css-class">expanded</code> for initially expanded accordion items</li>
 			<li>Added styling for the <a href="frontfire-ui-typography.html#mark"><code>&lt;mark&gt;</code> element</a></li>
 			<li>ToggleSwitch can be applied to an <code data-lang="html">&lt;input type="checkbox"&gt;</code> element, also automatically with the <code class="css-class">toggle-switch</code> CSS class</li>
@@ -39,6 +40,7 @@
 			<li>AJAX method <code>F.postForm</code> renamed to <a href="frontfire-core.html#postFormJSON"><code>F.postFormJSON</code></a> as <a href="frontfire-core.html?s=ajax">more AJAX methods</a> were added</li>
 			<li>ToggleSwitch plugin method does not return a plugin instance anymore, but can convert multiple elements at once</li>
 			<li>TreeView plugin renamed to Tree</li>
+			<li>Layout properties <a href="frontfire-core.html#left"><code>F.left</code></a> and <a href="frontfire-core.html#top"><code>F.top</code></a> do not set the plain CSS property of the same name anymore but the actual position of the element relative to the document. They now only accept numbers as values. The difference is when an element is in a relative-positioned parent that is not at the origin (0/0) of the document.</li>
 		</ul>
 		<h3 class="no-toc">Breaking changes since v1</h3>
 		<ul>
@@ -94,7 +96,7 @@
 			<li>Carousel (planned for 2.0 – done)</li>
 			<li>ColorPicker on form field (planned for beta 2 – done)</li>
 			<li>Gallery (planned for 2.0 – done)</li>
-			<li>Resizable (planned for 2.0)</li>
+			<li>Resizable (planned for 2.0 – done)</li>
 			<li>TimePicker (planned for beta 2 – done)</li>
 		</ul>
 		<h3 class="no-toc">Breaking changes since v1</h3>

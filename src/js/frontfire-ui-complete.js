@@ -1,4 +1,4 @@
-/*! frontfire-ui-complete.js v2.0.0-beta.3 | @license MIT | ygoe.de */
+/*! frontfire-ui-complete.js v2.0.0-rc.1 | @license MIT | ygoe.de */
 /* iife-params(F, window, document) */
 /* iife-args(Frontfire, window, document) */
 /* build-dir(build) */
@@ -37,6 +37,7 @@ import "./plugins/modal";
 import "./plugins/notification";
 import "./plugins/offcanvas";
 import "./plugins/page";
+import "./plugins/resizable";
 import "./plugins/selectable";
 import "./plugins/sortable";
 import "./plugins/table";
@@ -53,8 +54,5 @@ import "./plugins/timepicker";
 import "./plugins/toggleswitch";
 import "./plugins/tree";
 import "./plugins/wheelscrolling";
-
-// TODO: Convert and add the following groups of Frontfire 1 modules, with accompanying CSS:
-//import "./plugins/resizable";
 
 F.runAutostart();

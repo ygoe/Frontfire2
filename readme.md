@@ -41,10 +41,10 @@ The following is the content of the release archive. All files in readable and m
 |-----------------------|----------------|-------------|
 | ArrayList             | arraylist.js<br>arraylist.min.js (3.1 KiB) | – |
 | Frontfire Core        | frontfire-core.js<br>frontfire-core.min.js (10 KiB) | frontfire-core-singlefile.js<br>frontfire-core-singlefile.min.js (13 KiB) |
-| Frontfire UI<br>Minimal  | frontfire-ui-minimal.js<br>frontfire-ui-minimal.min.js (16 KiB) | frontfire-ui-minimal-singlefile.js<br>frontfire-ui-minimal-singlefile.min.js (28 KiB) |
+| Frontfire UI<br>Minimal  | frontfire-ui-minimal.js<br>frontfire-ui-minimal.min.js (17 KiB) | frontfire-ui-minimal-singlefile.js<br>frontfire-ui-minimal-singlefile.min.js (29 KiB) |
 | Color                 | color.js<br>color.min.js (2.6 KiB) | – |
 | DataColor             | datacolor.js<br>datacolor.min.js (1.2 KiB) | – |
-| Frontfire UI<br>Complete | frontfire-ui-complete.js<br>frontfire-ui-complete.min.js (39 KiB) | frontfire-ui-complete-singlefile.js<br>frontfire-ui-complete-singlefile.min.js (54 KiB) |
+| Frontfire UI<br>Complete | frontfire-ui-complete.js<br>frontfire-ui-complete.min.js (40 KiB) | frontfire-ui-complete-singlefile.js<br>frontfire-ui-complete-singlefile.min.js (55 KiB) |
 
 
 ### CSS files
@@ -126,7 +126,7 @@ Features
 | Modal | A modal panel that overlays the page | | ✔️ | ✔️ |
 | Notification | Short pop-up notifications | | ✔️ | ✔️ |
 | OffCanvas | A panel that opens from the side of the page | | ✔️ | ✔️ |
-| Resizable | Supports primitive resize interactions on elements | | 🚧 | 🚧 |
+| Resizable | Supports primitive resize interactions on elements | | ✔️ | ✔️ |
 | Selectable | Enhanced list boxes and dropdown select boxes | | ✔️ | ✔️ |
 | Sortable | Supports primitive reorder interactions on the children of an element | | ✔️ | ✔️ |
 | Table | Designs last visible table column/row | | ✔️ | ✔️ |

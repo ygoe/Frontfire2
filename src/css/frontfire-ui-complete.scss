@@ -1,4 +1,4 @@
-/*! frontfire-ui-complete.scss v2.0.0-beta.3 | @license MIT | ygoe.de */
+/*! frontfire-ui-complete.scss v2.0.0-rc.1 | @license MIT | ygoe.de */
 /* build-dir(build) */
 
 // Copyright (c) 2022-2023, Yves Goergen, https://ygoe.de
@@ -33,13 +33,15 @@
 @import "plugins/typography";
 @import "plugins/table";
 @import "plugins/image";
-@import "plugins/message";
-@import "plugins/notification";
 @import "plugins/form";
-@import "plugins/offcanvas";
-@import "plugins/modal";
+
 @import "plugins/dropdown";
 @import "plugins/menu";
+@import "plugins/message";
+@import "plugins/modal";
+@import "plugins/notification";
+@import "plugins/offcanvas";
+@import "plugins/resizable";
 @import "plugins/selectable";
 
 // Import all modules of the complete profile

@@ -1,0 +1,36 @@
+.ff-resizable-handle
+{
+	user-select: none;
+	&.box
+	{
+		border: 1px solid var(--resizable-handle-box-border);
+		background-color: var(--resizable-handle-box-background, var(--default-background));
+		width: 7px;
+		height: 7px;
+		z-index: 900;
+		position: relative;
+		transition: background-color var(--animation-duration) var(--animation-function), border-color var(--animation-duration) var(--animation-function);
+		&::after
+		{
+			display: block;
+			content: '';
+			position: absolute;
+			top: -5px;
+			right: -5px;
+			bottom: -5px;
+			left: -5px;
+		}
+		&:hover::after
+		{
+			background: rgba(0, 0, 0, 0.05);
+			.dark &
+			{
+				background: rgba(255, 255, 255, 0.15);
+			}
+		}
+	}
+}
+.hide-handles .ff-resizable-handle.box
+{
+	display: none;
+}

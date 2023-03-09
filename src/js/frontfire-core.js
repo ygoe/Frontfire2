@@ -1,4 +1,4 @@
-/*! frontfire-core.js v2.0.0-beta.3 | @license MIT | ygoe.de */
+/*! frontfire-core.js v2.0.0-rc.1 | @license MIT | ygoe.de */
 /* build-dir(build) */
 
 // Copyright (c) 2021-2023, Yves Goergen, https://ygoe.de
@@ -1211,8 +1211,8 @@
 			parseFloat(computedStyle.borderLeftWidth) + parseFloat(computedStyle.borderRightWidth);
 	}
 
-	// Gets the top location of the first selected Node in the document, or sets the top property of
-	// all selected Nodes, in pixels.
+	// Gets the top location of the first selected Node, or sets the top location of all selected
+	// Nodes, relative to the document, in pixels.
 	// Note that this is the rendered position that may be affected by CSS transforms.
 	// See also: jQuery.offset()
 	object_defineProperty(Frontfire_prototype, "top", {
@@ -1222,14 +1222,17 @@
 			return this.array[0].getBoundingClientRect().top + window.scrollY;
 		},
 		set: function (value) {
-			if (isNumber(value))
-				value += "px";
-			this.forEach(n => n.style.top = value);
+			this.forEach(n => {
+				let realPos = n.getBoundingClientRect().top + window.scrollY;
+				let computedPos = parseFloat(n.F.computedStyle.top);
+				value -= realPos - computedPos;
+				n.style.top = value + "px";
+			});
 		}
 	});
 
-	// Gets the left location of the first selected Node in the document, or sets the left property
-	// of all selected Nodes, in pixels.
+	// Gets the left location of the first selected Node, or sets the left location of all selected
+	// Nodes, relative to the document, in pixels.
 	// Note that this is the rendered position that may be affected by CSS transforms.
 	// See also: jQuery.offset()
 	object_defineProperty(Frontfire_prototype, "left", {
@@ -1239,9 +1242,12 @@
 			return this.array[0].getBoundingClientRect().left + window.scrollX;
 		},
 		set: function (value) {
-			if (isNumber(value))
-				value += "px";
-			this.forEach(n => n.style.left = value);
+			this.forEach(n => {
+				let realPos = n.getBoundingClientRect().left + window.scrollX;
+				let computedPos = parseFloat(n.F.computedStyle.left);
+				value -= realPos - computedPos;
+				n.style.left = value + "px";
+			});
 		}
 	});
 

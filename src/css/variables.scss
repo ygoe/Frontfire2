@@ -326,6 +326,11 @@ $viewportWidthDesktop: 1200px;
 	--progress-success-color: #6ec418;
 
 
+	// ========== Resizable ==========
+
+	--resizable-handle-box-border: silver;
+
+
 	// ========== Slider ==========
 
 	// Width of the track bar
@@ -515,6 +520,11 @@ $viewportWidthDesktop: 1200px;
 	--submenu-hover-lf: 0.1;
 	--submenu-active-lf: 0.2;
 	--submenu-color: var(--default-text-color);
+
+
+	// ========== Resizable ==========
+
+	--resizable-handle-box-border: gray;
 
 
 	// ========== Slider ==========

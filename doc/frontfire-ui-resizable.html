@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Frontfire UI: Resizable documentation</title>
+	<link rel="stylesheet" href="../src/css/build/frontfire-ui-complete.min.css">
+	<link rel="stylesheet" href="res/doc.css">
+	<link rel="icon" href="../logo/frontfire.svg">
+	<meta name="theme-color" content="#ffffff">
+	<style>
+		[id^=resizable-]
+		{
+			position: absolute;
+			width: 120px;
+			height: 80px;
+			border: 1px solid #80d030;
+			background: #ccecac;
+			padding: 5px 10px;
+			text-align: center;
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			user-select: none;
+			transition: background var(--animation-duration) var(--animation-function), border var(--animation-duration) var(--animation-function);
+		}
+		[id^=resizable-][disabled]
+		{
+			background: #e0e0e0;
+			border-color: #a0a0a0;
+		}
+		[id^=resizable-].resizing
+		{
+			box-shadow: rgba(0, 0, 0, 0.2) 0 3px 6px;
+		}
+		.container
+		{
+			position: relative;
+			border: 1px dashed silver;
+			height: 250px;
+			transition: border var(--animation-duration) var(--animation-function);
+		}
+		.container.grid
+		{
+			border: none;
+			background: url('data:image/svg+xml;utf8,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><rect fill="none" stroke="lightsalmon" stroke-width="1" x="0" y="0" width="21" height="21"/></svg>') #f8f8f8;
+		}
+
+		.dark [id^=resizable-]
+		{
+			border: 1px solid #7dcb2f;
+			background: #50811d;
+		}
+		.dark [id^=resizable-][disabled]
+		{
+			background: #707070;
+			border-color: #b0b0b0;
+		}
+		.dark .container
+		{
+			border: 1px dashed gray;
+		}
+		.dark .container.grid
+		{
+			border: none;
+			background: url('data:image/svg+xml;utf8,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><rect fill="none" stroke="lightsalmon" stroke-width="1" x="0" y="0" width="21" height="21"/></svg>') #303030;
+		}
+	</style>
+</head>
+<body class="with-aside">
+	<!-- Include Frontfire JavaScript files here to use them in the samples throughout the page -->
+	<script src="../src/js/build/frontfire-ui-complete-singlefile.min.js"></script>
+
+	<header>
+		<a href="index.html"><img src="../logo/frontfire.svg"></a>
+		<a href="index.html"><span><span class="title">Frontfire documentation</span></span></a>
+	</header>
+
+	<aside>
+	</aside>
+
+	<main class="full-page-width">
+		<h1 class="no-top-margin">Resizable plugin</h1>
+		<div id="version-div">
+			Version <span id="version-id">2.0.0-rc.1</span>
+		</div>
+		<p>
+			Frontfire UI allows resizing any element by draggable handles at each side.
+		</p>
+		<p>
+			This plugin is available in the Minimal and Complete bundles.
+		</p>
+		<p>
+			This plugin depends on the plugins: <a href="frontfire-ui-draggable.html">draggable</a>
+		</p>
+
+		<h2 id="description">Description</h2>
+		<p>
+			Resizable elements allow the user to change the width or height of an element.
+			Call the <a href="frontfire-core.html#resizable"><code>resizable()</code></a> plugin method on any element to add the resizable feature.
+			The element size can be constrained by providing <a href="#options">options</a> to that method or handling <a href="#events">events</a>.
+			This feature provides a low-level behaviour to elements that usually is not used on its own but rather by other Frontfire UI features to build upon it.
+		</p>
+		<p>
+			The examples on this page use additional CSS styles that are not shown in the source boxes.
+			Read the source code of this page or use the browser’s DOM inspector to see these styles.
+		</p>
+		<p>
+			The box handle colours can be customised with the <a href="frontfire-ui-variables.html?s=@resizable">CSS variables</a> that start with “--resizable-”.
+		</p>
+
+		<h2 id="basic">Basic examples</h2>
+		<p>
+			Here are examples that demonstrate the basic usage of the resizable feature.
+			These static-positioned elements will be changed to relative position to maintain their new position but still take their space in the layout flow.
+			You can also start with absolute-positioned elements which won’t be changed then.
+			Touch actions to scroll the page are disabled in the direction the elements may be dragged.
+		</p>
+		<div class="example p-top no-frontfire" data-source-highlight='(?<=\.)resizable|handles(?=:)|handleClass|hide-handles(?=")'>
+			<div class="container">
+				<div id="resizable-any"><input type="checkbox" checked> Resize me anywhere (if checked)</div>
+				<div id="resizable-x" style="left: 200px;">Resize me horizontally</div>
+				<div id="resizable-y" style="left: 400px;">Resize me vertically</div>
+				<div id="resizable-left" style="left: 600px;">Resize me at left edge</div>
+				<div id="resizable-box" style="top: 120px;">Resize with box handles</div>
+			</div>
+			<p>
+				<label><input id="hide-handles-checkbox" type="checkbox"> Hide handles</label>
+			</p>
+
+			<script>
+				/*hideline*/F.onReady(() => {
+				F("#resizable-any").resizable();
+				F("#resizable-any input").on("click!", () => {
+					F("#resizable-any").disabled = !F("#resizable-any input").checked;
+				});
+				F("#resizable-x").resizable({ handles: "w,e" });
+				F("#resizable-y").resizable({ handles: "n,s" });
+				F("#resizable-left").resizable({ handles: "w" });
+				F("#resizable-box").resizable({ handleClass: "box" });
+				F("#hide-handles-checkbox").on("click!", () => {
+					F("#resizable-box").classList.toggle("hide-handles", F("#hide-handles-checkbox").checked);
+				});
+				/*hideline*/});
+			</script>
+		</div>
+
+		<h2 id="min-max-size">Minimum and maximum size</h2>
+		<p>
+			The minimum and maximum size can be restricted while resizing the element.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight='(?<=\.)resizable|(min|max)(Width|Height)'>
+			<div class="container">
+				<div id="resizable-min">Minimum size</div>
+				<div id="resizable-max" style="left: 200px;">Maximum size</div>
+			</div>
+
+			<script>
+				/*hideline*/F.onReady(() => {
+				F("#resizable-min").resizable({ minWidth: 80, minHeight: 80 });
+				F("#resizable-max").resizable({ maxWidth: 300, maxHeight: 250 });
+				/*hideline*/});
+			</script>
+		</div>
+
+		<h2 id="within-container">Resizable within a container</h2>
+		<p>
+			The dimensions of a resizable element can be restricted to another element or the parent element with the <code>containment</code> option.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight='(?<=\.)resizable|containment'>
+			<div id="container1" class="container">
+				<div id="resizable-cont">Resize me within the container</div>
+				<div id="resizable-cont2" style="left: 200px;">Resize me within the container</div>
+			</div>
+
+			<script>
+				/*hideline*/F.onReady(() => {
+				F("#resizable-cont").resizable({ containment: "#container1", maxWidth: 200 });
+				F("#resizable-cont2").resizable({ containment: "#container1" });
+				/*hideline*/});
+			</script>
+		</div>
+
+		<h2 id="snap-to-grid">Snapping to grid within the container</h2>
+		<div class="example p no-frontfire" data-source-highlight='grid(?=:)'>
+			<div id="container-grid" class="container grid">
+				<div id="resizable-grid">Resize me with grid snapping</div>
+				<div id="resizable-grid-x" style="left: 210px;">Resize me horizontally with grid</div>
+			</div>
+
+			<script>
+				/*hideline*/F.onReady(() => {
+				F("#resizable-grid").resizable({ containment: "#container-grid", grid: [20, 20] });
+				F("#resizable-grid-x").resizable({ containment: "#container-grid", handles: "w,e", grid: [20, 20] });
+				/*hideline*/});
+			</script>
+		</div>
+
+		<h2 id="event-example">Resize event handler</h2>
+		<p>
+			This example shows how the resizable events can be used to react to resizing events or restrict the operations.
+			The events and their data properties are <a href="#events">described below</a>.
+		</p>
+		<ul>
+			<li>The top edge cannot be resized.</li>
+			<li>The right edge maintains a minimum element width of 120 pixels and snaps to a grid of 20 pixels.</li>
+			<li>The bottom and left edge are freely resizable.</li>
+			<li>While resizing, a CSS class is added that shows a drop shadow.</li>
+		</ul>
+		<div class="example p no-frontfire" data-source-highlight='resizable(start|end)|resizing(?=",)|(?<=\.)(edge|negative|vertical|newLength)'>
+			<div id="container-cb" class="container">
+				<div id="resizable-cb">Resize with callback</div>
+			</div>
+
+			<script>
+				/*hideline*/F.onReady(() => {
+				F("#resizable-cb").resizable({ containment: "#container-cb", scroll: true });
+				F("#resizable-cb").on("resizablestart", event => {
+					if (event.edge === "top") {
+						event.preventDefault();
+					}
+					else {
+						F("#resizable-cb").classList.add("resizing");
+					}
+				});
+				F("#resizable-cb").on("resizing", event => {
+					if (!event.vertical && !event.negative) {   // Right edge
+						if (event.newLength < 120)
+							event.newLength = 120;
+						event.newLength = Math.round(event.newLength / 20) * 20;
+					}
+				});
+				F("#resizable-cb").on("resizableend", event => {
+					F("#resizable-cb").classList.remove("resizing");
+				});
+				/*hideline*/});
+			</script>
+		</div>
+
+		<h2 id="options">Options</h2>
+		<p>
+			The following <a href="frontfire-ui-options.html">options</a> are available:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!--<tr>
+					<td><code>aspectRatio</code></td>
+					<td>Number, Boolean</td>
+					<td>The aspect ratio (x/y) to maintain during resizing, or <code data-lang="js">true</code> to maintain the initial aspect ratio.</td>
+					<td>None</td>
+				</tr>-->
+				<tr>
+					<td><code>containment</code></td>
+					<td>String, Node(s)</td>
+					<td>Constrains the resizing inside the specified element, specified as CSS selector or Node (collection), or the “parent” of the resized element or the “viewport”.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>grid</code></td>
+					<td>Number array</td>
+					<td>The grid to snap the resized element to during resizing, as <code>[x, y]</code> in pixels. The grid is aligned at the top left corner of the parent element.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>handles</code></td>
+					<td>String</td>
+					<td>The resizing handles to use, comma-separated. Can be “all” or a combination of “n, ne, e, se, s, sw, w, nw” for the cardinal directions.</td>
+					<td>All directions</td>
+				</tr>
+				<tr>
+					<td><code>handleClass</code></td>
+					<td>String</td>
+					<td>Additional CSS class for the handle elements. Known class: “box”.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>handleWidth</code></td>
+					<td>Number</td>
+					<td>The width of the default handles, in pixels.</td>
+					<td>10</td>
+				</tr>
+				<tr>
+					<td><code>maxHeight</code></td>
+					<td>Number</td>
+					<td>The maximum height to keep during resizing, in pixels.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>maxWidth</code></td>
+					<td>Number</td>
+					<td>The maximum width to keep during resizing, in pixels.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>minHeight</code></td>
+					<td>Number</td>
+					<td>The minimum height to keep during resizing, in pixels.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>minWidth</code></td>
+					<td>Number</td>
+					<td>The minimum width to keep during resizing, in pixels.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>scroll</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the window should scroll to keep the resized edge visible.</td>
+					<td>false</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="methods">Plugin methods</h2>
+		<p>
+			This plugin provides methods to control the resizable.
+		</p>
+
+		<div class="member">
+			<h3 id="remove">remove</h3>
+			<ul>
+				<li><code>remove()</code> → Frontfire</li>
+			</ul>
+			<p>
+				Removes the resizing features from the elements.
+			</p>
+		</div>
+
+		<h2 id="events">Plugin events</h2>
+		<p>
+			This plugin triggers events for the resizable elements.
+		</p>
+
+		<div class="member">
+			<h3 id="resizableend">resizableend</h3>
+			<p>
+				Triggered when the resize operation has ended.
+				The following properties are provided with the event:
+			</p>
+			<ul>
+				<li><code>edge</code>: The name of the resized edge: “top”, “bottom”, “left”, “right”</li>
+				<li><code>negative</code>: <code data-lang="js">true</code> if the resized edge is left/upwards; <code data-lang="js">false</code> if the edge is right/downwards.</li>
+				<li><code>vertical</code>: <code data-lang="js">true</code> if the resize direction is vertical; <code data-lang="js">false</code> if the direction is horizontal.</li>
+			</ul>
+		</div>
+
+		<div class="member">
+			<h3 id="resizing">resizing</h3>
+			<p>
+				Triggered when the element is being resized.
+				This event can be cancelled by calling <code>event.preventDefault()</code> to prevent the current size change, but if the element has already been resized, it is usually better to set the event’s <code>newPosition</code> and <code>newLength</code> properties to a desired value.
+				The following properties are provided with the event:
+			</p>
+			<ul>
+				<li><code>edge</code>: The name of the resized edge: “top”, “bottom”, “left”, “right”</li>
+				<li><code>negative</code>: <code data-lang="js">true</code> if the resized edge is left/upwards; <code data-lang="js">false</code> if the edge is right/downwards.</li>
+				<li><code>newLength</code>: The length of the element along the resize axis after applying the size, in pixels. This property can be set to any other length that the element should be sized to instead.</li>
+				<li><code>newPosition</code>: The position of the element along the resize axis after applying the size, in pixels. This property can be set to any other position that the element should be moved to instead.</li>
+				<li><code>vertical</code>: <code data-lang="js">true</code> if the resize direction is vertical; <code data-lang="js">false</code> if the direction is horizontal.</li>
+			</ul>
+		</div>
+
+		<div class="member">
+			<h3 id="resizablestart">resizablestart</h3>
+			<p>
+				Triggered when the element is starting to be resized.
+				This event can be cancelled by calling <code>event.preventDefault()</code> to prevent the resizing.
+				The following properties are provided with the event:
+			</p>
+			<ul>
+				<li><code>edge</code>: The name of the resized edge: “top”, “bottom”, “left”, “right”</li>
+				<li><code>negative</code>: <code data-lang="js">true</code> if the resized edge is left/upwards; <code data-lang="js">false</code> if the edge is right/downwards.</li>
+				<li><code>vertical</code>: <code data-lang="js">true</code> if the resize direction is vertical; <code data-lang="js">false</code> if the direction is horizontal.</li>
+			</ul>
+		</div>
+	</main>
+
+	<footer>
+		<div class="full-page-width">
+			Copyright © 2022–2023, Yves Goergen, <a href="https://ygoe.de">ygoe.de</a><br>
+			All rights reserved. See the licence notes.
+		</div>
+	</footer>
+
+	<script src="res/doc.js"></script>
+</body>
+</html>

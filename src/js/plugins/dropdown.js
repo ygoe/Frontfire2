@@ -256,13 +256,6 @@ function createDropdown(target, options) {
 	// Always set the dropdown container width to consider minWidth or extra width for a scrollbar
 	container.F.borderWidth = dropdownWidth;
 
-	// Compensate for offset <body> element (possibly due to child element margins) if the closest
-	// "position: relative" parent is not <html>
-	if (container.offsetParent?.F.computedStyle.position === "relative") {
-		top -= container.offsetParent.F.top;
-		left -= container.offsetParent.F.left;
-	}
-
 	container.F.top = top;
 	container.F.left = left;
 	// TODO: Use Animation instead of forceReflow()
