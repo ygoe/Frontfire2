@@ -48,6 +48,7 @@
 			<li>CSS class <code>inverted-indicator</code> of the carousel removed, use the <code class="css-class">dark</code> and <code class="css-class">not-dark</code> theme classes instead</li>
 			<li>Off-canvas <code>offcanvasopening</code>, <code>offcanvasopen</code>, <code>offcanvasclosing</code>, <code>offcanvasclose</code> events renamed to <a href="frontfire-ui-offcanvas.html#opening"><code>opening</code></a>, <a href="frontfire-ui-offcanvas.html#open"><code>open</code></a>, <a href="frontfire-ui-offcanvas.html#closing"><code>closing</code></a>, <a href="frontfire-ui-offcanvas.html#close-event"><code>close</code></a> (similar to modal)</li>
 			<li>Removed undocumented styles for <code data-lang="css">nav ul.menu</code>, modify the <a href="frontfire-ui-variables.html?s=@menu">--menu-*</a> CSS variables for that scope instead</li>
+			<li>The <a href="frontfire-core.html#dropdown"><code>dropdown()</code></a> plugin method no longer accepts the target element as first parameter. Instead, the <a href="frontfire-ui-dropdown.html#options">target property</a> must be set in the options object. This removes the last inconsistency with Frontfire UI plugin methods that now all have a single options parameter. The target can now also be specified as CSS selector string, also from a data-opt HTML attribute.</li>
 		</ul>
 
 		<hr class="double-margin">

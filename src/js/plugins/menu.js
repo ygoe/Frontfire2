@@ -106,11 +106,11 @@ function menu() {
 					}
 					event.preventDefault();
 					if (itemA.F.disabled) return;
-					let ddOpt = {};
+					let ddOpt = { target: item };
 					if (isVertical) {
 						ddOpt["placement"] = "right-top";
 					}
-					submenu.F.dropdown(item, ddOpt);
+					submenu.F.dropdown(ddOpt);
 					item.classList.add("open");
 					submenu.F.once("close", () => {
 						item.classList.remove("open");

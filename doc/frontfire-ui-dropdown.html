@@ -42,8 +42,8 @@
 		</p>
 		<p>
 			To open a dropdown element, call the <a href="frontfire-core.html#dropdown"><code>dropdown()</code></a> plugin function on the element to show as dropdown.
-			The function takes the target placement element and options as arguments.
-			The options are optional and can alternatively be specified as data-opt HTML attributes with the dropdown HTML element.
+			The function takes the options (including target placement element) as argument.
+			The options must at least set a target element and can alternatively be specified as data-opt HTML attributes with the dropdown HTML element.
 		</p>
 
 		<h2 id="example">Example</h2>
@@ -67,7 +67,7 @@
 			<script>
 				let dropdown;
 				F("#open-dropdown1").on("click", event => {
-					dropdown = F("#dropdown1").dropdown(event.currentTarget);
+					dropdown = F("#dropdown1").dropdown({ target: event.currentTarget });
 				});
 
 				F("#dropdown1").on("close", () => {
@@ -150,6 +150,12 @@
 					<td><code>style</code></td>
 					<td>Object</td>
 					<td>Additional CSS styles to add to the dropdown container. This can be any format supported by <a href="frontfire-core.html#style">Frontfire.style</a>.</td>
+					<td>None</td>
+				</tr>
+				<tr>
+					<td><code>target</code></td>
+					<td>Node, String</td>
+					<td>The target element to place the dropdown at, as Node or CSS selector. <strong>This setting is required.</strong></td>
 					<td>None</td>
 				</tr>
 			</tbody>

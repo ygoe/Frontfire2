@@ -1117,7 +1117,7 @@ function timePicker(options) {
 			updateViewVisibilities();
 			updateViews();
 			newInput.classList.add("open");
-			dropdown.F.dropdown(newInput, { autoClose: false });
+			dropdown.F.dropdown({ target: newInput, autoClose: false });
 			if (input.closest(".dark, .not-dark")?.classList.contains("dark"))
 				dropdown.parentElement.classList.add("dark");   // Set dropdown container to dark
 			input.F.trigger("open", { bubbles: true });

@@ -4,6 +4,9 @@ const dropdownContainerClass = "ff-dropdown-container";
 
 // Defines default options for the dropdown plugin.
 let dropdownDefaults = {
+	// The target element to place the dropdown at, as Node or CSS selector.
+	target: undefined,
+
 	// The placement of the dropdown relative to the target element.
 	placement: undefined,
 
@@ -45,11 +48,12 @@ let dropdownDefaults = {
 };
 
 // Opens a dropdown with the selected element and places it at the specified target element.
-// TODO: Move target parameter into options, allow selector or node
-function createDropdown(target, options) {
+function createDropdown(options) {
 	let element = this.first;
 	if (!element) return;   // Nothing to do
 
+	let opt = F.initOptions("dropdown", element, {}, options);
+	let target = F(opt.target).first;
 	if (!target) {
 		console.error("No dropdown target specified");
 		return;   // Nothing to do
@@ -67,8 +71,6 @@ function createDropdown(target, options) {
 			return element.F.dropdown;   // Already open
 		}
 	}
-
-	let opt = F.initOptions("dropdown", element, {}, options);
 	opt._wasConnected = wasConnected;
 
 	// Measure these before the dropdown is added to the document and may become internally visible

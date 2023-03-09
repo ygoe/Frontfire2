@@ -108,7 +108,8 @@ function selectable(options) {
 					let cssClass = "";
 					if (button.closest(".dark, .not-dark")?.classList.contains("dark"))
 						cssClass = "dark";   // Set dropdown container to dark
-					newSelect.F.dropdown(button, {
+					newSelect.F.dropdown({
+						target: button,
 						offsetTop: 1,
 						offsetBottom: -1,
 						fixed: fixed,

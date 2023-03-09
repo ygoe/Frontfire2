@@ -5120,11 +5120,12 @@ await F.sleep(500);
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-dropdown.html">Dropdown</a>
 				</p>
 				<ul>
-					<li><code>dropdown(target, options)</code> → Dropdown plugin instance</li>
+					<li><code>dropdown(options)</code> → Dropdown plugin instance</li>
 				</ul>
 				<p>
 					Opens a dropdown with the selected element and places it at the specified target element.
-					The target elements must already have the <code class="css-class">dropdown</code> CSS class, it is not added by this method.
+					The options must at least set a target element.
+					The dropdown element must already have the <code class="css-class">dropdown</code> CSS class, it is not added by this method.
 					See the plugin page for examples.
 				</p>
 			</div>
