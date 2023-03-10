@@ -81,8 +81,6 @@ function colorPicker(options) {
 		let isEmpty = !opt.color;
 		opt.color = new Color(opt.color);
 
-		container.classList.add(colorPickerClass);
-
 		let language = opt.language || document.documentElement.lang;
 		let translate = F.getTranslator(dictionary, language);
 
@@ -499,13 +497,26 @@ function setColor(newColor) {
 	});
 }
 
+// Deinitializes the plugin.
+function deinit() {
+	return this.forEach(elem => {
+		if (!elem.classList.contains(colorPickerClass)) return;
+		elem.classList.remove(colorPickerClass);
+		elem.replaceChildren();
+		elem.style.width = "";
+		elem.style.maxWidth = "";
+		F.deleteOptions("colorPicker", elem);
+	});
+}
+
 F.registerPlugin("colorPicker", colorPicker, {
 	defaultOptions: colorPickerDefaults,
 	methods: {
 		color: {
 			get: getColor,
 			set: setColor
-		}
+		},
+		deinit: deinit
 	},
 	selectors: ["div.color-picker"]
 });

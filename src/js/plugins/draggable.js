@@ -260,8 +260,8 @@ function draggable(options) {
 	});
 }
 
-// Removes the draggable features from the elements.
-function remove() {
+// Deinitializes the plugin.
+function deinit() {
 	return this.forEach(elem => {
 		if (!elem.classList.contains(draggableClass)) return;
 		elem.classList.remove(draggableClass);
@@ -271,6 +271,7 @@ function remove() {
 		opt.cancelF?.off(draggableEventClass);
 		if (opt.catchElement)
 			F(opt.catchElement).off(draggableEventClass);
+		F.deleteOptions("draggable", elem);
 	});
 }
 
@@ -302,6 +303,6 @@ function stackElements(stackedElemsF, dragElem) {
 F.registerPlugin("draggable", draggable, {
 	defaultOptions: draggableDefaults,
 	methods: {
-		remove: remove
+		deinit: deinit
 	}
 });

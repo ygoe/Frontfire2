@@ -1,6 +1,7 @@
 // ==================== Tree plugin ====================
 
 const treeClass = "ff-tree";
+const treeEventClass = ".ff-tree";
 
 // Defines default options for the tree view plugin.
 let treeDefaults = {
@@ -104,8 +105,8 @@ function tree(options) {
 	if (container.tabIndex === -1)
 		container.tabIndex = 0;
 
-	container.F.on("blur", () => container.classList.remove("ff-focus-visible"));
-	container.F.on("keydown", event => {
+	container.F.on("blur" + treeEventClass, () => container.classList.remove("ff-focus-visible"));
+	container.F.on("keydown" + treeEventClass, event => {
 		if (event.key !== "Control" && event.key !== "Shift")
 			container.classList.add("ff-focus-visible");
 		if (event.key === "ArrowUp") {
@@ -981,6 +982,18 @@ function callMethod(self, name, args) {
 	return opt["_" + name].apply(null, args);
 }
 
+// Deinitializes the plugin.
+function deinit() {
+	return this.forEach(elem => {
+		if (!elem.classList.contains(treeClass)) return;
+		elem.classList.remove(treeClass);
+		elem.classList.remove("ff-focus-visible")
+		elem.off(treeEventClass);
+		elem.replaceChildren();
+		F.deleteOptions("tree", elem);
+	});
+}
+
 F.registerPlugin("tree", tree, {
 	defaultOptions: treeDefaults,
 	methods: {
@@ -994,6 +1007,7 @@ F.registerPlugin("tree", tree, {
 		updateItem: updateItem,
 		insertItem: insertItem,
 		removeItem: removeItem,
-		updateView: updateView
+		updateView: updateView,
+		deinit: deinit
 	}
 });

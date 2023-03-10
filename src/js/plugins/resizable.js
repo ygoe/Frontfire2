@@ -261,8 +261,8 @@ function resizable(options) {
 	});
 }
 
-// Removes the resizing features from the elements.
-function remove() {
+// Deinitializes the plugin.
+function deinit() {
 	return this.forEach(elem => {
 		if (!elem.classList.contains(resizableClass)) return;
 		elem.classList.remove(resizableClass);
@@ -271,12 +271,13 @@ function remove() {
 			elem.style.position = "static";
 		elem.F.querySelectorAll(".ff-resizable-handle").remove();
 		opt._disabledObserver.undo();
+		F.deleteOptions("resizable", elem);
 	});
 }
 
 F.registerPlugin("resizable", resizable, {
 	defaultOptions: resizableDefaults,
 	methods: {
-		remove: remove
+		deinit: deinit
 	}
 });

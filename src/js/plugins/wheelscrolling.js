@@ -1,5 +1,7 @@
 // ==================== Wheel-scrolling plugin ====================
 
+const wheelScrollingEventClass = ".wheel-scrolling";
+
 // Defines default options for the wheel-scrolling plugin.
 let wheelScrollingDefaults = {
 	// The scroll offset of a single wheel delta event.
@@ -17,7 +19,7 @@ let wheelScrollingDefaults = {
 // Enables custom mouse wheel scrolling on each selected element.
 function wheelScrolling(options) {
 	return this.forEach(element => {
-		if (element.F.hasEventListeners("wheel.wheel-scrolling")) return;   // Already done
+		if (element.F.hasEventListeners("wheel" + wheelScrollingEventClass)) return;   // Already done
 
 		let opt = F.initOptions("wheelScrolling", element, {}, options);
 
@@ -29,7 +31,7 @@ function wheelScrolling(options) {
 			duration = wheelScrollingDefaults.duration;
 
 		let scrollTarget, scrollTargetTimeout, scrollAnimation;
-		element.F.on("wheel.wheel-scrolling", event => {
+		element.F.on("wheel" + wheelScrollingEventClass, event => {
 			event.preventDefault();
 			if (opt.disabled) return;
 
@@ -57,7 +59,21 @@ function wheelScrolling(options) {
 	});
 }
 
-F.registerPlugin("wheelScrolling", wheelScrolling);
+// Deinitializes the plugin.
+function deinit() {
+	return this.forEach(elem => {
+		if (!elem.F.hasEventListeners("wheel" + wheelScrollingEventClass)) return;
+		elem.off(wheelScrollingEventClass);
+		F.deleteOptions("wheelScrolling", elem);
+	});
+}
+
+F.registerPlugin("wheelScrolling", wheelScrolling, {
+	defaultOptions: wheelScrollingDefaults,
+	methods: {
+		deinit: deinit
+	}
+});
 
 
 // ==================== Private functions ====================

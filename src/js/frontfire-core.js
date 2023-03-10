@@ -3515,12 +3515,20 @@
 	}
 
 	// Loads plugin options for additional plugin functions.
-	// If the plugin options have been initialised for the element, undefined is returned.
+	// If the plugin options have not been initialised for the element, undefined is returned.
 	//
 	// pluginName: The plugin name.
 	// elem: The element to find data attributes in. Options are stored here, too.
 	Frontfire.loadOptions = function (pluginName, elem) {
 		return getNodeData(elem, "ff-" + pluginName + "-options");
+	}
+
+	// Deletes plugin options.
+	//
+	// pluginName: The plugin name.
+	// elem: The element in which the options are stored.
+	Frontfire.deleteOptions = function (pluginName, elem) {
+		deleteNodeData(elem, "ff-" + pluginName + "-options");
 	}
 
 	// Interprets an option value specified as separate attribute or unquoted string.

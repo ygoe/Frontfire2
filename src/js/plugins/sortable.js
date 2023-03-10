@@ -67,7 +67,7 @@ function sortable(options) {
 		elem.classList.add(sortableClass);
 		let opt = F.initOptions("sortable", elem, {}, options);
 		opt._prepareChild = prepareChild;
-		opt._remove = remove;
+		opt._deinit = deinit;
 
 		// Remove text nodes between children which cause layout issues when dragging
 		Array.from(elem.childNodes)
@@ -339,30 +339,31 @@ function sortable(options) {
 			return p;
 		}
 
-		function remove() {
+		function deinit() {
 			observer.disconnect();
 			elem.F.children.forEach(child => {
 				child.F.off(sortableEventClass);
-				child.F.draggable.remove();
+				child.F.draggable.deinit();
 			});
 		}
 	});
 }
 
-// Removes the sortable features from the elements.
-function remove() {
+// Deinitializes the plugin.
+function deinit() {
 	return this.forEach(elem => {
 		if (!elem.classList.contains(sortableClass)) return;
 		elem.classList.remove(sortableClass);
 		let opt = F.loadOptions("sortable", elem);
-		opt._remove();
+		opt._deinit();
+		F.deleteOptions("sortable", elem);
 	});
 }
 
 F.registerPlugin("sortable", sortable, {
 	defaultOptions: sortableDefaults,
 	methods: {
-		remove: remove
+		deinit: deinit
 	},
 	selectors: [".sortable"]
 });

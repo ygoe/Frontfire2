@@ -22,6 +22,7 @@
 		<h1 class="no-top-margin">Change log</h1>
 
 		<!-- NOTE: The first version and date in this file are picked up by the pack script. -->
+		<!-- NOTE: Only change this version number in a separate commit for the big number of modified files. -->
 		<h2 id="v2-0-0-rc-1">Version 2.0.0-rc.1</h2>
 		<p>Released: not yet</p>
 		<h3 class="no-toc">New features</h3>
@@ -33,6 +34,8 @@
 			<li>Added styling for the <a href="frontfire-ui-typography.html#mark"><code>&lt;mark&gt;</code> element</a></li>
 			<li>ToggleSwitch can be applied to an <code data-lang="html">&lt;input type="checkbox"&gt;</code> element, also automatically with the <code class="css-class">toggle-switch</code> CSS class</li>
 			<li>Added <a href="arraylist.html#selectManyRecursive"><code>ArrayList.selectManyRecursive</code></a> method</li>
+			<li>Added <a href="frontfire-core.html#deleteOptions"><code>Frontfire.deleteOptions</code></a> method</li>
+			<li>Added <code>deinit()</code> methods for the ColorPicker, Progressbar, Tree and WheelScrolling plugin.</li>
 		</ul>
 		<h3 class="no-toc">Breaking changes</h3>
 		<ul>
@@ -49,6 +52,7 @@
 			<li>Off-canvas <code>offcanvasopening</code>, <code>offcanvasopen</code>, <code>offcanvasclosing</code>, <code>offcanvasclose</code> events renamed to <a href="frontfire-ui-offcanvas.html#opening"><code>opening</code></a>, <a href="frontfire-ui-offcanvas.html#open"><code>open</code></a>, <a href="frontfire-ui-offcanvas.html#closing"><code>closing</code></a>, <a href="frontfire-ui-offcanvas.html#close-event"><code>close</code></a> (similar to modal)</li>
 			<li>Removed undocumented styles for <code data-lang="css">nav ul.menu</code>, modify the <a href="frontfire-ui-variables.html?s=@menu">--menu-*</a> CSS variables for that scope instead</li>
 			<li>The <a href="frontfire-core.html#dropdown"><code>dropdown()</code></a> plugin method no longer accepts the target element as first parameter. Instead, the <a href="frontfire-ui-dropdown.html#options">target property</a> must be set in the options object. This removes the last inconsistency with Frontfire UI plugin methods that now all have a single options parameter. The target can now also be specified as CSS selector string, also from a data-opt HTML attribute.</li>
+			<li>The <code>remove()</code> method of the Draggable, Resizable and Sortable plugins was renamed to <code>deinit()</code> and should only be called through <a href="frontfire-core.html#deinit"><code>F.deinit()</code></a>.</li>
 		</ul>
 
 		<hr class="double-margin">

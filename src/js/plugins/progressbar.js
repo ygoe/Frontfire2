@@ -162,6 +162,16 @@ function setValueSuffix(suffix) {
 	});
 }
 
+// Deinitializes the plugin.
+function deinit() {
+	return this.forEach(elem => {
+		if (!elem.classList.contains(progressbarClass)) return;
+		elem.classList.remove(progressbarClass);
+		elem.querySelector("div.ff-bar")?.remove();
+		F.deleteOptions("progressbar", elem);
+	});
+}
+
 F.registerPlugin("progressbar", progressbar, {
 	defaultOptions: progressbarDefaults,
 	methods: {
@@ -185,7 +195,8 @@ F.registerPlugin("progressbar", progressbar, {
 		valueSuffix: {
 			get: getValueSuffix,
 			set: setValueSuffix
-		}
+		},
+		deinit: deinit
 	},
 	selectors: [".progressbar"]
 });

@@ -1042,6 +1042,7 @@ function deinit() {
 	return this.forEach(node => {
 		let opt = F.loadOptions("selectable", node);
 		opt && opt._deinit();
+		F.deleteOptions("selectable", node);
 	});
 }
 

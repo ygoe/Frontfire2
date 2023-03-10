@@ -2707,6 +2707,20 @@ div.F.deinit();
 				</p>
 			</div>
 
+			<div class="member">
+				<h3 id="deleteOptions">deleteOptions</h3>
+				<ul>
+					<li><code>Frontfire.deleteOptions(pluginName, element)</code> → void</li>
+				</ul>
+				<p>
+					Deletes the initialised plugin options from the element.
+					This method is used by deinit() methods of plugins.
+				</p>
+				<p class="see-also">
+					See also: <a href="#initOptions">Frontfire.initOptions()</a>, <a href="#loadOptions">Frontfire.loadOptions()</a>
+				</p>
+			</div>
+
 			<div class="member" data-aliases="autostart">
 				<h3 id="frontfire">frontfire</h3>
 				<ul>
@@ -2752,7 +2766,7 @@ div.F.frontfire();
 					Read more about <a href="frontfire-ui-options.html">using plugin options</a>.
 				</p>
 				<p class="see-also">
-					See also: <a href="#registerPlugin">Frontfire.registerPlugin()</a>
+					See also: <a href="#registerPlugin">Frontfire.registerPlugin()</a>, <a href="#loadOptions">Frontfire.loadOptions()</a>, <a href="#deleteOptions">Frontfire.deleteOptions()</a>
 				</p>
 			</div>
 
@@ -2763,7 +2777,7 @@ div.F.frontfire();
 				</ul>
 				<p>
 					Loads the initialised plugin options for additional plugin functions.
-					If the plugin options have been initialised for the element, undefined is returned.
+					If the plugin options have not been initialised for the element, undefined is returned.
 					This method is used by plugin operations that work with a plugin instance after it has been created on an element.
 					Any options, including references to internal functions, that were set in the plugin’s create function can be accessed with this method in the additional operation methods.
 				</p>
@@ -2771,7 +2785,7 @@ div.F.frontfire();
 					See the <a href="#registerPlugin">registerPlugin()</a> method for an example of this method.
 				</p>
 				<p class="see-also">
-					See also: <a href="#registerPlugin">Frontfire.registerPlugin()</a>
+					See also: <a href="#registerPlugin">Frontfire.registerPlugin()</a>, <a href="#initOptions">Frontfire.initOptions()</a>, <a href="#deleteOptions">Frontfire.deleteOptions()</a>
 				</p>
 			</div>
 
@@ -2901,7 +2915,7 @@ F().myPlugin.defaults = {
 }
 </div>
 				<p class="see-also">
-					See also: <a href="#autostart">Frontfire.autostart()</a>
+					See also: <a href="#autostart">Frontfire.autostart()</a>, <a href="#initOptions">Frontfire.initOptions()</a>, <a href="#loadOptions">Frontfire.loadOptions()</a>, <a href="#deleteOptions">Frontfire.deleteOptions()</a>
 				</p>
 			</div>
 		</section>
