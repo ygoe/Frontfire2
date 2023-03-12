@@ -760,6 +760,30 @@ function selectable(options) {
 				child.classList.add("selected");
 			if (option.disabled)
 				child.F.disabled = true;
+
+			let observer = new MutationObserver((mutationsList, observer) => {
+				mutationsList.forEach(mutation => {
+					if (mutation.type === "attributes" && mutation.attributeName === "value") {
+						child.dataset.value = option.value;
+					}
+					else if (mutation.type === "childList" || mutation.type === "characterData") {
+						setChildContentFromOption(child);
+						if (useDropdown) {
+							updateButtonContent();
+						}
+					}
+				});
+			});
+			observer.observe(option, {
+				// (see https://stackoverflow.com/a/40195712)
+				// for textContent changes:
+				childList: true,
+				// for innerHTML changes:
+				characterData: true, subtree: true,
+				// for value attribute changes:
+				attributes: true, attributeFilter: ["value"]
+			});
+
 			return child;
 		}
 
