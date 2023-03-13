@@ -725,9 +725,15 @@
 				The active state is visualised by a contrast colour and it can mean the permanent activation of a certain function.
 				To create a toggle button automatically at page loading, use a checkbox and add the <code class="css-class">toggle-button</code> CSS class to it.
 				To create it by code, call the <a href="frontfire-core.html#toggleButton"><code>toggleButton()</code></a> plugin method on a checkbox element.
+			</p>
+			<p>
 				The checkbox element will be hidden and replaced by the new button.
 				But the checkbox is still there and it remains the element you should use to determine or change the current state.
 				Just get or set its <code>checked</code> property as usual.
+			</p>
+			<p>
+				<strong>Note:</strong><br>
+				When setting the <code>checked</code> property, the <code>change</code> event must be triggered to update the view, because there is no way to detect a change of that property!
 			</p>
 			<p>
 				The style of the active state buttons can be customised with the <a href="frontfire-ui-variables.html?s=^--button-active-">CSS variables</a> that start with “--button-active-”.
@@ -738,6 +744,10 @@
 				<script>
 					/*hideline*/F.onReady(() => {
 					F("#toggle-button2").toggleButton();
+
+					// To toggle the button through code:
+					F("#toggle-button2").checked = true;
+					F("#toggle-button2").trigger("change");
 					/*hideline*/});
 				</script>
 			</div>

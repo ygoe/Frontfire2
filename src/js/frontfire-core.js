@@ -1770,7 +1770,10 @@
 		// the animation finishes. But to avoid keeping the animation in place (which still keeps
 		// overriding other styles), it should be committed into element styles and then removed.
 		if (keep !== false) {
-			anim.addEventListener("finish", () => {
+			// The finished Promise triggers before the finish event, and we need to be quick here
+			// because commitStyles() fails with an exception if the element is also hidden at the
+			// end of the animation.
+			anim.finished.then(() => {
 				anim.commitStyles();
 				anim.cancel();
 			});
