@@ -1,4 +1,4 @@
-/*! frontfire-ui-minimal-singlefile.js v2.0.0-rc.1 | @license MIT | ygoe.de */
+/*! frontfire-ui-minimal-singlefile.js v2.0.0-rc.2 | @license MIT | ygoe.de */
 /* no-iife */
 /* build-dir(build) */
 /* no-bundle-suffix */

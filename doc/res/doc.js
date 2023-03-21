@@ -1286,7 +1286,7 @@ function syntaxHighlightJavaScript(code, inlineData) {
 	let state = "";
 	let className = "";
 	let types = ["Array", "ArrayList", "Color", "DataColor", "Frontfire", "Object", "Promise"];
-	let keywords = ["async", "await", "break", "case", "const", "continue", "default", "do", "else", "false", "for", "function", "if", "in", "let", "new", "null", "of", "return", "switch", "this", "true", "undefined", "var", "while"];
+	let keywords = ["arguments", "async", "await", "break", "case", "catch", "const", "continue", "default", "delete", "do", "else", "false", "finally", "for", "function", "if", "in", "instanceof", "let", "new", "null", "of", "return", "switch", "this", "throw", "true", "try", "typeof", "undefined", "var", "while", "yield"];
 	// Hide lines that are only necessary in the examples but not in real use
 	let origLength = code.length;
 	code = code.replace(/^[ \t]*\/\*hideline\*\/.*?\n/gm, "");

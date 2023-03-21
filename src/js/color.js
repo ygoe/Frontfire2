@@ -1,4 +1,4 @@
-/*! color.js v2.0.0-rc.1 | @license MIT | ygoe.de */
+/*! color.js v2.0.0-rc.2 | @license MIT | ygoe.de */
 /* build-dir(build) */
 
 // Encoding: UTF-8 without BOM (auto-detect: °°°°°) for built-in color names
