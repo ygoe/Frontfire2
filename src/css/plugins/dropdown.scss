@@ -8,9 +8,9 @@
 	position: absolute;
 	z-index: 3000;   // above modal
 	box-shadow: 0 3px 10px rgb(0, 0, 0, 0.3);
-	background: var(--default-background);
-	color: var(--default-text-color);
+	background: var(--dropdown-background, var(--default-background));
 	overflow-y: auto;
+	transition: background var(--animation-duration) var(--animation-function), border var(--animation-duration) var(--animation-function);
 
 	.dropdown
 	{
@@ -19,9 +19,20 @@
 
 	&.bordered
 	{
-		border: 1px solid #0078d7;
+		border: 1px solid var(--dropdown-border-color);
 	}
 
+	&.svg-background
+	{
+		box-shadow: none;
+		background: none;
+		border-color: transparent;
+	}
+}
+
+.ff-dropdown-container,
+svg.ff-dropdown-background
+{
 	&.animate-bottom,
 	&.animate-top,
 	&.animate-left,
@@ -55,4 +66,23 @@
 	&.animate-top { transform-origin: 50% 100%; }
 	&.animate-left { transform-origin: 100% 50%; }
 	&.animate-right { transform-origin: 0% 50%; }
+}
+
+svg.ff-dropdown-background
+{
+	position: absolute;
+	z-index: 2999;   // just below the dropdown container
+	filter: drop-shadow(0 3px 5px rgb(0, 0, 0, 0.3));   // SVG filter shadows look different from CSS shadows
+
+	path
+	{
+		fill: var(--dropdown-background, var(--default-background));
+		stroke-width: 0;
+		transition: fill var(--animation-duration) var(--animation-function), stroke var(--animation-duration) var(--animation-function);
+	}
+	&.bordered path
+	{
+		stroke: var(--dropdown-border-color);
+		stroke-width: 1px;
+	}
 }

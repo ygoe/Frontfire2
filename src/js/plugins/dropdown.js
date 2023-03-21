@@ -1,6 +1,7 @@
 // ==================== Dropdown plugin ====================
 
 const dropdownContainerClass = "ff-dropdown-container";
+const dropdownBackgroundClass = "ff-dropdown-background";
 
 // Defines default options for the dropdown plugin.
 let dropdownDefaults = {
@@ -21,6 +22,15 @@ let dropdownDefaults = {
 
 	// The placement offset at the right edge of the target element, in pixels.
 	offsetRight: 0,
+
+	// Indicates whether an arrow at the dropdown outline points to the target element.
+	arrow: false,
+
+	// The width of the arrow along the dropdown edge, in pixels.
+	arrowWidth: 16,
+
+	// The height of the arrow away from the dropdown edge, in pixels.
+	arrowHeight: 10,
 
 	// Indicates whether the dropdown is closed when clicking anywhere outside of it.
 	autoClose: true,
@@ -126,6 +136,10 @@ function createDropdown(options) {
 	let dropdownWidth = container.F.borderWidth;
 	let dropdownHeight = container.F.borderHeight;
 
+	if (opt.arrow) {
+		container.classList.add("svg-background");
+	}
+
 	// Limit height if specified, has effect on placement
 	if (opt.maxHeight && opt.maxHeight < dropdownHeight) {
 		dropdownHeight = opt.maxHeight;
@@ -139,59 +153,87 @@ function createDropdown(options) {
 		dropdownWidth = opt.minWidth;
 
 	// Place at bottom side, align left, by default
-	let top = targetRect.bottom,
-		left = targetRect.left,
-		direction = "bottom";
+	let top = targetRect.bottom;
+	let left = targetRect.left;
+	let direction = "bottom";
+	let anchorOffset = 0;
+	let arrowWidth = opt.arrowWidth;
+	let arrowHeight = opt.arrowHeight;
+	let padTop = 0, padBottom = 0, padLeft = 0, padRight = 0;
 
 	if (optPlacement.startsWith("top")) {
-		top = targetRect.top - dropdownHeight;
 		direction = "top";
+		if (opt.arrow) {
+			padBottom = arrowHeight;
+		}
+		top = targetRect.top - (dropdownHeight + padBottom);
 	}
 	else if (optPlacement.startsWith("bottom")) {
-		top = targetRect.bottom;
 		direction = "bottom";
+		if (opt.arrow) {
+			padTop = arrowHeight;
+		}
+		top = targetRect.bottom + padTop;
 	}
 	else if (optPlacement.startsWith("left")) {
-		left = targetRect.left - dropdownWidth;
 		direction = "left";
 		isRightAligned = true;
+		if (opt.arrow) {
+			padRight = arrowHeight;
+		}
+		left = targetRect.left - (dropdownWidth + padRight);
 	}
 	else if (optPlacement.startsWith("right")) {
-		left = targetRect.right;
 		direction = "right";
+		if (opt.arrow) {
+			padLeft = arrowHeight;
+		}
+		left = targetRect.right + padLeft;
 	}
 
 	if (optPlacement.endsWith("left")) {
 		left = targetRect.left;
+		anchorOffset = Math.max(arrowWidth / 2, (targetRect.right - targetRect.left) / 2);
 	}
 	else if (optPlacement.endsWith("right")) {
 		left = targetRect.right - dropdownWidth;
 		isRightAligned = true;
+		anchorOffset = dropdownWidth - Math.max(arrowWidth / 2, (targetRect.right - targetRect.left) / 2);
 	}
 	else if (optPlacement.endsWith("top")) {
 		top = targetRect.top;
+		anchorOffset = Math.max(arrowWidth / 2, (targetRect.bottom - targetRect.top) / 2);
 	}
 	else if (optPlacement.endsWith("bottom")) {
 		top = targetRect.bottom - dropdownHeight;
+		anchorOffset = dropdownHeight - Math.max(arrowWidth / 2, (targetRect.bottom - targetRect.top) / 2);
 	}
 
 	if (optPlacement === "top-center" || optPlacement === "bottom-center") {
 		left = (targetRect.left + targetRect.right) / 2 - dropdownWidth / 2;
 		isHorizontallyCentered = true;
+		anchorOffset = dropdownWidth / 2;
 	}
 	else if (optPlacement === "left-center" || optPlacement === "right-center") {
 		top = (targetRect.top + targetRect.bottom) / 2 - dropdownHeight / 2;
+		anchorOffset = dropdownHeight / 2;
 	}
 
 	if (autoPlacement && left + dropdownWidth > viewportWidth) {
-		left = viewportWidth - dropdownWidth;
+		let newLeft = viewportWidth - dropdownWidth;
+		anchorOffset += left - newLeft;
+		left = newLeft;
 	}
 	if (autoPlacement && top + dropdownHeight > viewportHeight + scrollTop) {
 		let topSpace = targetRect.top - scrollTop;
 		let bottomSpace = viewportHeight + scrollTop - targetRect.bottom;
 		if (topSpace > bottomSpace) {
-			top = targetRect.top - dropdownHeight;
 			direction = "top";
+			if (opt.arrow) {
+				padBottom = padTop;
+				padTop = 0;
+			}
+			top = targetRect.top - (dropdownHeight + padBottom);
 		}
 	}
 
@@ -205,28 +247,40 @@ function createDropdown(options) {
 	else {
 		availableHeight = viewportHeight;
 	}
-	if (dropdownHeight > availableHeight) {
-		dropdownHeight = availableHeight;
+	if (dropdownHeight + padTop + padBottom > availableHeight) {
+		dropdownHeight = availableHeight - padTop - padBottom;
 		container.F.borderHeight = dropdownHeight;
 		isReducedHeight = true;
 		if (direction === "top")
-			top = targetRect.top - dropdownHeight;
+			top = targetRect.top - (dropdownHeight + padBottom);
 	}
 
 	if (direction === "left" || direction === "right") {
 		if (top + dropdownHeight > viewportHeight + scrollTop) {
-			top = viewportHeight + scrollTop - dropdownHeight;
+			// Dropdown is too far down, move it up
+			let newTop = viewportHeight + scrollTop - dropdownHeight;
+			anchorOffset += top - newTop;
+			top = newTop;
 		}
 		else if (top < scrollTop) {
-			top = scrollTop;
+			// Dropdown is too far up, move it down
+			let newTop = scrollTop;
+			anchorOffset += top - newTop;
+			top = newTop;
 		}
 	}
 	else if (direction === "top" || direction === "bottom") {
 		if (left + dropdownWidth > viewportWidth + scrollLeft) {
-			left = viewportWidth + scrollLeft - dropdownWidth;
+			// Dropdown is too far right, move it left
+			let newLeft = viewportWidth + scrollLeft - dropdownWidth;
+			anchorOffset += left - newLeft;
+			left = newLeft;
 		}
 		else if (left < scrollLeft) {
-			left = scrollLeft;
+			// Dropdown is too far left, move it right
+			let newLeft = scrollLeft;
+			anchorOffset += left - newLeft;
+			left = newLeft;
 		}
 	}
 
@@ -260,10 +314,69 @@ function createDropdown(options) {
 
 	container.F.top = top;
 	container.F.left = left;
+
+	delete opt._background;
+	if (opt.arrow) {
+		let bgWidth = Math.round(dropdownWidth) + padLeft + padRight;
+		let bgHeight = Math.round(dropdownHeight) + padTop + padBottom;
+
+		// Keep anchorOffset within the boundaries of the border
+		let minAnchorOffset = arrowWidth / 2;
+		let maxAnchorOffset = (direction === "bottom" || direction === "top" ? bgWidth : bgHeight) - arrowWidth / 2;
+		if (anchorOffset < minAnchorOffset)
+			anchorOffset = minAnchorOffset;
+		if (anchorOffset > maxAnchorOffset)
+			anchorOffset = maxAnchorOffset;
+
+		let xmlns = "http://www.w3.org/2000/svg";
+		let svg = document.createElementNS(xmlns, "svg");
+		svg.classList.add(dropdownBackgroundClass);
+		if (element.classList.contains("bordered"))
+			svg.classList.add("bordered");
+		svg.style.width = bgWidth + "px";
+		svg.style.height = bgHeight + "px";
+		svg.style.top = top - padTop + "px";
+		svg.style.left = left - padLeft + "px";
+		let path = document.createElementNS(xmlns, "path");
+		let offset = element.classList.contains("bordered") ? 0.5 : 0;
+		let pathData = "";
+		pathData += "M" + (padLeft + offset) + "," + (padTop + offset);
+		if (direction === "bottom") {
+			pathData += "L" + (anchorOffset - arrowWidth / 2) + "," + (padTop + offset);
+			pathData += "L" + (anchorOffset) + "," + (offset);
+			pathData += "L" + (anchorOffset + arrowWidth / 2) + "," + (padTop + offset);
+		}
+		pathData += "L" + (bgWidth - padRight - offset) + "," + (padTop + offset);
+		if (direction === "left") {
+			pathData += "L" + (bgWidth - padRight - offset) + "," + (anchorOffset - arrowWidth / 2);
+			pathData += "L" + (bgWidth - offset) + "," + (anchorOffset);
+			pathData += "L" + (bgWidth - padRight - offset) + "," + (anchorOffset + arrowWidth / 2);
+		}
+		pathData += "L" + (bgWidth - padRight - offset) + "," + (bgHeight - padBottom - offset);
+		if (direction === "top") {
+			pathData += "L" + (anchorOffset + arrowWidth / 2) + "," + (bgHeight - padBottom - offset);
+			pathData += "L" + (anchorOffset) + "," + (bgHeight - offset);
+			pathData += "L" + (anchorOffset - arrowWidth / 2) + "," + (bgHeight - padBottom - offset);
+		}
+		pathData += "L" + (padLeft + offset) + "," + (bgHeight - padBottom - offset);
+		if (direction === "right") {
+			pathData += "L" + (padLeft + offset) + "," + (anchorOffset + arrowWidth / 2);
+			pathData += "L" + (offset) + "," + (anchorOffset);
+			pathData += "L" + (padLeft + offset) + "," + (anchorOffset - arrowWidth / 2);
+		}
+		pathData += "Z";
+		path.setAttributeNS(null, "d", pathData);
+		svg.appendChild(path);
+		document.body.append(svg);
+		opt._background = svg;
+	}
+
 	// TODO: Use Animation instead of forceReflow()
 	container.classList.add("animate-" + direction);
+	opt._background?.classList.add("animate-" + direction);
 	F.forceReflow();
 	container.classList.add("open");
+	opt._background?.classList.add("open");
 
 	// Auto-close the dropdown when clicking outside of it
 	if (opt.autoClose === undefined || opt.autoClose) {
@@ -324,10 +437,14 @@ function closeDropdown() {
 	}
 	container.classList.remove("open");
 	container.classList.add("closed");
+	opt._background?.classList.remove("open");
+	opt._background?.classList.add("closed");
 	container.F.on("transitionend", () => {
 		if (opt._wasConnected)
 			document.body.append(element);
 		container.remove();
+		opt._background?.remove();
+		element.F.trigger("closed", { bubbles: true });
 	});
 	F(window).off("resize.dropdown");
 	document.F.off("visibilitychange.dropdown");

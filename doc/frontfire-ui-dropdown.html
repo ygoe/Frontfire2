@@ -38,7 +38,11 @@
 			A dropdown is an element that is opened upon user interaction with a specific element.
 			It is placed near that element (at either side) and overlays the surrounding content on the page so that it does not move anything around.
 			The dropdown content can be freely defined in an HTML element with the <code class="css-class">dropdown</code> CSS class which applies basic dropdown styles and makes the element invisible at first.
+			The background colour can be set with the <a href="frontfire-ui-variables.html#dropdown-background">--dropdown-background</a> CSS variable.
+		</p>
+		<p>
 			The additional <code class="css-class">bordered</code> class adds a border around the dropdown element to better separate it from the background.
+			The border colour can be set with the <a href="frontfire-ui-variables.html#dropdown-border-color">--dropdown-border-color</a> CSS variable.
 		</p>
 		<p>
 			To open a dropdown element, call the <a href="frontfire-core.html#dropdown"><code>dropdown()</code></a> plugin function on the element to show as dropdown.
@@ -47,7 +51,7 @@
 		</p>
 
 		<h2 id="example">Example</h2>
-		<div class="example no-frontfire" data-source-highlight='(?<=")dropdown bordered(?=")|(?<=\.)dropdown(?=\()|dropdown\.close'>
+		<div class="example no-frontfire" data-source-highlight='(?<=")dropdown bordered(?=")|(?<=\.)dropdown(?=\()|target(?=:)|dropdown\.close'>
 			<div id="dropdown1" class="dropdown bordered" style="width: 400px; max-width: 95%; padding: 10px;">
 				<h2 class="no-top-margin">Dropdown title</h2>
 				<p>
@@ -84,6 +88,115 @@
 			</script>
 		</div>
 
+		<h2 id="placement">Placement and arrow</h2>
+		<p>
+			The dropdown can be placed at all sides of the target element.
+			The placement option value is a combination of the main direction (the edge to place the dropdown at) and anchor side (the side of the target element that the dropdown will be aligned to).
+			All possible values are shown in the example below.
+		</p>
+		<p>
+			Anchoring the dropdown on the left side means it will be left-aligned with the target element and possibly extend over its right end if the dropdown is wider than the target element.
+			This leads to the strange-looking naming that a “left-anchored” dropdown appears to reach out to the right side.
+			If, however, the dropdown is smaller than the target element, it will still sit at its left side.
+		</p>
+		<p>
+			The arrow option adds a triangle arrowhead between the dropdown and the target element to indicate what the dropdown relates to.
+			This moves the dropdown element further away from the target element by the arrow’s height.
+			The arrow can be seen best with the <code class="css-class">bordered</code> class or a contrasting background colour.
+			Both can be customised in this comprehensive example.
+		</p>
+		<div class="example no-frontfire" data-source-highlight='placement(?=: F)|arrow(|Height|Width)(?=:)'>
+			<div id="dropdown2" class="dropdown bordered" style="width: 200px; padding: 10px;">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non vestibulum odio, nec rhoncus metus.
+			</div>
+			<div class="p">
+				Automatic placement: &nbsp;
+				<label><input type="radio" name="placement" value="" checked> default ("")</label> &nbsp;
+				<label><input type="radio" name="placement" value="right"> right</label>
+			</div>
+			<table class="p no-border no-outer-padding">
+				<tr>
+					<td></td>
+					<td><label><input type="radio" name="placement" value="top-left"> top-left</label></td>
+					<td><label><input type="radio" name="placement" value="top-center"> top-center</label></td>
+					<td><label><input type="radio" name="placement" value="top-right"> top-right</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><label><input type="radio" name="placement" value="left-top"> left-top</label></td>
+					<td colspan="3" rowspan="3" class="center"><button id="open-dropdown2">Open</button></td>
+					<td><label><input type="radio" name="placement" value="right-top"> right-top</label></td>
+				</tr>
+				<tr>
+					<td><label><input type="radio" name="placement" value="left-center"> left-center</label></td>
+					<td><label><input type="radio" name="placement" value="right-center"> right-center</label></td>
+				</tr>
+				<tr>
+					<td><label><input type="radio" name="placement" value="left-bottom"> left-bottom</label></td>
+					<td><label><input type="radio" name="placement" value="right-bottom"> right-bottom</label></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><label><input type="radio" name="placement" value="bottom-left"> bottom-left</label></td>
+					<td><label><input type="radio" name="placement" value="bottom-center"> bottom-center</label></td>
+					<td><label><input type="radio" name="placement" value="bottom-right"> bottom-right</label></td>
+					<td></td>
+				</tr>
+			</table>
+			<h3>Options</h3>
+			<div class="p">
+				Background colour: <input type="text" id="background-color" class="color-picker" style="width: 120px;" data-opt="color-use: background; allow-empty: true;">
+			</div>
+			<div class="p">
+				<label><input type="checkbox" id="bordered-checkbox"> With border</label>
+			</div>
+			<div class="p with-border" style="padding-left: 27px;">
+				Border colour: <input type="text" id="border-color" class="color-picker" style="width: 120px;" data-opt="color-use: foreground; allow-empty: true;">
+			</div>
+			<div class="p">
+				<label><input type="checkbox" id="arrow-checkbox"> With arrow</label>
+			</div>
+			<div class="p with-arrow" style="padding-left: 27px;">
+				Height: <input type="number" id="arrow-height" min="0" max="100" value="10" style="width: 120px;"> &nbsp;
+				Width: <input type="number" id="arrow-width" min="0" max="100" value="16" style="width: 120px;">
+			</div>
+			<script>
+				F("#open-dropdown2").on("click", event => {
+					// Set the background colour through a CSS variable
+					document.body.style.setProperty("--dropdown-background", F("#background-color").value());
+					if (F("#border-color").value())
+						document.body.style.setProperty("--dropdown-border-color", F("#border-color").value());
+
+					// Open the dropdown at the selection position
+					F("#dropdown2").dropdown({
+						target: event.currentTarget,
+						placement: F("input[name=placement]:checked").first.value,
+						arrow: F("#arrow-checkbox").checked,
+						arrowHeight: F("#arrow-height").value(),
+						arrowWidth: F("#arrow-width").value()
+					});
+
+					// Reset the colour variables after the dropdown is closed
+					F("#dropdown2").once("closed", () => {
+						document.body.style.removeProperty("--dropdown-background");
+						document.body.style.removeProperty("--dropdown-border-color");
+					});
+				});
+				// Apply dropdown border class
+				F("#bordered-checkbox").on("click!", event => {
+					F("#dropdown2").classList.toggle("bordered", event.currentTarget.checked);
+				});
+				// Show border options only when using a border
+				F("#bordered-checkbox").on("click!", event => {
+					F(".with-border").visible = event.currentTarget.checked;
+				});
+				// Show arrow size options only when using an arrow
+				F("#arrow-checkbox").on("click!", event => {
+					F(".with-arrow").visible = event.currentTarget.checked;
+				});
+			</script>
+		</div>
+
 		<h2 id="options">Options</h2>
 		<p>
 			The following <a href="frontfire-ui-options.html">options</a> are available:
@@ -98,6 +211,24 @@
 				</tr>
 			</thead>
 			<tbody>
+				<tr>
+					<td><code>arrow</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether an arrow at the dropdown outline points to the target element.</td>
+					<td>false</td>
+				</tr>
+				<tr>
+					<td><code>arrowHeight</code></td>
+					<td>Number</td>
+					<td>The height of the arrow away from the dropdown edge, in pixels.</td>
+					<td>10</td>
+				</tr>
+				<tr>
+					<td><code>arrowWidth</code></td>
+					<td>Number</td>
+					<td>The width of the arrow along the dropdown edge, in pixels.</td>
+					<td>16</td>
+				</tr>
 				<tr>
 					<td><code>autoClose</code></td>
 					<td>Boolean</td>
@@ -138,6 +269,30 @@
 					<td><code>minWidth</code></td>
 					<td>Number</td>
 					<td>The minimum width of the dropdown, in pixels.</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td><code>offsetBottom</code></td>
+					<td>Number</td>
+					<td>The placement offset at the bottom edge of the target element, in pixels.</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td><code>offsetLeft</code></td>
+					<td>Number</td>
+					<td>The placement offset at the left edge of the target element, in pixels.</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td><code>offsetRight</code></td>
+					<td>Number</td>
+					<td>The placement offset at the right edge of the target element, in pixels.</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td><code>offsetTop</code></td>
+					<td>Number</td>
+					<td>The placement offset at the top edge of the target element, in pixels.</td>
 					<td>0</td>
 				</tr>
 				<tr>
@@ -214,7 +369,14 @@
 		<div class="member">
 			<h3 id="close-event">close</h3>
 			<p>
-				Triggered when the dropdown is closed.
+				Triggered when the dropdown is beginning to be closed.
+			</p>
+		</div>
+
+		<div class="member">
+			<h3 id="closed">closed</h3>
+			<p>
+				Triggered when the dropdown is fully closed and invisible.
 			</p>
 		</div>
 	</main>
