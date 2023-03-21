@@ -6,7 +6,7 @@ const logParser = false;
 
 // Run autostart now because in the documentation, the Frontfire script might be included at the top
 // of <body> and most elements are not set up yet.
-F("html").autostart();
+document.documentElement.F.autostart();
 
 
 // ==================== Dark theme ====================
@@ -25,51 +25,48 @@ let darkThemeSwitch = F("#dark-theme-switch").toggleSwitch;
 let darkSchemeMql = window.matchMedia("(prefers-color-scheme: dark)");
 
 // Disable dark theme transitions until after the page has been set up
-F("html").classList.add("no-transitions");
-setTimeout(() => F("html").classList.remove("no-transitions"), 100);
+document.documentElement.classList.add("no-transitions");
+setTimeout(() => document.documentElement.classList.remove("no-transitions"), 100);
 
 // Handle user selection
 F("#dark-theme-switch").on("change", () => {
 	applyTheme(darkThemeSwitch.state);
 	// Only save selection if it's different from the system theme; otherwise, delete it
 	let newTheme = darkThemeSwitch.state === darkSchemeMql.matches ? null : darkThemeSwitch.state ? "dark" : "light";
-	setLocalStorage("color-theme", newTheme);
+	accessLocalStorage("color-theme", newTheme);
 });
 
 // Listen to system dark theme changes
-darkSchemeMql.addEventListener("change", onDarkSchemeChanged);
-function onDarkSchemeChanged(e) {
-	applyTheme(e.matches);
+darkSchemeMql.addEventListener("change", event => {
+	applyTheme(event.matches);
 	// Always clear user selection after live system change
-	setLocalStorage("color-theme", null);
-}
+	accessLocalStorage("color-theme", null);
+});
 
 // Initialise dark theme from user selection/system theme
-let colorTheme = getLocalStorage("color-theme");
-if (colorTheme !== null && colorTheme === (darkSchemeMql.matches ? "dark" : "light")) {
+let colorTheme = accessLocalStorage("color-theme");
+let defaultTheme = darkSchemeMql.matches ? "dark" : "light";
+if (colorTheme === defaultTheme) {
 	// Set user selection now matches system theme, system theme must have been changed since last
 	// user selection on this page: clear user selection
-	setLocalStorage("color-theme", null);
+	accessLocalStorage("color-theme", null);
 	colorTheme = null;
 }
-if (colorTheme !== null) {
-	// Apply user selection
-	applyTheme(colorTheme === "dark");
-}
-else {
-	// No user selection available: apply system theme
-	applyTheme(darkSchemeMql.matches);
-}
+if (!F.isSet(colorTheme))
+	colorTheme = defaultTheme;
+applyTheme(colorTheme === "dark");
 
 function applyTheme(dark) {
 	darkThemeSwitch.state = dark;
-	F("html").classList.toggle("dark", dark);
-	F("html").on("transitionend!", () => F("meta[name=theme-color]").setAttribute("content", F("header").computedStyle.backgroundColor));
-	F("html").trigger("darkthemechange");
+	document.documentElement.classList.toggle("dark", dark);
+	document.documentElement.F.on("transitionend!", () => F("meta[name=theme-color]").setAttribute("content", F("header").computedStyle.backgroundColor));
+	document.documentElement.F.trigger("darkthemechange");
 }
 
-function setLocalStorage(key, value) {
+function accessLocalStorage(key, value) {
 	try {
+		if (arguments.length === 1)
+			return localStorage.getItem(key);
 		if (F.isSet(value))
 			localStorage.setItem(key, value);
 		else
@@ -78,16 +75,6 @@ function setLocalStorage(key, value) {
 	catch (error) {
 		console.error(error);
 	}
-}
-
-function getLocalStorage(key) {
-	try {
-		return localStorage.getItem(key);
-	}
-	catch (error) {
-		console.error(error);
-	}
-	return null;
 }
 
 
