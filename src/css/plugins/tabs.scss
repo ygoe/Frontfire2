@@ -14,7 +14,6 @@
 
 	> a
 	{
-		text-decoration: none;
 		border: 1px solid var(--tabs-border-color);
 		margin-top: 1px;   // Don't extend outside the tabs container for the overflow:hidden
 		margin-right: -1px;
@@ -23,9 +22,11 @@
 
 		&:any-link
 		{
+			text-decoration: none;
 			color: var(--tabs-color, black);
 			&:hover
 			{
+				text-decoration: none;
 				color: var(--tabs-color, black);
 				transition: background-color 0s;
 			}
