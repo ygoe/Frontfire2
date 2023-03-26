@@ -158,11 +158,8 @@ function draggable(options) {
 				newPoint.left = elemRect.left;
 			}
 			if (opt.containment) {
-				let contF, contRect;
-				if (opt.containment === "parent") {
-					contF = elem.F.parentElement;
-				}
-				else if (opt.containment === "viewport") {
+				let contRect;
+				if (opt.containment === "viewport") {
 					let scrollTop = window.scrollY;
 					let scrollLeft = window.scrollX;
 					contRect = {
@@ -173,10 +170,16 @@ function draggable(options) {
 					};
 				}
 				else {
-					contF = F(opt.containment);
-				}
-				if (contF && contF.length > 0) {
-					contRect = contF.rect;
+					let contF;
+					if (opt.containment === "parent") {
+						contF = elem.F.parentElement;
+					}
+					else {
+						contF = F(opt.containment);
+					}
+					if (contF.length > 0) {
+						contRect = contF.rect;
+					}
 				}
 				if (contRect) {
 					let stepX = opt.grid ? opt.grid[0] : 1;
@@ -194,9 +197,8 @@ function draggable(options) {
 				newPoint: newPoint
 			});
 			if (!events.first.defaultPrevented) {
-				let elemCStyle = elem.F.computedStyle;
-				let left = events.first.newPoint.left - parseFloat(elemCStyle.marginLeft);
-				let top = events.first.newPoint.top - parseFloat(elemCStyle.marginTop);
+				let left = events.first.newPoint.left;
+				let top = events.first.newPoint.top;
 				elem.F.moveTo(left, top);
 			}
 

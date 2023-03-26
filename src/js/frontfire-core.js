@@ -1715,30 +1715,8 @@
 			n = new Frontfire(n);
 			if (n.computedStyle.position === "static")
 				n.style.position = "relative";
-			switch (n.computedStyle.position) {
-				case "relative":
-					// Update the relative position to match the requested absolute position
-					let setLeft = parseFloat(n.style.left) || 0;
-					let setTop = parseFloat(n.style.top) || 0;
-					let absoluteLeft = n.left;
-					let absoluteTop = n.top;
-					n.left = setLeft + left - absoluteLeft;
-					n.top = setTop + top - absoluteTop;
-					break;
-				case "absolute":
-					// Update the position relative to its closest positioned ancestor
-					let parent = n.closestPositionedParent;
-					n.left = left - (parent?.left ?? 0);
-					n.top = top - (parent?.top ?? 0);
-					break;
-				case "fixed":
-					// Update the position relative to the viewport
-				default:
-					// Any other unsupported value, including "sticky"
-					n.left = left;
-					n.top = top;
-					break;
-			}
+			n.left = left;
+			n.top = top;
 		});
 		return this;   // Support chaining
 	};
