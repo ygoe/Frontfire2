@@ -294,7 +294,7 @@ div.image-right
 	border-radius: 100%;
 }
 
-:is(img, svg).dark-invert
+.dark-invert
 {
 	transition: filter var(--animation-duration) var(--animation-function);
 	.dark &

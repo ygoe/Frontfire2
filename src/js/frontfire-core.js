@@ -3258,7 +3258,7 @@
 	Frontfire.isLinux = () => !!navigator.platform.match(/Linux/) && !Frontfire.isAndroid();
 
 	// Determines whether the client operating system is macOS.
-	Frontfire.isMac = () => !!navigator.platform.match(/Mac/);
+	Frontfire.isMacOS = () => !!navigator.platform.match(/Mac/);
 
 	// Determines whether the client operating system is Windows.
 	Frontfire.isWindows = () => !!navigator.platform.match(/Win/);
