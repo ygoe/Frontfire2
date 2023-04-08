@@ -1,4 +1,4 @@
-/*! arraylist.js v2.0.0-rc.2 | @license MIT | ygoe.de */
+/*! arraylist.js v2.0.0-rc.3 | @license MIT | ygoe.de */
 /* build-dir(build) */
 
 // Copyright (c) 2021-2023, Yves Goergen, https://ygoe.de
@@ -87,7 +87,7 @@
 	const Array_prototype = Array.prototype;
 
 	// Version identification
-	ArrayList.version = "2.0.0-rc.2";
+	ArrayList.version = "2.0.0-rc.3";
 
 
 	// ==================== Array extensions and general methods ====================
