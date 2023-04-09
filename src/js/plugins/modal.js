@@ -303,6 +303,7 @@ F.modal = function (options) {
 		modalElement.F.classList.add(options.className);   // Support space-separated class names
 	let content = F.c("div");
 	content.style.overflow = "auto";
+	content.style.overscrollBehavior = "contain";
 	content.style.maxHeight = "calc(100vh - 80px - 5em)";   // padding of modal, height of buttons
 	modalElement.append(content);
 	if (options.content) {

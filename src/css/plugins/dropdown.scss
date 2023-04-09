@@ -10,6 +10,7 @@
 	box-shadow: 0 3px 10px rgb(0, 0, 0, 0.3);
 	background: var(--dropdown-background, var(--default-background));
 	overflow-y: auto;
+	overscroll-behavior: contain;
 	transition: background var(--animation-duration) var(--animation-function), border var(--animation-duration) var(--animation-function);
 
 	.dropdown

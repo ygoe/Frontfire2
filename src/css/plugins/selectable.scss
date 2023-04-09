@@ -4,6 +4,7 @@
 	-webkit-user-select: none;   // for Safari
 	user-select: none;
 	overflow: auto;
+	overscroll-behavior: contain;
 	cursor: default;
 	border: 1px solid var(--textbox-border);
 	border-radius: 0;
