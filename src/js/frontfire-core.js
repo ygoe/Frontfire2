@@ -822,11 +822,14 @@
 	// See also: jQuery.show(), jQuery.hide()
 	object_defineProperty(Frontfire_prototype, "visible", {
 		get: function () {
+			// Collect all current nodes or their replacements once
+			let nodes = this.select(n => getNodeData(n, "visible.replacement", n));
+
 			// An item is invisible if it has 'display: none' directly or via stylesheet.
 			// Check length to return false if there is no node.
 			// So even though "everything" is visible, there really is nothing at all that could be visible.
-			return this.length > 0 &&
-				this.all(n => !(n.style.display === "none" ||
+			return nodes.length > 0 &&
+				nodes.all(n => !(n.style.display === "none" ||
 					n.style.display === "" && getComputedStyle(n).display === "none"));
 		},
 		set: function (state) {
@@ -1548,7 +1551,7 @@
 		}));
 	};
 
-	// Returns a list of the elements within the selected Nodes that satisfy a condition.
+	// Returns a list of the descendant elements within the selected Nodes that satisfy a condition.
 	Frontfire_prototype.findElements = function (predicate) {
 		let allDescendants = new Set();
 		this.forEach(n => n.querySelectorAll("*").forEach(e => allDescendants.add(e)));
@@ -2406,7 +2409,8 @@
 						target: node,
 						type: type,
 						preventDefault: () => {},
-						stopPropagation: () => {}
+						stopPropagation: () => { },
+						isImmediate: true
 					});
 				}
 			});
@@ -3250,6 +3254,9 @@
 
 	// Determines whether the client operating system is Android.
 	Frontfire.isAndroid = () => !!navigator.userAgent.match(/Android/);
+
+	// Determines whether the client operating system is ChromeOS.
+	Frontfire.isChromeOS = () => !!navigator.userAgent.match(/CrOS/);
 
 	// Determines whether the client operating system is iOS.
 	Frontfire.isIos = () => !!navigator.platform.match(/iPhone|iPad|iPod/);

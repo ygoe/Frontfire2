@@ -405,6 +405,13 @@ function createDropdown(options) {
 		});
 	}
 
+	// Prevent wheel scrolling if there is nothing to scroll within the dropdown itself
+	container.F.on("wheel", event => {
+		let scrollable = event.target.F.closestScrollable().first;
+		if (!scrollable || !container.contains(scrollable))
+			event.preventDefault();
+	});
+
 	function tryClose() {
 		let event = element.F.trigger("closing", { bubbles: true, cancelable: true });
 		if (!event.defaultPrevented) {

@@ -244,6 +244,8 @@ function colorPicker(options) {
 				largeTicks: false,
 				largeTickLabels: false
 			})
+			// Make the slider untabbable, the text input next to it is already tabbable
+			slider.removeAttribute("tabindex");
 			slider.F.on("change", event => {
 				if (!updatingInput)
 					detailsInputs[colorProp].value = Math.round(event.value * factor);
@@ -275,16 +277,20 @@ function colorPicker(options) {
 				if (event.key === "ArrowUp") {
 					event.preventDefault();
 					let value = +input.value;
-					if (!isNaN(value) && value < max * factor) {
-						input.value = value + 1;
+					if (!isNaN(value) && (value < max * factor || colorProp === "h")) {
+						value++;
+						if (colorProp === "h") while (value > max * factor) value -= 360;
+						input.value = value;
 						onInputEvent();
 					}
 				}
 				if (event.key === "ArrowDown") {
 					event.preventDefault();
 					let value = +input.value;
-					if (!isNaN(value) && value > 0) {
-						input.value = value - 1;
+					if (!isNaN(value) && (value > 0 || colorProp === "h")) {
+						value--;
+						if (colorProp === "h") while (value < 0) value += 360;
+						input.value = value;
 						onInputEvent();
 					}
 				}
@@ -387,7 +393,7 @@ function colorPicker(options) {
 			foundMatchInTab = -1;
 			let opaqueColor = new Color(opt.color);
 			opaqueColor.a = 1;
-			tabs.querySelectorAll("a").forEach(a => {
+			F([dataPaletteTab, genericPaletteTab]).querySelectorAll("a").forEach(a => {
 				let match = opt.color.a > 0 && a.style.backgroundColor === opaqueColor.toCSS();
 				a.style.outlineWidth = match ? "2px" : "0";
 				if (foundMatchInTab === -1 && match) {
@@ -474,7 +480,9 @@ function colorPicker(options) {
 				container.F.trigger("change", { bubbles: true });
 		}
 
+		// Public function, not used internally
 		function setColor(newColor) {
+			isEmpty = !newColor;
 			opt.color = new Color(newColor);
 			updateView();
 		}

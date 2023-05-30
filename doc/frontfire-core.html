@@ -1505,7 +1505,7 @@ nodesF.style({
 					<li><code>findElements(predicate)</code> → Frontfire</li>
 				</ul>
 				<p>
-					Returns a list of the elements within the selected Nodes that satisfy a condition.
+					Returns a list of the descendant elements within the selected Nodes that satisfy a condition.
 					The predicate function is called for each Node with the node as its only argument.
 					The node is included in the collection if the predicate function returns true.
 					If no match was found, an empty collection is returned.
@@ -2439,6 +2439,7 @@ nodesF.style({
 				</p>
 				<ul>
 					<li><code>currentTarget</code>: The node that the event handler was added to.</li>
+					<li><code>isImmediate</code>: Set and true only on the immediate handler invocation.</li>
 					<li><code>target</code>: The node that the event handler was added to.</li>
 					<li><code>type</code>: The event type without additional modifiers.</li>
 					<li><code>preventDefault()</code>: A function that does nothing.</li>
@@ -3956,7 +3957,7 @@ F().myPlugin.defaults = {
 				</p>
 			</div>
 
-			<div class="member" data-aliases="filter">
+			<div class="member" data-aliases="filter find match">
 				<h3 id="where">where</h3>
 				<p class="inherited">
 					Inherited from: <a href="arraylist.html#where">ArrayList</a>
@@ -4908,6 +4909,20 @@ await F.sleep(500);
 				</ul>
 				<p>
 					Determines whether the client operating system is Android.
+					This test is based on the data in the navigator object and subject to simulation adjustments.
+				</p>
+				<p>
+					This test returns <span class="live-test"></span> in your current browser.
+				</p>
+			</div>
+
+			<div class="member" data-aliases="system">
+				<h3 id="isChromeOS">isChromeOS</h3>
+				<ul>
+					<li><code>Frontfire.isChromeOS()</code> → Boolean</li>
+				</ul>
+				<p>
+					Determines whether the client operating system is ChromeOS.
 					This test is based on the data in the navigator object and subject to simulation adjustments.
 				</p>
 				<p>

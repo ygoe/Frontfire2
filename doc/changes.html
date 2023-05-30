@@ -25,9 +25,10 @@
 		<!-- NOTE: Only change this version number in a separate commit for the big number of modified files. -->
 		<h2 id="v2-0-0-rc-3">Version 2.0.0-rc.3</h2>
 		<p>Released: not yet</p>
-		<h3 class="no-toc">Bugfixes</h3>
+		<h3 class="no-toc">New features</h3>
 		<ul>
-			<li><a href="frontfire-core.html#moveTo"><code>Frontfire.moveTo</code></a> (used by draggable; then carousel, sortable, timePicker) converted local to document coordinates, resulting in a wrong position</li>
+			<li>Added <a href="frontfire-core.html#isChromeOS"><code>Frontfire.isChromeOS</code></a> method</li>
+			<li><a href="frontfire-core.html#on"><code>Frontfire.on</code></a> indicates whether this is the immediate handler invocation by setting the <code>isImmediate</code> property.</li>
 		</ul>
 		<h3 class="no-toc">Breaking changes</h3>
 		<ul>
@@ -36,7 +37,17 @@
 		<h3 class="no-toc">Changes</h3>
 		<ul>
 			<li><code class="css-class">dark-invert</code> CSS class is now available for all elements to also support image stripes</li>
+			<li><a href="frontfire-core.html#visible"><code>Frontfire.visible</code></a> property considers visible replacement elements</li>
+			<li><a href="frontfire-ui-colorpicker.html">ColorPicker</a> plugin: Circular hue value selection with arrow keys</li>
+			<li><a href="frontfire-ui-dropdown.html">Dropdown</a> plugin: Prevent wheel scrolling if there is nothing to scroll within the dropdown itself</li>
+			<li><a href="frontfire-ui-selectable.html">Selectable</a> plugin: Hide invisible original <code data-lang="html">&lt;option&gt;</code> elements in the UI</li>
 		</ul>
+		<h3 class="no-toc">Bugfixes</h3>
+		<ul>
+			<li><a href="frontfire-core.html#moveTo"><code>Frontfire.moveTo</code></a> (used by draggable; then carousel, sortable, timePicker) converted local to document coordinates, resulting in a wrong position</li>
+		</ul>
+
+		<hr class="double-margin">
 
 		<h2 id="v2-0-0-rc-2">Version 2.0.0-rc.2</h2>
 		<p>Released: 2023-03-22</p>
@@ -45,6 +56,8 @@
 			<li><a href="frontfire-ui-selectable.html">Selectable</a> plugin: items and button are updated on value/text changes in option elements</li>
 			<li><a href="frontfire-ui-dropdown.html">Dropdown</a> plugin: <code>arrow</code> and related options, 2 new CSS variables for background and border colours, <code>closed</code> event</li>
 		</ul>
+
+		<hr class="double-margin">
 
 		<h2 id="v2-0-0-rc-1">Version 2.0.0-rc.1</h2>
 		<p>Released: 2023-03-10</p>

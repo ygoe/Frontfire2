@@ -67,6 +67,9 @@ function timePicker(options) {
 		wrapper.classList.add(inputWrapperClass);
 		if (input.getAttribute("style"))
 			wrapper.setAttribute("style", input.getAttribute("style"));
+		if (!input.F.visible) {
+			wrapper.F.visible = false;
+		}
 		input.F.wrap(wrapper);
 
 		// Hide original input and add a new one, synchronise (and convert) values
@@ -86,8 +89,8 @@ function timePicker(options) {
 		newInput.setAttribute("spellcheck", "false");
 		input.after(newInput);
 
-		// Show or hide the new element instead whenever the <input> element should be shown or hidden
-		F.internalData.set(input, "visible.replacement", newInput);
+		// Show or hide the new element wrapper instead whenever the <input> element should be shown or hidden
+		F.internalData.set(input, "visible.replacement", wrapper);
 		// Enable or disable the new element when the <input> element is enabled or disabled
 		disabledObservers = input.F.observeDisabled(disabled => {
 			newInput.F.disabled = disabled;

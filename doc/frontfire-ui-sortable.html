@@ -505,6 +505,7 @@
 			<h3 id="sortablechange">sortablechange</h3>
 			<p>
 				Triggered for the sorted child while it is being moved and when a new drop position is selected.
+				This event can be cancelled by calling <code>event.preventDefault()</code> to prevent the new placement.
 				The following properties are provided with the event:
 			</p>
 			<ul>
@@ -516,6 +517,7 @@
 			<h3 id="sortableend">sortableend</h3>
 			<p>
 				Triggered for the sorted child when the sort operation has ended.
+				This event can be cancelled by calling <code>event.preventDefault()</code> to prevent the new placement.
 				The following properties are provided with the event:
 			</p>
 			<ul>

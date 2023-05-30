@@ -139,6 +139,10 @@ function spinner(options) {
 		let styleAttr = input.getAttribute("style");
 		if (styleAttr)
 			wrapper.setAttribute("style", styleAttr);
+		if (!input.F.visible) {
+			input.F.visible = true;
+			wrapper.F.visible = false;
+		}
 		input.before(wrapper);
 		wrapper.append(input);
 		input.setAttribute("autocomplete", "off");
@@ -392,6 +396,7 @@ function styleCheckbox() {
 		input.classList.add(styleCheckboxClass);
 		let span = F.c("span");
 		span.classList.add(styleCheckboxClass);
+		span.title = input.title;
 		input.after(span);
 	});
 }

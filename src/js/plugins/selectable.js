@@ -760,6 +760,8 @@ function selectable(options) {
 				child.classList.add("selected");
 			if (option.disabled)
 				child.F.disabled = true;
+			child.F.visible = option.F.visible;
+			F.internalData.set(option, "visible.replacement", child);
 
 			let observer = new MutationObserver((mutationsList, observer) => {
 				mutationsList.forEach(mutation => {
@@ -861,7 +863,7 @@ function selectable(options) {
 						if (index < 0 || index >= count)
 							return;   // Nothing found
 					}
-					while (children[index].F.disabled);
+					while (children[index].F.disabled || !children[index].F.visible);
 				}
 			}
 			else if (offset === -2) {
@@ -871,8 +873,8 @@ function selectable(options) {
 				do {
 					index--;
 				}
-				while (index >= 0 && (children[index].F.getRelativeTop(elem) > newTop || children[index].F.disabled));
-				while (index < 0 || children[index].F.disabled)
+				while (index >= 0 && (children[index].F.getRelativeTop(elem) > newTop || children[index].F.disabled || !children[index].F.visible));
+				while (index < 0 || children[index].F.disabled || !children[index].F.visible)
 					index++;
 			}
 			else if (offset === 2) {
@@ -882,17 +884,17 @@ function selectable(options) {
 				do {
 					index++;
 				}
-				while (index < count && (children[index].F.getRelativeTop(elem) < newTop || children[index].F.disabled));
-				while (index >= count || children[index].F.disabled)
+				while (index < count && (children[index].F.getRelativeTop(elem) < newTop || children[index].F.disabled || !children[index].F.visible));
+				while (index >= count || children[index].F.disabled || !children[index].F.visible)
 					index--;
 			}
 			else if (offset < 0) {
 				// Move selection to the first enabled item
-				index = elem.F.children.where(":not([disabled])").first.F.index;
+				index = elem.F.children.where(":not([disabled])").where(c => c.F.visible).first.F.index;
 			}
 			else if (offset > 0) {
 				// Move selection to the last enabled item
-				index = elem.F.children.where(":not([disabled])").last.F.index;
+				index = elem.F.children.where(":not([disabled])").where(c => c.F.visible).last.F.index;
 			}
 			if (index === -1)
 				return;   // Nothing found
@@ -911,7 +913,7 @@ function selectable(options) {
 				// Replace selection with all items between these indices (inclusive)
 				for (let i = i1; i <= i2; i++) {
 					let c = children[i];
-					if (!c.F.disabled)
+					if (!c.F.disabled && children[index].F.visible)
 						c.classList.add("selected");
 				}
 			}

@@ -24,6 +24,11 @@
 		{
 			text-decoration: none;
 			color: var(--tabs-color, black);
+			&:focus-visible
+			{
+				outline: var(--focus-keyboard-outline);
+				outline-offset: -3px;
+			}
 			&:hover
 			{
 				text-decoration: none;
