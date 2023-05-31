@@ -56,7 +56,7 @@ F.notify = function (text, type, options) {
 	activeNotifications.push(container);
 
 	if (options.timeout && !options.permanent) {
-		bar.F.animateFromTo({ width: [0, "100%"] }, options.timeout, "linear");
+		bar.F.animateFromTo({ width: [0, "100%"] }, options.timeout, "linear", false);
 	}
 
 	let isOpen = true;

@@ -469,7 +469,7 @@
 		--button-background,
 		hsl(var(--button-background-h), var(--button-background-s), var(--button-background-l)));
 	color: var(--button-color);
-	text-decoration: none !important;
+	text-decoration: none;
 	padding: 5px 9px;   // textbox padding + 1 for the missing border
 	min-width: 75px;
 	cursor: pointer;
@@ -478,7 +478,7 @@
 	&:where(:any-link)
 	{
 		color: var(--button-color);
-		text-decoration: none !important;
+		text-decoration: none;
 	}
 	&:where(:any-link):where(:hover)
 	{
@@ -766,9 +766,10 @@
 	color: var(--link-color, hsl(var(--link-color-h), var(--link-color-s), var(--link-color-l)));
 	padding: 0;
 	text-decoration: var(--link-text-decoration, underline);
+	text-decoration-color: var(--link-text-decoration-color, currentcolor);
 	cursor: pointer;
 	min-width: unset;
-	transition: color var(--animation-duration) var(--animation-function);
+	transition: color var(--animation-duration) var(--animation-function), text-decoration-color var(--animation-duration) var(--animation-function);
 	&:not(:disabled):not([disabled]):focus-visible
 	{
 		outline: var(--focus-keyboard-outline);
@@ -782,6 +783,7 @@
 			--link-hover-color,
 			hsl(var(--link-color-h), var(--link-color-s), var(--link-hover-color-l)));
 		text-decoration: var(--link-hover-text-decoration, var(--link-text-decoration, none));
+		text-decoration-color: var(--link-hover-text-decoration-color, var(--link-text-decoration-color, transparent));
 		transition: color 0s;
 	}
 	&:is(:disabled, [disabled])

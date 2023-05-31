@@ -119,10 +119,6 @@ function createDropdown(options) {
 	}
 	if (opt.fixed) {
 		container.style.position = "fixed";
-		targetRect.top -= window.scrollY;
-		targetRect.bottom -= window.scrollY;
-		targetRect.left -= window.scrollX;
-		targetRect.right -= window.scrollX;
 	}
 	if (element.classList.contains("bordered")) {
 		container.classList.add("bordered");

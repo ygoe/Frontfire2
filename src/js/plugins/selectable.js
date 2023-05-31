@@ -43,7 +43,6 @@ function selectable(options) {
 		let useDropdown = replaceHtmlSelect && htmlSize === 0;   // Includes missing size attribute
 		let htmlSelect, button;
 		let disabledObservers, forwardedEvents, originalHtmlSelectFocus;
-		let openDropdown;
 		let htmlSelectChanging;
 		let blurTimeout;
 		let lastClickedItem, focusedItem, focusedIndex = -1;
@@ -99,7 +98,7 @@ function selectable(options) {
 					elem.style.minHeight = "4em";
 				updateButtonContent();
 				updateButtonIcon();
-				openDropdown = () => {
+				let openDropdown = () => {
 					if (button.F.disabled) return;
 					clearSearchText();
 					button.classList.add("open");
