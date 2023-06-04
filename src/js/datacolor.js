@@ -1,4 +1,4 @@
-/*! datacolor.js v2.0.0-rc.3 | @license MIT | ygoe.de */
+/*! datacolor.js v2.0.0 | @license MIT | ygoe.de */
 /* build-dir(build) */
 
 // Encoding: UTF-8 without BOM (auto-detect: °°°°°) for built-in color names

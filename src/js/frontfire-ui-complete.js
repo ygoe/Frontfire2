@@ -1,4 +1,4 @@
-/*! frontfire-ui-complete.js v2.0.0-rc.3 | @license MIT | ygoe.de */
+/*! frontfire-ui-complete.js v2.0.0 | @license MIT | ygoe.de */
 /* iife-params(F, window, document) */
 /* iife-args(Frontfire, window, document) */
 /* build-dir(build) */

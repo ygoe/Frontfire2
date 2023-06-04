@@ -1,4 +1,4 @@
-/*! frontfire-core-singlefile.js v2.0.0-rc.3 | @license MIT | ygoe.de */
+/*! frontfire-core-singlefile.js v2.0.0 | @license MIT | ygoe.de */
 /* no-iife */
 /* build-dir(build) */
 /* no-bundle-suffix */

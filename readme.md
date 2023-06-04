@@ -44,7 +44,7 @@ The following is the content of the release archive. All files in readable and m
 | Frontfire UI<br>Minimal  | frontfire-ui-minimal.js<br>frontfire-ui-minimal.min.js (18 KiB) | frontfire-ui-minimal-singlefile.js<br>frontfire-ui-minimal-singlefile.min.js (30 KiB) |
 | Color                 | color.js<br>color.min.js (2.6 KiB) | – |
 | DataColor             | datacolor.js<br>datacolor.min.js (1.2 KiB) | – |
-| Frontfire UI<br>Complete | frontfire-ui-complete.js<br>frontfire-ui-complete.min.js (40 KiB) | frontfire-ui-complete-singlefile.js<br>frontfire-ui-complete-singlefile.min.js (56 KiB) |
+| Frontfire UI<br>Complete | frontfire-ui-complete.js<br>frontfire-ui-complete.min.js (41 KiB) | frontfire-ui-complete-singlefile.js<br>frontfire-ui-complete-singlefile.min.js (56 KiB) |
 
 
 ### CSS files
@@ -52,7 +52,7 @@ The following is the content of the release archive. All files in readable and m
 | Bundle                | Stylesheets |
 |-----------------------|-------------|
 | Frontfire Core        | –           |
-| Frontfire UI Minimal  | frontfire-ui-minimal.css<br>frontfire-ui-minimal.min.css (13 KiB) |
+| Frontfire UI Minimal  | frontfire-ui-minimal.css<br>frontfire-ui-minimal.min.css (14 KiB) |
 | Frontfire UI Complete | frontfire-ui-complete.css<br>frontfire-ui-complete.min.css (17 KiB) |
 
 
