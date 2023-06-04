@@ -3,6 +3,7 @@
 	position: relative;
 	border: solid var(--slider-margin) transparent;
 	outline: none;
+	touch-action: pan-y;
 	// :focus-visible matches after clicking on the slider which is wrong, so only use a custom logic
 	&.ff-focus-visible
 	{
@@ -170,6 +171,7 @@
 		width: calc(var(--slider-width) + var(--slider-margin) * 2);
 		border-top-width: calc(var(--slider-handle-length) * 0.5);
 		border-bottom-width: calc(var(--slider-handle-length) * 0.5);
+		touch-action: pan-x;
 
 		.ff-range
 		{

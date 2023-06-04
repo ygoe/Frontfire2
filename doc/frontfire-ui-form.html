@@ -828,6 +828,14 @@
 				});
 			</script>
 		</div>
+		<p class="message warning icon">
+			<i class="material">exclamation-triangle-fill</i>
+			This button does not work with touch input if it has text content.
+			Browsers reinterpret a long tap to open a context menu and even select the unselectable text of the button.
+			There is currently no solution known to allow this long tap gesture in JavaScript code.
+			If the button only has image content (like the inline SVG of the spinner inputs) it works fine.
+			The bug only occurs when long-tapping on any text content in the button.
+		</p>
 
 		<h3 id="repeat-button-options">Options</h3>
 		<p>

@@ -32,7 +32,8 @@ function closeMessage() {
 			message.remove();
 		}
 		else {
-			let removeTimeout = setTimeout(() => message.remove(), 10);
+			// 10 ms is too quick for Chrome, 20 ms is still too quick for Chrome/Android
+			let removeTimeout = setTimeout(() => message.remove(), 50);
 			message.F.on("transitionrun", () => clearTimeout(removeTimeout));
 			message.F.on("transitionend", () => message.remove());
 

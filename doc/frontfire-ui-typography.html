@@ -182,6 +182,7 @@
 		<h2 id="separator">Separator</h2>
 		<p>
 			Separators with the <code data-lang="html">&lt;hr&gt;</code> element can be used to visually separate content with a horizontal line instead of whitespace.
+			The <code class="css-class">double-margin</code> CSS class can be added for double vertical margin just like with paragraphs.
 		</p>
 		<div class="example no-frontfire" data-source-highlight="<hr>">
 			<p>Sample text</p>
@@ -314,7 +315,7 @@
 			<label><input type="checkbox" id="sticky-aside-left"> Move side column to the left</label><br>
 			<label><input type="checkbox" id="sticky-aside-width"> Change side column width</label>
 		</p>
-		<div class="example no-frontfire sticky-aside-example" data-source-highlight='(?<=")(sticky-aside(-container)?)|aside-left'>
+		<div class="example no-frontfire sticky-aside-example" data-source-highlight='(?<=")(sticky-aside(-container)?)|aside-left|--sticky-aside-width'>
 			<div class="sticky-aside-container">
 				<div class="sticky-aside">
 					<strong>I have my own column and remain visible next to the content when scrolling.</strong>

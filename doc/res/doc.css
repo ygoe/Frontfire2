@@ -697,6 +697,13 @@ a.copy-button:hover svg
 	text-transform: uppercase;
 	opacity: 0.6;
 }
+@media (max-width: 600px)
+{
+	:root
+	{
+		--sticky-aside-width: 25vw;
+	}
+}
 
 
 /* ==================== Source code ==================== */

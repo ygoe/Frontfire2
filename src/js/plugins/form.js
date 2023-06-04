@@ -57,11 +57,15 @@ function repeatButton(options) {
 
 		let timeout, ms;
 		button.F.on("pointerdown", event => {
+			if (event.pointerType === "mouse" && event.button !== 0)
+				return;   // Ignore other-than-left mouse button
 			if (!opt.focus)
 				event.preventDefault();
 			pressed();
 		});
-		button.F.on("pointerup pointerleave pointercancel", () => {
+		button.F.on("pointerup pointerleave pointercancel", event => {
+			if (event.pointerType === "mouse" && event.button !== 0)
+				return;   // Ignore other-than-left mouse button
 			released();
 		});
 		button.F.on("click", event => {

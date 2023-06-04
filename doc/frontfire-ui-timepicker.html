@@ -259,14 +259,14 @@
 		<h2 id="localisation">Localisation</h2>
 		<p>
 			The date and time format and label texts are automatically set by the browser language.
-			To override, set the <code>localeCode</code> <a href="#options">option</a>, the following example is set to Icelandic (is-IS):
+			To override, set the <code>localeCode</code> <a href="#options">option</a>, the following example is set to Swedish in Sweden (sv-SE):
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="localeCode">
-			<input type="date" id="date-input" data-opt="localeCode: is-IS">
+		<div class="example p no-frontfire" data-source-highlight="locale-code">
+			<input type="date" id="date-input" data-opt="locale-code: sv-SE">
 		</div>
 
 		<p>
-			If no locale code is specified, the language is determined by the browser setting.
+			If the browser does not support that locale or no locale code is specified, the language is determined by the browser setting.
 			All time formats are provided by the browser.
 			Currently, the following languages are supported for label texts.
 			Specifying a different language will return English names.
