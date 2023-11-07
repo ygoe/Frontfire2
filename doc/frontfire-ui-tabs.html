@@ -473,7 +473,7 @@ F("#tabs").tabs.activeTabIndex = 3;
 			If the tab page contains a table that has a <code>data-name</code> attribute itself, the table is set up for template rows and will show the subrecords in that field.
 			Since this is done internally, the row template must be specified in a <code>data-opt</code> attribute at the table element.
 		</p>
-		<div class="example no-frontfire" data-source-highlight="<template.*?>|template(?=:)|templateRows\.addRow|addTabs?|loadJSON|getRecords|saveJSON|tabs\.title|(?<=<)table">
+		<div class="example no-frontfire" data-source-highlight="<template.*?>|template(?=:)|templateRows\.addRow|addTabs?|templateTabs|loadJSON|getRecords|saveJSON|tabs\.title|(?<=<)table">
 			<div class="buttons p">
 				<button id="clear-tabs">Clear</button>
 				<hr>
@@ -750,6 +750,9 @@ F("#tabs").tabs.activeTabIndex = 3;
 				Adds new tab pages with the data from the specified JSON form field, and remembers the field for later updating.
 				If the field is not specified, it must be set in the plugin options.
 				Returns the added tab page elements.
+			</p>
+			<p>
+				If the JSON form field is already set with the element, the <code>loadJSON</code> method is automatically called at initialisation time.
 			</p>
 		</div>
 
