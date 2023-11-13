@@ -88,6 +88,13 @@ function repeatButton(options) {
 			}
 		});
 
+		// Assume pointerup when the button is disabled
+		// (Firefox 119 doesn't raise that event anymore! https://bugzilla.mozilla.org/show_bug.cgi?id=1864515)
+		button.F.observeDisabled(disabled => {
+			if (disabled)
+				released();
+		});
+
 		function pressed() {
 			button.classList.add("ff-active");   // CSS :active doesn't trigger, do it manually with an alternate class
 			ms = 500;
