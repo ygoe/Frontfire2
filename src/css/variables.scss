@@ -98,7 +98,8 @@ $viewportWidthDesktop: 1200px;
 	// - Oxygen Mono: KDE Plasma 4+
 	// - Liberation Mono: Linux/OpenOffice fallback
 	// - monospace: generic fallback
-	--monospace-font-family: Menlo, Consolas, "Roboto Mono", "Ubuntu Monospace", "Noto Mono", "Oxygen Mono", "Liberation Mono", monospace;
+	--ff-monospace-font-family: Menlo, Consolas, "Roboto Mono", "Ubuntu Monospace", "Noto Mono", "Oxygen Mono", "Liberation Mono", monospace;
+	--monospace-font-family: var(--ff-monospace-font-family);
 	--monospace-font-size: 13px;
 
 	--h1-font-size: 2rem;
@@ -320,6 +321,12 @@ $viewportWidthDesktop: 1200px;
 	--submenu-hover-lf: -0.08;
 	--submenu-active-lf: -0.2;
 	--submenu-color: #000000;
+
+
+	// ========== Modal ==========
+
+	--modal-margin: 15px;
+	--modal-padding: 25px;
 
 
 	// ========== Progress bar ==========

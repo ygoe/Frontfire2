@@ -120,7 +120,7 @@ function offCanvas(options) {
 	});
 
 	if (opt.dimBackground)
-		F.dimBackground(true);
+		F.dimBackground("noinput");
 
 	let firstFocusable = container.F.queryFocusable().first;
 	firstFocusable?.focus();

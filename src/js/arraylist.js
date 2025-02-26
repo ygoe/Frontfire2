@@ -373,6 +373,36 @@
 			return Math.min.apply(null, this.array.map(selector ? selector : x => x));
 	};
 
+	// Returns the item in the array with the maximum value returned by the selector.
+	ArrayList_prototype.maxBy = function (selector) {
+		let maxValue;
+		let maxItem;
+		for (let i = 0; i < this.array.length; i++) {
+			let item = this.array[i];
+			let value = selector(item);
+			if (maxValue === undefined || value > maxValue) {
+				maxValue = value;
+				maxItem = item;
+			}
+		}
+		return maxItem;
+	};
+
+	// Returns the item in the array with the minimum value returned by the selector.
+	ArrayList_prototype.minBy = function (selector) {
+		let minValue;
+		let minItem;
+		for (let i = 0; i < this.array.length; i++) {
+			let item = this.array[i];
+			let value = selector(item);
+			if (minValue === undefined || value < minValue) {
+				minValue = value;
+				minItem = item;
+			}
+		}
+		return minItem;
+	};
+
 	// Computes the sum of items in the array.
 	ArrayList_prototype.sum = function (selector) {
 		return this.array.reduce((a, b) => a + (selector ? selector(b) : b), 0);
@@ -582,6 +612,22 @@
 		return this;
 	};
 
+	// Sorts the array in ascending order according to a key, using locale string comparison.
+	// Secondary sorting is done by providing more key selector arguments. An argument of 1 or -1
+	// sets the sort direction of the following keys ascending or descending, respectively.
+	ArrayList_prototype.sortByUseLocale = function (keySelector) {
+		sortArrayBy(this.array, arguments, 1, true);
+		return this;
+	};
+
+	// Sorts the array in descending order according to a key, using locale string comparison.
+	// Secondary sorting is done by providing more key selector arguments. An argument of 1 or -1
+	// sets the sort direction of the following keys ascending or descending, respectively.
+	ArrayList_prototype.sortByDescendingUseLocale = function (keySelector) {
+		sortArrayBy(this.array, arguments, -1, true);
+		return this;
+	};
+
 	// Sorts the array using numerical order.
 	// Returns the instance to support chaining.
 	ArrayList_prototype.sortNumeric = function () {
@@ -709,6 +755,24 @@
 	ArrayList_prototype.orderByDescending = function (keySelector) {
 		const array = this.array.concat();
 		sortArrayBy(array, arguments, -1);
+		return new ArrayList(array);
+	};
+
+	// Returns a copy of the array in ascending order according to a key, using locale string comparison.
+	// Secondary sorting is done by providing more key selector arguments. An argument of 1 or -1
+	// sets the sort direction of the following keys ascending or descending, respectively.
+	ArrayList_prototype.orderByUseLocale = function (keySelector) {
+		const array = this.array.concat();
+		sortArrayBy(array, arguments, 1, true);
+		return new ArrayList(array);
+	};
+
+	// Returns a copy of the array in descending order according to a key, using locale string comparison.
+	// Secondary sorting is done by providing more key selector arguments. An argument of 1 or -1
+	// sets the sort direction of the following keys ascending or descending, respectively.
+	ArrayList_prototype.orderByDescendingUseLocale = function (keySelector) {
+		const array = this.array.concat();
+		sortArrayBy(array, arguments, -1, true);
 		return new ArrayList(array);
 	};
 
@@ -1036,7 +1100,7 @@
 			throw new RangeError("Value for " + name + " must be " + min + " or greater.");
 	}
 
-	function sortArrayBy(array, keySelectors, initialDirection) {
+	function sortArrayBy(array, keySelectors, initialDirection, useLocale) {
 		array.sort((a, b) => {
 			let direction = initialDirection;
 			for (let keySelector of keySelectors) {
@@ -1046,12 +1110,36 @@
 				else {
 					const ka = keySelector(a);
 					const kb = keySelector(b);
-					if (ka < kb) return -1 * direction;
-					if (ka > kb) return 1 * direction;
+
+					// Check the level of definition first.
+					// nulls always follow after values, undefineds follow after nulls.
+					const kaLevel = getDefinitionLevel(ka);
+					const kbLevel = getDefinitionLevel(kb);
+					if (kaLevel > kbLevel) return -1;
+					if (kaLevel < kbLevel) return 1;
+
+					// Now compare the values.
+					// If both values are null, or both are undefined, neither of these comparisons
+					// returns true, hence both values are considered equal.
+					if (useLocale && typeof ka === "string" && typeof kb === "string") {
+						let cmp = ka.localeCompare(kb);
+						if (cmp !== 0)
+							return cmp * direction;
+					}
+					else {
+						if (ka < kb) return -1 * direction;
+						if (ka > kb) return 1 * direction;
+					}
 				}
 			}
 			return 0;
 		});
+	}
+
+	function getDefinitionLevel(value) {
+		if (value === undefined) return 0;
+		if (value === null) return 1;
+		return 2;
 	}
 
 	function join(type, array, other, constraint, selector) {

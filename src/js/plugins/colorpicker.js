@@ -23,6 +23,7 @@ const dictionary = {
 		accept: "Übernehmen",
 		"no color": "Keine Farbe",
 		cancel: "Abbrechen",
+		"separate dark": "Separate Farbe im dunklen Design verwenden",
 	},
 	en: {
 		background: "Background",
@@ -41,14 +42,17 @@ const dictionary = {
 		accept: "Accept",
 		"no color": "No colour",
 		cancel: "Cancel",
+		"separate dark": "Use separate colour for dark theme",
 	},
 	"en-ca": {
 		"select color": "Select color",
 		"no color": "No color",
+		"separate dark": "Use separate color for dark theme",
 	},
 	"en-us": {
 		"select color": "Select color",
 		"no color": "No color",
+		"separate dark": "Use separate color for dark theme",
 	},
 };
 
@@ -79,7 +83,10 @@ function colorPicker(options) {
 		opt._setColor = setColor;
 
 		let isEmpty = !opt.color;
-		opt.color = new Color(opt.color);
+		if (!isEmpty)
+			setColorInternal(opt.color);
+		else
+			opt.color = new Color();
 
 		let language = opt.language || document.documentElement.lang;
 		let translate = F.getTranslator(dictionary, language);
@@ -89,8 +96,10 @@ function colorPicker(options) {
 		let alphaSlider;
 		let previewPanel, previewHex;
 		let updatingPreview;
+		let selectingDataColor;
 		let foundMatchInTab;
 		let quickUpdateCount = 0, quickUpdateTimeout;
+		let isInitialized;
 
 		container.classList.add(colorPickerClass);
 		container.style.width = "420px";
@@ -100,6 +109,7 @@ function colorPicker(options) {
 		tabs.classList.add("tabs", "same-height");
 		container.append(tabs);
 
+		let grid;
 		let dataPaletteTab;
 		switch (opt.colorUse) {
 			case "background":
@@ -108,7 +118,7 @@ function colorPicker(options) {
 				dataPaletteTab.title = translate(opt.colorUse);
 				tabs.append(dataPaletteTab);
 				let colorIds = DataColor.getColorIds();
-				let grid = F.c("div");
+				grid = F.c("div");
 				grid.F.style = {
 					display: "grid",
 					gridTemplateColumns: "repeat(" + colorIds.length + ", 1fr)",
@@ -116,11 +126,15 @@ function colorPicker(options) {
 					gridGap: "6px"
 				};
 				dataPaletteTab.append(grid);
-				const colorTypes = opt.colorUse === "background" ? ["b0", "b1"] : ["f0", "f1", "f2"];
+				let isDark = container.F.dark;
+				const colorTypes = opt.colorUse === "background" ? ["b0", "b1", "b2"] : ["f0", "f1", "f2"];
 				colorTypes.forEach(type => {
 					colorIds.forEach(colorId => {
-						const dataColor = DataColor.getColor(colorId, type, false);
+						const dataColor = DataColor.getColor(colorId, type, isDark);
 						const swatch = F.c("a");
+						swatch.classList.add("swatch");
+						swatch.dataset.colorId = colorId;
+						swatch.dataset.type = type;
 						swatch.F.style = {
 							height: "29px",
 							backgroundColor: dataColor,
@@ -132,9 +146,17 @@ function colorPicker(options) {
 						swatch.F.on("click", event => {
 							event.preventDefault();
 							const a = opt.color.a;
-							opt.color = new Color(dataColor);
-							if (a) opt.color.a = a;
-							updateView();
+							let dataColorWasNull = !opt.dataColor;
+							opt.color = new Color(swatch.style.backgroundColor);
+							opt.dataColor = colorId + "-" + type.substring(1, 2);
+							if (a) {
+								opt.color.a = a;
+								if (a !== 1)
+									opt.dataColor = null;
+							}
+							selectingDataColor = true;
+							updateView(undefined, undefined, dataColorWasNull);
+							selectingDataColor = false;
 							if (event.detail === 2) {
 								// Double-click: apply color picker
 								container.F.trigger("apply", { bubbles: true });
@@ -201,6 +223,7 @@ function colorPicker(options) {
 				event.preventDefault();
 				const a = opt.color.a;
 				opt.color = new Color(c);
+				opt.dataColor = null;
 				if (a) opt.color.a = a;
 				updateView();
 				// Return to the current tab when the selected color also appears on a previous tab
@@ -253,6 +276,8 @@ function colorPicker(options) {
 				if (updatingSlider) return;   // Already updating this slider
 				updatingSlider = true;
 				opt.color[colorProp] = event.value;
+				if (!selectingDataColor)
+					opt.dataColor = null;
 				let isHSL = ["h", "s", "l"].includes(colorProp);
 				updateView(undefined, isHSL, !isHSL);
 				updatingSlider = false;
@@ -360,12 +385,36 @@ function colorPicker(options) {
 				if (val.trim().match(/^#[0-9A-Za-z]{6}$/)) {
 					const c = new Color(val);
 					opt.color = c;
+					opt.dataColor = null;
 					updateView(false, undefined, true);
 				}
 			});
 		}
 
+		document.documentElement.F.forwardEvent("darkthemechange", container);
+		container.F.on("darkthemechange", () => {
+			let isDark = container.F.dark;
+			dataPaletteTab?.querySelectorAll("a.swatch").forEach(swatch => {
+				const dataColor = DataColor.getColor(swatch.dataset.colorId, swatch.dataset.type, isDark);
+				swatch.F.style = {
+					backgroundColor: dataColor,
+					outline: "solid 0px " + (Color(dataColor).gray().r < 100 ? "#eee" : "#000")
+				};
+				if (opt.dataColor === swatch.dataset.colorId + "-" + swatch.dataset.type.substring(1, 2)) {
+					// Update view and color property
+					swatch.click();
+				}
+			});
+			document.documentElement.F.once("transitionend", () => {
+				// Update preview text colour for changed modal background (after transition end)
+				updateView();
+			});
+		});
+
+		selectingDataColor = !!opt.dataColor;
 		updateView();
+		selectingDataColor = false;
+		isInitialized = true;
 
 		function updateView(withText, fromSlidersHSL, changed) {
 			if (updatingPreview) return;   // Already in here
@@ -379,12 +428,18 @@ function colorPicker(options) {
 			if (opt.withAlpha) {
 				alphaSlider.F.slider.value = opt.color.a * 100;
 				alphaSlider.querySelector(".ff-range").style.background = "transparent";
-				alphaSlider.querySelector(".ff-background").style.background = "linear-gradient(to right, transparent, " + opt.color.alpha(1).toHTML() + "), url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKAQMAAAC3/F3+AAAABlBMVEXQ0NDw8PAEPQNRAAAAEElEQVR4XmNgP4CCfjAgIwB8gwi88/AFZQAAAABJRU5ErkJggg) left center";
+				const pattern =
+					container.F.dark ?
+					"iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKAQMAAAC3/F3+AAAABlBMVEUvLy9PT08CGcynAAAAEElEQVR4XmNgP4CCfjAgIwB8gwi88/AFZQAAAABJRU5ErkJggg" :
+					"iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKAQMAAAC3/F3+AAAABlBMVEXQ0NDw8PAEPQNRAAAAEElEQVR4XmNgP4CCfjAgIwB8gwi88/AFZQAAAABJRU5ErkJggg";
+				alphaSlider.querySelector(".ff-background").style.background = "linear-gradient(to right, transparent, " + opt.color.alpha(1).toHTML() + "), url(data:image/png;base64," + pattern + ") left center";
 				// The image is a transparent background chessboard pattern that lies behind the gradually transparent color
 			}
 			previewPanel.style.backgroundColor = opt.color.toCSS();
 			if (opt.previewHex) {
-				previewHex.style.color = opt.color.text().toHTML();   // TODO: consider alpha and parent background
+				let bgColor = previewPanel.parentElement.F.effectiveBackgroundColor;
+				let previewColor = bgColor.blendWith(opt.color, opt.color.a);
+				previewHex.style.color = previewColor.text().toHTML();
 				if (withText !== false)
 					previewHex.value = opt.color.toHTML().toUpperCase();
 			}
@@ -476,15 +531,37 @@ function colorPicker(options) {
 			else
 				tabs.F.tabs.activeTab = detailsTab;
 
-			if (changed)
+			if (changed && isInitialized)
 				container.F.trigger("change", { bubbles: true });
 		}
 
 		// Public function, not used internally
 		function setColor(newColor) {
-			isEmpty = !newColor;
-			opt.color = new Color(newColor);
+			setColorInternal(newColor);
 			updateView();
+		}
+
+		function setColorInternal(newColor) {
+			isEmpty = !newColor;
+			switch (opt.colorUse) {
+				case "background":
+				case "foreground":
+					let typePrefix = opt.colorUse.substring(0, 1);
+					let dc = DataColor.parseGetColor(newColor, typePrefix, container.F.dark);
+					if (dc) {
+						opt.color = new Color(dc);
+						opt.dataColor = newColor;
+					}
+					else {
+						opt.color = new Color(newColor);
+						opt.dataColor = null;
+					}
+					break;
+				default:
+					opt.color = new Color(newColor);
+					opt.dataColor = null;
+					break;
+			}
 		}
 	});
 }
@@ -494,6 +571,9 @@ function getColor() {
 	let container = this.first;
 	if (!container) return this;   // Nothing to do
 	let opt = F.loadOptions("colorPicker", container);
+	if (opt?.color && opt.color.a === 1) {
+		return opt.color.toHTML();
+	}
 	return String(opt?.color);
 }
 
@@ -505,6 +585,14 @@ function setColor(newColor) {
 	});
 }
 
+// Gets the selected data color of the color picker, or null if another color was selected.
+function getDataColor() {
+	let container = this.first;
+	if (!container) return this;   // Nothing to do
+	let opt = F.loadOptions("colorPicker", container);
+	return opt?.dataColor;
+}
+
 // Deinitializes the plugin.
 function deinit() {
 	return this.forEach(elem => {
@@ -514,6 +602,7 @@ function deinit() {
 		elem.style.width = "";
 		elem.style.maxWidth = "";
 		F.deleteOptions("colorPicker", elem);
+		document.documentElement.F.unforwardEvent("darkthemechange", elem);
 	});
 }
 
@@ -523,6 +612,9 @@ F.registerPlugin("colorPicker", colorPicker, {
 		color: {
 			get: getColor,
 			set: setColor
+		},
+		dataColor: {
+			get: getDataColor
 		},
 		deinit: deinit
 	},
@@ -537,9 +629,13 @@ F.registerPlugin("colorPicker", colorPicker, {
 // the "no color" button was clicked, or undefined if the modal was cancelled or otherwise closed.
 //
 // options.color: The initially selected color.
-// options.colorUse: The color use for the color picker. Default: None.
+// options.colorUse: The color use for the color picker. Default: None. If set, the returned value may be a DataColor specification.
 // options.withAlpha: Indicates whether the alpha slider is displayed. Default: false.
 // options.allowEmpty: Indicates whether the "no color" button is available. Default: false.
+// options.separateDark: Shows a checkbox to select whether a separate colour is used for the dark theme.
+//   This has no effect on the colour picker itself and needs to be interpreted by the application.
+//   When true, the modal's result is an object with the properties "color" and "separateDark" instead of just the selected colour string.
+// options.separateDarkChecked: Checks the "separateDark" checkbox.
 // options.language: The language to use for text labels. Default: Auto.
 F.colorPickerModal = options => {
 	let language = options.language || document.documentElement.lang;
@@ -553,6 +649,21 @@ F.colorPickerModal = options => {
 	heading.style.marginTop = "0";
 	heading.textContent = translate("select color");
 	div.append(heading);
+
+	let separateDarkCheckBox;
+	if (options.separateDark) {
+		let checkBoxDiv = F.c("div");
+		checkBoxDiv.style.margin = "1em 0";
+		let label = F.c("label");
+		label.textContent = " " + translate("separate dark");
+		separateDarkCheckBox = F.c("input");
+		separateDarkCheckBox.type = "checkbox";
+		separateDarkCheckBox.checked = !!options.separateDarkChecked;
+		label.prepend(separateDarkCheckBox);
+		checkBoxDiv.append(label);
+		div.append(checkBoxDiv);
+		checkBoxDiv.F.frontfire();
+	}
 
 	let colorDiv = F.c("div");
 	div.append(colorDiv);
@@ -584,17 +695,35 @@ F.colorPickerModal = options => {
 	let modal = div.F.modal();
 
 	var promise = new Promise((resolve, reject) => {
+		const resolveInternal = result => {
+			if (options.separateDark) {
+				resolve({
+					color: result,
+					separateDark: separateDarkCheckBox.checked
+				});
+			}
+			else {
+				resolve(result);
+			}
+		};
+
 		colorDiv.F.on("apply", () => {
-			resolve(colorPicker.color);
+			if (options.colorUse)
+				resolveInternal(colorPicker.dataColor ?? colorPicker.color);
+			else
+				resolveInternal(colorPicker.color);
 			modal.close();
 		});
 		acceptButton.F.on("click", () => {
-			resolve(colorPicker.color);
+			if (options.colorUse)
+				resolveInternal(colorPicker.dataColor ?? colorPicker.color);
+			else
+				resolveInternal(colorPicker.color);
 			modal.close();
 		});
 		if (emptyButton) {
 			emptyButton.F.on("click", () => {
-				resolve("");
+				resolveInternal("");
 				modal.close();
 			});
 		}
@@ -602,8 +731,9 @@ F.colorPickerModal = options => {
 			modal.close();
 		});
 		div.F.on("close", () => {
+			div.remove();
 			// Resolve without result if not already resolved
-			resolve();
+			resolveInternal();
 		});
 
 		setTimeout(() => {
@@ -662,7 +792,7 @@ function colorInput(options) {
 			let result = await F.colorPickerModal(Object.assign({}, opt, { color: input.value }));
 			if (result !== undefined) {
 				if (result !== "") {
-					input.value = new Color(result).toHTML();
+					input.value = result;
 				}
 				else {
 					input.value = "";
@@ -672,13 +802,29 @@ function colorInput(options) {
 			}
 		});
 
+		document.documentElement.F.forwardEvent("darkthemechange", pickButton);
+		pickButton.F.on("darkthemechange", () => {
+			updateButtons();
+		});
+
 		updateButtons = () => {
 			pickButton.disabled = input.disabled;
 
 			if (input.value) {
-				rect.setAttribute("fill", new Color(input.value).toCSS());
+				let color = input.value;
+				switch (opt.colorUse) {
+					case "background":
+					case "foreground":
+						let typePrefix = opt.colorUse.substring(0, 1);
+						let dc = DataColor.parseGetColor(color, typePrefix, input.F.dark);
+						if (dc) {
+							color = new Color(dc);
+						}
+						break;
+				}
+				rect.setAttribute("fill", new Color(color).toCSS());
 				// Style overrides CSS which overrides SVG attributes
-				dots.style.fill = new Color(input.value).text();
+				dots.style.fill = new Color(color).text();
 			}
 			else {
 				rect.setAttribute("fill", "none");

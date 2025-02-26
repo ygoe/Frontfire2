@@ -113,14 +113,14 @@
 		background-color: var(
 			--selectable-hover-background,
 			hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-hover-a)));
-		color: var(--selectable-hover-color, var(--textbox-color));   // TODO: Fallback value unnecessary? https://github.com/mdn/content/issues/17511
+		color: var(--selectable-hover-color, var(--textbox-color));
 		transition: background-color 0s;
 		&.selected
 		{
 			background-color: var(
 				--selectable-selected-hover-background,
 				hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-selected-hover-a)));
-			color: var(--selectable-selected-color, var(--textbox-color));   // TODO: Fallback value unnecessary? https://github.com/mdn/content/issues/17511
+			color: var(--selectable-selected-color, var(--textbox-color));
 		}
 	}
 	&.selected
@@ -131,7 +131,7 @@
 			background-color: var(
 				--selectable-selected-background,
 				hsl(var(--selection-h), var(--selection-s), var(--selection-l), var(--selection-selected-a)));
-			color: var(--selectable-selected-color, var(--textbox-color));   // TODO: Fallback value unnecessary? https://github.com/mdn/content/issues/17511
+			color: var(--selectable-selected-color, var(--textbox-color));
 		}
 		&[disabled]
 		{
@@ -207,7 +207,7 @@
 {
 	> *
 	{
-		overflow-x: hidden;
+		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
@@ -216,7 +216,7 @@
 {
 	> :first-child
 	{
-		overflow-x: hidden;
+		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}

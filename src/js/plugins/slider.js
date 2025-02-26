@@ -88,6 +88,7 @@ function slider(options) {
 		let isVertical = opt.orientation === "v";
 		let initialTabindex;
 		let originalcursor;
+		let touchDownPos;
 
 		opt._setValue = setValue;
 
@@ -132,7 +133,6 @@ function slider(options) {
 		slider.append(ticks);
 
 		// Create handles
-		// Also keep them in a jQuery collection to add events to
 		let handles = [];
 		for (let index = 0; index < opt.handleCount; index++) {
 			let handle = F.c("div");
@@ -211,7 +211,7 @@ function slider(options) {
 				return;   // Should not happen: handle not found
 			}
 
-			// Remember where the handle was dragged (probably not exactly the center)
+			// Remember where the handle was dragged (probably not exactly the centre)
 			if (isVertical)
 				// Measure in slider direction, upwards is positive
 				dragHandleOffsets[index] = (handles[index].F.top + handles[index].F.borderHeight / 2) - event.pageY;
@@ -246,7 +246,7 @@ function slider(options) {
 							handle = handles[index];
 						}
 					});
-					// Drag this handle at its center
+					// Drag this handle at its centre
 					dragHandleOffsets[index] = 0;
 				}
 				dragHandlePointerIds[index] = event.pointerId;
@@ -308,6 +308,17 @@ function slider(options) {
 			// Select dragged handle from pointerId
 			let index = dragHandlePointerIds.indexOf(event.pointerId);
 			if (index === -1) return;   // Not my pointer
+
+			if (event.pointerType === "touch") {
+				let eventPos = isVertical ? event.pageY : event.pageX;
+				if (event.type === "pointerdown") {
+					touchDownPos = eventPos;
+					return;
+				}
+				if (Math.abs(eventPos - touchDownPos) < 8) {
+					return;   // Move some more to prove your intention and avoid false detection when actually scrolling the page
+				}
+			}
 
 			let value = getValueFromEvent(event);
 
@@ -388,7 +399,7 @@ function slider(options) {
 			// Select dragged handle from pointerId
 			let index = dragHandlePointerIds.indexOf(event.pointerId);
 
-			// Assume center click if pointer is unknown
+			// Assume centre click if pointer is unknown
 			let myDragHandleOffset = 0;
 			if (index !== -1) myDragHandleOffset = dragHandleOffsets[index];
 
@@ -406,7 +417,7 @@ function slider(options) {
 				sliderLength = slider.F.paddingWidth;
 			}
 
-			let handleCenterPos = pointerPosIntoSlider - myDragHandleOffset;   // Position of the handle's center
+			let handleCenterPos = pointerPosIntoSlider - myDragHandleOffset;   // Position of the handle's centre
 			let value = handleCenterPos / sliderLength * (opt.max - opt.min) + opt.min;   // Selected value
 			return value;
 		}

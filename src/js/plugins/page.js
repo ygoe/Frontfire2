@@ -7,7 +7,7 @@ const dimmedClass = "ff-dimmed";
 let dimCount = 0;
 
 // Dims the entire document by adding an overlay.
-F.dimBackground = function (noinput) {
+F.dimBackground = function (className) {
 	dimCount++;
 	if (F("body > div." + backgroundDimmerClass + ":not(.closing)").length !== 0) return;   // Already there
 	let existingBackgroundLayer = F("body > div." + backgroundDimmerClass);
@@ -16,8 +16,8 @@ F.dimBackground = function (noinput) {
 	document.body.classList.add(dimmingClass, dimmedClass);
 	let backgroundLayer = F("<div>");
 	backgroundLayer.classList.add(backgroundDimmerClass);
-	if (noinput)
-		backgroundLayer.classList.add("noinput");
+	if (className)
+		backgroundLayer.F.classList.add(className);
 	backgroundLayer.appendTo(document.body);
 	F.forceReflow();
 	backgroundLayer.style("opacity", "1");

@@ -55,18 +55,19 @@ function repeatButton(options) {
 		button.classList.add(repeatButtonClass);
 		let opt = F.initOptions("repeatButton", button, {}, options);
 
-		let timeout, ms;
+		let timeout, ms, touchDelay;
 		button.F.on("pointerdown", event => {
 			if (event.pointerType === "mouse" && event.button !== 0)
 				return;   // Ignore other-than-left mouse button
 			if (!opt.focus)
 				event.preventDefault();
-			pressed();
+			button.setPointerCapture(event.pointerId);
+			pressed(event.pointerType);
 		});
 		button.F.on("pointerup pointerleave pointercancel", event => {
 			if (event.pointerType === "mouse" && event.button !== 0)
 				return;   // Ignore other-than-left mouse button
-			released();
+			released(event.type);
 		});
 		button.F.on("click", event => {
 			event.preventDefault();
@@ -95,13 +96,30 @@ function repeatButton(options) {
 				released();
 		});
 
-		function pressed() {
-			button.classList.add("ff-active");   // CSS :active doesn't trigger, do it manually with an alternate class
-			ms = 500;
-			click();
+		function pressed(pointerType) {
+			if (pointerType === "touch") {
+				// Delay the first event. The user might be touching this button accidentally when
+				// starting a scroll gesture.
+				touchDelay = true;
+				timeout = setTimeout(pressed, 300);
+			}
+			else {
+				touchDelay = false;
+				button.classList.add("ff-active");   // CSS :active doesn't trigger, do it manually with an alternate class
+				ms = 500;
+				click();
+			}
 		}
 
-		function released() {
+		function released(eventType) {
+			if (touchDelay) {
+				touchDelay = false;
+				if (eventType === "pointerup") {
+					// Ensure that at least one event is triggered when pressing and releasing the
+					// button with a touch pointer, even within the initial delay.
+					button.F.trigger("repeatclick");
+				}
+			}
 			button.classList.remove("ff-active");
 			if (timeout) {
 				clearTimeout(timeout);
@@ -504,6 +522,32 @@ F.registerPlugin("autoSelect", autoSelect, {
 });
 
 
+// ==================== Form column widths plugin ====================
+
+const convertColumnValue = str => str
+	.replace(/^\*$/, "1fr")
+	.replace(/\*$/, "fr")
+	.replace(/^(\d+)$/, "$1px")
+	.replace(/^auto$/, "max-content");
+
+const convertColumns = str => str.split(/ +/).map(convertColumnValue).join(" ");
+
+// Converts the form row column width definition from XAML style to CSS.
+function formRowColumnWidths() {
+	return this.forEach(row => {
+		if (row.dataset.columnWidths)
+			row.style.gridTemplateColumns = convertColumns(row.dataset.columnWidths);
+	});
+}
+
+F.registerPlugin("formRowColumnWidths", formRowColumnWidths, {
+	selectors: [
+		".form-row[data-column-widths]",
+		".form-single-row[data-column-widths]"
+	]
+});
+
+
 // ==================== Textarea auto-height plugin ====================
 
 const textareaWrapperClass = "ff-textarea-wrapper";
@@ -637,11 +681,11 @@ function submitLock(options) {
 			});
 		}
 
-		function lockButton(timeout) {
+		function lockButton(timeout, showLoadingIndicator) {
 			// Lock the button and replace the icon with a loading indicator
 			button.disabled = true;
 			if (icon) {
-				if (button.dataset.submitLockClicked) {
+				if (button.dataset.submitLockClicked || showLoadingIndicator) {
 					let iconWidth = icon.offsetWidth;
 					let iconMarginLeft = parseFloat(icon.F.computedStyle.marginLeft);
 					let iconMarginRight = parseFloat(icon.F.computedStyle.marginRight);
@@ -679,10 +723,10 @@ function submitLock(options) {
 }
 
 // Locks the button immediately.
-function submitLockLock(timeout) {
+function submitLockLock(timeout, showLoadingIndicator) {
 	this.forEach(button => {
 		let opt = F.loadOptions("submitLock", button);
-		opt && opt._lock(timeout || opt.timeout);
+		opt && opt._lock(timeout || opt.timeout, showLoadingIndicator);
 	});
 }
 

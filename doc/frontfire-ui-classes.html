@@ -318,7 +318,7 @@
 					<span class="source">(from <a href="frontfire-ui-page.html#center">Page</a>)</span>
 				</p>
 				<p>
-					Horizontally centers the content of elements with the <code class="css-class">page-width</code> class on the page.
+					Horizontally centres the content of elements with the <code class="css-class">page-width</code> class on the page.
 					Adding this class to the document also forces a vertical scrollbar to be shown, no matter if the content is longer than a window height or not.
 					This is to ensure that horizontally centered content does not jump to the side when navigating between pages with and without a scrollbar (which takes some of the available width in most desktop browsers) because of their length.
 				</p>
@@ -331,7 +331,7 @@
 					<span class="source">(from <a href="frontfire-ui-typography.html#paragraphs-alignment">Typography</a>)</span>
 				</p>
 				<p>
-					Horizontally centers the content of a paragraph.
+					Horizontally centres the content of a paragraph.
 				</p>
 				<p>
 					Equivalent style: <code>text-align: center;</code>
@@ -345,7 +345,7 @@
 					<span class="source">(from <a href="frontfire-ui-table.html">Table</a>)</span>
 				</p>
 				<p>
-					Horizontally centers the content of all cells of a table.
+					Horizontally centres the content of all cells of a table.
 					This can be used to override a table with the <code class="css-class">left</code> or <code class="css-class">right</code> class.
 				</p>
 				<p>
@@ -360,7 +360,7 @@
 					<span class="source">(from <a href="frontfire-ui-image.html#block-center">Image</a>)</span>
 				</p>
 				<p>
-					Horizontally centers the image and sets it to a block layout.
+					Horizontally centres the image and sets it to a block layout.
 					Limits the image to the full available width and the window height.
 				</p>
 				<hr>
@@ -374,6 +374,17 @@
 				</p>
 				<p class="see-also">
 					See also: <a href="#image-overlay-text">image-overlay-text</a>, <a href="#bottom">bottom</a>, <a href="#right">right</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="radio-group"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#radio-group">Form</a>)</span>
+				</p>
+				<p>
+					Horizontally centres the radio buttons in a group.
+				</p>
+				<p class="see-also">
+					See also: <a href="#right">right</a>, <a href="#radio-group">radio-group</a>
 				</p>
 				<hr>
 				<p>
@@ -780,6 +791,23 @@
 			</div>
 
 			<div class="member">
+				<h3 id="full-page">full-page</h3>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;div class="modal"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-modal.html#full-page">Modal</a>)</span>
+				</p>
+				<p>
+					Expands the modal to use almost the full page.
+				</p>
+				<p class="see-also">
+					See also: <a href="#modal">modal</a>, <a href="#wide">wide</a>
+				</p>
+				<p class="history">
+					Added in v2.1.0
+				</p>
+			</div>
+
+			<div class="member">
 				<h3 id="full-page-width">full-page-width</h3>
 				<p>
 					<span class="elements">Elements:</span> block
@@ -845,7 +873,7 @@
 					See the plugin page for examples.
 				</p>
 				<p class="see-also">
-					See also: <a href="#buttons">buttons</a>, <a href="#segmented-input">segmented-input</a>, <a href="frontfire-ui-variables.html#button-group-separator-color">--button-group-separator-color</a>
+					See also: <a href="#buttons">buttons</a>, <a href="#radio-group">radio-group</a>, <a href="#segmented-input">segmented-input</a>, <a href="frontfire-ui-variables.html#button-group-separator-color">--button-group-separator-color</a>
 				</p>
 			</div>
 
@@ -957,7 +985,7 @@
 					<span class="source">(from <a href="frontfire-ui-image.html#caption">Image</a>)</span>
 				</p>
 				<p>
-					Horizontally centers the child image.
+					Horizontally centres the child image.
 					Limits the image to the full available width and the window height.
 					Used with image captions.
 					See the plugin page for examples.
@@ -1204,7 +1232,7 @@
 					<span class="source">(from <a href="frontfire-ui-form.html#buttons">Form</a>)</span>
 				</p>
 				<p>
-					Vertically centers a text label in a buttons row.
+					Vertically centres a text label in a buttons row.
 					See the plugin page for examples.
 				</p>
 				<p class="see-also">
@@ -2058,6 +2086,24 @@
 				</p>
 			</div>
 
+			<div class="member" data-aliases="buttons">
+				<h3 id="radio-group">radio-group</h3>
+				<p>
+					<span class="elements">Elements:</span> all
+					<span class="source">(from <a href="frontfire-ui-form.html#radio-group">Form</a>)</span>
+				</p>
+				<p>
+					Groups multiple radio buttons together with a gap between them.
+					See the plugin page for examples.
+				</p>
+				<p class="see-also">
+					See also: <a href="#group">group</a>, <a href="#center">center</a>, <a href="#right">right</a>
+				</p>
+				<p class="history">
+					Added in v2.1.0
+				</p>
+			</div>
+
 			<div class="member">
 				<h3 id="repeat-button">repeat-button</h3>
 				<p>
@@ -2352,6 +2398,17 @@
 				</p>
 				<p class="see-also">
 					See also: <a href="#image-overlay-text">image-overlay-text</a>, <a href="#bottom">bottom</a>, <a href="#center">center</a>
+				</p>
+				<hr>
+				<p>
+					<span class="elements">Elements:</span> <code>&lt;* class="radio-group"&gt;</code>
+					<span class="source">(from <a href="frontfire-ui-form.html#radio-group">Form</a>)</span>
+				</p>
+				<p>
+					Aligns the radio buttons in a group on the right side.
+				</p>
+				<p class="see-also">
+					See also: <a href="#center">center</a>, <a href="#radio-group">radio-group</a>
 				</p>
 				<hr>
 				<p>
@@ -2996,7 +3053,7 @@
 					Expands the width of the modal container to the full window.
 				</p>
 				<p class="see-also">
-					See also: <a href="#modal">modal</a>
+					See also: <a href="#modal">modal</a>, <a href="#full-page">full-page</a>
 				</p>
 			</div>
 

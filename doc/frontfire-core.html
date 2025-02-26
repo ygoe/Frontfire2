@@ -520,7 +520,7 @@ let arrayList = nodesF.L;
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="dataset">dataset</h3>
 				<ul>
 					<li><code>dataset</code> → Proxy (setter: Object)</li>
@@ -582,7 +582,7 @@ nodesF.dataset({
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="datasetJSON">datasetJSON</h3>
 				<ul>
 					<li><code>datasetJSON</code> → Proxy (setter: Object)</li>
@@ -1199,6 +1199,21 @@ F(".box").classList = ["box", "panel"];
 			</div>
 
 			<div class="member">
+				<h3 id="dark">dark</h3>
+				<ul>
+					<li><code>dark</code> → Boolean</li>
+				</ul>
+				<p>
+					Gets a value indicating whether all selected Nodes have the dark theme (CSS class from Frontfire UI).
+					An element uses the dark theme if itself or any parent has the <code class="css-class">dark</code> CSS class and no intermediate parent has the <code class="css-class">not-dark</code> CSS class.
+					If there are no Nodes selected, false is returned.
+				</p>
+				<p class="history">
+					Added in v2.1.0
+				</p>
+			</div>
+
+			<div class="member">
 				<h3 id="disabled">disabled</h3>
 				<ul>
 					<li><code>disabled</code> → Boolean</li>
@@ -1218,6 +1233,20 @@ F(".box").classList = ["box", "panel"];
 				</p>
 				<p class="see-also">
 					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement#properties_that_apply_to_any_type_of_input_element_that_is_not_hidden">Element.disabled</a>
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="effectiveBackgroundColor">effectiveBackgroundColor</h3>
+				<ul>
+					<li><code>effectiveBackgroundColor</code> → Color</li>
+				</ul>
+				<p>
+					Gets the effective background colour of an element, considering all parents for non-opaque colours.
+					Requires the <a href="color.html">Color</a> class and returns a <code>Color</code> instance.
+				</p>
+				<p class="history">
+					Added in v2.1.0
 				</p>
 			</div>
 
@@ -1372,7 +1401,7 @@ F(".box").classList = ["box", "panel"];
 				</p>
 			</div>
 
-			<div class="member" data-aliases="css">
+			<div class="member" data-aliases="css chaining">
 				<h3 id="style">style</h3>
 				<ul>
 					<li><code>style</code> → Proxy (setter: Object)</li>
@@ -1589,7 +1618,7 @@ nodesF.style({
 				These instance methods insert or move elements in the document tree or change their visibility.
 			</p>
 
-			<div class="member" data-aliases="insert move">
+			<div class="member" data-aliases="insert move chaining">
 				<h3 id="after">after</h3>
 				<ul>
 					<li><code>after(html, …)</code> → this</li>
@@ -1650,7 +1679,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="insert move">
+			<div class="member" data-aliases="insert move chaining">
 				<h3 id="append">append</h3>
 				<ul>
 					<li><code>append(html, …)</code> → this</li>
@@ -1667,7 +1696,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="move">
+			<div class="member" data-aliases="move chaining">
 				<h3 id="appendTo">appendTo</h3>
 				<ul>
 					<li><code>appendTo(node)</code> → this</li>
@@ -1699,7 +1728,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="insert move">
+			<div class="member" data-aliases="insert move chaining">
 				<h3 id="before">before</h3>
 				<ul>
 					<li><code>before(html, …)</code> → this</li>
@@ -1725,6 +1754,9 @@ nodesF.style({
 					Returns a clone, or duplicate, of the selected Nodes, including their subtrees but not including any event listeners.
 				</p>
 				<p>
+					For <code data-lang="html">&lt;template&gt;</code> elements, their content will be cloned and all children will be collected in the returned instance.
+				</p>
+				<p>
 					<strong>Note:</strong><br>
 					The effect of this method differs from the base class <a href="arraylist.html#clone">ArrayList.clone()</a>.
 					To call the base class implementation, change the interface with the <a href="#L">L property</a>.
@@ -1732,9 +1764,12 @@ nodesF.style({
 				<p class="see-also">
 					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode">Node.cloneNode()</a>
 				</p>
+				<p class="history">
+					Template special handling added in v2.1.0
+				</p>
 			</div>
 
-			<div class="member" data-aliases="disabled">
+			<div class="member" data-aliases="disabled chaining">
 				<h3 id="disable">disable</h3>
 				<ul>
 					<li><code>disable()</code> → this</li>
@@ -1750,7 +1785,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="children remove">
+			<div class="member" data-aliases="children remove chaining">
 				<h3 id="empty">empty</h3>
 				<ul>
 					<li><code>empty()</code> → this</li>
@@ -1763,7 +1798,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="disabled">
+			<div class="member" data-aliases="disabled chaining">
 				<h3 id="enable">enable</h3>
 				<ul>
 					<li><code>enable()</code> → this</li>
@@ -1808,7 +1843,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="visible">
+			<div class="member" data-aliases="visible chaining">
 				<h3 id="hide">hide</h3>
 				<ul>
 					<li><code>hide()</code> → this</li>
@@ -1824,7 +1859,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="move">
+			<div class="member" data-aliases="move chaining">
 				<h3 id="insertAfter">insertAfter</h3>
 				<ul>
 					<li><code>insertAfter(node)</code> → this</li>
@@ -1839,7 +1874,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="move">
+			<div class="member" data-aliases="move chaining">
 				<h3 id="insertBefore">insertBefore</h3>
 				<ul>
 					<li><code>insertBefore(node)</code> → this</li>
@@ -1854,7 +1889,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="offset">
+			<div class="member" data-aliases="offset chaining">
 				<h3 id="moveTo">moveTo</h3>
 				<ul>
 					<li><code>moveTo(left, top)</code> → this</li>
@@ -1893,7 +1928,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="insert move">
+			<div class="member" data-aliases="insert move chaining">
 				<h3 id="prepend">prepend</h3>
 				<ul>
 					<li><code>prepend(html, …)</code> → this</li>
@@ -1910,7 +1945,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="move">
+			<div class="member" data-aliases="move chaining">
 				<h3 id="prependTo">prependTo</h3>
 				<ul>
 					<li><code>prependTo(node)</code> → this</li>
@@ -1925,7 +1960,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="delete">
+			<div class="member" data-aliases="delete chaining">
 				<h3 id="remove">remove</h3>
 				<ul>
 					<li><code>remove()</code> → this</li>
@@ -1943,7 +1978,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="delete">
+			<div class="member" data-aliases="delete chaining">
 				<h3 id="removeAll">removeAll</h3>
 				<ul>
 					<li><code>removeAll(predicate)</code> → this</li>
@@ -1964,7 +1999,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="delete">
+			<div class="member" data-aliases="delete chaining">
 				<h3 id="removeAt">removeAt</h3>
 				<ul>
 					<li><code>removeAt(index)</code> → this</li>
@@ -1982,7 +2017,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="removeAttribute">removeAttribute</h3>
 				<ul>
 					<li><code>removeAttribute(name)</code> → this</li>
@@ -1996,7 +2031,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="delete">
+			<div class="member" data-aliases="delete chaining">
 				<h3 id="removeFirst">removeFirst</h3>
 				<ul>
 					<li><code>removeFirst()</code> → this</li>
@@ -2014,7 +2049,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="delete">
+			<div class="member" data-aliases="delete chaining">
 				<h3 id="removeLast">removeLast</h3>
 				<ul>
 					<li><code>removeLast()</code> → this</li>
@@ -2051,7 +2086,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="replaceWith">replaceWith</h3>
 				<ul>
 					<li><code>replaceWith(html)</code> → this</li>
@@ -2069,7 +2104,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="setAttribute">setAttribute</h3>
 				<ul>
 					<li><code>setAttribute(name, value)</code> → this</li>
@@ -2086,7 +2121,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="visible">
+			<div class="member" data-aliases="visible chaining">
 				<h3 id="show">show</h3>
 				<ul>
 					<li><code>show()</code> → this</li>
@@ -2102,7 +2137,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="visible">
+			<div class="member" data-aliases="visible chaining">
 				<h3 id="toggle">toggle</h3>
 				<ul>
 					<li><code>toggle()</code> → this</li>
@@ -2120,7 +2155,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="replaceWith">
+			<div class="member" data-aliases="replaceWith chaining">
 				<h3 id="wrap">wrap</h3>
 				<ul>
 					<li><code>wrap(html)</code> → this</li>
@@ -2139,7 +2174,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="replaceWith">
+			<div class="member" data-aliases="replaceWith chaining">
 				<h3 id="unwrap">unwrap</h3>
 				<ul>
 					<li><code>unwrap()</code> → this</li>
@@ -2209,6 +2244,34 @@ nodesF.style({
 			</div>
 
 			<div class="member">
+				<h3 id="scrollbarHeight">scrollbarHeight</h3>
+				<ul>
+					<li><code>scrollbarHeight()</code> → Number</li>
+				</ul>
+				<p>
+					Returns the scrollbar height of the first selected element.
+					If the element does not have a horizontal scrollbar, 0 is returned.
+				</p>
+				<p class="history">
+					Added in v2.1.0
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="scrollbarWidth">scrollbarWidth</h3>
+				<ul>
+					<li><code>scrollbarWidth()</code> → Number</li>
+				</ul>
+				<p>
+					Returns the scrollbar width of the first selected element.
+					If the element does not have a vertical scrollbar, 0 is returned.
+				</p>
+				<p class="history">
+					Added in v2.1.0
+				</p>
+			</div>
+
+			<div class="member" data-aliases="chaining">
 				<h3 id="scrollIntoView">scrollIntoView</h3>
 				<ul>
 					<li><code>scrollIntoView()</code> → this</li>
@@ -2226,12 +2289,28 @@ nodesF.style({
 					If the smooth parameter is true, the scrolling animates smoothly instead of an instant scroll.
 					If the recursive parameter is set to true, parent scroll containers are also brought into view of their respective parents, up to the window.
 				</p>
+				<p>
+					The margin can be specified in three ways:
+				</p>
+				<ul>
+					<li>A single number that specifies the additional space at the top and bottom each, in pixels.</li>
+					<li>An array of two numbers as forementioned, for the top and bottom side separately.</li>
+					<li>
+						An array of two strings in the format <code>n*</code> where <i>n</i> specifies the relative fill space.
+						For example, the argument <code>["1*", "3*"]</code> distributes the remaining scroll view space around the element so that 1/4 is at the top and 3/4 at the bottom.
+						The argument <code>["1*", "1*"]</code> scrolls the element to the centre of the view area.
+						Any positive floating point numbers are accepted.
+					</li>
+				</ul>
 				<p class="see-also">
 					See also: <a href="#scrollToTop">Frontfire.scrollToTop()</a>, <a href="#scrollToBottom">Frontfire.scrollToBottom()</a>, <a href="#isScrollVisible">Frontfire.isScrollVisible()</a>
 				</p>
+				<p class="history">
+					String parameters for margin added in v2.1.0
+				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="scrollToBottom">scrollToBottom</h3>
 				<ul>
 					<li><code>scrollToBottom()</code> → this</li>
@@ -2250,7 +2329,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="scrollToTop">scrollToTop</h3>
 				<ul>
 					<li><code>scrollToTop()</code> → this</li>
@@ -2279,6 +2358,24 @@ nodesF.style({
 				Also, while the DOM method provides the “once” and “signal” options, these will remove the event handler without telling anybody so our registrations would not be updated correctly.
 				It’s for this essential behavioural difference that the Frontfire methods deliberately use different (and shorter) names.
 			</p>
+
+			<div class="member" data-aliases="chaining">
+				<h3 id="forwardEvent">forwardEvent</h3>
+				<ul>
+					<li><code>forwardEvent(eventName, targetElement)</code> → this</li>
+				</ul>
+				<p>
+					Forwards an event from the first selected element to another element, holding a weak reference to the target element.
+					The internal forwarding entry is cleaned up if the target element was garbage-collected when an event is to be forwarded.
+					No event data is set with the forwarded event.
+				</p>
+				<p class="see-also">
+					See also: <a href="#unforwardEvent">Frontfire.unforwardEvent()</a>
+				</p>
+				<p class="history">
+					Added in v2.1.0
+				</p>
+			</div>
 
 			<div class="member">
 				<h3 id="forwardUIEvents">forwardUIEvents</h3>
@@ -2389,7 +2486,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="removeEventListener">
+			<div class="member" data-aliases="removeEventListener chaining">
 				<h3 id="off">off</h3>
 				<ul>
 					<li><code>off(types)</code> → this</li>
@@ -2415,7 +2512,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="addEventListener">
+			<div class="member" data-aliases="addEventListener chaining">
 				<h3 id="on">on</h3>
 				<ul>
 					<li><code>on(types, handler)</code> → this</li>
@@ -2450,7 +2547,7 @@ nodesF.style({
 				</p>
 			</div>
 
-			<div class="member" data-aliases="addEventListener one">
+			<div class="member" data-aliases="addEventListener one chaining">
 				<h3 id="once">once</h3>
 				<ul>
 					<li><code>once(types, handler)</code> → this</li>
@@ -2555,6 +2652,22 @@ if (!events.first.defaultPrevented) {
 					See also: <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/dispatchEvent">EventTarget.dispatchEvent()</a>, <a href="https://api.jquery.com/trigger/">jQuery.trigger()</a>
 				</p>
 			</div>
+
+			<div class="member" data-aliases="chaining">
+				<h3 id="unforwardEvent">unforwardEvent</h3>
+				<ul>
+					<li><code>unforwardEvent(eventName, targetElement)</code> → this</li>
+				</ul>
+				<p>
+					Forgets an event forwarding set up with the forwardEvent() method.
+				</p>
+				<p class="see-also">
+					See also: <a href="#forwardEvent">Frontfire.forwardEvent()</a>
+				</p>
+				<p class="history">
+					Added in v2.1.0
+				</p>
+			</div>
 		</section>
 
 		<section>
@@ -2575,7 +2688,7 @@ if (!events.first.defaultPrevented) {
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="value">value</h3>
 				<ul>
 					<li><code>value()</code> → Any</li>
@@ -2657,7 +2770,7 @@ Frontfire.staticMethod = args => {
 				There is no official plugin registry or compatibility certification so you can break essential functions with your extension!
 			</p>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="autostart">autostart</h3>
 				<ul>
 					<li><code>autostart()</code> → this</li>
@@ -2683,7 +2796,7 @@ div.F.autostart();
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="deinit">deinit</h3>
 				<ul>
 					<li><code>deinit()</code> → this</li>
@@ -2722,7 +2835,7 @@ div.F.deinit();
 				</p>
 			</div>
 
-			<div class="member" data-aliases="autostart">
+			<div class="member" data-aliases="autostart chaining">
 				<h3 id="frontfire">frontfire</h3>
 				<ul>
 					<li><code>frontfire()</code> → this</li>
@@ -3354,7 +3467,7 @@ F().myPlugin.defaults = {
 				Most of these methods return the instance for chained calls, except the remove and replace methods.
 			</p>
 
-			<div class="member" data-aliases="push append">
+			<div class="member" data-aliases="push append chaining">
 				<h3 id="add">add</h3>
 				<ul>
 					<li><code>add(node)</code> → this</li>
@@ -3392,7 +3505,7 @@ F().myPlugin.defaults = {
 				</p>
 			</div>
 
-			<div class="member" data-aliases="push append">
+			<div class="member" data-aliases="push append chaining">
 				<h3 id="addRange">addRange</h3>
 				<ul>
 					<li><code>addRange(…)</code> → this</li>
@@ -3405,7 +3518,7 @@ F().myPlugin.defaults = {
 				</p>
 			</div>
 
-			<div class="member" data-aliases="remove">
+			<div class="member" data-aliases="remove chaining">
 				<h3 id="clear">clear</h3>
 				<p class="inherited">
 					Inherited from: <a href="arraylist.html#clear">ArrayList</a>
@@ -3420,7 +3533,7 @@ F().myPlugin.defaults = {
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="insert">insert</h3>
 				<ul>
 					<li><code>insert(index, node)</code> → this</li>
@@ -3446,7 +3559,7 @@ F().myPlugin.defaults = {
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="insertRange">insertRange</h3>
 				<ul>
 					<li><code>insertRange(…)</code> → this</li>
@@ -3473,7 +3586,7 @@ F().myPlugin.defaults = {
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="reverse">reverse</h3>
 				<p class="inherited">
 					Inherited from: <a href="arraylist.html#reverse">ArrayList</a>
@@ -3489,7 +3602,7 @@ F().myPlugin.defaults = {
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="set">set</h3>
 				<p class="inherited">
 					Inherited from: <a href="arraylist.html#set">ArrayList</a>
@@ -3509,7 +3622,7 @@ F().myPlugin.defaults = {
 				</p>
 			</div>
 
-			<div class="member" data-aliases="random">
+			<div class="member" data-aliases="random chaining">
 				<h3 id="shuffle">shuffle</h3>
 				<p class="inherited">
 					Inherited from: <a href="arraylist.html#shuffle">ArrayList</a>
@@ -3522,7 +3635,7 @@ F().myPlugin.defaults = {
 				</p>
 			</div>
 
-			<div class="member" data-aliases="order">
+			<div class="member" data-aliases="order chaining">
 				<h3 id="sort">sort</h3>
 				<p class="inherited">
 					Inherited from: <a href="arraylist.html#sort">ArrayList</a>
@@ -3539,7 +3652,7 @@ F().myPlugin.defaults = {
 				</p>
 			</div>
 
-			<div class="member" data-aliases="order">
+			<div class="member" data-aliases="order chaining">
 				<h3 id="sortBy">sortBy</h3>
 				<p class="inherited">
 					Inherited from: <a href="arraylist.html#sortBy">ArrayList</a>
@@ -3565,7 +3678,7 @@ F().myPlugin.defaults = {
 				</p>
 			</div>
 
-			<div class="member" data-aliases="order">
+			<div class="member" data-aliases="order chaining">
 				<h3 id="sortByDescending">sortByDescending</h3>
 				<p class="inherited">
 					Inherited from: <a href="arraylist.html#sortByDescending">ArrayList</a>
@@ -4122,7 +4235,7 @@ F().myPlugin.defaults = {
 				These instance methods do not return items from the array and do not alter the contents of the instance.
 			</p>
 
-			<div class="member" data-aliases="each">
+			<div class="member" data-aliases="each chaining">
 				<h3 id="forEach">forEach</h3>
 				<p class="inherited">
 					Inherited from: <a href="arraylist.html#forEach">ArrayList</a>
@@ -4166,7 +4279,7 @@ F(".box").forEach((box, index) => {
 				They should not be used in new code but are nevertheless part of the supported Frontfire API.
 			</p>
 
-			<div class="member" data-aliases="classlist">
+			<div class="member" data-aliases="classlist chaining">
 				<h3 id="addClass">addClass</h3>
 				<ul>
 					<li><code>addClass(classNames)</code> → this</li>
@@ -4179,7 +4292,7 @@ F(".box").forEach((box, index) => {
 				</p>
 			</div>
 
-			<div class="member" data-aliases="getattribute setattribute removeattribute">
+			<div class="member" data-aliases="getattribute setattribute removeattribute chaining">
 				<h3 id="attr">attr</h3>
 				<ul>
 					<li><code>attr(name)</code> → String</li>
@@ -4194,7 +4307,7 @@ F(".box").forEach((box, index) => {
 				</p>
 			</div>
 
-			<div class="member" data-aliases="innerhtml">
+			<div class="member" data-aliases="innerhtml chaining">
 				<h3 id="html">html</h3>
 				<ul>
 					<li><code>html()</code> → String</li>
@@ -4208,7 +4321,7 @@ F(".box").forEach((box, index) => {
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="prop">prop</h3>
 				<ul>
 					<li><code>prop(key)</code> → Any</li>
@@ -4222,7 +4335,7 @@ F(".box").forEach((box, index) => {
 				</p>
 			</div>
 
-			<div class="member" data-aliases="classlist">
+			<div class="member" data-aliases="classlist chaining">
 				<h3 id="removeClass">removeClass</h3>
 				<ul>
 					<li><code>removeClass(classNames)</code> → this</li>
@@ -4235,7 +4348,7 @@ F(".box").forEach((box, index) => {
 				</p>
 			</div>
 
-			<div class="member" data-aliases="textcontent">
+			<div class="member" data-aliases="textcontent chaining">
 				<h3 id="text">text</h3>
 				<ul>
 					<li><code>text()</code> → String</li>
@@ -4249,7 +4362,7 @@ F(".box").forEach((box, index) => {
 				</p>
 			</div>
 
-			<div class="member" data-aliases="classlist">
+			<div class="member" data-aliases="classlist chaining">
 				<h3 id="toggleClass">toggleClass</h3>
 				<ul>
 					<li><code>toggleClass(classNames)</code> → this</li>
@@ -4706,21 +4819,41 @@ F.round(1.234, 5)
 			</div>
 
 			<div class="member">
-				<h3 id="sleep">sleep</h3>
+				<h3 id="delay">delay</h3>
 				<ul>
-					<li><code>Frontfire.sleep(ms)</code> → Promise</li>
+					<li><code>Frontfire.delay(ms)</code> → Promise</li>
+					<li><code>Frontfire.delay(ms, abortSignal)</code> → Promise</li>
 				</ul>
 				<p>
-					Asynchronously sleeps for the specified time in milliseconds.
-					Returns a Promise that resolves after the specified time.
+					Asynchronously waits for the specified time in milliseconds.
+					Returns a Promise that resolves after the specified time or rejects with an AbortError, or whatever reason was specified with <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort"><code>AbortController.abort()</code></a>, when the abortSignal was signalled.
 				</p>
 				<p>
-					This is an alternative to: <code>await new Promise(r => setTimeout(r, ms));</code>
+					Without the AbortSignal, this is an alternative to: <code>await new Promise(r => setTimeout(r, ms));</code>
 				</p>
 <div class="code">// Wait for 500 ms
-await F.sleep(500);
+await F.delay(500);
 // Now the time has passed
+
+// Catch default AbortError
+try {
+	await F.delay(2000, AbortSignal.timeout(1000));
+}
+catch (error) {
+	if (error instanceof DOMException && error.name === "AbortError") {
+		// Wait was aborted
+	}
+	else {
+		// Other error
+	}
+}
 </div>
+				<p class="history">
+					<code>abortSignal</code> parameter added in v2.1.0
+				</p>
+				<p class="history">
+					Renamed from <code>sleep</code> to <code>delay</code> in v2.1.0, old name kept as alias (to be removed in v3.0.0)
+				</p>
 			</div>
 		</section>
 
@@ -4744,6 +4877,19 @@ await F.sleep(500);
 				</ul>
 				<p>
 					Determines whether the value is an even integer number (e.g. 0, 2, 4, 6 etc.).
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="isFunction">isFunction</h3>
+				<ul>
+					<li><code>Frontfire.isFunction(value)</code> → Boolean</li>
+				</ul>
+				<p>
+					Determines whether the value is a function.
+				</p>
+				<p class="history">
+					Added in v2.1.0
 				</p>
 			</div>
 
@@ -4994,7 +5140,7 @@ await F.sleep(500);
 				They can be called on any selection of nodes from a Frontfire instance and have an effect on the selected nodes.
 			</p>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="accordion">accordion</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-accordion.html">Accordion</a>
@@ -5011,7 +5157,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member" data-aliases="textarea">
+			<div class="member" data-aliases="textarea chaining">
 				<h3 id="autoHeight">autoHeight</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-form.html#auto-height">Form</a>
@@ -5028,7 +5174,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member" data-aliases="textarea">
+			<div class="member" data-aliases="textarea chaining">
 				<h3 id="autoSelect">autoSelect</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-form.html#auto-select">Form</a>
@@ -5045,7 +5191,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="carousel">carousel</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-carousel.html">Carousel</a>
@@ -5062,7 +5208,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="closableMessage">closableMessage</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-message.html#closable">Message</a>
@@ -5079,7 +5225,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="colorInput">colorInput</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-colorpicker.html#colorinput">ColorPicker</a>
@@ -5096,7 +5242,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="colorPicker">colorPicker</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-colorpicker.html#colorpicker">ColorPicker</a>
@@ -5113,7 +5259,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="confirm">confirm</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-modal.html#confirm">Modal</a>
@@ -5129,7 +5275,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="draggable">draggable</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-draggable.html">Draggable</a>
@@ -5159,7 +5305,24 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
+				<h3 id="formRowColumnWidths">formRowColumnWidths</h3>
+				<p>
+					<span class="plugin">Plugin:</span> <a href="frontfire-ui-form.html#form-row-column-widths">Form</a>
+				</p>
+				<ul>
+					<li><code>formRowColumnWidths()</code> → this</li>
+				</ul>
+				<p>
+					Converts the form row column width definition from XAML style to CSS.
+					See the plugin page for examples.
+				</p>
+				<p class="history">
+					Added in v2.1.0
+				</p>
+			</div>
+
+			<div class="member" data-aliases="chaining">
 				<h3 id="gallery">gallery</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-gallery.html">Gallery</a>
@@ -5176,7 +5339,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="menu">menu</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-menu.html">Menu</a>
@@ -5226,7 +5389,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="overflowButtons">overflowButtons</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-form.html#overflow-buttons">Form</a>
@@ -5243,7 +5406,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="overflowColumns">overflowColumns</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-table.html#overflow-columns">Table</a>
@@ -5260,7 +5423,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="progressbar">progressbar</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-progressbar.html">Progressbar</a>
@@ -5277,7 +5440,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="repeatButton">repeatButton</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-form.html#repeat-button">Form</a>
@@ -5295,7 +5458,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="selectable">selectable</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-selectable.html">Selectable</a>
@@ -5313,7 +5476,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="slider">slider</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-slider.html">Slider</a>
@@ -5330,7 +5493,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="sortable">sortable</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-sortable.html">Sortable</a>
@@ -5347,7 +5510,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member" data-aliases="input number">
+			<div class="member" data-aliases="input number chaining">
 				<h3 id="spinner">spinner</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-form.html#spinner">Form</a>
@@ -5365,7 +5528,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="styleCheckbox">styleCheckbox</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-form.html#single-field-checkbox">Form</a>
@@ -5382,13 +5545,13 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="submitLock">submitLock</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-form.html#submit-lock">Form</a>
 				</p>
 				<ul>
-					<li><code>submitLock()</code> → this</li>
+					<li><code>submitLock(options)</code> → this</li>
 				</ul>
 				<p>
 					Locks form submit buttons for a moment to avoid accidental double-submit.
@@ -5399,7 +5562,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="tabs">tabs</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-tabs.html">Tabs</a>
@@ -5443,7 +5606,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member" data-aliases="checkbox indeterminate">
+			<div class="member" data-aliases="checkbox indeterminate chaining">
 				<h3 id="threeState">threeState</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-form.html#three-state">Form</a>
@@ -5460,7 +5623,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="timePicker">timePicker</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-timepicker.html">TimePicker</a>
@@ -5477,7 +5640,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member" data-aliases="checkbox">
+			<div class="member" data-aliases="checkbox chaining">
 				<h3 id="toggleButton">toggleButton</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-form.html#toggle-button">Form</a>
@@ -5494,7 +5657,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member" data-aliases="checkbox">
+			<div class="member" data-aliases="checkbox chaining">
 				<h3 id="toggleSwitch">toggleSwitch</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-toggleswitch.html">ToggleSwitch</a>
@@ -5511,7 +5674,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member" data-aliases="table">
+			<div class="member" data-aliases="table chaining">
 				<h3 id="updateFirstLastColumn">updateFirstLastColumn</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-table.html#filter">Table</a>
@@ -5526,7 +5689,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member" data-aliases="table">
+			<div class="member" data-aliases="table chaining">
 				<h3 id="updateFirstLastRow">updateFirstLastRow</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-table.html#filter">Table</a>
@@ -5541,7 +5704,7 @@ await F.sleep(500);
 				</p>
 			</div>
 
-			<div class="member">
+			<div class="member" data-aliases="chaining">
 				<h3 id="wheelScrolling">wheelScrolling</h3>
 				<p>
 					<span class="plugin">Plugin:</span> <a href="frontfire-ui-wheelscrolling.html">WheelScrolling</a>

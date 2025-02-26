@@ -264,6 +264,61 @@
 			</div>
 		</div>
 
+		<h3 id="form-row-column-widths">Simpler syntax for column widths</h3>
+		<p>
+			Alternatively, this can be achieved with the syntax known from GridLength in .NET WPF or other XAML dialects.
+			Add the <code>data-column-widths</code> HTML attribute to a <code data-lang="html">&lt;div class="form-row"&gt;</code> element, or call the <a href="frontfire-core.html#formRowColumnWidths"><code>formRowColumnWidths()</code></a> plugin method on it, and it will set the column widths accordingly.
+		</p>
+		<table class="no-border no-vgrid no-outer-padding">
+			<tr>
+				<th>Syntax</th>
+				<th>CSS equivalent</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td><code>*</code></td>
+				<td><code>1fr</code></td>
+				<td>Fills with weight 1</td>
+			</tr>
+			<tr>
+				<td><code>2*</code></td>
+				<td><code>2fr</code></td>
+				<td>Fills with specified weight</td>
+			</tr>
+			<tr>
+				<td><code>auto</code></td>
+				<td><code>max-content</code></td>
+				<td>Adjusts to content width</td>
+			</tr>
+			<tr>
+				<td><code>50</code></td>
+				<td><code>50px</code></td>
+				<td>Exact width in pixels</td>
+			</tr>
+		</table>
+		<div class="example no-frontfire" data-source-highlight="data-column-widths">
+			<div class="form-row require-minitab" data-column-widths="2* * auto 80">
+				<div class="label">First field</div>
+				<input type="text">
+				<div></div>
+
+				<div class="label">Second field</div>
+				<input type="text">
+				<div></div>
+
+				<div class="label"></div>
+				<label><input type="checkbox"> Checkbox 1</label>
+				<div></div>
+
+				<div class="label">More text</div>
+				<input type="text">
+				<div></div>
+			</div>
+		</div>
+		<p class="history">
+			Added in v2.1.0
+		</p>
+
 		<h3 id="custom-layout-css">CSS definition</h3>
 		<p>
 			Custom (responsive) layouts can be achieved by defining a CSS class for a row that defines the column widths separately.
@@ -498,6 +553,19 @@
 		</p>
 		<div class="example p no-frontfire" data-source-highlight='(?<="| )(three-state)'>
 			<label><input type="checkbox" class="three-state"> Order sunny weather</label>
+		</div>
+
+		<h2 id="radio-group">Radio button group</h2>
+		<p>
+			Frontfire provides the <code class="css-class">radio-group</code> CSS class to arrange multiple radio buttons next to each other with a gap between them that is larger than the gap between the radio button and its label.
+			The alignment of the buttons can be changed to the centre or right side with the additional CSS classes <code class="css-class">center</code> or <code class="css-class">right</code>, respectively.
+		</p>
+		<div class="example p no-frontfire" data-source-highlight='(?<="| )(radio-group)'>
+			<div class="radio-group">
+				<label><input type="radio" name="groupDemo"> Option 1</label>
+				<label><input type="radio" name="groupDemo"> Option 2</label>
+				<label><input type="radio" name="groupDemo"> Option 3</label>
+			</div>
 		</div>
 
 		<h2 id="spinner">Numeric spinners</h2>
@@ -828,14 +896,6 @@
 				});
 			</script>
 		</div>
-		<p class="message warning icon">
-			<i class="material">exclamation-triangle-fill</i>
-			This button does not work with touch input if it has text content.
-			Browsers reinterpret a long tap to open a context menu and even select the unselectable text of the button.
-			There is currently no solution known to allow this long tap gesture in JavaScript code.
-			If the button only has image content (like the inline SVG of the spinner inputs) it works fine.
-			The bug only occurs when long-tapping on any text content in the button.
-		</p>
 
 		<h3 id="repeat-button-options">Options</h3>
 		<p>
@@ -937,7 +997,7 @@
 		<p>
 			Add the <code class="css-class">submit-lock</code> CSS class to a <code data-lang="html">&lt;button type="submit"&gt;</code> or <code data-lang="html">&lt;input type="submit"&gt;</code> element, or call the <a href="frontfire-core.html#submitLock"><code>submitLock()</code></a> plugin method on it, and it will add the form submit behaviour.
 		</p>
-		<div class="example p no-frontfire" data-source-highlight="submit-lock|submitLock\.(lock|unlock)">
+		<div class="example p no-frontfire" data-source-highlight='submit-lock(?=")|submitLock\.(lock|unlock)'>
 			<form target="submit-lock-target">
 				<div class="buttons no-top-margin">
 					<button type="submit" class="default submit-lock" data-opt-timeout="10">
@@ -997,14 +1057,19 @@
 			<ul>
 				<li><code>lock()</code> → void</li>
 				<li><code>lock(timeout)</code> → void</li>
+				<li><code>lock(timeout, showLoadingIndicator)</code> → void</li>
 			</ul>
 			<p>
 				Locks the button immediately.
 				This includes disabling the button, replacing the icon and automatically unlocking after the specified timeout.
 				If no timeout was specified, the default timeout option value for the button is used.
+				If the showLoadingIndicator parameter is set to true, the icon in the button (if any) is always replaced with the loading indicator, not only when the button was clicked.
 			</p>
 <div class="code">F("#submit-button").submitLock.lock();
 </div>
+			<p class="history">
+				<code>showLoadingIndicator</code> parameter added in v2.1.0
+			</p>
 		</div>
 
 		<div class="member">

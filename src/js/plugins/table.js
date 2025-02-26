@@ -77,7 +77,7 @@ function overflowColumns(options) {
 						break;
 
 					// Table still too wide, hide this column in all rows
-					//await F.sleep(500);
+					//await F.delay(500);
 					column.F.hide();
 					let index = column.F.index;
 					table.F.querySelectorAll("tbody tr td:nth-child(" + (index + 1) + ")").hide();

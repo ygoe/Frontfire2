@@ -59,6 +59,7 @@
 			}
 			.content
 			{
+				touch-action: pan-x;
 				flex-grow: 1;
 				padding: 3px 3px;
 				display: flex;

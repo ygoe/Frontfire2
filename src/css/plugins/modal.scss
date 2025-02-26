@@ -8,9 +8,9 @@
 	box-shadow: 0 6px 20px rgb(0, 0, 0, 0.3);
 	background: var(--default-background);
 	color: var(--default-text-color);
-	padding: 25px;
+	padding: var(--modal-padding);
 	max-width: 80%;
-	max-height: calc(100% - 30px);
+	max-height: calc(100vh - 2 * var(--modal-margin));
 	@media (max-width: variables.$viewportWidthPhone)
 	{
 		max-width: 100%;
@@ -18,7 +18,17 @@
 	}
 	&.wide
 	{
-		max-width: calc(100% - 30px);
+		max-width: calc(100% - 2 * var(--modal-margin));
+		@media (max-width: variables.$viewportWidthPhone)
+		{
+			max-width: 100%;
+		}
+	}
+	&.full-page
+	{
+		max-width: calc(100vw - 2 * var(--modal-margin));
+		width: calc(100vw - 2 * var(--modal-margin));
+		height: calc(100vh - 2 * var(--modal-margin));
 		@media (max-width: variables.$viewportWidthPhone)
 		{
 			max-width: 100%;
@@ -28,7 +38,6 @@
 	.buttons
 	{
 		margin-top: 20px;
-		justify-content: center;
 	}
 }
 

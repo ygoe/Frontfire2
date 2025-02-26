@@ -58,6 +58,8 @@ applyTheme(colorTheme === "dark");
 
 function applyTheme(dark) {
 	darkThemeSwitch.state = dark;
+	if (document.documentElement.classList.contains("dark") === dark)
+		return;   // Already set, nothing to do, avoid double events
 	document.documentElement.classList.toggle("dark", dark);
 	document.documentElement.F.on("transitionend!", () => F("meta[name=theme-color]").setAttribute("content", F("header").computedStyle.backgroundColor));
 	document.documentElement.F.trigger("darkthemechange");
@@ -500,7 +502,7 @@ if (location.hash) {
 				}
 			}
 		}, 100);
-	}, 0);
+	}, 100);   // Initial delay determined empirically
 }
 
 if (!location.pathname.match(/(index.html|\/)$/))

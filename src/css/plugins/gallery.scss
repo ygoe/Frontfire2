@@ -21,7 +21,12 @@
 		a
 		{
 			position: relative;
+			overflow: hidden;
 
+			img
+			{
+				transition: transform var(--animation-duration) cubic-bezier(0, 0, 0, 1);
+			}
 			span
 			{
 				opacity: 0;
@@ -44,11 +49,17 @@
 					color: white;
 				}
 			}
-			&:hover span,
-			&:focus span
+			&:is(:hover, :focus)
 			{
-				opacity: 1;
-				transition: opacity 0s;
+				img
+				{
+					transform: scale(1.07);
+				}
+				span
+				{
+					opacity: 1;
+					transition: opacity 0s;
+				}
 			}
 		}
 	}
@@ -67,5 +78,22 @@
 		display: block;
 		text-align: center;
 		padding-top: 6px;
+	}
+
+	&.show-text > .ff-gallery-row a
+	{
+		span
+		{
+			opacity: 1;
+			transition: background var(--animation-duration) var(--animation-function);
+		}
+		&:is(:hover, :focus) span
+		{
+			background: rgb(255, 255, 255, 0.92);
+			.dark &
+			{
+				background: rgb(0, 0, 0, 0.75);
+			}
+		}
 	}
 }

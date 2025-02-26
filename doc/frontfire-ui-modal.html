@@ -41,6 +41,9 @@
 			The modal content can be freely defined in an HTML element with the <code class="css-class">modal</code> CSS class which applies basic modal styles and makes the element invisible at first.
 		</p>
 		<p>
+			The modal can be customised with the <a href="frontfire-ui-variables.html?s=@modal">CSS variables</a> that start with “--modal-”.
+		</p>
+		<p>
 			To open a modal element, call the <a href="frontfire-core.html#modal"><code>modal()</code></a> plugin function on the element to show as modal.
 			The function takes the options as its single object argument.
 			The options are optional and can alternatively be specified as data-opt HTML attributes with the modal HTML element.
@@ -57,7 +60,7 @@
 				<p>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non vestibulum odio, nec rhoncus metus. Suspendisse consectetur erat id dui ultricies vulputate. Ut commodo sem eget dapibus malesuada. Praesent ligula ligula, egestas sit amet arcu interdum, pharetra dapibus nibh. Sed posuere dapibus nulla.
 				</p>
-				<div class="buttons">
+				<div class="buttons center">
 					<button id="modal1-accept" class="default">Accept</button>
 					<button id="modal1-deny">Deny</button>
 					<button id="modal1-details">Details</button>
@@ -110,7 +113,7 @@
 				<p>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin commodo et ante sed placerat. Phasellus ipsum neque, ultricies eu mattis ut, euismod in sapien. Sed ultricies a leo vitae fermentum. Fusce nulla lectus, suscipit sit amet eleifend a, pulvinar ac ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque magna urna, vestibulum id dui ac, suscipit euismod turpis. Etiam eget pretium nisl. Sed a hendrerit erat, at sagittis nisi. Nullam ornare dapibus velit, ut lobortis lectus porta viverra. Cras et risus ex.
 				</p>
-				<div class="buttons">
+				<div class="buttons center">
 					<button id="wide-modal-close">Close</button>
 				</div>
 			</div>
@@ -123,6 +126,39 @@
 				});
 				F("#wide-modal-close").on("click", () => {
 					F("#wide-modal").modal.close();
+				});
+			</script>
+		</div>
+
+		<h2 id="full-page">Full-page modals</h2>
+		<p>
+			Extensive UI layouts that need to show a lot of content, like longer selection lists with additional information, could use a very large modal.
+			To provide that space, add the <code class="css-class">full-page</code> CSS class to the modal element.
+			It expands the width just as for the <code>wide</code> class, but also does that for the height symmetrically.
+		</p>
+		<p>
+			The modal may now be higher than its content needs to be, as can be seen in the following simple example.
+			To use that space, it is recommended to also use the <code>flexLayout</code> option and provide a suitable content layout.
+		</p>
+		<div class="example no-frontfire" data-source-highlight='(?<=")modal|full-page(?=")'>
+			<div id="big-modal" class="modal full-page">
+				<h2 class="no-top-margin">Modal title</h2>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin commodo et ante sed placerat. Phasellus ipsum neque, ultricies eu mattis ut, euismod in sapien. Sed ultricies a leo vitae fermentum. Fusce nulla lectus, suscipit sit amet eleifend a, pulvinar ac ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque magna urna, vestibulum id dui ac, suscipit euismod turpis. Etiam eget pretium nisl. Sed a hendrerit erat, at sagittis nisi. Nullam ornare dapibus velit, ut lobortis lectus porta viverra. Cras et risus ex.
+				</p>
+				<div class="buttons center">
+					<button id="big-modal-close">Close</button>
+				</div>
+			</div>
+			<div class="buttons p">
+				<button id="open-big-modal">Open full-page modal</button>
+			</div>
+			<script>
+				F("#open-big-modal").on("click", () => {
+					F("#big-modal").modal();
+				});
+				F("#big-modal-close").on("click", () => {
+					F("#big-modal").modal.close();
 				});
 			</script>
 		</div>
@@ -160,6 +196,12 @@
 					<td>None</td>
 				</tr>
 				<tr>
+					<td><code>defaultButton</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the first default button is clicked when the Enter key was pressed.</td>
+					<td>False</td>
+				</tr>
+				<tr>
 					<td><code>dimBackground</code></td>
 					<td>Boolean</td>
 					<td>Indicates whether the page background is dimmed while the modal is open.</td>
@@ -167,6 +209,9 @@
 				</tr>
 			</tbody>
 		</table>
+		<p class="history">
+			<code>defaultButton</code> added in v2.1.0
+		</p>
 
 		<h2 id="properties">Plugin properties</h2>
 		<p>
@@ -363,8 +408,21 @@
 					<td>The language to use for default buttons (see below).</td>
 					<td>Page language</td>
 				</tr>
+				<tr>
+					<td><code>flexLayout</code></td>
+					<td>Boolean</td>
+					<td>
+						Specifies whether the modal container uses a flex layout instead of an overflow scoll.
+						The options.content will not be wrapped in a new container.
+						Use this if you have your own scrolling area in the content.
+					</td>
+					<td>false</td>
+				</tr>
 			</tbody>
 		</table>
+		<p class="history">
+			<code>flexLayout</code> option added in v2.1.0
+		</p>
 
 		<p>
 			The first button with the <code class="css-class">default</code> CSS class is focused initially.
@@ -391,6 +449,10 @@
 					<td>OK default button (result: true)<br>Cancel transparent button (result: false)</td>
 				</tr>
 				<tr>
+					<td><code>cancel</code></td>
+					<td>Cancel transparent button (result: false)</td>
+				</tr>
+				<tr>
 					<td><code>YES no</code></td>
 					<td>Yes default button (result: true)<br>No button (result: false)</td>
 				</tr>
@@ -404,6 +466,9 @@
 				</tr>
 			</tbody>
 		</table>
+		<p class="history">
+			"cancel" buttons value added in v2.1.0
+		</p>
 
 		<p>
 			If no language is specified, the language is determined by the <code>lang</code> attribute of the document root element (<code data-lang="html">&lt;html&gt;</code>).

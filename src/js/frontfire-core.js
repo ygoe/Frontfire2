@@ -817,6 +817,42 @@
 		}
 	});
 
+	// Gets a value indicating whether all selected Nodes have the dark theme (CSS class).
+	object_defineProperty(Frontfire_prototype, "dark", {
+		get: function () {
+			// Collect all current nodes or their replacements once
+			let nodes = this.select(n => getNodeData(n, "visible.replacement", n));
+
+			// An item uses the dark theme if itself or any parent has the 'dark' CSS class and no
+			// intermediate parent has the 'not-dark' CSS class.
+			// Check length to return false if there is no node.
+			return nodes.length > 0 &&
+				nodes.all(n => n.closest(".dark, .not-dark")?.classList.contains("dark"));
+		}
+	});
+
+	// Gets the effective background color of an element, considering all parents for non-opaque colors.
+	// Requires the Color class and returns a Color instance.
+	object_defineProperty(Frontfire_prototype, "effectiveBackgroundColor", {
+		get: function () {
+			let element = this.array[0];
+			let color = new Color(getComputedStyle(element).backgroundColor);
+			if (color.a < 1) {
+				let parent = element.parentElement;
+				if (parent) {
+					let parentColor = new Frontfire(parent).effectiveBackgroundColor;
+					// parentColor is opaque because it recurses until then
+					color = parentColor.blendWith(color, color.a);
+				}
+				else {
+					// Root element, use default white
+					color = new Color("#ffffff");
+				}
+			}
+			return color;
+		}
+	});
+
 	// Gets or sets a value indicating whether all selected Nodes are visible. A node is considered
 	// invisible (to the layout) if it has the style "display: none", and visible in all other cases.
 	// See also: jQuery.show(), jQuery.hide()
@@ -1227,7 +1263,7 @@
 		set: function (value) {
 			this.forEach(n => {
 				let realPos = n.getBoundingClientRect().top + window.scrollY;
-				let computedPos = parseFloat(n.F.computedStyle.top);
+				let computedPos = parseFloat(getComputedStyle(n).top);
 				value -= realPos - computedPos;
 				n.style.top = value + "px";
 			});
@@ -1247,7 +1283,7 @@
 		set: function (value) {
 			this.forEach(n => {
 				let realPos = n.getBoundingClientRect().left + window.scrollX;
-				let computedPos = parseFloat(n.F.computedStyle.left);
+				let computedPos = parseFloat(getComputedStyle(n).left);
 				value -= realPos - computedPos;
 				n.style.left = value + "px";
 			});
@@ -2133,11 +2169,18 @@
 
 	// Returns a clone, or duplicate, of the selected Nodes, including their subtrees but not
 	// including any event listeners.
+	// For templates, their content will be cloned and all children will be collected in the
+	// returned instance.
 	// See also: Node.cloneNode(), jQuery.clone()
 	// NOTE: The effect of this method differs from the base class ArrayList.clone().
 	//       To call the base class implementation, change the interface with the 'L' property.
 	Frontfire_prototype.clone = function () {
-		return new Frontfire(this.select(n => n.cloneNode(true)));
+		return new Frontfire(this.select(n => {
+			if (n.nodeName.toLowerCase() === "template") {
+				return Array.from(n.content.cloneNode(true).children);
+			}
+			return n.cloneNode(true);
+		}).flat());
 	};
 
 	// Calls a function when the disabled state of any of the selected Nodes changes.
@@ -2173,6 +2216,16 @@
 		return isScrollable(this.first);
 	};
 
+	// Returns the scrollbar width of the first selected element.
+	Frontfire_prototype.scrollbarWidth = function () {
+		return this.first.offsetWidth - this.first.clientWidth;
+	};
+
+	// Returns the scrollbar height of the first selected element.
+	Frontfire_prototype.scrollbarHeight = function () {
+		return this.first.offsetHeight - this.first.clientHeight;
+	};
+
 	// Returns the closest scrolling parent element of the first selected element. If the element
 	// itself can already scroll, it is returned.
 	// Source: https://htmldom.dev/get-the-first-scrollable-parent-of-an-element/
@@ -2195,7 +2248,7 @@
 		let scrollable = closestScrollable(element.parentElement ?? element);
 		let top = getRelativeTop(element, scrollable);
 		// getRelativeTop measures from top of the parent border, scrolling starts at bottom of border
-		top -= parseFloat(scrollable.F.computedStyle.borderTopWidth);
+		top -= parseFloat(getComputedStyle(scrollable).borderTopWidth);
 		let bottom = top + element.offsetHeight;
 		let viewTop = scrollable.scrollTop;
 		let viewBottom = viewTop + scrollable.clientHeight;
@@ -2205,6 +2258,7 @@
 	// Scrolls the first selected element into view in its scrolling parent, if it is not already
 	// fully visible. If the element does not fit in the view height, it is aligned at the top edge.
 	// margin: Vertical margin to keep clear (top and bottom as single number or both values in an array), in pixels. (Optional)
+	//   Can also be an array of 2 strings in the format "n*" where n defines the relative fill space.
 	// smooth: Indicates whether the scrolling should animate smoothly. (Optional, default: false)
 	// recursive: Indicates whether scrollable parents are also scrolled into view. (Optional, default: false)
 	Frontfire_prototype.scrollIntoView = function (margin, smooth, recursive) {
@@ -2240,7 +2294,7 @@
 		let scrollable = closestScrollable(element.parentElement ?? element);
 		let top = getRelativeTop(element, scrollable);
 		// getRelativeTop measures from top of the parent border, scrolling starts at bottom of border
-		top -= parseFloat(scrollable.F.computedStyle.borderTopWidth);
+		top -= parseFloat(getComputedStyle(scrollable).borderTopWidth);
 		let bottom = top + element.offsetHeight;
 		let viewTop = scrollable.scrollTop;
 		let viewBottom = viewTop + scrollable.clientHeight;
@@ -2251,8 +2305,19 @@
 			bottom += margin;
 		}
 		else if (Array.isArray(margin)) {
-			top -= margin[0];
-			bottom += margin[1];
+			if (isNumber(margin[0]) && isNumber(margin[1])) {
+				top -= margin[0];
+				bottom += margin[1];
+			}
+			if (isString(margin[0]) && isString(margin[1])) {
+				let matches = margin.map(m => m.match(/^([0-9.])\*$/)?.[1]);
+				let fillHeight = scrollable.clientHeight - element.offsetHeight;
+				let sum = +matches[0] + +matches[1];
+				if (sum) {
+					top -= +matches[0] / sum * fillHeight;
+					bottom += +matches[1] / sum * fillHeight;
+				}
+			}
 		}
 
 		let newScrollTop = scrollable.scrollTop;
@@ -2814,6 +2879,65 @@
 		};
 	};
 
+	// Forwards an event from the first selected element to another element, holding a weak
+	// reference to the target element. The internal forwarding entry is cleaned up if the target
+	// element was garbage-collected when an event is to be forwarded.
+	//
+	// eventName: (String) The name of the event to forward. No event data is set with the forwarded
+	//   event.
+	// targetElement: The element to trigger the event for.
+	Frontfire_prototype.forwardEvent = function (eventName, targetElement) {
+		let source = this.first;
+		if (!source) return;   // Nothing to do
+		if (targetElement instanceof ArrayList)
+			targetElement = targetElement.first;
+
+		const sourceF = new Frontfire(source);
+		const sourceEventName = eventName + ".ff-forward";
+		const dataKey = "forwardEvent." + eventName;
+		if (!sourceF.hasEventListeners(sourceEventName)) {
+			sourceF.on(sourceEventName, event => {
+				const targetElementWeakRefs = getNodeData(source, dataKey);
+				if (targetElementWeakRefs) {
+					targetElementWeakRefs.forEach(weakRef => {
+						const targetElement = weakRef.deref();
+						if (targetElement)
+							new Frontfire(targetElement).trigger(eventName)
+						else
+							removeNodeData(source, dataKey, weakRef);
+					});
+				}
+			});
+		}
+
+		const weakRef = new WeakRef(targetElement);
+		addNodeData(source, dataKey, weakRef);
+	};
+
+	// Forgets an event forwarding set up with the forwardEvent() method.
+	//
+	// eventName: (String) The name of the event to no longer forward.
+	// targetElement: The element to previously trigger the event for.
+	Frontfire_prototype.unforwardEvent = function (eventName, targetElement) {
+		let source = this.first;
+		if (!source) return;   // Nothing to do
+		if (targetElement instanceof ArrayList)
+			targetElement = targetElement.first;
+
+		const dataKey = "forwardEvent." + eventName;
+		const targetElementWeakRefs = getNodeData(source, dataKey);
+		if (targetElementWeakRefs) {
+			targetElementWeakRefs.forEach(weakRef => {
+				const currentTargetElement = weakRef.deref();
+				// Remove the specified element, and all garbage-collected elements as well
+				if (!currentTargetElement ||
+					currentTargetElement && currentTargetElement === targetElement) {
+					removeNodeData(source, dataKey, weakRef);
+				}
+			});
+		}
+	};
+
 
 	// ==================== Forms methods ====================
 
@@ -2999,9 +3123,26 @@
 		void(document.body.offsetHeight + document.body.scrollHeight);
 	};
 
-	// Asynchronously sleeps for the specified time in milliseconds.
-	// Returns a Promise that resolves after the specified time.
-	Frontfire.sleep = async ms => new Promise(resolve => setTimeout(resolve, ms));
+	// Asynchronously waits for the specified time in milliseconds.
+	// Returns a Promise that resolves after the specified time, or rejects with an AbortError when
+	// the abortSignal was signalled.
+	Frontfire.delay = async (ms, abortSignal) => {
+		let handler, timeout;
+		try {
+			await new Promise((resolve, reject) => {
+				handler = () => reject(abortSignal.reason);
+				abortSignal?.addEventListener("abort", handler);
+				timeout = setTimeout(resolve, ms);
+			});
+		}
+		finally {
+			abortSignal?.removeEventListener("abort", handler);
+			clearTimeout(timeout);
+		}
+	};
+
+	// Deprecated alias, introduced in v2.1.0, to be removed in v3.0.0
+	Frontfire.sleep = Frontfire.delay;
 
 	// Copies the specified plain text into the system clipboard. This method uses a temporary dummy
 	// DOM element and not the newer Clipboard API so it's always available.
@@ -3250,6 +3391,9 @@
 	// Determines whether an object is iterable, i.e. usable in for-of loops.
 	Frontfire.isIterable = isIterable;
 
+	// Determines whether the value is a function.
+	Frontfire.isFunction = isFunction;
+
 	// ---------- Operating system tests ----------
 
 	// Determines whether the client operating system is Android.
@@ -3286,9 +3430,9 @@
 	Frontfire.isEdgeClassic = () => !!window.StyleMedia;
 
 	// Determines whether the browser is Firefox.
-	// The CSS property -moz-user-focus is supported from Firefox 1 and nowhere else and not deprecated.
+	// The CSS property -moz-appearance is supported from Firefox 2 and nowhere else and not deprecated.
 	// NOTE: Referencing InstallTrigger prints a warning to the console.
-	Frontfire.isFirefox = () => "MozUserFocus" in document.body.style || typeof InstallTrigger !== "undefined";
+	Frontfire.isFirefox = () => "MozAppearance" in document.body.style || typeof InstallTrigger !== "undefined";
 
 	// Determines whether the browser is Opera (derived from Chromium).
 	Frontfire.isOpera = () => Frontfire.isChrome() && navigator.userAgent.indexOf(" OPR/") >= 0;
@@ -3324,7 +3468,7 @@
 				// Wrap the function to assign the additional methods below to the individual
 				// instance and not the original function. This makes the return values of this
 				// property storable and reusable.
-				let ret = function () { return createFn.apply(this, arguments); };
+				let pluginDefaultFunction = function () { return createFn.apply(this, arguments); };
 
 				// Additional plugin methods, added to the returned function, bound to whoever has
 				// called this property to pass on "this" to the next function
@@ -3332,10 +3476,10 @@
 					for (let key in methods) {
 						const method = methods[key];
 						if (isFunction(method)) {
-							ret[key] = method.bind(this);
+							pluginDefaultFunction[key] = method.bind(this);
 						}
 						else if (typeof method === "object" && ("get" in method || "set" in method)) {
-							object_defineProperty(ret, key, {
+							object_defineProperty(pluginDefaultFunction, key, {
 								get: method.get?.bind(this),
 								set: method.set?.bind(this)
 							});
@@ -3345,12 +3489,12 @@
 
 				// Make the default options in the original shared object accessible and overwritable
 				if (defaultOptions) {
-					object_defineProperty(ret, "defaults", {
+					object_defineProperty(pluginDefaultFunction, "defaults", {
 						get: () => defaultOptions,
 						set: value => object_assign(defaultOptions, value)
 					});
 				}
-				return ret;
+				return pluginDefaultFunction;
 			}
 		});
 		registeredPlugins.push(pluginName);
@@ -3977,5 +4121,9 @@
 		// (But overwrite implicit DHTML access to element with that id)
 		if (window.F === undefined || window.F === document.getElementById("F"))
 			window.F = Frontfire;
+		// NOTE: The convention in this file is not to use .F because it may be overwritten.
+		//       Frontfire UI, however, uses .F frequently because of its complexity and the
+		//       somewhat shorter syntax it provides. That means that .F may be overwritten only
+		//       if not using Frontfire UI also.
 	}
 })(ArrayList);

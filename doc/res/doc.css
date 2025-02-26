@@ -630,7 +630,8 @@ div.member span.live-test.false
 	color: #ee3b2b;
 }
 p.inherited,
-p.see-also
+p.see-also,
+p.history
 {
 	font-size: 0.85em;
 	line-height: 140%;
@@ -638,6 +639,13 @@ p.see-also
 p.see-also::before
 {
 	content: "↗";   /* north east arrow */
+	font-size: 1.4em;
+	line-height: 1;
+	margin-right: 2px;
+}
+p.history::before
+{
+	content: "±";   /* plus minus */
 	font-size: 1.4em;
 	line-height: 1;
 	margin-right: 2px;

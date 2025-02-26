@@ -695,6 +695,11 @@
 			fill: var(--button-disabled-color);
 		}
 	}
+	div.buttons.center &.transparent:last-child:not(:only-child)
+	{
+		// Compensate visually reduced width due to lack of background colour to keep centre alignment (ignore right padding)
+		margin-right: -9px;
+	}
 
 	.ff-input-wrapper &,
 	&.narrow
@@ -730,7 +735,8 @@
 		margin-left: 3px;
 	}
 
-	i.material
+	i.material,
+	.material-stack
 	{
 		font-size: 20px;
 		line-height: 1px;   // Don't increase the button's line height
@@ -1130,4 +1136,30 @@ input[type=radio].ff-checkbox
 .indent-checkbox > label > input.ff-checkbox
 {
 	margin-left: -27px;
+}
+
+.radio-group
+{
+	display: inline-flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-content: center;
+	gap: 1em;
+
+	&.right
+	{
+		justify-content: flex-end;
+	}
+	&.center
+	{
+		justify-content: center;
+	}
+}
+
+.ff-repeat-button
+{
+	// This should be obvious and default, but it's needed to allow long-touching the button
+	// if it has text content
+	-webkit-user-select: none;   // for Safari
+	user-select: none;
 }

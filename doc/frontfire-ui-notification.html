@@ -153,7 +153,7 @@
 					let quick = button.dataset.quick !== undefined;
 					let timeout = button.dataset.timeout ? parseInt(button.dataset.timeout) : undefined;
 					if (long)
-						text = "This is a very long message that may wrap on smaller screens.\nIt even contains a line break and <html> code.";
+						text = "This is a very long message that may wrap on smaller screens.\nIt even contains a line break and <html> special characters.";
 					lastNotification = F.notify(text, type, { quick: quick, timeout: timeout });
 				});
 

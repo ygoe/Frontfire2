@@ -23,12 +23,58 @@
 
 		<!-- NOTE: The first version and date in this file are picked up by the pack script. -->
 		<!-- NOTE: Only change this version number in a separate commit for the big number of modified files. -->
-		<h2 id="v2-0-1">Version 2.0.1</h2>
+		<h2 id="v2-1-0">Version 2.1.0</h2>
 		<p>Released: not yet</p>
-		<p>No changes yet</p>
+		<h3 class="no-toc">New features</h3>
+		<ul>
+			<li><a href="frontfire-ui-carousel.html">Carousel</a> plugin: Added <a href="frontfire-ui-carousel.html#length"><code>length</code></a> property</li>
+			<li><a href="frontfire-core.html#delay"><code>Frontfire.delay</code></a>: Added optional <code>abortSignal</code> parameter</li>
+			<li>Added <a href="frontfire-core.html#isFunction"><code>Frontfire.isFunction</code></a></li>
+			<li>Added <a href="frontfire-core.html#scrollbarWidth"><code>Frontfire.scrollbarWidth</code></a> and <a href="frontfire-core.html#scrollbarHeight"><code>Frontfire.scrollbarHeight</code></a></li>
+			<li><a href="frontfire-ui-colorpicker.html">ColorPicker</a> plugin: Added <a href="frontfire-ui-colorpicker.html#dataColor"><code>dataColor</code></a> property and improved dark theme support</li>
+			<li>Added <a href="frontfire-core.html#forwardEvent"><code>Frontfire.forwardEvent</code></a> and <a href="frontfire-core.html#unforwardEvent"><code>Frontfire.unforwardEvent</code></a></li>
+			<li>Added <a href="frontfire-core.html#dark"><code>Frontfire.dark</code></a></li>
+			<li>Added <a href="frontfire-core.html#effectiveBackgroundColor"><code>Frontfire.effectiveBackgroundColor</code></a></li>
+			<li><a href="datacolor.html">DataColor</a>: Added "b2" background colour option, making it 3 foreground and equally many background colours</li>
+			<li>Added <a href="datacolor.html#parse"><code>DataColor.parse</code></a> and <a href="datacolor.html#parseGetColor"><code>DataColor.parseGetColor</code></a></li>
+			<li>Added <code class="css-class">radio-group</code> CSS class</li>
+			<li><a href="frontfire-ui-form.html#form-row-column-widths">Form row column widths in XAML syntax</a></li>
+			<li><a href="arraylist.html#maxBy"><code>ArrayList.maxBy</code></a> and <a href="arraylist.html#minBy"><code>ArrayList.minBy</code></a></li>
+			<li><a href="arraylist.html#sortByUseLocale"><code>ArrayList.sortByUseLocale</code></a> and <a href="arraylist.html#sortByDescendingUseLocale"><code>ArrayList.sortByDescendingUseLocale</code></a></li>
+			<li><a href="arraylist.html#orderByUseLocale"><code>ArrayList.orderByUseLocale</code></a> and <a href="arraylist.html#orderByDescendingUseLocale"><code>ArrayList.orderByDescendingUseLocale</code></a></li>
+			<li><a href="frontfire-ui-modal.html">Modal</a> plugin: Added <a href="frontfire-ui-modal.html#options"><code>defaultButton</code></a> and <a href="frontfire-ui-modal.html#static-options"><code>flexLayout</code></a> options, <a href="frontfire-ui-variables.html#modal-margin"><code>--modal-margin</code></a> and <a href="frontfire-ui-variables.html#modal-padding"><code>--modal-padding</code></a> CSS variables, and <code class="css-class">full-page</code> CSS class</li>
+			<li><a href="frontfire-ui-selectable.html">Selectable</a> plugin: Added properties to the <a href="frontfire-ui-selectable.html#change"><code>change</code></a> event</li>
+			<li><a href="frontfire-ui-selectable.html">Selectable</a> plugin: Added <a href="frontfire-ui-selectable.html#isDropdownOpen"><code>isDropdownOpen</code></a> property and <a href="frontfire-ui-selectable.html#closeDropdown"><code>closeDropdown</code></a> and <a href="frontfire-ui-selectable.html#openDropdown"><code>openDropdown</code></a> methods</li>
+			<li>Extended <a href="frontfire-core.html#scrollIntoView"><code>F.scrollIntoView()</code></a> to support string parameters for margins to specify relative fill space</li>
+			<li><a href="frontfire-ui-form.html#submit-lock-lock">Form submit lock</a>: added <code>showLoadingIndicator</code> parameter to <code>lock()</code> method</li>
+		</ul>
 		<h3 class="no-toc">Bugfixes</h3>
 		<ul>
-			<li><a href="frontfire-ui-form.html#spinner">Spinner</a> (actually RepeatButton) is more robust when disabling a button, triggered by a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1864515">bug in Firefox 119</a></li>
+			<li><a href="frontfire-ui-form.html#spinner">Spinner</a> (actually RepeatButton) is more robust when disabling a button, triggered by a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1864515">bug in Firefox 119</a> (fixed in Firefox 124)</li>
+			<li><a href="frontfire-ui-carousel.html">Carousel</a> plugin: <a href="frontfire-ui-carousel.html#activeItem"><code>activeItem</code></a> property now really returns the element</li>
+			<li><a href="color.html#Color"><code>Color()</code></a> did not remove its temporary element for color name parsing</li>
+			<li><a href="frontfire-ui-colorpicker.html#modal">Colour picker modal</a> did not remove its modal content element after closing the modal</li>
+			<li><a href="frontfire-ui-modal.html#static">Static modal</a> content was not initialised with the <a href="frontfire-core.html#frontfire"><code>.frontfire()</code></a> call</li>
+			<li><a href="frontfire-ui-selectable.html#select-element">Selectable dropdown</a> was opened when scrolling the page with touch input on the element</li>
+			<li><a href="frontfire-ui-form.html#spinner">Numeric spinner</a> value was changed when scrolling the page with touch input on a button</li>
+			<li><a href="frontfire-ui-form.html#repeat-button">Repeat button</a> with text content did not support touch input</li>
+			<li><a href="frontfire-ui-tabs.html">Tab</a> page was changed when scrolling the page with touch input on a tab header</li>
+			<li><a href="frontfire-ui-tree.html">Tree</a> reordering of items was not possible with touch input, now dragging items is preferred over vertical scrolling</li>
+			<li><a href="frontfire-ui-slider.html">Slider</a> value was changed when scrolling the page along the other axis with touch input on the slider element</li>
+			<li>Resolved warning from <a href="frontfire-core.html#isFirefox"><code>F.isFirefox()</code></a> using a now deprecated feature for browser detection</li>
+			<li><a href="frontfire-ui-modal.html">Modal</a> plugin: Enter key with Shift key does not trigger the default action anymore to allow line breaks in <code data-lang="html">&lt;textarea&gt;</code> inputs</li>
+		</ul>
+		<h3 class="no-toc">Breaking changes</h3>
+		<ul>
+			<li><a href="frontfire-ui-modal.html">Modal</a> plugin: Buttons are no longer centred by default. To horizontally centre the buttons, add the <code class="css-class">center</code> CSS class to the <code data-lang="html">&lt;div class="buttons"&gt;</code> element.</li>
+		</ul>
+		<h3 class="no-toc">Changes</h3>
+		<ul>
+			<li>ArrayList sorting functions have a defined behaviour for null and undefined values.</li>
+			<li><a href="frontfire-ui-modal.html#static">F.modal()</a> increases the content width automatically to avoid unnecessary line wrap when a scrollbar is shown</li>
+			<li><a href="frontfire-core.html#clone"><code>Frontfire.clone</code></a>: Handles content of template elements conveniently</li>
+			<li><a href="frontfire-ui-gallery.html#last-row-size">Gallery</a> plugin: Improved last row size handling</li>
+			<li>Renamed <code>Frontfire.sleep</code> to <a href="frontfire-core.html#delay"><code>Frontfire.delay</code></a>, old name kept as alias</li>
 		</ul>
 
 		<hr class="double-margin">

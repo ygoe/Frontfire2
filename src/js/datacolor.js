@@ -48,81 +48,82 @@
 		// - f1: light foreground
 		// - f2: lighter foreground
 		// - b0: light background
-		// - b1: strong background
+		// - b1: medium background
+		// - b2: intense background
 		red: {
 			primary: true,
 			h: 5,
-			sl: { f0: 85, f1: 85, f2: 85, b0: 85, b1: 85 },
-			ll: { f0: 55, f1: 75, f2: 88, b0: 96, b1: 75 },
-			sd: { f0: 85, f1: 85, f2: 85, b0: 65, b1: 65 },
-			ld: { f0: 55, f1: 38, f2: 27, b0: 14, b1: 38 }
+			sl: { f0: 85, f1: 85, f2: 85, b0: 85, b1: 83, b2: 80 },
+			ll: { f0: 55, f1: 75, f2: 88, b0: 96, b1: 88, b2: 75 },
+			sd: { f0: 85, f1: 85, f2: 85, b0: 65, b1: 65, b2: 65 },
+			ld: { f0: 55, f1: 38, f2: 27, b0: 14, b1: 24, b2: 38 }
 		},
 		orange: {
 			h: 30,
-			sl: { f0: 95, f1: 95, f2: 95, b0: 95, b1: 75 },
-			ll: { f0: 55, f1: 75, f2: 89, b0: 95, b1: 75 },
-			sd: { f0: 95, f1: 95, f2: 95, b0: 75, b1: 75 },
-			ld: { f0: 55, f1: 38, f2: 27, b0: 13, b1: 36 }
+			sl: { f0: 95, f1: 95, f2: 95, b0: 95, b1: 87, b2: 75 },
+			ll: { f0: 55, f1: 75, f2: 89, b0: 95, b1: 87, b2: 75 },
+			sd: { f0: 95, f1: 95, f2: 95, b0: 75, b1: 75, b2: 75 },
+			ld: { f0: 55, f1: 38, f2: 27, b0: 13, b1: 22, b2: 36 }
 		},
 		yellow: {
 			primary: true,
 			h: 47,
-			sl: { f0: 100, f1: 100, f2: 100, b0: 100, b1: 70 },
-			ll: { f0: 50, f1: 72, f2: 86, b0: 94, b1: 72 },
-			sd: { f0: 100, f1: 100, f2: 100, b0: 85, b1: 85 },
-			ld: { f0: 50, f1: 36, f2: 25, b0: 11, b1: 33 }
+			sl: { f0: 100, f1: 100, f2: 100, b0: 100, b1: 87, b2: 70 },
+			ll: { f0: 50, f1: 72, f2: 86, b0: 94, b1: 87, b2: 72 },
+			sd: { f0: 100, f1: 100, f2: 100, b0: 85, b1: 85, b2: 85 },
+			ld: { f0: 50, f1: 36, f2: 25, b0: 11, b1: 20, b2: 33 }
 		},
 		olive: {
 			h: 70,
-			sl: { f0: 80, f1: 80, f2: 80, b0: 80, b1: 55 },
-			ll: { f0: 45, f1: 68, f2: 82, b0: 92, b1: 68 },
-			sd: { f0: 80, f1: 80, f2: 80, b0: 60, b1: 60 },
-			ld: { f0: 45, f1: 33, f2: 23, b0: 11, b1: 33 }
+			sl: { f0: 80, f1: 80, f2: 80, b0: 80, b1: 69, b2: 55 },
+			ll: { f0: 45, f1: 68, f2: 82, b0: 92, b1: 82, b2: 68 },
+			sd: { f0: 80, f1: 80, f2: 80, b0: 60, b1: 60, b2: 60 },
+			ld: { f0: 45, f1: 33, f2: 23, b0: 11, b1: 20, b2: 33 }
 		},
 		green: {
 			primary: true,
 			h: 110,
-			sl: { f0: 75, f1: 75, f2: 75, b0: 75, b1: 50 },
-			ll: { f0: 45, f1: 68, f2: 83, b0: 95, b1: 68 },
-			sd: { f0: 75, f1: 75, f2: 75, b0: 55, b1: 50 },
-			ld: { f0: 45, f1: 33, f2: 23, b0: 12, b1: 33 }
+			sl: { f0: 75, f1: 75, f2: 75, b0: 75, b1: 70, b2: 50 },
+			ll: { f0: 45, f1: 68, f2: 83, b0: 95, b1: 84, b2: 68 },
+			sd: { f0: 75, f1: 75, f2: 75, b0: 55, b1: 53, b2: 50 },
+			ld: { f0: 45, f1: 33, f2: 23, b0: 12, b1: 20, b2: 33 }
 		},
 		cyan: {
 			h: 175,
-			sl: { f0: 80, f1: 80, f2: 80, b0: 80, b1: 45 },
-			ll: { f0: 45, f1: 68, f2: 84, b0: 95, b1: 68 },
-			sd: { f0: 80, f1: 80, f2: 80, b0: 60, b1: 60 },
-			ld: { f0: 45, f1: 32, f2: 21, b0: 11, b1: 32 }
+			sl: { f0: 80, f1: 80, f2: 80, b0: 80, b1: 64, b2: 45 },
+			ll: { f0: 45, f1: 68, f2: 84, b0: 95, b1: 84, b2: 68 },
+			sd: { f0: 80, f1: 80, f2: 80, b0: 60, b1: 60, b2: 60 },
+			ld: { f0: 45, f1: 32, f2: 21, b0: 11, b1: 20, b2: 32 }
 		},
 		blue: {
 			primary: true,
 			h: 210,
-			sl: { f0: 80, f1: 80, f2: 80, b0: 80, b1: 55 },
-			ll: { f0: 50, f1: 72, f2: 87, b0: 96, b1: 72 },
-			sd: { f0: 80, f1: 80, f2: 80, b0: 60, b1: 60 },
-			ld: { f0: 50, f1: 35, f2: 25, b0: 15, b1: 36 }
+			sl: { f0: 80, f1: 80, f2: 80, b0: 85, b1: 71, b2: 55 },
+			ll: { f0: 50, f1: 72, f2: 87, b0: 96, b1: 87, b2: 72 },
+			sd: { f0: 80, f1: 80, f2: 80, b0: 60, b1: 60, b2: 60 },
+			ld: { f0: 50, f1: 35, f2: 25, b0: 15, b1: 24, b2: 36 }
 		},
 		darkblue: {
 			h: 245,
-			sl: { f0: 70, f1: 70, f2: 70, b0: 70, b1: 55 },
-			ll: { f0: 57, f1: 75, f2: 89, b0: 97, b1: 75 },
-			sd: { f0: 70, f1: 70, f2: 70, b0: 50, b1: 50 },
-			ld: { f0: 54, f1: 44, f2: 34, b0: 18, b1: 37 }
+			sl: { f0: 70, f1: 70, f2: 70, b0: 75, b1: 67, b2: 55 },
+			ll: { f0: 57, f1: 75, f2: 89, b0: 97, b1: 88, b2: 75 },
+			sd: { f0: 70, f1: 70, f2: 70, b0: 50, b1: 50, b2: 50 },
+			ld: { f0: 54, f1: 44, f2: 34, b0: 19, b1: 27, b2: 39 }
 		},
 		purple: {
 			primary: true,
 			h: 280,
-			sl: { f0: 80, f1: 80, f2: 80, b0: 80, b1: 55 },
-			ll: { f0: 55, f1: 75, f2: 89, b0: 97, b1: 75 },
-			sd: { f0: 80, f1: 80, f2: 80, b0: 60, b1: 55 },
-			ld: { f0: 55, f1: 38, f2: 27, b0: 15, b1: 38 }
+			sl: { f0: 80, f1: 80, f2: 80, b0: 85, b1: 72, b2: 55 },
+			ll: { f0: 55, f1: 75, f2: 89, b0: 97, b1: 88, b2: 75 },
+			sd: { f0: 80, f1: 80, f2: 80, b0: 60, b1: 58, b2: 55 },
+			ld: { f0: 55, f1: 38, f2: 27, b0: 15, b1: 24, b2: 38 }
 		},
 		pink: {
 			h: 320,
-			sl: { f0: 80, f1: 80, f2: 80, b0: 80, b1: 55 },
-			ll: { f0: 60, f1: 77, f2: 90, b0: 97, b1: 77 },
-			sd: { f0: 80, f1: 80, f2: 80, b0: 60, b1: 50 },
-			ld: { f0: 60, f1: 40, f2: 29, b0: 14, b1: 40 }
+			sl: { f0: 80, f1: 80, f2: 80, b0: 83, b1: 71, b2: 55 },
+			ll: { f0: 60, f1: 77, f2: 90, b0: 97, b1: 88, b2: 77 },
+			sd: { f0: 80, f1: 80, f2: 80, b0: 60, b1: 56, b2: 50 },
+			ld: { f0: 60, f1: 40, f2: 29, b0: 14, b1: 25, b2: 40 }
 		},
 	};
 
@@ -156,6 +157,35 @@
 
 
 	// ==================== Static functions ====================
+
+	// Parses a DataColor specification and returns an array containing [colorId, type].
+	// A DataColor specification consists of a colorId and a numeric level (0 to 2), separated by a hyphen (-).
+	// The typePrefix must be set to "f" or "b" and will be included in the returned type, as it is
+	// not included in the DataColor specification. If unset, "f" is assumed.
+	// If the value is not a valid DataColor specification, null is returned.
+	DataColor.parse = function (value, typePrefix) {
+		if (typeof value === "string") {
+			let dataColorMatch = value.match(/^([a-z]+)-([0-2])$/);
+			if (dataColorMatch) {
+				// Looks like a DataColor specification
+				let colorId = dataColorMatch[1];
+				let type = (typePrefix || "f") + dataColorMatch[2];
+				if (colorId in colorData)
+					return [colorId, type];
+			}
+		}
+		return null;
+	};
+
+	// Parses a DataColor specification and returns the color string if the value is valid;
+	// otherwise null.
+	DataColor.parseGetColor = function (value, typePrefix, isDark) {
+		let dc = DataColor.parse(value, typePrefix);
+		if (dc) {
+			return DataColor.getColor(dc[0], dc[1], isDark);
+		}
+		return null;
+	};
 
 	// Gets the IDs of the color palette.
 	DataColor.getColorIds = function () {

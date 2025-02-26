@@ -57,10 +57,25 @@
 		<p>
 			The <a href="datacolor.html">DataColor</a> palette can be used in this picker by setting the <code>colorUse</code> option.
 		</p>
-		<div class="example p resizable no-frontfire" data-source-highlight="color-use">
-			<div class="color-picker" data-opt="color-use: foreground;">
+		<div class="example p resizable no-frontfire" data-source-highlight="color-use|\.dataColor">
+			<div id="datacolorpicker" class="color-picker" data-opt="color-use: foreground; color: yellow-1;">
 			</div>
+			<div id="selected-color" class="p no-bottom-margin"></div>
+			<script>
+				F("#datacolorpicker").on("change", () => {
+					F("#selected-color").textContent =
+						"color: " + F("#datacolorpicker").colorPicker.color + ", " +
+						"dataColor: " + F("#datacolorpicker").colorPicker.dataColor;
+				});
+			</script>
 		</div>
+		<script>
+			F.onReady(() => {
+				F("#selected-color").textContent =
+					"color: " + F("#datacolorpicker").colorPicker.color + ", " +
+					"dataColor: " + F("#datacolorpicker").colorPicker.dataColor;
+			});
+		</script>
 
 		<h3 id="colorpicker-options">Options</h3>
 		<p>
@@ -131,7 +146,21 @@
 				<li><code>color</code> → String</li>
 			</ul>
 			<p>
-				Gets or sets the selected color of the color picker.
+				Gets or sets the selected colour of the colour picker.
+			</p>
+		</div>
+
+		<div class="member">
+			<h4 id="dataColor">dataColor</h4>
+			<ul>
+				<li><code>dataColor</code> → String</li>
+			</ul>
+			<p>
+				Gets the selected data colour of the colour picker, in the format “colorId-level”, e.g. “red-0” or “green-2”.
+				If the selected colour is not a data colour, <code>null</code> is returned.
+			</p>
+			<p class="history">
+				Added in v2.1.0
 			</p>
 		</div>
 
@@ -182,7 +211,7 @@
 			The modal can also be quickly confirmed by double-clicking on a colour box, or cancelled by pressing the <kbd>Esc</kbd> key.
 		</p>
 		<p>
-			The method returns a Promise that is resolved to the selected color when the modal is confirmed, or "" if the “no color” button was clicked, or undefined if the modal was cancelled or otherwise closed.
+			The method returns a Promise that is resolved to the selected color (<code>color</code> property, or <code>dataColor</code> property if enabled and selected) when the modal is confirmed, or "" if the “no color” button was clicked, or undefined if the modal was cancelled or otherwise closed.
 			Like with the <a href="frontfire-core.html#modal-static"><code>Frontfire.modal()</code></a> function, the Promise has an additional <code>cancel()</code> method to close the modal before a user interaction.
 		</p>
 
@@ -218,7 +247,8 @@
 				F("#open-modal-static2").on("click", async () => {
 					let result = await F.colorPickerModal({
 						color: "#55ccee",
-						allowEmpty: true
+						allowEmpty: true,
+						colorUse: "foreground"
 					});
 					if (result === undefined)
 						result = "Cancelled";
@@ -247,8 +277,28 @@
 					<td>Indicates whether the “no color” button is available.</td>
 					<td>false</td>
 				</tr>
+				<tr>
+					<td><code>separateDark</code></td>
+					<td>Boolean</td>
+					<td>
+						Shows a checkbox to select whether a separate colour is used for the dark theme.
+						This has no effect on the colour picker itself and needs to be interpreted by the application.
+						When true, the modal’s result is an object with the properties <code>color</code> (String) and <code>separateDark</code> (Boolean) instead of just the selected colour string.
+					</td>
+					<td>false</td>
+				</tr>
+				<tr>
+					<td><code>separateDarkChecked</code></td>
+					<td>Boolean</td>
+					<td>Checks the <code>separateDark</code> checkbox.</td>
+					<td>false</td>
+				</tr>
 			</tbody>
 		</table>
+
+		<p class="history">
+			<code>separateDark</code> and <code>separateDarkChecked</code> options added in v2.1.0
+		</p>
 
 		<h2 id="colorinput">Colour input field</h2>
 		<p>

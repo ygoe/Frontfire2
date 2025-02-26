@@ -44,12 +44,20 @@ function modal(options) {
 	let autofocus = modalElement.querySelector("[autofocus]");
 	if (autofocus) {
 		queueMicrotask(() => {
-			autofocus.setSelectionRange && autofocus.setSelectionRange(0, 0);
+			try {
+				autofocus.setSelectionRange && autofocus.setSelectionRange(0, 0);
+			}
+			catch {
+				// Only some input types allow this operation, but it's unknown why. Anyway, it's not critical.
+			}
 			autofocus.focus && autofocus.focus();
 		});
 	}
 	else {
-		let firstFocusable = modalElement.F.queryFocusable().first;
+		let buttons = modalElement.querySelector(":scope > div.buttons");
+		let firstFocusable = buttons?.F.queryFocusable().first;
+		if (!firstFocusable)
+			firstFocusable = modalElement.F.queryFocusable().first;
 		if (firstFocusable) {
 			firstFocusable.focus();
 			firstFocusable.blur();
@@ -86,9 +94,8 @@ function modal(options) {
 					event.preventDefault();
 					tryClose();
 				}
-				if (event.key === "Enter" && opt.defaultAction) {
-					event.preventDefault();
-					opt.defaultAction();
+				if (event.key === "Enter" && !event.shiftKey) {
+					onEnterKey(event);
 				}
 			}
 		});
@@ -123,6 +130,33 @@ function modal(options) {
 			let events = modalElement.F.trigger("closing", { bubbles: true, cancelable: true });
 			if (!events.first.defaultPrevented) {
 				closeModal.call(modalElement.F);
+			}
+		}
+	}
+	else {
+		document.F.on("keydown" + modalEventClass + "-" + opt.level, event => {
+			// Only handle if there's no other modal on top of this one
+			if (modalLevel === opt.level) {
+				if (event.key === "Enter" && !event.shiftKey) {
+					onEnterKey(event);
+				}
+			}
+		});
+	}
+
+	function onEnterKey(event) {
+		if (event.target instanceof HTMLTextAreaElement && !event.ctrlKey) {
+			// This handles the Enter key itself, only handle with Ctrl pressed
+			return;
+		}
+		if (opt.defaultAction || opt.defaultButton) {
+			event.preventDefault();
+			if (F.isFunction(opt.defaultAction)) {
+				opt.defaultAction();
+			}
+			if (opt.defaultButton) {
+				let firstDefaultButton = modalElement.querySelector("div.buttons button.default");
+				firstDefaultButton?.click();
 			}
 		}
 	}
@@ -285,6 +319,9 @@ const buttonNames = {
 // options.buttons[].result: The result value of the button.
 // options.className: (String) Additional CSS class names for the modal element.
 // options.language: (String) The language to use for default buttons.
+// options.flexLayout: (Boolean) Specifies whether the modal container uses a flex layout instead of
+//   an overflow scoll. The options.content will not be wrapped in a new container.
+//   Use this if you have your own scrolling area in the content.
 //
 // If a string is passed as first argument, it is displayed as text with an OK button.
 //
@@ -301,14 +338,26 @@ F.modal = function (options) {
 	modalElement.classList.add("modal");
 	if (options.className)
 		modalElement.F.classList.add(options.className);   // Support space-separated class names
+	modalElement.style.display = "flex";
+	modalElement.style.flexDirection = "column";
+	modalElement.style.maxHeight = "100vh";
+
 	let content = F.c("div");
 	content.style.overflow = "auto";
 	content.style.overscrollBehavior = "contain";
-	content.style.maxHeight = "calc(100vh - 80px - 5em)";   // padding of modal, height of buttons
-	modalElement.append(content);
+	// normal: 100vh - 2 * var(--modal-margin)
+	// minus padding of modal
+	// minus height of buttons: 1lh (text), 5px (button padding), 20px (div.buttons top margin)
+	content.style.maxHeight = "calc(100vh - 2 * var(--modal-margin) - 2 * var(--modal-padding) - 1lh - 2 * 5px - 20px)";
 	if (options.content) {
-		// Use Frontfire append to allow appending Frontfire content
-		content.F.append(options.content);
+		if (options.flexLayout) {
+			content = options.content;
+			content.style.minHeight = "0";   // needed to let it shrink to scroll its content
+		}
+		else {
+			// Use Frontfire append to allow appending Frontfire content
+			content.F.append(options.content);
+		}
 	}
 	else if (options.html) {
 		content.innerHTML = options.html;
@@ -317,6 +366,7 @@ F.modal = function (options) {
 		content.textContent = options.text;
 		content.style.whiteSpace = "pre-wrap";
 	}
+	modalElement.append(content);
 
 	let buttons = options.buttons;
 	if (F.isString(buttons)) {
@@ -332,6 +382,11 @@ F.modal = function (options) {
 			case "OK cancel":
 				buttons = [
 					{ text: translate("ok"), className: "default", result: true },
+					{ text: translate("cancel"), className: "transparent", result: false }
+				];
+				break;
+			case "cancel":
+				buttons = [
 					{ text: translate("cancel"), className: "transparent", result: false }
 				];
 				break;
@@ -355,12 +410,12 @@ F.modal = function (options) {
 		}
 	}
 
-	var promise = new Promise((resolve, reject) => {
+	var modalPromise = new Promise((resolve, reject) => {
 		let buttonsElement;
 		let buttonPressed = false;
 		if (buttons && buttons.length > 0) {
 			buttonsElement = F.c("div");
-			buttonsElement.classList.add("buttons");
+			buttonsElement.classList.add("buttons", "center");
 			modalElement.append(buttonsElement);
 
 			buttons.forEach(button => {
@@ -394,21 +449,53 @@ F.modal = function (options) {
 		}
 
 		modalElement.F.on("close", () => {
+			modalElement.remove();
 			if (!buttonPressed)
 				resolve();
 		});
 
+		modalElement.F.frontfire();
 		modalElement.F.modal(options);
-		if (buttonsElement)
-			buttonsElement.querySelector("button.default")?.focus();
+		if (buttonsElement) {
+			let firstDefaultButton = buttonsElement.querySelector("button.default");
+			if (firstDefaultButton) {
+				firstDefaultButton.focus();
+				//content.F.on("keydown", event => {
+				//	if (event.key === "Enter" && !event.shiftKey) {
+				//		firstDefaultButton.click();
+				//	}
+				//});
+			}
+		}
+
+		// Try to increase the width a bit to avoid line wrapping.
+		// The browser isn't all that smart about it.
+		if (content.F.isScrollable()) {
+			let scrollbarWidth = content.F.scrollbarWidth();
+			if (scrollbarWidth > 0) {
+				// Only then space is missing
+				let originalScrollHeight = content.scrollHeight;
+				// Give it some space between content and scrollbar as well,
+				// but never exceed the available width
+				content.style.maxWidth = "100%";
+				content.F.width += scrollbarWidth + 10;
+				if (content.scrollHeight < originalScrollHeight) {
+					// It helps
+				}
+				else {
+					// Doesn't help, revert it
+					content.F.width = "";
+				}
+			}
+		}
 
 		setTimeout(() => {
-			promise.cancel =() => {
+			modalPromise.cancel = () => {
 				modalElement.F.modal.close();
 			};
 		}, 0);
 	});
-	return promise;
+	return modalPromise;
 }
 
 // Gets the number of currently opened modals.

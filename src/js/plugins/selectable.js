@@ -52,6 +52,7 @@ function selectable(options) {
 		if (replaceHtmlSelect) {
 			htmlSelect = elem;
 			let origStyle = elem.getAttribute("style");
+			let origTitle = elem.getAttribute("title");
 			htmlSelect.F.visible = false;
 			opt.multiple |= htmlSelect.multiple;
 			opt.required |= htmlSelect.required;
@@ -92,6 +93,8 @@ function selectable(options) {
 					button.classList.add("narrow");
 				if (origStyle)
 					button.setAttribute("style", origStyle);
+				if (origTitle)
+					button.setAttribute("title", origTitle);
 				newSelect.classList.add("dropdown");
 				newSelect.style.height = "100%";   // Scroll the selectable, not the dropdown container
 				if (!htmlSelect.querySelector(":scope > option"))
@@ -105,7 +108,7 @@ function selectable(options) {
 					updateButtonIcon();
 					let fixed = button.F.closest(p => p.F.computedStyle.position === "fixed").length > 0;
 					let cssClass = "";
-					if (button.closest(".dark, .not-dark")?.classList.contains("dark"))
+					if (button.F.dark)
 						cssClass = "dark";   // Set dropdown container to dark
 					newSelect.F.dropdown({
 						target: button,
@@ -120,10 +123,23 @@ function selectable(options) {
 						scrollItemIntoView(firstSelectedItem, true);
 					}
 				};
+				opt._openDropdown = openDropdown;
+				opt._closeDropdown = () => newSelect.F.dropdown.close();
+				opt._isDropdownOpen = () => newSelect.F.dropdown.isOpen;
 				let justClosed = false;
+				let touchDown = false;
 				button.F.on("pointerdown", event => {
-					if (event.pointerType === "mouse" && event.button !== 0)
-						return;   // Ignore other-than-left mouse button
+					if (event.pointerType === "mouse" && event.button !== 0) {
+						// Ignore other-than-left mouse button
+						return;
+					}
+					touchDown = false;
+					if (event.pointerType === "touch") {
+						// Don't open the dropdown when touching, it might be a scroll gesture.
+						// For touch input, only open the dropdown on pointerup.
+						touchDown = true;
+						return;
+					}
 					if (!justClosed)
 						openDropdown();
 					// Stop other event handlers up the document tree, like a modal that would try
@@ -135,6 +151,12 @@ function selectable(options) {
 					// (The dropdown closing happens in the capture phase, managed by the dropdown
 					// plugin itself, not here.)
 					event.stopPropagation();
+				});
+				button.F.on("pointerup", event => {
+					if (event.pointerType === "touch" && touchDown) {
+						touchDown = false;
+						openDropdown();
+					}
 				});
 				newSelect.F.on("close", () => {
 					button.classList.remove("open");
@@ -289,10 +311,11 @@ function selectable(options) {
 							prepareChild(child);
 						}
 						if (trySelectOne()) {
+							let changeEventData = { reason: "added" };
 							if (replaceHtmlSelect)
-								updateHtmlSelect();
+								updateHtmlSelect(changeEventData);
 							else
-								originalElem.F.trigger("change", { bubbles: true });
+								originalElem.F.trigger("change", { bubbles: true }, changeEventData);
 						}
 						if (useDropdown) {
 							updateButtonContent();
@@ -319,10 +342,11 @@ function selectable(options) {
 									if (removedSelectedItems.length > 0) {
 										// Some removed selected items have not been added back
 										trySelectOne();
+										let changeEventData = { reason: "removed" };
 										if (replaceHtmlSelect)
-											updateHtmlSelect();
+											updateHtmlSelect(changeEventData);
 										else
-											originalElem.F.trigger("change", { bubbles: true });
+											originalElem.F.trigger("change", { bubbles: true }, changeEventData);
 										removedSelectedItems.length = 0;
 									}
 								});
@@ -418,10 +442,11 @@ function selectable(options) {
 									if (focusedItem.classList.toggle("selected")) {
 										lastClickedItem = focusedItem;
 									}
+									let changeEventData = { reason: "keyboard", key: event.key };
 									if (replaceHtmlSelect)
-										updateHtmlSelect();
+										updateHtmlSelect(changeEventData);
 									else
-										elem.F.trigger("change", { bubbles: true });
+										elem.F.trigger("change", { bubbles: true }, changeEventData);
 								}
 							}
 						}
@@ -430,32 +455,32 @@ function selectable(options) {
 				case "End":
 					event.preventDefault();
 					clearSearchText();
-					changeSelectedIndex(3, extend, extendAll, focus);
+					changeSelectedIndex(3, extend, extendAll, focus, { reason: "keyboard", key: event.key });
 					break;
 				case "Home":
 					event.preventDefault();
 					clearSearchText();
-					changeSelectedIndex(-3, extend, extendAll, focus);
+					changeSelectedIndex(-3, extend, extendAll, focus, { reason: "keyboard", key: event.key });
 					break;
 				case "ArrowUp":
 					event.preventDefault();
 					clearSearchText();
-					changeSelectedIndex(-1, extend, extendAll, focus);
+					changeSelectedIndex(-1, extend, extendAll, focus, { reason: "keyboard", key: event.key });
 					break;
 				case "ArrowDown":
 					event.preventDefault();
 					clearSearchText();
-					changeSelectedIndex(1, extend, extendAll, focus);
+					changeSelectedIndex(1, extend, extendAll, focus, { reason: "keyboard", key: event.key });
 					break;
 				case "PageUp":
 					event.preventDefault();
 					clearSearchText();
-					changeSelectedIndex(-2, extend, extendAll, focus);
+					changeSelectedIndex(-2, extend, extendAll, focus, { reason: "keyboard", key: event.key });
 					break;
 				case "PageDown":
 					event.preventDefault();
 					clearSearchText();
-					changeSelectedIndex(2, extend, extendAll, focus);
+					changeSelectedIndex(2, extend, extendAll, focus, { reason: "keyboard", key: event.key });
 					break;
 				case "Escape":
 					event.preventDefault();
@@ -473,12 +498,12 @@ function selectable(options) {
 					if (event.key === "a" && event.ctrlKey && !event.shiftKey) {
 						event.preventDefault();
 						clearSearchText();
-						selectAll();
+						selectAll({ reason: "keyboard", key: "Control+a" });
 					}
 					else if (event.key === "d" && event.ctrlKey && !event.shiftKey) {
 						event.preventDefault();
 						clearSearchText();
-						selectNone();
+						selectNone({ reason: "keyboard", key: "Control+d" });
 					}
 					else if (event.key.length === 1 && !event.ctrlKey) {
 						// Printable character, perform text search
@@ -503,7 +528,7 @@ function selectable(options) {
 				.where(child => child.textContent.toLowerCase().startsWith(searchText.toLowerCase()))
 				.first;
 			if (match) {
-				selectItem(match);
+				selectItem(match, { reason: "search" });
 				scrollItemIntoView(match);
 				setSearchUnterline(match);
 			}
@@ -673,8 +698,9 @@ function selectable(options) {
 				setFocusedItem(child);
 				clearSearchText();
 				if (changed || closeDropdown) {
+					let changeEventData = { reason: "pointer", pointerType: event.pointerType, ctrlKey: event.ctrlKey, shiftKey: event.shiftKey };
 					if (replaceHtmlSelect) {
-						updateHtmlSelect();
+						updateHtmlSelect(changeEventData);
 						if (useDropdown) {
 							updateButtonContent();
 							if (!(opt.multiple || opt.toggle)) {
@@ -683,7 +709,7 @@ function selectable(options) {
 						}
 					}
 					else if (changed) {
-						elem.F.trigger("change", { bubbles: true });
+						elem.F.trigger("change", { bubbles: true }, changeEventData);
 					}
 				}
 			});
@@ -700,13 +726,13 @@ function selectable(options) {
 		}
 
 		// Updates the HTML select element's selection from the UI elements (selected CSS class).
-		function updateHtmlSelect() {
+		function updateHtmlSelect(changeEventData) {
 			let selectedOptions = elem.F.querySelectorAll(":scope > .selected").select(child => child._optionElement);
 			htmlSelectChanging = true;
 			htmlSelect.F.querySelectorAll(":scope > option").forEach(option => {
 				option.selected = selectedOptions.contains(option);
 			});
-			htmlSelect.F.trigger("change", { bubbles: true });
+			htmlSelect.F.trigger("change", { bubbles: true }, changeEventData);
 			htmlSelectChanging = false;
 		}
 
@@ -842,7 +868,8 @@ function selectable(options) {
 		// extend: Indicates whether all items from the base (last clicked) to the new index are selected.
 		// extendAll: Indicates whether the new index will be added to the selection but nothing else deselected.
 		// focus: Indicates whether only the focused item is moved and the selection is unchanged.
-		function changeSelectedIndex(offset, extend, extendAll, focus) {
+		// changeEventData: Additional properties to set in the change event.
+		function changeSelectedIndex(offset, extend, extendAll, focus, changeEventData) {
 			let children = elem.children;
 			let count = children.length;
 			if (count === 0 || offset === 0)
@@ -923,9 +950,9 @@ function selectable(options) {
 			setFocusedItem(children[index]);
 			scrollItemIntoView(children[index]);
 			if (replaceHtmlSelect)
-				updateHtmlSelect();
+				updateHtmlSelect(changeEventData);
 			else
-				elem.F.trigger("change", { bubbles: true });
+				elem.F.trigger("change", { bubbles: true }, changeEventData);
 		}
 
 		// Scrolls the specified item into view. Accepts both originalElement children (HTML options)
@@ -964,29 +991,29 @@ function selectable(options) {
 		}
 
 		// Selects all items, if allowed.
-		function selectAll() {
+		function selectAll(changeEventData) {
 			if (opt.multiple || opt.toggle) {
 				elem.F.children.classList.add("selected");
 				if (replaceHtmlSelect)
-					updateHtmlSelect();
+					updateHtmlSelect(changeEventData);
 				else
-					elem.F.trigger("change", { bubbles: true });
+					elem.F.trigger("change", { bubbles: true }, changeEventData);
 			}
 		}
 
 		// Deselects all items, if allowed.
-		function selectNone() {
+		function selectNone(changeEventData) {
 			if (!opt.required) {
 				elem.F.children.classList.remove("selected");
 				if (replaceHtmlSelect)
-					updateHtmlSelect();
+					updateHtmlSelect(changeEventData);
 				else
-					elem.F.trigger("change", { bubbles: true });
+					elem.F.trigger("change", { bubbles: true }, changeEventData);
 			}
 		}
 
 		// Selects a single item.
-		function selectItem(item) {
+		function selectItem(item, changeEventData) {
 			if (replaceHtmlSelect) {
 				htmlSelect.F.children.forEach(option => {
 					option.selected = option === item;
@@ -995,13 +1022,13 @@ function selectable(options) {
 				let uiElement = elem.F.children.find(child => child._optionElement === item);
 				if (uiElement)
 					setFocusedItem(uiElement);
-				htmlSelect.F.trigger("change", { bubbles: true });
+				htmlSelect.F.trigger("change", { bubbles: true }, changeEventData);
 			}
 			else {
 				elem.F.children.classList.remove("selected");
 				item.classList.add("selected");
 				setFocusedItem(item);
-				elem.F.trigger("change", { bubbles: true });
+				elem.F.trigger("change", { bubbles: true }, changeEventData);
 			}
 		}
 
@@ -1043,7 +1070,7 @@ function selectAll() {
 	let selectable = this.first;
 	if (!selectable) return this;   // Nothing to do
 	let opt = F.loadOptions("selectable", selectable);
-	opt && opt._selectAll();
+	opt?._selectAll({ reason: "selectAll" });
 }
 
 // Deselects all items, if allowed.
@@ -1051,7 +1078,7 @@ function selectNone() {
 	let selectable = this.first;
 	if (!selectable) return this;   // Nothing to do
 	let opt = F.loadOptions("selectable", selectable);
-	opt && opt._selectNone();
+	opt?._selectNone({ reason: "selectNone" });
 }
 
 // Selects a single item, deselecting all others.
@@ -1059,7 +1086,31 @@ function selectItem(item) {
 	let selectable = this.first;
 	if (!selectable) return this;   // Nothing to do
 	let opt = F.loadOptions("selectable", selectable);
-	opt && opt._selectItem(item);
+	opt?._selectItem(item, { reason: "selectItem" });
+}
+
+// Opens the selection dropdown.
+function openDropdown() {
+	let selectable = this.first;
+	if (!selectable) return this;   // Nothing to do
+	let opt = F.loadOptions("selectable", selectable);
+	opt?._openDropdown?.();
+}
+
+// Closes the selection dropdown.
+function closeDropdown() {
+	let selectable = this.first;
+	if (!selectable) return this;   // Nothing to do
+	let opt = F.loadOptions("selectable", selectable);
+	opt?._closeDropdown?.();
+}
+
+// Determines whether the selection dropdown is currently open.
+function isDropdownOpen() {
+	let selectable = this.first;
+	if (!selectable) return this;   // Nothing to do
+	let opt = F.loadOptions("selectable", selectable);
+	return opt?._isDropdownOpen?.();
 }
 
 // Deinitializes the plugin.
@@ -1078,6 +1129,11 @@ F.registerPlugin("selectable", selectable, {
 		selectAll: selectAll,
 		selectNone: selectNone,
 		selectItem: selectItem,
+		openDropdown: openDropdown,
+		closeDropdown: closeDropdown,
+		isDropdownOpen: {
+			get: isDropdownOpen
+		},
 		deinit: deinit
 	},
 	selectors: [

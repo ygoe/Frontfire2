@@ -523,7 +523,7 @@
 			To make it easier to use certain events with the UI element, they are forwarded to the original <code data-lang="html">&lt;select&gt;</code> element using the <a href="frontfire-core.html#forwardUIEvents"><code data-lang="js">Frontfire.forwardUIEvents()</code></a> method.
 		</p>
 		<p>
-			The change event is already managed by other actions and considered in both directions.
+			The <code>change</code> event is already managed by other actions and considered in both directions.
 		</p>
 		<div class="example p-top no-frontfire">
 			<select id="select1">
@@ -548,6 +548,66 @@
 			</script>
 		</div>
 
+		<h3 id="change">change</h3>
+		<p>
+			The <code>change</code> event has additional properties that indicate the reason of the change.
+			This can be used for different event handling depending on how the change was made.
+			The following event properties are added:
+		</p>
+		<table class="p no-border no-vgrid no-outer-padding top">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>reason</code></td>
+					<td>String</td>
+					<td>
+						The reason of the change.
+						It can have one of the following values:
+						<ul class="no-bottom-margin">
+							<li>“added” – An option was added and needed to be selected.</li>
+							<li>“keyboard” – A key was pressed that changed the selection.</li>
+							<li>“pointer” – A pointer interaction was made.</li>
+							<li>“removed” – A selected option was removed.</li>
+							<li>“search” – The search was updated by using the keyboard.</li>
+							<li>“selectAll” – The <code>selectAll</code> method was called from user code.</li>
+							<li>“selectItem” – The <code>selectItem</code> method was called from user code.</li>
+							<li>“selectNone” – The <code>selectNone</code> method was called from user code.</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td><code>key</code></td>
+					<td>String</td>
+					<td>The pressed key. Only set if <code>reason</code> is “keyboard”.</td>
+				</tr>
+				<tr>
+					<td><code>pointerType</code></td>
+					<td>String</td>
+					<td>The pointer type. Only set if <code>reason</code> is “pointer”.</td>
+				</tr>
+				<tr>
+					<td><code>ctrlKey</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the Control key was pressed. Only set if <code>reason</code> is “pointer”.</td>
+				</tr>
+				<tr>
+					<td><code>shiftKey</code></td>
+					<td>Boolean</td>
+					<td>Indicates whether the Shift key was pressed. Only set if <code>reason</code> is “pointer”.</td>
+				</tr>
+			</tbody>
+		</table>
+		<p class="history">
+			All additional event properties added in v2.1.0
+		</p>
+
+		<h3 id="focus">focus</h3>
 		<p>
 			The original element’s <code>focus()</code> method is overwritten to focus the visible element instead.
 		</p>
@@ -619,10 +679,48 @@
 			</tbody>
 		</table>
 
+		<h2 id="properties">Plugin properties</h2>
+		<p>
+			This plugin provides properties to access the selectable state.
+		</p>
+
+		<div class="member">
+			<h3 id="isDropdownOpen">isDropdownOpen</h3>
+			<ul>
+				<li><code>isDropdownOpen</code> → Boolean</li>
+			</ul>
+			<p>
+				Determines whether the selection dropdown is currently open.
+				This property cannot be written.
+			</p>
+<div class="code">if (F("#selectbox").selectable.isDropdownOpen) {
+	// ...
+}
+</div>
+			<p class="history">
+				Added in v2.1.0
+			</p>
+		</div>
+
 		<h2 id="methods">Plugin methods</h2>
 		<p>
 			This plugin provides methods to control the selectable state.
 		</p>
+
+		<div class="member">
+			<h3 id="closeDropdown">closeDropdown</h3>
+			<ul>
+				<li><code>closeDropdown()</code> → void</li>
+			</ul>
+			<p>
+				Closes the selection dropdown, if available.
+			</p>
+<div class="code">F("#selectbox").selectable.closeDropdown();
+</div>
+			<p class="history">
+				Added in v2.1.0
+			</p>
+		</div>
 
 		<div class="member">
 			<h3 id="deinit">deinit</h3>
@@ -646,6 +744,21 @@
 			</p>
 <div class="code">F("#selectbox").selectable.getSelection();
 </div>
+		</div>
+
+		<div class="member">
+			<h3 id="openDropdown">openDropdown</h3>
+			<ul>
+				<li><code>openDropdown()</code> → void</li>
+			</ul>
+			<p>
+				Opens the selection dropdown, if available.
+			</p>
+<div class="code">F("#selectbox").selectable.openDropdown();
+</div>
+			<p class="history">
+				Added in v2.1.0
+			</p>
 		</div>
 
 		<div class="member">

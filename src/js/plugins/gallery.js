@@ -43,6 +43,9 @@ function gallery(options) {
 		let rowWidthSum = 0;
 		let currentGalleryWidth = gallery.F.width;
 		let largeImages = [];
+		let rowCount = 0;
+		let firstRowHeight;
+		let firstImageAspectRatio;
 
 		// Create loading indicator
 		let loadingRow = F.c("div");
@@ -56,15 +59,24 @@ function gallery(options) {
 		let createRow = isLast => {
 			// Find the correct row height for the images in the row (and the gaps in between)
 			let normalisedWidthSum = 0;
+			rowCount++;
 			for (let i = 0; i < rowImages.length; i++) {
 				let img = rowImages[i];
 				if (img.F.nodeNameLower !== "img")
 					img = img.querySelector("img");
 				normalisedWidthSum += img.naturalWidth / img.naturalHeight;
+				if (firstImageAspectRatio === undefined) {
+					firstImageAspectRatio = img.naturalWidth / img.naturalHeight;
+				}
+				else if (firstImageAspectRatio !== 0 && img.naturalWidth / img.naturalHeight !== firstImageAspectRatio) {
+					firstImageAspectRatio = 0;
+				}
 			}
 			let galleryWidth = gallery.F.width;
 			let galleryWidthWithoutGaps = galleryWidth - (opt.gap * (rowImages.length - 1));
 			let rowHeight = galleryWidthWithoutGaps / normalisedWidthSum;
+			if (firstRowHeight === undefined)
+				firstRowHeight = rowHeight;
 
 			// Don't force-fill the row if the height would be too tall and it's the last row
 			let fullWidth = true;
@@ -77,6 +89,8 @@ function gallery(options) {
 				rowHeight = Math.sqrt(opt.desiredSize * opt.desiredSize / avgAspectRatio);
 				fullWidth = false;
 			}
+			if (!fullWidth && firstImageAspectRatio && rowCount > 1)
+				rowHeight = firstRowHeight;
 
 			// Create row
 			let rows = gallery.querySelectorAll(":scope > ." + galleryRowClass);
@@ -249,6 +263,9 @@ function gallery(options) {
 			appendCount = 0;
 			rowImages = [];
 			rowWidthSum = 0;
+			rowCount = 0;
+			firstRowHeight = undefined;
+			firstImageAspectRatio = undefined;
 			apendNextImages();
 		}
 	});

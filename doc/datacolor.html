@@ -156,9 +156,6 @@
 				<tr class="line">
 					<th>Line</th>
 				</tr>
-				<tr class="gradient">
-					<th>Gradient</th>
-				</tr>
 				<tr class="f0">
 					<th>Normal</th>
 				</tr>
@@ -168,6 +165,15 @@
 				<tr class="f2">
 					<th>Lighter</th>
 				</tr>
+				<tr class="gradient-f0">
+					<th>Gradients</th>
+				</tr>
+				<tr class="gradient-f1">
+					<th></th>
+				</tr>
+				<tr class="gradient-f2">
+					<th></th>
+				</tr>
 				<tr>
 					<th></th>
 					<th colspan="11">Background</th>
@@ -176,7 +182,19 @@
 					<th>Light</th>
 				</tr>
 				<tr class="b1 background">
+					<th>Medium</th>
+				</tr>
+				<tr class="b2 background">
 					<th>Intense</th>
+				</tr>
+				<tr class="gradient-b0">
+					<th>Gradients</th>
+				</tr>
+				<tr class="gradient-b1">
+					<th></th>
+				</tr>
+				<tr class="gradient-b2">
+					<th></th>
 				</tr>
 			</table>
 			<p>
@@ -241,8 +259,12 @@
 					<li><code>f1</code>: light foreground</li>
 					<li><code>f2</code>: lighter foreground</li>
 					<li><code>b0</code>: light background</li>
-					<li><code>b1</code>: strong background</li>
+					<li><code>b1</code>: medium background</li>
+					<li><code>b2</code>: intense background</li>
 				</ul>
+				<p class="history">
+					New <code>b1</code> type inserted in v2.1.0
+				</p>
 			</div>
 
 			<div class="member">
@@ -291,10 +313,14 @@
 					<li><code>f1</code>: light foreground</li>
 					<li><code>f2</code>: lighter foreground</li>
 					<li><code>b0</code>: light background</li>
-					<li><code>b1</code>: strong background</li>
+					<li><code>b1</code>: medium background</li>
+					<li><code>b2</code>: intense background</li>
 				</ul>
 				<p class="see-also">
 					See also: <a href="#getFreeHue">DataColor.getFreeHue()</a>
+				</p>
+				<p class="history">
+					New <code>b1</code> type inserted in v2.1.0
 				</p>
 			</div>
 
@@ -341,6 +367,37 @@
 					Determines whether a colour is a primary colour.
 				</p>
 			</div>
+
+			<div class="member">
+				<h3 id="parse">parse</h3>
+				<ul>
+					<li><code>DataColor.parse(value, typePrefix)</code> → Array</li>
+				</ul>
+				<p>
+					Parses a DataColor specification and returns an array containing <code>[colorId, type]</code>.
+					A DataColor specification consists of a colorId and a numeric level (0 to 2), separated by a hyphen (-).
+					The typePrefix must be set to "f" or "b" and will be included in the returned type, as it is not included in the DataColor specification.
+					If unset, "f" is assumed.
+					If the value is not a valid DataColor specification, null is returned.
+				</p>
+				<p class="history">
+					Added in v2.1.0
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="parseGetColor">parseGetColor</h3>
+				<ul>
+					<li><code>DataColor.parseGetColor(value, typePrefix, isDark)</code> → String</li>
+				</ul>
+				<p>
+					Parses a DataColor specification and returns the color string if the value is valid; otherwise null.
+					This is a combination of <code>parse</code> and <code>getColor</code>.
+				</p>
+				<p class="history">
+					Added in v2.1.0
+				</p>
+			</div>
 		</section>
 
 		<!------------------------------ END OF REFERENCE CONTENT ------------------------------>
@@ -360,12 +417,18 @@
 		let namesRow = F("table.preview tr.names").first;
 		let textRow = F("table.preview tr.text").first;
 		let lineRow = F("table.preview tr.line").first;
-		let gradientRow = F("table.preview tr.gradient").first;
 		let f0Row = F("table.preview tr.f0").first;
 		let f1Row = F("table.preview tr.f1").first;
 		let f2Row = F("table.preview tr.f2").first;
+		let gradientF0Row = F("table.preview tr.gradient-f0").first;
+		let gradientF1Row = F("table.preview tr.gradient-f1").first;
+		let gradientF2Row = F("table.preview tr.gradient-f2").first;
 		let b0Row = F("table.preview tr.b0").first;
 		let b1Row = F("table.preview tr.b1").first;
+		let b2Row = F("table.preview tr.b2").first;
+		let gradientB0Row = F("table.preview tr.gradient-b0").first;
+		let gradientB1Row = F("table.preview tr.gradient-b1").first;
+		let gradientB2Row = F("table.preview tr.gradient-b2").first;
 
 		let colorIds = DataColor.getColorIds();
 		colorIds.push(colorIds[0]);
@@ -395,10 +458,22 @@
 				add(f2Row, "f2");
 				add(b0Row, "b0");
 				add(b1Row, "b1");
+				add(b2Row, "b2");
 			});
 
-			let gradientCanvas = F('<canvas width="400" height="20">').first;
-			gradientRow.F.append(F("<td>").attr("colspan", colorIds.length).append(gradientCanvas));
+			let gradientF0Canvas = F('<canvas width="400" height="20">').first;
+			let gradientF1Canvas = F('<canvas width="400" height="20">').first;
+			let gradientF2Canvas = F('<canvas width="400" height="20">').first;
+			gradientF0Row.F.append(F("<td>").addClass("f0").attr("colspan", colorIds.length).append(gradientF0Canvas));
+			gradientF1Row.F.append(F("<td>").addClass("f1").attr("colspan", colorIds.length).append(gradientF1Canvas));
+			gradientF2Row.F.append(F("<td>").addClass("f2").attr("colspan", colorIds.length).append(gradientF2Canvas));
+
+			let gradientB0Canvas = F('<canvas width="400" height="20">').first;
+			let gradientB1Canvas = F('<canvas width="400" height="20">').first;
+			let gradientB2Canvas = F('<canvas width="400" height="20">').first;
+			gradientB0Row.F.append(F("<td>").addClass("b0").attr("colspan", colorIds.length).append(gradientB0Canvas));
+			gradientB1Row.F.append(F("<td>").addClass("b1").attr("colspan", colorIds.length).append(gradientB1Canvas));
+			gradientB2Row.F.append(F("<td>").addClass("b2").attr("colspan", colorIds.length).append(gradientB2Canvas));
 
 			F("table.preview tr.background span").forEach(el => {
 				el.F.on("mouseover", () => F("body").style.background = el.style.background);
@@ -415,8 +490,19 @@
 				span.style[styleKey] = DataColor.getColor(colorId, type, darkTheme);
 			});
 
-			let gradientCanvas = F("table.preview canvas").first;
-			drawGradient(gradientCanvas, "f0", darkTheme);
+			let gradientF0Canvas = F("table.preview td.f0 canvas").first;
+			let gradientF1Canvas = F("table.preview td.f1 canvas").first;
+			let gradientF2Canvas = F("table.preview td.f2 canvas").first;
+			drawGradient(gradientF0Canvas, "f0", darkTheme);
+			drawGradient(gradientF1Canvas, "f1", darkTheme);
+			drawGradient(gradientF2Canvas, "f2", darkTheme);
+
+			let gradientB0Canvas = F("table.preview td.b0 canvas").first;
+			let gradientB1Canvas = F("table.preview td.b1 canvas").first;
+			let gradientB2Canvas = F("table.preview td.b2 canvas").first;
+			drawGradient(gradientB0Canvas, "b0", darkTheme);
+			drawGradient(gradientB1Canvas, "b1", darkTheme);
+			drawGradient(gradientB2Canvas, "b2", darkTheme);
 		}
 
 		fillPreviewTable();
@@ -433,8 +519,8 @@
 				const hue = DataColor.getFreeHue(x / width);
 				ctx.strokeStyle = DataColor.getFreeColor(hue, type, darkTheme);
 				ctx.beginPath();
-				ctx.moveTo(x + 0.5, 0.5);
-				ctx.lineTo(x + 0.5, height + 0.5);
+				ctx.moveTo(x + 0.5, 0);
+				ctx.lineTo(x + 0.5, height);
 				ctx.closePath();
 				ctx.stroke();
 			}

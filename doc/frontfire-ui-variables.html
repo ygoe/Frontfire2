@@ -2770,6 +2770,36 @@
 			</div>
 
 			<div class="member">
+				<h3 id="modal-margin">--modal-margin</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 15px
+					<span class="source">(for <a href="frontfire-ui-modal.html">Modal</a>)</span>
+				</p>
+				<p>
+					The margin of modal elements towards the viewport edges.
+				</p>
+				<p class="history">
+					Added in v2.1.0
+				</p>
+			</div>
+
+			<div class="member">
+				<h3 id="modal-padding">--modal-padding</h3>
+				<p>
+					<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">length</a>
+					<span class="default">Default:</span> 25px
+					<span class="source">(for <a href="frontfire-ui-modal.html">Modal</a>)</span>
+				</p>
+				<p>
+					The padding of modal elements.
+				</p>
+				<p class="history">
+					Added in v2.1.0
+				</p>
+			</div>
+
+			<div class="member">
 				<h3 id="monospace-font-family">--monospace-font-family</h3>
 				<p>
 					<span class="type">Type:</span> font families
@@ -2780,7 +2810,13 @@
 					The font for monospace elements like <code data-lang="html">&lt;code&gt;</code>, <code data-lang="html">&lt;tt&gt;</code>, <code data-lang="html">&lt;pre&gt;</code>, <code data-lang="html">&lt;samp&gt;</code>, <code data-lang="html">&lt;div class="code"&gt;</code> and all elements with the <code class="css-class">monospace</code> CSS class.
 					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family">font-family</a> CSS property.
 					The default value is:<br>
-					<code data-lang="style-value">Consolas, monospace</code><br>
+					<code data-lang="style-value">var(--ff-monospace-font-family)</code><br>
+					The variable resolves to:<br>
+					<code data-lang="style-value">Menlo, Consolas, "Roboto Mono", "Ubuntu Monospace", "Noto Mono", "Oxygen Mono", "Liberation Mono", monospace</code><br>
+				</p>
+				<p>
+					This is the place to include custom fonts to use as default, for example:<br>
+					<code data-lang="style">--monospace-font-family: "My Custom Monospace Font", var(--ff-monospace-font-family);</code><br>
 				</p>
 				<p class="see-also">
 					See also: <a href="#default-font-family">--default-font-family</a>, <a href="#monospace-font-size">--monospace-font-size</a>
@@ -3318,7 +3354,8 @@
 				<p>
 					<span class="type">Type:</span> percentage
 					<span class="range">Range:</span> 0% ≤ value ≤ 100%
-					<span class="default">Default:</span> 100%
+					<span class="default">Default:</span> 50%
+					<span class="default">Dark default:</span> 60%
 					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
 				</p>
 				<p>
@@ -3334,8 +3371,7 @@
 				<p>
 					<span class="type">Type:</span> percentage
 					<span class="range">Range:</span> 0% ≤ value ≤ 100%
-					<span class="default">Default:</span> 50%
-					<span class="default">Dark default:</span> 60%
+					<span class="default">Default:</span> 100%
 					<span class="source">(for <a href="frontfire-ui-selectable.html">Selectable</a>)</span>
 				</p>
 				<p>
@@ -4018,7 +4054,7 @@
 					It should nicely blend into other apps and UI of the device you’re using.
 					The value is used for the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family">font-family</a> CSS property.
 					The default value is:<br>
-					<code data-lang="style-value">system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"</code><br>
+					<code data-lang="style-value">system-ui, -apple-system, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"</code><br>
 				</p>
 				<p class="see-also">
 					See also: <a href="#default-font-family">--default-font-family</a>

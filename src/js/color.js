@@ -62,6 +62,7 @@
 			document.body.appendChild(div);   // required for getComputedStyle
 			div.style.color = value;
 			const color = getComputedStyle(div).color;
+			div.remove();
 			// CSS Level 1 syntax: rgb[a](r, g, b, a)
 			let match = color.match(/rgba?\(\s*([0-9.]+)\s*,\s*([0-9.]+)\s*,\s*([0-9.]+)\s*(?:,\s*([0-9.]+)\s*)?\)/);
 			if (!match)

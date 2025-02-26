@@ -58,11 +58,32 @@ function tabs(options) {
 			else {
 				page.classList.remove("active");   // in case of duplicates
 			}
+			let touchDown = false;
 			header.F.on("pointerdown", event => {
 				event.preventDefault();
+				if (event.pointerType === "mouse" && event.button !== 0) {
+					// Ignore other-than-left mouse button
+					return;
+				}
+				touchDown = false;
+				if (event.pointerType === "touch") {
+					// Don't select the tab when touching, it might be a scroll gesture.
+					// For touch input, only select the tab on pointerup.
+					touchDown = true;
+					return;
+				}
 				header.focus();
 				header.blur();
 				container.F.tabs.activeTab = page;
+			});
+			header.F.on("pointerup", event => {
+				event.preventDefault();
+				if (event.pointerType === "touch" && touchDown) {
+					touchDown = false;
+					header.focus();
+					header.blur();
+					container.F.tabs.activeTab = page;
+				}
 			});
 			header.F.on("click", event => {
 				event.preventDefault();

@@ -352,7 +352,7 @@ function tree(options) {
 						itemContent.style.cursor = "grabbing";
 						dragIndicator = document.createElement("div");
 						dragIndicator.classList.add("tree-drag-indicator");
-						if (container.closest(".dark, .not-dark")?.classList.contains("dark"))
+						if (container.F.dark)
 							dragIndicator.classList.add("dark");
 						dragIndicator.style.position = "fixed";
 						dragIndicator.style.zIndex = "9999";

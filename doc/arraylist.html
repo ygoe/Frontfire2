@@ -755,6 +755,7 @@ arr.L.second = 9;
 					Computes the maximum value of the items in the array.
 					The optional selector function is called for each item of the array and returns the value to use for the maximum computation.
 					If the selector is omitted, the array must contain numbers only.
+					The selector must return numbers only.
 					If the array is empty, undefined is returned.
 				</p>
 <div class="code">[1, 2, 3, 4].L.max()
@@ -767,6 +768,26 @@ arr.L.second = 9;
 			</div>
 
 			<div class="member">
+				<h3 id="maxBy">maxBy</h3>
+				<ul>
+					<li><code>maxBy(selector)</code> → Any</li>
+				</ul>
+				<p>
+					Returns the item in the array with the maximum value returned by the selector.
+					The selector function is called for each item of the array and returns the value to use for the maximum test.
+					If the array is empty, undefined is returned.
+				</p>
+<div class="code">[{a: "a", x: 1}, {a: "b", x: 2}, {c: "", x: 3}].L.maxBy(i => i.x)
+→ {c: "", x: 3}
+[].L.maxBy(i => i)
+→ undefined
+</div>
+				<p class="history">
+					Added in v2.1.0
+				</p>
+			</div>
+
+			<div class="member">
 				<h3 id="min">min</h3>
 				<ul>
 					<li><code>min()</code> → Number</li>
@@ -776,6 +797,7 @@ arr.L.second = 9;
 					Computes the minimum value of the items in the array.
 					The optional selector function is called for each item of the array and returns the value to use for the minimum computation.
 					If the selector is omitted, the array must contain numbers only.
+					The selector must return numbers only.
 					If the array is empty, undefined is returned.
 				</p>
 <div class="code">[1, 2, 3, 4].L.min()
@@ -785,6 +807,26 @@ arr.L.second = 9;
 [].L.min()
 → undefined
 </div>
+			</div>
+
+			<div class="member">
+				<h3 id="minBy">minBy</h3>
+				<ul>
+					<li><code>minBy(selector)</code> → Any</li>
+				</ul>
+				<p>
+					Returns the item in the array with the minimum value returned by the selector.
+					The selector function is called for each item of the array and returns the value to use for the minimum test.
+					If the array is empty, undefined is returned.
+				</p>
+<div class="code">[{a: "a", x: 1}, {a: "b", x: 2}, {c: "", x: 3}].L.minBy(i => i.x)
+→ {a: "a", x: 1}
+[].L.maxBy(i => i)
+→ undefined
+</div>
+				<p class="history">
+					Added in v2.1.0
+				</p>
 			</div>
 
 			<div class="member">
@@ -1158,6 +1200,7 @@ arr.L.sort((a, b) => b - a);
 				<p>
 					The comparison is done with the <code>&lt;</code> (less than) and <code>&gt;</code> (greater than) operators.
 					Two numbers are compared by their numeric value, two strings are compared lexically.
+					<code>null</code>s always follow after values, <code>undefined</code>s follow after <code>null</code>s.
 					Mixed-type comparisons have unpredictable results.
 				</p>
 <div class="code">let arr = [
@@ -1210,6 +1253,7 @@ arr.L.sortBy(x => x.name, -1, x => x.id);
 				<p>
 					The comparison is done with the <code>&lt;</code> (less than) and <code>&gt;</code> (greater than) operators.
 					Two numbers are compared by their numeric value, two strings are compared lexically.
+					<code>null</code>s always follow after values, <code>undefined</code>s follow after <code>null</code>s.
 					Mixed-type comparisons have unpredictable results.
 				</p>
 				<p>
@@ -1219,6 +1263,62 @@ arr.L.sortBy(x => x.name, -1, x => x.id);
 				</p>
 				<p class="see-also">
 					See also: <a href="#orderByDescending">ArrayList.orderByDescending()</a> (copying alternative)
+				</p>
+			</div>
+
+			<div class="member" data-aliases="order">
+				<h3 id="sortByUseLocale">sortByUseLocale</h3>
+				<ul>
+					<li><code>sortByUseLocale(keySelector, …)</code> → this</li>
+				</ul>
+				<p>
+					Sorts the array in ascending order according to a key, using locale string comparison.
+					Secondary sorting is done by providing more key selector arguments.
+					An argument of 1 or -1 sets the sort direction of the following keys ascending or descending, respectively.
+				</p>
+				<p>
+					The comparison is done with the <code>localeCompare()</code> method if both values are strings; otherwise, <code>&lt;</code> (less than) and <code>&gt;</code> (greater than) operators.
+					Two numbers are compared by their numeric value, two strings are compared according to the current locale.
+					<code>null</code>s always follow after values, <code>undefined</code>s follow after <code>null</code>s.
+					Mixed-type comparisons have unpredictable results.
+				</p>
+				<p>
+					See the sortBy() method for an example.
+					This method differs in the string comparison.
+				</p>
+				<p class="see-also">
+					See also: <a href="#orderByUseLocale">ArrayList.orderByUseLocale()</a> (copying alternative)
+				</p>
+				<p class="history">
+					Added in v2.1.0
+				</p>
+			</div>
+
+			<div class="member" data-aliases="order">
+				<h3 id="sortByDescendingUseLocale">sortByDescendingUseLocale</h3>
+				<ul>
+					<li><code>sortByDescendingUseLocale(keySelector, …)</code> → this</li>
+				</ul>
+				<p>
+					Sorts the array in descending order according to a key, using locale string comparison.
+					Secondary sorting is done by providing more key selector arguments.
+					An argument of 1 or -1 sets the sort direction of the following keys ascending or descending, respectively.
+				</p>
+				<p>
+					The comparison is done with the <code>localeCompare()</code> method if both values are strings; otherwise, <code>&lt;</code> (less than) and <code>&gt;</code> (greater than) operators.
+					Two numbers are compared by their numeric value, two strings are compared according to the current locale.
+					<code>null</code>s always follow after values, <code>undefined</code>s follow after <code>null</code>s.
+					Mixed-type comparisons have unpredictable results.
+				</p>
+				<p>
+					See the sortBy() method for an example.
+					This method differs in the string comparison and that the initial sort order is descending instead of ascending.
+				</p>
+				<p class="see-also">
+					See also: <a href="#orderByDescendingUseLocale">ArrayList.orderByDescendingUseLocale()</a> (copying alternative)
+				</p>
+				<p class="history">
+					Added in v2.1.0
 				</p>
 			</div>
 
@@ -1522,6 +1622,7 @@ arr.L.leftJoin(other,
 				<p>
 					The comparison is done with the <code>&lt;</code> (less than) and <code>&gt;</code> (greater than) operators.
 					Two numbers are compared by their numeric value, two strings are compared lexically.
+					<code>null</code>s always follow after values, <code>undefined</code>s follow after <code>null</code>s.
 					Mixed-type comparisons have unpredictable results.
 				</p>
 <div class="code">let arr = [
@@ -1574,6 +1675,7 @@ arr.L.orderBy(x => x.name, -1, x => x.id)
 				<p>
 					The comparison is done with the <code>&lt;</code> (less than) and <code>&gt;</code> (greater than) operators.
 					Two numbers are compared by their numeric value, two strings are compared lexically.
+					<code>null</code>s always follow after values, <code>undefined</code>s follow after <code>null</code>s.
 					Mixed-type comparisons have unpredictable results.
 				</p>
 				<p>
@@ -1583,6 +1685,62 @@ arr.L.orderBy(x => x.name, -1, x => x.id)
 				</p>
 				<p class="see-also">
 					See also: <a href="#sortByDescending">ArrayList.sortByDescending()</a> (manipulating alternative)
+				</p>
+			</div>
+
+			<div class="member" data-aliases="sort">
+				<h3 id="orderByUseLocale">orderByUseLocale</h3>
+				<ul>
+					<li><code>orderByUseLocale(keySelector, …)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a copy of the array in ascending order according to a key, using locale string comparison.
+					Secondary sorting is done by providing more key selector arguments.
+					An argument of 1 or -1 sets the sort direction of the following keys ascending or descending, respectively.
+				</p>
+				<p>
+					The comparison is done with the <code>localeCompare()</code> method if both values are strings; otherwise, <code>&lt;</code> (less than) and <code>&gt;</code> (greater than) operators.
+					Two numbers are compared by their numeric value, two strings are compared according to the current locale.
+					<code>null</code>s always follow after values, <code>undefined</code>s follow after <code>null</code>s.
+					Mixed-type comparisons have unpredictable results.
+				</p>
+				<p>
+					See the orderBy() method for an example.
+					This method differs in the string comparison.
+				</p>
+				<p class="see-also">
+					See also: <a href="#sortByUseLocale">ArrayList.sortByUseLocale()</a> (manipulating alternative)
+				</p>
+				<p class="history">
+					Added in v2.1.0
+				</p>
+			</div>
+
+			<div class="member" data-aliases="sort">
+				<h3 id="orderByDescendingUseLocale">orderByDescendingUseLocale</h3>
+				<ul>
+					<li><code>orderByDescendingUseLocale(keySelector, …)</code> → ArrayList</li>
+				</ul>
+				<p>
+					Returns a copy of the array in descending order according to a key, using locale string comparison.
+					Secondary sorting is done by providing more key selector arguments.
+					An argument of 1 or -1 sets the sort direction of the following keys ascending or descending, respectively.
+				</p>
+				<p>
+					The comparison is done with the <code>localeCompare()</code> method if both values are strings; otherwise, <code>&lt;</code> (less than) and <code>&gt;</code> (greater than) operators.
+					Two numbers are compared by their numeric value, two strings are compared according to the current locale.
+					<code>null</code>s always follow after values, <code>undefined</code>s follow after <code>null</code>s.
+					Mixed-type comparisons have unpredictable results.
+				</p>
+				<p>
+					See the orderBy() method for an example.
+					This method differs in the string comparison and that the initial sort order is descending instead of ascending.
+				</p>
+				<p class="see-also">
+					See also: <a href="#sortByDescendingUseLocale">ArrayList.sortByDescendingUseLocale()</a> (manipulating alternative)
+				</p>
+				<p class="history">
+					Added in v2.1.0
 				</p>
 			</div>
 

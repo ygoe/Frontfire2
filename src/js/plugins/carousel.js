@@ -486,7 +486,8 @@ function getActiveItem() {
 	if (!carousel) return;   // Nothing to do
 	let opt = F.loadOptions("carousel", carousel);
 	if (!opt) return;
-	return carousel.children[opt.active];
+	let items = carousel.F.querySelector("." + carouselClass).children;
+	return items.array[opt.active];
 }
 
 // Sets the active item in a carousel.
@@ -544,6 +545,16 @@ function setActiveItemIndex(index) {
 	});
 }
 
+// Gets the number of items in a carousel.
+function getItemCount() {
+	let carousel = this.first;
+	if (!carousel) return;   // Nothing to do
+	let opt = F.loadOptions("carousel", carousel);
+	if (!opt) return;
+	let items = carousel.F.querySelector("." + carouselClass).children;
+	return items.array.length;
+}
+
 F.registerPlugin("carousel", carousel, {
 	defaultOptions: carouselDefaults,
 	methods: {
@@ -554,6 +565,9 @@ F.registerPlugin("carousel", carousel, {
 		activeItemIndex: {
 			get: getActiveItemIndex,
 			set: setActiveItemIndex
+		},
+		length: {
+			get: getItemCount
 		}
 	},
 	selectors: [".carousel"]
