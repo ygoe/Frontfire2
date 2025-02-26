@@ -39,12 +39,12 @@ The following is the content of the release archive. All files in readable and m
 
 | ╲ Variant ▸<br>▾ Bundle ╲ | Separate files | Single file (includes all above) |
 |-----------------------|----------------|-------------|
-| ArrayList             | arraylist.js<br>arraylist.min.js (3.1 KiB) | – |
-| Frontfire Core        | frontfire-core.js<br>frontfire-core.min.js (10 KiB) | frontfire-core-singlefile.js<br>frontfire-core-singlefile.min.js (13 KiB) |
-| Frontfire UI<br>Minimal  | frontfire-ui-minimal.js<br>frontfire-ui-minimal.min.js (18 KiB) | frontfire-ui-minimal-singlefile.js<br>frontfire-ui-minimal-singlefile.min.js (30 KiB) |
+| ArrayList             | arraylist.js<br>arraylist.min.js (3.3 KiB) | – |
+| Frontfire Core        | frontfire-core.js<br>frontfire-core.min.js (11 KiB) | frontfire-core-singlefile.js<br>frontfire-core-singlefile.min.js (13 KiB) |
+| Frontfire UI<br>Minimal  | frontfire-ui-minimal.js<br>frontfire-ui-minimal.min.js (19 KiB) | frontfire-ui-minimal-singlefile.js<br>frontfire-ui-minimal-singlefile.min.js (31 KiB) |
 | Color                 | color.js<br>color.min.js (2.6 KiB) | – |
-| DataColor             | datacolor.js<br>datacolor.min.js (1.2 KiB) | – |
-| Frontfire UI<br>Complete | frontfire-ui-complete.js<br>frontfire-ui-complete.min.js (41 KiB) | frontfire-ui-complete-singlefile.js<br>frontfire-ui-complete-singlefile.min.js (56 KiB) |
+| DataColor             | datacolor.js<br>datacolor.min.js (1.3 KiB) | – |
+| Frontfire UI<br>Complete | frontfire-ui-complete.js<br>frontfire-ui-complete.min.js (42 KiB) | frontfire-ui-complete-singlefile.js<br>frontfire-ui-complete-singlefile.min.js (58 KiB) |
 
 
 ### CSS files
@@ -53,7 +53,7 @@ The following is the content of the release archive. All files in readable and m
 |-----------------------|-------------|
 | Frontfire Core        | –           |
 | Frontfire UI Minimal  | frontfire-ui-minimal.css<br>frontfire-ui-minimal.min.css (14 KiB) |
-| Frontfire UI Complete | frontfire-ui-complete.css<br>frontfire-ui-complete.min.css (17 KiB) |
+| Frontfire UI Complete | frontfire-ui-complete.css<br>frontfire-ui-complete.min.css (18 KiB) |
 
 
 ### Bundles
